@@ -5,6 +5,8 @@ import { FOUNDERS, OFFICES } from "@/data/site";
 import { Container, CountUp, Reveal, Section, SectionLabel } from "@/components/site/primitives";
 import { CtaBand } from "@/components/site/CtaBand";
 import { cn } from "@/lib/utils";
+import advisersImage from "@/assets/worthprime-advisers.jpg";
+import documentsImage from "@/assets/worthprime-documents.jpg";
 
 const TITLE = "About WorthPrime Tax | Built on Experience";
 const DESCRIPTION =
@@ -17,6 +19,8 @@ export const Route = createFileRoute("/about")({
       { name: "description", content: DESCRIPTION },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: AboutPage,
@@ -37,6 +41,7 @@ function AboutPage() {
           extensive experience across accounting, taxation, audit, payroll, legal and compliance
           services spanning the U.S., UAE and India.
         </p>
+        <img src={advisersImage} alt="Tax advisers reviewing financial documents" width={1408} height={1008} className="mt-10 aspect-[16/7] w-full rounded-lg object-cover" />
       </Section>
 
       <Founders />
@@ -144,13 +149,17 @@ function AboutPage() {
       </Section>
 
       <Container>
-        <div className="surface-card grid min-h-[260px] place-items-center gap-3 p-8 text-center">
+        <div className="surface-card relative min-h-[320px] overflow-hidden">
+          <img src={documentsImage} alt="Financial documents prepared for review" width={1408} height={1008} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-background/45" aria-hidden />
+          <div className="relative grid min-h-[320px] place-items-center gap-3 p-8 text-center">
           <span className="grid size-14 place-items-center rounded-full border border-gold text-gold">
             <Play className="size-5" />
           </span>
           <p className="text-sm text-muted-foreground">
             [Optional one-minute firm video — client to supply]
           </p>
+          </div>
         </div>
       </Container>
 
@@ -172,9 +181,7 @@ function Founders() {
             onMouseLeave={() => setOpen(null)}
             className="surface-card group relative overflow-hidden"
           >
-            <div className="grid aspect-16/10 place-items-center bg-navy-soft text-xs uppercase tracking-widest text-muted-foreground">
-              [Portrait — client to supply]
-            </div>
+            <img src={advisersImage} alt="Professional advisers in consultation" width={1408} height={1008} loading="lazy" className={cn("aspect-16/10 w-full object-cover", i === 1 && "object-right")} />
             <div className="p-7">
               <h3 className="text-3xl leading-tight">{f.name}</h3>
               <p className="mt-1 text-xs uppercase tracking-[0.18em] text-gold">{f.title}</p>

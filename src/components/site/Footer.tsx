@@ -3,13 +3,15 @@ import { Linkedin } from "lucide-react";
 import { SERVICES } from "@/data/services";
 import { LINKS, OFFICES } from "@/data/site";
 import { Container } from "./primitives";
+import logoAsset from "@/assets/worthprime-logo.jpeg.asset.json";
 
 export function Footer() {
   return (
-    <footer id="contact" className="border-t border-border bg-navy-deep pt-16">
+    <footer id="contact" className="border-t border-border bg-navy-soft pt-16">
       <Container>
         <div className="grid gap-12 lg:grid-cols-[1.1fr_2fr]">
           <div>
+            <img src={logoAsset.url} alt="WorthPrime Tax" className="mb-8 h-20 w-44 object-contain object-left" loading="lazy" />
             <p className="label-slash">01 / Get in touch</p>
             <h2 className="mt-4 text-3xl leading-tight sm:text-4xl">
               Questions to resolve. Decisions to make.

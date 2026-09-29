@@ -4,6 +4,7 @@ import { ChevronDown, Menu, X } from "lucide-react";
 import { SERVICES } from "@/data/services";
 import { LINKS } from "@/data/site";
 import { cn } from "@/lib/utils";
+import logoAsset from "@/assets/worthprime-logo.jpeg.asset.json";
 
 const NAV_ITEMS = [
   { label: "About", to: "/about" as const },
@@ -28,14 +29,11 @@ export function Nav() {
   }, [open]);
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-5">
-      <nav className="pointer-events-auto mx-auto flex w-full max-w-[1200px] items-center gap-2 rounded-full border border-border bg-navy/85 px-3 py-2 backdrop-blur-xl sm:px-4">
-        <Link to="/" className="flex shrink-0 items-center gap-2 pl-1 pr-2">
-          <span className="grid size-8 place-items-center rounded-full bg-gold text-sm font-semibold text-navy-deep">
-            W
-          </span>
-          <span className="font-display text-lg leading-none tracking-tight">
-            WorthPrime<span className="text-gold"> Tax</span>
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 border-b border-border bg-background/95 px-3 backdrop-blur-xl sm:px-6">
+      <nav className="pointer-events-auto mx-auto flex min-h-20 w-full max-w-[1200px] items-center gap-2 px-1 sm:px-2">
+        <Link to="/" className="flex shrink-0 items-center pr-3" aria-label="WorthPrime Tax home">
+          <span className="flex h-14 w-36 items-center overflow-hidden bg-card px-2">
+            <img src={logoAsset.url} alt="WorthPrime Tax" className="h-full w-full object-contain" />
           </span>
         </Link>
 
@@ -50,7 +48,7 @@ export function Nav() {
               >
                 <Link
                   to={item.to}
-                  className="flex items-center gap-1 rounded-full px-3 py-2 text-sm text-foreground/80 transition-colors hover:bg-accent hover:text-foreground"
+                  className="flex items-center gap-1 px-3 py-2 text-sm text-foreground/80 transition-colors hover:text-gold"
                 >
                   Services
                   <ChevronDown className="size-3.5" />
@@ -63,13 +61,13 @@ export function Nav() {
                       : "invisible -translate-y-1 opacity-0",
                   )}
                 >
-                  <div className="grid grid-cols-2 gap-1 rounded-3xl border border-border bg-popover p-2 shadow-2xl">
+                  <div className="grid grid-cols-2 gap-1 rounded-lg border border-border bg-popover p-2 shadow-xl">
                     {SERVICES.map((s) => (
                       <Link
                         key={s.slug}
                         to="/services/$slug"
                         params={{ slug: s.slug }}
-                        className="rounded-2xl px-3 py-2 text-xs leading-snug text-foreground/75 transition-colors hover:bg-accent hover:text-foreground"
+                        className="rounded-md px-3 py-2 text-xs leading-snug text-foreground/75 transition-colors hover:bg-accent hover:text-foreground"
                       >
                         <span className="mr-1.5 text-gold">{s.number}</span>
                         {s.name}
@@ -82,7 +80,7 @@ export function Nav() {
               <Link
                 key={item.label}
                 to={item.to}
-                className="rounded-full px-3 py-2 text-sm text-foreground/80 transition-colors hover:bg-accent hover:text-foreground"
+                className="px-3 py-2 text-sm text-foreground/80 transition-colors hover:text-gold"
               >
                 {item.label}
               </Link>
@@ -125,7 +123,7 @@ export function Nav() {
             target="_blank"
             rel="noreferrer noopener"
             className={cn(
-              "rounded-full bg-gold px-4 py-2 text-sm font-semibold text-navy-deep transition-transform hover:scale-[1.03]",
+              "rounded-md bg-gold px-4 py-2 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.03]",
               pulse && "pulse-cta",
             )}
           >
@@ -142,7 +140,7 @@ export function Nav() {
           <Link
             to="/"
             hash="contact"
-            className="hidden rounded-full border border-border px-4 py-2 text-sm text-foreground transition-colors hover:bg-accent lg:inline-block"
+            className="hidden rounded-md border border-border px-4 py-2 text-sm text-foreground transition-colors hover:bg-accent lg:inline-block"
           >
             Request a quote
           </Link>
