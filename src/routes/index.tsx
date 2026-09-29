@@ -17,6 +17,9 @@ import { ServiceCard } from "@/components/site/ServiceCard";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { CtaBand } from "@/components/site/CtaBand";
 import { cn } from "@/lib/utils";
+import heroImage from "@/assets/worthprime-hero.jpg";
+import advisersImage from "@/assets/worthprime-advisers.jpg";
+import documentsImage from "@/assets/worthprime-documents.jpg";
 
 const TITLE = "WorthPrime Tax | U.S. Tax, Accounting & Compliance";
 const DESCRIPTION =
@@ -29,6 +32,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: DESCRIPTION },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Index,
@@ -56,17 +61,14 @@ function Index() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden pb-16 pt-10 sm:pt-16">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-40 left-1/2 size-[680px] -translate-x-1/2 rounded-full opacity-25 blur-3xl"
-        style={{ background: "radial-gradient(circle, var(--gold) 0%, transparent 65%)" }}
-      />
-      <Container className="relative">
-        <div className="grid items-start gap-12 lg:grid-cols-[1.15fr_0.85fr]">
-          <div>
+    <section className="pb-12 pt-5 sm:pt-8">
+      <Container>
+        <div className="relative min-h-[680px] overflow-hidden rounded-lg sm:min-h-[720px]">
+          <img src={heroImage} alt="Tax advisers reviewing financial documents together" width={1600} height={1056} className="absolute inset-0 h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-linear-to-r from-background via-background/90 to-background/10" aria-hidden />
+          <div className="relative flex min-h-[680px] max-w-3xl flex-col justify-center px-6 py-16 sm:min-h-[720px] sm:px-12 lg:px-16">
             <SectionLabel index="01">Explore</SectionLabel>
-            <h1 className="mt-5 text-[clamp(2.4rem,6.4vw,5rem)] leading-[1.02]">
+            <h1 className="mt-5 text-[clamp(2.7rem,6.4vw,5.4rem)] leading-[1.01]">
               Your Business Is More Than a Tax Return.{" "}
               <span className="italic text-gold">So Are We.</span>
             </h1>
@@ -75,46 +77,23 @@ function Hero() {
               Accounting shapes financial visibility. Payroll carries its own compliance
               responsibilities. And an IRS notice can quickly become a business concern.
             </p>
-            <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
-              WorthPrime Tax brings these disciplines together through a considered approach to
-              U.S. tax, accounting and compliance—helping U.S. individuals, entrepreneurs and
-              businesses manage their financial responsibilities with greater clarity and
-              precision.
-            </p>
-            <p className="mt-6 max-w-xl font-display text-xl text-foreground">
-              Get Expert Tax Counsel, Optimized Tax Outcomes, All Handled With Perspective.
-            </p>
-
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 to="/"
                 hash="contact-form"
-                className="inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-navy-deep transition-transform hover:scale-[1.03]"
+                className="inline-flex items-center gap-2 rounded-md bg-gold px-6 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.03]"
               >
                 Request a quote <ArrowRight className="size-4" />
               </Link>
               <a
                 href={LINKS.phoneHref}
-                className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm transition-colors hover:bg-accent"
+                className="inline-flex items-center gap-2 rounded-md border border-border bg-background/70 px-6 py-3 text-sm transition-colors hover:bg-accent"
               >
                 Connect to us
               </a>
             </div>
 
-            <div className="mt-10 flex flex-wrap items-center gap-4">
-              <div className="flex -space-x-3">
-                {["A", "M", "R", "S", "K"].map((c, i) => (
-                  <span
-                    key={c}
-                    className={cn(
-                      "grid size-10 place-items-center rounded-full border-2 border-navy-deep font-medium text-navy-deep",
-                      i % 2 === 0 ? "bg-gold" : "bg-gold-soft",
-                    )}
-                  >
-                    {c}
-                  </span>
-                ))}
-              </div>
+            <div className="mt-10 flex items-center gap-4">
               <div>
                 <div className="flex items-center gap-1 text-gold">
                   {Array.from({ length: 5 }).map((_, i) => (
@@ -126,10 +105,6 @@ function Hero() {
                 </p>
               </div>
             </div>
-          </div>
-
-          <div id="contact-form" className="scroll-mt-28">
-            <EnquiryForm compact />
           </div>
         </div>
       </Container>
@@ -158,13 +133,12 @@ function TrustTicker() {
 
 function StatsBand() {
   return (
-    <Section className="py-16 sm:py-20">
-      <SectionLabel index="02">By the numbers</SectionLabel>
-      <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <Section className="bg-navy-soft py-14 sm:py-20">
+      <div className="grid overflow-hidden rounded-[2rem] border border-border sm:grid-cols-2 lg:grid-cols-4">
         {STATS.map((s, i) => (
           <Reveal key={s.label} delay={i * 80}>
-            <div className="surface-card h-full p-6">
-              <p className="font-display text-[clamp(2.2rem,4vw,3.4rem)] leading-none text-gold">
+            <div className="h-full border-b border-border p-7 sm:p-9 lg:border-b-0 lg:border-r lg:last:border-r-0">
+              <p className="font-sans text-[clamp(2.5rem,4vw,4rem)] font-medium leading-none text-foreground">
                 <CountUp value={s.value} prefix={s.prefix} suffix={s.suffix} />
               </p>
               <p className="mt-3 text-sm leading-snug text-muted-foreground">{s.label}</p>
@@ -203,9 +177,7 @@ function WhoWeAre() {
           {FOUNDERS.map((f, i) => (
             <Reveal key={f.name} delay={i * 100}>
               <article className="surface-card overflow-hidden">
-                <div className="grid aspect-4/5 place-items-center bg-navy-soft text-xs uppercase tracking-widest text-muted-foreground">
-                  [Portrait — client to supply]
-                </div>
+                <img src={advisersImage} alt="Professional tax advisers in consultation" width={1408} height={1008} loading="lazy" className={cn("aspect-4/5 w-full object-cover", i === 1 && "object-right")} />
                 <div className="p-5">
                   <h3 className="text-xl leading-tight">{f.name}</h3>
                   <p className="mt-1 text-xs uppercase tracking-widest text-gold">{f.title}</p>
@@ -425,9 +397,7 @@ function Insights() {
         {INSIGHTS.map((a, i) => (
           <Reveal key={i} delay={i * 80}>
             <article className="surface-card h-full overflow-hidden">
-              <div className="grid aspect-video place-items-center bg-navy-soft text-xs text-muted-foreground">
-                [Article image]
-              </div>
+               <img src={i === 1 ? advisersImage : documentsImage} alt="Tax planning and advisory" width={1408} height={1008} loading="lazy" className="aspect-video w-full object-cover" />
               <div className="p-6">
                 <p className="label-slash">0{i + 1} / {a.tag}</p>
                 <h3 className="mt-3 text-lg leading-snug">{a.title}</h3>

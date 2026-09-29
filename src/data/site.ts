@@ -42,18 +42,18 @@ export const TRUST_PHRASES = [
 
 export const STATS = [
   {
-    value: 1000,
-    prefix: "Around ",
-    suffix: "",
-    label: "Services / ticket sales prepared to date, since 2019",
+    value: 12,
+    prefix: "$",
+    suffix: "M+",
+    label: "Tax saved for clients",
   },
-  { value: 150, prefix: "", suffix: " plus", label: "IRS notices resolved to date" },
-  { value: 500, prefix: "", suffix: " plus", label: "Satisfied customers of WorthPrime" },
+  { value: 5000, prefix: "", suffix: "+", label: "Clients served" },
+  { value: 99, prefix: "", suffix: "%", label: "Client satisfaction rate" },
   {
     value: 20,
     prefix: "",
-    suffix: " a year",
-    label: "Audits and reviews on average, facilitating private equity funding",
+    suffix: "+",
+    label: "Years of experience",
   },
 ];
 
