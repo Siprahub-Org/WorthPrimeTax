@@ -29,14 +29,6 @@ export function Footer() {
             </div>
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <a
-                href={LINKS.pay}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-navy-deep"
-              >
-                Pay here
-              </a>
-              <a
                 href={LINKS.linkedin}
                 target="_blank"
                 rel="noreferrer noopener"
@@ -90,7 +82,8 @@ export function Footer() {
                 </li>
                 <li>
                   <a href={LINKS.login} target="_blank" rel="noreferrer noopener" className="transition-colors hover:text-gold">
-                    Login / Register
+                    Log in
+
                   </a>
                 </li>
                 <li>

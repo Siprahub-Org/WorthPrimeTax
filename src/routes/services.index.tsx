@@ -123,7 +123,8 @@ function ServicesPage() {
                   hash="contact-form"
                   className="justify-self-start rounded-full border border-border px-4 py-2 text-xs transition-colors hover:bg-accent lg:justify-self-end"
                 >
-                  Request a quote
+                  Contact us
+
                 </Link>
               </div>
             ))}
@@ -178,7 +179,7 @@ function ServicesPage() {
         </a>
       </Container>
 
-      <CtaBand secondaryLabel="Request a quote" />
+      <CtaBand />
     </>
   );
 }

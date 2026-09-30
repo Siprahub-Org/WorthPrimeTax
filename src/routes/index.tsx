@@ -83,7 +83,7 @@ function Hero() {
                 hash="contact-form"
                 className="inline-flex items-center gap-2 rounded-md bg-gold px-6 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.03]"
               >
-                Request a quote <ArrowRight className="size-4" />
+                Contact us <ArrowRight className="size-4" />
               </Link>
               <a
                 href={LINKS.phoneHref}

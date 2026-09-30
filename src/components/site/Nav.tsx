@@ -14,12 +14,7 @@ const NAV_ITEMS = [
 export function Nav() {
   const [open, setOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
-  const [pulse, setPulse] = useState(true);
 
-  useEffect(() => {
-    const t = setTimeout(() => setPulse(false), 5200);
-    return () => clearTimeout(t);
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -119,31 +114,13 @@ export function Nav() {
 
         <div className="ml-auto flex items-center gap-2">
           <a
-            href={LINKS.pay}
-            target="_blank"
-            rel="noreferrer noopener"
-            className={cn(
-              "rounded-md bg-gold px-4 py-2 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.03]",
-              pulse && "pulse-cta",
-            )}
-          >
-            Pay here
-          </a>
-          <a
             href={LINKS.login}
             target="_blank"
             rel="noreferrer noopener"
-            className="hidden text-sm text-foreground/75 transition-colors hover:text-gold lg:inline"
+            className="rounded-md bg-brown px-4 py-2 text-sm font-semibold text-cream transition-transform hover:scale-[1.03]"
           >
-            Login/Register
+            Log in
           </a>
-          <Link
-            to="/"
-            hash="contact"
-            className="hidden rounded-md border border-border px-4 py-2 text-sm text-foreground transition-colors hover:bg-accent lg:inline-block"
-          >
-            Request a quote
-          </Link>
           <button
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -194,17 +171,15 @@ export function Nav() {
             <a href={LINKS.irs} target="_blank" rel="noreferrer noopener" className="rounded-xl px-3 py-2.5 text-sm">
               IRS refund status
             </a>
-            <a href={LINKS.login} target="_blank" rel="noreferrer noopener" className="rounded-xl px-3 py-2.5 text-sm">
-              Login/Register
-            </a>
-            <Link
-              to="/"
-              hash="contact"
-              onClick={() => setOpen(false)}
-              className="mt-2 rounded-full border border-border px-4 py-2.5 text-center text-sm"
+            <a
+              href={LINKS.login}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="mt-2 rounded-full bg-brown px-4 py-2.5 text-center text-sm font-semibold text-cream"
             >
-              Request a quote
-            </Link>
+              Log in
+            </a>
+
           </div>
         </div>
       )}

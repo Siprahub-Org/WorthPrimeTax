@@ -7,10 +7,23 @@ import { CtaBand } from "@/components/site/CtaBand";
 import { cn } from "@/lib/utils";
 import advisersImage from "@/assets/worthprime-advisers.jpg";
 import documentsImage from "@/assets/worthprime-documents.jpg";
+import credCpa from "@/assets/credentials/cred-cpa.png";
+import credEa from "@/assets/credentials/cred-ea.png";
+import credAicpa from "@/assets/credentials/cred-aicpa.png";
+import credIrs from "@/assets/credentials/cred-irs.png";
+
 
 const TITLE = "About WorthPrime Tax | Built on Experience";
 const DESCRIPTION =
   "Co-founded in 2020, WorthPrime Tax combines Big Four experience across accounting, taxation, audit, payroll, legal and compliance in the U.S., UAE and India.";
+
+const CREDENTIALS = [
+  { label: "CPA", src: credCpa },
+  { label: "Enrolled Agent", src: credEa },
+  { label: "AICPA", src: credAicpa },
+  { label: "IRS", src: credIrs },
+];
+
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -118,17 +131,26 @@ function AboutPage() {
 
         <div className="mt-12">
           <SectionLabel index="06">Credentials</SectionLabel>
-          <div className="mt-6 grid gap-4 sm:grid-cols-4">
-            {Array.from({ length: 4 }).map((_, i) => (
-              <div
-                key={i}
-                className="grid h-24 place-items-center rounded-2xl border border-dashed border-border text-xs text-muted-foreground"
-              >
-                [Certification / affiliation]
+          <div className="mt-6 grid grid-cols-2 gap-5 sm:grid-cols-4">
+            {CREDENTIALS.map((c) => (
+              <div key={c.label} className="surface-card flex flex-col items-center p-6">
+                <img
+                  src={c.src}
+                  alt={`${c.label} certification badge`}
+                  width={816}
+                  height={816}
+                  loading="lazy"
+                  className="h-24 w-auto object-contain"
+                />
+                <p className="mt-4 text-center text-xs uppercase tracking-widest text-muted-foreground">
+                  {c.label}
+                </p>
               </div>
             ))}
           </div>
+          <p className="mt-4 text-xs text-muted-foreground">[Stock badges — client to confirm credentials]</p>
         </div>
+
       </Section>
 
       <Section>
@@ -161,7 +183,7 @@ function AboutPage() {
         </div>
       </Container>
 
-      <CtaBand secondaryLabel="Request a quote" />
+      <CtaBand />
     </>
   );
 }
