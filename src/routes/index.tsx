@@ -137,7 +137,7 @@ function StatsBand() {
       <div className="grid overflow-hidden rounded-[2rem] border border-border sm:grid-cols-2 lg:grid-cols-4">
         {STATS.map((s, i) => (
           <Reveal key={s.label} delay={i * 80}>
-            <div className="h-full border-b border-border p-7 sm:p-9 lg:border-b-0 lg:border-r lg:last:border-r-0">
+            <div className="h-full border-b border-border p-7 sm:p-9 sm:[&:nth-child(odd)]:border-r lg:border-b-0 lg:border-r lg:last:border-r-0">
               <p className="font-sans text-[clamp(2.5rem,4vw,4rem)] font-medium leading-none text-foreground">
                 <CountUp value={s.value} prefix={s.prefix} suffix={s.suffix} />
               </p>
@@ -459,7 +459,7 @@ function Faq() {
 
 function ContactBlock() {
   return (
-    <Section className="pb-8">
+    <Section id="contact-form" className="scroll-mt-28 pb-8">
       <div className="grid gap-10 lg:grid-cols-[1fr_1fr]">
         <div>
           <SectionLabel index="11">Contact</SectionLabel>

@@ -4,6 +4,7 @@ import { getService, HOW_THE_WORK_MOVES, SERVICES } from "@/data/services";
 import { LINKS } from "@/data/site";
 import { Reveal, Section, SectionLabel } from "@/components/site/primitives";
 import { CtaBand } from "@/components/site/CtaBand";
+import documentsImage from "@/assets/worthprime-documents.jpg";
 
 export const Route = createFileRoute("/services/$slug")({
   loader: ({ params }) => {
@@ -108,6 +109,7 @@ function ServiceDetail() {
             </div>
           </div>
         </div>
+        <img src={documentsImage} alt="Tax and accounting documents prepared for review" width={1408} height={1008} className="mt-10 aspect-[16/5] w-full rounded-lg object-cover" />
       </Section>
 
       <Section className="bg-navy/40 py-16">
