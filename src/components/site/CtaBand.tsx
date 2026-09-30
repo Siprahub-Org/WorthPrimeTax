@@ -1,13 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import { LINKS } from "@/data/site";
 import { Container, Reveal } from "./primitives";
 
 export function CtaBand({
   title = "Whatever the next financial decision looks like, make it with perspective.",
-  secondaryLabel = "Talk to WorthPrime Tax",
 }: {
   title?: string;
-  secondaryLabel?: string;
 }) {
   return (
     <section className="py-16 sm:py-24">
@@ -19,20 +16,12 @@ export function CtaBand({
               {title}
             </h2>
             <div className="mt-9 flex flex-wrap justify-center gap-3">
-              <a
-                href={LINKS.pay}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="rounded-full bg-gold px-7 py-3 text-sm font-semibold text-navy-deep transition-transform hover:scale-[1.03]"
-              >
-                Pay here
-              </a>
               <Link
                 to="/"
                 hash="contact-form"
-                className="rounded-full border border-border px-7 py-3 text-sm font-medium transition-colors hover:bg-accent"
+                className="rounded-full bg-gold px-7 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.03]"
               >
-                {secondaryLabel} →
+                Talk to WorthPrime Tax →
               </Link>
             </div>
           </div>

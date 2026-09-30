@@ -102,7 +102,8 @@ function ServiceDetail() {
                 hash="contact-form"
                 className="rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-navy-deep"
               >
-                Request a quote
+                Contact us
+
               </Link>
               <a
                 href={LINKS.phoneHref}
@@ -190,7 +191,7 @@ function ServiceDetail() {
         </div>
       </Section>
 
-      <CtaBand secondaryLabel="Request a quote" />
+      <CtaBand />
     </>
   );
 }

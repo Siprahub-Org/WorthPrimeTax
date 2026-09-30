@@ -161,7 +161,7 @@ function AboutPage() {
         </div>
       </Container>
 
-      <CtaBand secondaryLabel="Request a quote" />
+      <CtaBand />
     </>
   );
 }
