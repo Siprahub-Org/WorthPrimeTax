@@ -63,10 +63,10 @@ function Hero() {
   return (
     <section className="pb-12 pt-5 sm:pt-8">
       <Container>
-        <div className="relative min-h-[680px] overflow-hidden rounded-lg sm:min-h-[720px]">
+        <div className="relative min-h-[620px] overflow-hidden rounded-lg sm:min-h-[720px]">
           <img src={heroImage} alt="Tax advisers reviewing financial documents together" width={1600} height={1056} className="absolute inset-0 h-full w-full object-cover" />
           <div className="absolute inset-0 bg-linear-to-r from-background via-background/90 to-background/10" aria-hidden />
-          <div className="relative flex min-h-[680px] max-w-3xl flex-col justify-center px-6 py-16 sm:min-h-[720px] sm:px-12 lg:px-16">
+          <div className="relative flex min-h-[620px] max-w-3xl flex-col justify-center px-6 py-12 sm:min-h-[720px] sm:px-12 sm:py-16 lg:px-16">
             <SectionLabel index="01">Explore</SectionLabel>
             <h1 className="mt-5 text-[clamp(2.7rem,6.4vw,5.4rem)] leading-[1.01]">
               Your Business Is More Than a Tax Return.{" "}
@@ -137,7 +137,16 @@ function StatsBand() {
       <div className="grid overflow-hidden rounded-[2rem] border border-border sm:grid-cols-2 lg:grid-cols-4">
         {STATS.map((s, i) => (
           <Reveal key={s.label} delay={i * 80}>
-            <div className="h-full border-b border-border p-7 sm:p-9 sm:[&:nth-child(odd)]:border-r lg:border-b-0 lg:border-r lg:last:border-r-0">
+            <div
+              className={cn(
+                "h-full p-7 sm:p-9",
+                i < STATS.length - 1 && "border-b border-border",
+                (i === 0 || i === 2) && "sm:border-r",
+                i < 2 && "sm:border-b",
+                i < STATS.length - 1 && "lg:border-r",
+                "lg:border-b-0",
+              )}
+            >
               <p className="font-sans text-[clamp(2.5rem,4vw,4rem)] font-medium leading-none text-foreground">
                 <CountUp value={s.value} prefix={s.prefix} suffix={s.suffix} />
               </p>

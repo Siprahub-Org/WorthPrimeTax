@@ -18,6 +18,10 @@ export const Route = createFileRoute("/services/$slug")({
         meta: [
           { title: "Service not found | WorthPrime Tax" },
           { name: "robots", content: "noindex" },
+          { property: "og:title", content: "Service not found | WorthPrime Tax" },
+          { property: "og:description", content: "The requested WorthPrime Tax service could not be found." },
+          { property: "og:type", content: "website" },
+          { name: "twitter:card", content: "summary_large_image" },
         ],
       };
     }
