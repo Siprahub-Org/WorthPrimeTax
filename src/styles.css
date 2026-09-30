@@ -42,6 +42,7 @@
   --color-navy-soft: var(--navy-soft);
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
+  --color-brown: var(--brown);
   --color-cream: var(--cream);
   --color-ink: var(--ink);
   --font-display: "DM Serif Display", Georgia, serif;
@@ -56,6 +57,7 @@
   --navy-soft: oklch(0.925 0.026 62);
   --gold: oklch(0.38 0.11 31);
   --gold-soft: oklch(0.52 0.1 48);
+  --brown: oklch(0.45 0.08 40);
   --cream: oklch(0.965 0.018 65);
   --ink: oklch(0.27 0.065 30);
 
