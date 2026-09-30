@@ -107,9 +107,7 @@ function AboutPage() {
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <div key={i} className="surface-card overflow-hidden">
-              <div className="grid aspect-square place-items-center bg-navy-soft text-xs text-muted-foreground">
-                [Portrait]
-              </div>
+              <img src={i % 2 === 0 ? advisersImage : documentsImage} alt="WorthPrime team and advisory work" width={1408} height={1008} loading="lazy" className="aspect-square w-full object-cover" />
               <div className="p-5">
                 <p className="text-base">[Name]</p>
                 <p className="mt-1 text-xs uppercase tracking-widest text-gold">[Role]</p>

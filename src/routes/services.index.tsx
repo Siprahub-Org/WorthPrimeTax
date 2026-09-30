@@ -7,6 +7,7 @@ import { Container, Reveal, Section, SectionLabel } from "@/components/site/prim
 import { ServiceCard } from "@/components/site/ServiceCard";
 import { CtaBand } from "@/components/site/CtaBand";
 import { cn } from "@/lib/utils";
+import documentsImage from "@/assets/worthprime-documents.jpg";
 
 const TITLE = "Services | WorthPrime Tax";
 const DESCRIPTION =
@@ -52,6 +53,7 @@ function ServicesPage() {
           managing payroll, maintaining your books through QuickBooks, or responding to an IRS
           Audit, we bring the relevant expertise into sharper focus.
         </p>
+        <img src={documentsImage} alt="Financial documents ready for tax review" width={1408} height={1008} className="mt-10 aspect-[16/6] w-full rounded-lg object-cover" />
 
         <div className="mt-9 flex flex-wrap gap-2">
           {AUDIENCES.map((a) => (

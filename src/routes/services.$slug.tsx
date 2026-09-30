@@ -4,6 +4,7 @@ import { getService, HOW_THE_WORK_MOVES, SERVICES } from "@/data/services";
 import { LINKS } from "@/data/site";
 import { Reveal, Section, SectionLabel } from "@/components/site/primitives";
 import { CtaBand } from "@/components/site/CtaBand";
+import documentsImage from "@/assets/worthprime-documents.jpg";
 
 export const Route = createFileRoute("/services/$slug")({
   loader: ({ params }) => {
@@ -17,6 +18,10 @@ export const Route = createFileRoute("/services/$slug")({
         meta: [
           { title: "Service not found | WorthPrime Tax" },
           { name: "robots", content: "noindex" },
+          { property: "og:title", content: "Service not found | WorthPrime Tax" },
+          { property: "og:description", content: "The requested WorthPrime Tax service could not be found." },
+          { property: "og:type", content: "website" },
+          { name: "twitter:card", content: "summary_large_image" },
         ],
       };
     }
@@ -108,6 +113,7 @@ function ServiceDetail() {
             </div>
           </div>
         </div>
+        <img src={documentsImage} alt="Tax and accounting documents prepared for review" width={1408} height={1008} className="mt-10 aspect-[16/5] w-full rounded-lg object-cover" />
       </Section>
 
       <Section className="bg-navy/40 py-16">
