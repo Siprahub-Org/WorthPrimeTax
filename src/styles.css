@@ -40,6 +40,9 @@
   --color-navy: var(--navy);
   --color-navy-deep: var(--navy-deep);
   --color-navy-soft: var(--navy-soft);
+  --color-hero-foreground: var(--hero-foreground);
+  --color-hero-muted: var(--hero-muted);
+  --color-hero-border: var(--hero-border);
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
   --color-brown: var(--brown);
@@ -60,6 +63,9 @@
   --brown: #1a233a;
   --cream: oklch(0.985 0.006 250);
   --ink: #1a233a;
+  --hero-foreground: oklch(0.99 0.004 250);
+  --hero-muted: oklch(0.88 0.025 250);
+  --hero-border: oklch(0.99 0.004 250 / 24%);
 
   --background: var(--cream);
   --foreground: var(--ink);

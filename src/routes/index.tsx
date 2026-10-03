@@ -17,9 +17,9 @@ import { ServiceCard } from "@/components/site/ServiceCard";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { CtaBand } from "@/components/site/CtaBand";
 import { cn } from "@/lib/utils";
-import heroImage from "@/assets/worthprime-hero.jpg";
-import advisersImage from "@/assets/worthprime-advisers.jpg";
-import documentsImage from "@/assets/worthprime-documents.jpg";
+import heroImage from "@/assets/worthprime-hero-blue.jpg";
+import advisersImage from "@/assets/worthprime-advisers-blue.jpg";
+import documentsImage from "@/assets/worthprime-documents-blue.jpg";
 
 const TITLE = "WorthPrime Tax | U.S. Tax, Accounting & Compliance";
 const DESCRIPTION =
@@ -61,18 +61,19 @@ function Index() {
 
 function Hero() {
   return (
-    <section className="pb-12 pt-5 sm:pt-8">
+    <section className="bg-navy-deep pb-0">
       <Container>
-        <div className="relative min-h-[620px] overflow-hidden rounded-lg sm:min-h-[720px]">
-          <img src={heroImage} alt="Tax advisers reviewing financial documents together" width={1600} height={1056} className="absolute inset-0 h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-linear-to-r from-background via-background/90 to-background/10" aria-hidden />
-          <div className="relative flex min-h-[620px] max-w-3xl flex-col justify-center px-6 py-12 sm:min-h-[720px] sm:px-12 sm:py-16 lg:px-16">
+        <div className="relative min-h-[650px] overflow-hidden sm:min-h-[720px]">
+          <img src={heroImage} alt="Tax advisers reviewing financial documents together" width={1600} height={1056} className="absolute inset-0 h-full w-full object-cover object-[62%_center] opacity-75 sm:object-center" />
+          <div className="absolute inset-0 bg-linear-to-r from-navy-deep via-navy-deep/90 to-navy-deep/25" aria-hidden />
+          <div className="absolute inset-0 bg-linear-to-t from-navy-deep/75 via-transparent to-transparent sm:hidden" aria-hidden />
+          <div className="relative flex min-h-[650px] max-w-3xl flex-col justify-center px-1 py-14 sm:min-h-[720px] sm:px-10 sm:py-16 lg:px-14">
             <SectionLabel index="01">Explore</SectionLabel>
-            <h1 className="mt-5 text-[clamp(2.7rem,6.4vw,5.4rem)] leading-[1.01]">
+            <h1 className="mt-5 text-[clamp(2.7rem,6.4vw,5.4rem)] leading-[1.01] text-hero-foreground">
               Your Business Is More Than a Tax Return.{" "}
-              <span className="italic text-gold">So Are We.</span>
+              <span className="italic text-hero-muted">So Are We.</span>
             </h1>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-hero-muted">
               Tax obligations rarely exist in isolation. Entity structure affects taxation.
               Accounting shapes financial visibility. Payroll carries its own compliance
               responsibilities. And an IRS notice can quickly become a business concern.
@@ -81,13 +82,13 @@ function Hero() {
               <Link
                 to="/"
                 hash="contact-form"
-                className="inline-flex items-center gap-2 rounded-md bg-gold px-6 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.03]"
+                className="inline-flex items-center gap-2 rounded-md bg-hero-foreground px-6 py-3 text-sm font-semibold text-navy-deep transition-transform hover:scale-[1.03]"
               >
                 Contact us <ArrowRight className="size-4" />
               </Link>
               <a
                 href={LINKS.phoneHref}
-                className="inline-flex items-center gap-2 rounded-md border border-border bg-background/70 px-6 py-3 text-sm transition-colors hover:bg-accent"
+                className="inline-flex items-center gap-2 rounded-md border border-hero-border bg-navy-deep/35 px-6 py-3 text-sm text-hero-foreground transition-colors hover:bg-hero-foreground/10"
               >
                 Connect to us
               </a>
@@ -100,8 +101,8 @@ function Hero() {
                     <Star key={i} className="size-3.5 fill-current" />
                   ))}
                 </div>
-                <p className="text-sm text-muted-foreground">
-                  <span className="text-foreground">500 plus</span> satisfied customers
+                <p className="text-sm text-hero-muted">
+                  <span className="text-hero-foreground">500 plus</span> satisfied customers
                 </p>
               </div>
             </div>

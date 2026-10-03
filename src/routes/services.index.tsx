@@ -7,7 +7,7 @@ import { Container, Reveal, Section, SectionLabel } from "@/components/site/prim
 import { ServiceCard } from "@/components/site/ServiceCard";
 import { CtaBand } from "@/components/site/CtaBand";
 import { cn } from "@/lib/utils";
-import documentsImage from "@/assets/worthprime-documents.jpg";
+import documentsImage from "@/assets/worthprime-documents-blue.jpg";
 
 const TITLE = "Services | WorthPrime Tax";
 const DESCRIPTION =
@@ -40,22 +40,26 @@ function ServicesPage() {
 
   return (
     <>
-      <Section className="pb-10 pt-12">
-        <SectionLabel index="01">What we do</SectionLabel>
-        <h1 className="mt-5 max-w-4xl text-[clamp(2.4rem,6vw,4.6rem)] leading-[1.03]">
-          The Numbers Behind Your Business.{" "}
-          <span className="italic text-gold">The Perspective Beyond Them.</span>
-        </h1>
-        <p className="mt-6 max-w-2xl text-muted-foreground">
-          From Individual Tax and Form 1040 filings to U.S. business tax, Form 1120, Form 1120S and
-          Form 1065, our work is designed around accuracy, compliance and the broader objectives of
-          the client. Whether you are forming an LLC, operating a C Corp, S Corp or Partnership,
-          managing payroll, maintaining your books through QuickBooks, or responding to an IRS
-          Audit, we bring the relevant expertise into sharper focus.
-        </p>
-        <img src={documentsImage} alt="Financial documents ready for tax review" width={1408} height={1008} className="mt-10 aspect-[16/6] w-full rounded-lg object-cover" />
+      <Section className="bg-navy-deep pb-0 pt-14 text-hero-foreground">
+        <div className="grid items-end gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="pb-12 sm:pb-16">
+            <SectionLabel index="01">What we do</SectionLabel>
+            <h1 className="mt-5 max-w-4xl text-[clamp(2.4rem,6vw,4.6rem)] leading-[1.03]">
+              The Numbers Behind Your Business.{" "}
+              <span className="italic text-hero-muted">The Perspective Beyond Them.</span>
+            </h1>
+            <p className="mt-6 max-w-2xl text-hero-muted">
+              From Individual Tax and Form 1040 filings to U.S. business tax, Form 1120, Form 1120S and
+              Form 1065, our work is designed around accuracy, compliance and the broader objectives of
+              the client. Whether you are forming an LLC, operating a C Corp, S Corp or Partnership,
+              managing payroll, maintaining your books through QuickBooks, or responding to an IRS
+              Audit, we bring the relevant expertise into sharper focus.
+            </p>
+          </div>
+          <img src={documentsImage} alt="Financial documents ready for tax review" width={1408} height={1008} className="aspect-[4/3] w-full object-cover lg:aspect-[5/4]" />
+        </div>
 
-        <div className="mt-9 flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 border-t border-hero-border py-7">
           {AUDIENCES.map((a) => (
             <button
               key={a}
@@ -66,7 +70,7 @@ function ServicesPage() {
                 "rounded-full border px-5 py-2 text-sm transition-colors",
                 filter === a
                   ? "border-gold bg-gold text-navy-deep"
-                  : "border-border text-foreground/80 hover:bg-accent",
+                  : "border-hero-border text-hero-muted hover:bg-hero-foreground/10",
               )}
             >
               {a}

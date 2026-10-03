@@ -4,7 +4,7 @@ import { getService, HOW_THE_WORK_MOVES, SERVICES } from "@/data/services";
 import { LINKS } from "@/data/site";
 import { Reveal, Section, SectionLabel } from "@/components/site/primitives";
 import { CtaBand } from "@/components/site/CtaBand";
-import documentsImage from "@/assets/worthprime-documents.jpg";
+import documentsImage from "@/assets/worthprime-documents-blue.jpg";
 
 export const Route = createFileRoute("/services/$slug")({
   loader: ({ params }) => {
@@ -60,10 +60,10 @@ function ServiceDetail() {
 
   return (
     <>
-      <Section className="pb-10 pt-12">
+      <Section className="bg-navy-deep pb-0 pt-12 text-hero-foreground">
         <Link
           to="/services"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-gold"
+          className="inline-flex items-center gap-2 text-sm text-hero-muted transition-colors hover:text-hero-foreground"
         >
           <ArrowLeft className="size-4" /> All services
         </Link>
@@ -74,7 +74,7 @@ function ServiceDetail() {
               <span className="font-display text-[clamp(3.5rem,10vw,7rem)] leading-none text-gold">
                 {service.number}
               </span>
-              <span className="rounded-full border border-border px-4 py-1.5 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+              <span className="rounded-full border border-hero-border px-4 py-1.5 text-[11px] uppercase tracking-[0.18em] text-hero-muted">
                 {service.audience}
               </span>
             </div>
@@ -84,11 +84,11 @@ function ServiceDetail() {
             <p className="mt-4 font-display text-2xl italic text-gold">{service.tagline}</p>
           </div>
 
-          <div className="surface-card flex flex-col justify-between bg-navy-soft p-7">
+          <div className="flex flex-col justify-between border border-hero-border bg-hero-foreground/5 p-7">
             <div>
               <p className="label-slash">Start here</p>
               <p className="mt-3 text-lg leading-snug">{service.cta}</p>
-              <p className="mt-3 text-sm text-muted-foreground">
+              <p className="mt-3 text-sm text-hero-muted">
                 Starting from{" "}
                 <span className={service.price.startsWith("From") ? "text-gold" : ""}>
                   {service.price}
@@ -107,14 +107,14 @@ function ServiceDetail() {
               </Link>
               <a
                 href={LINKS.phoneHref}
-                className="rounded-full border border-border px-5 py-2.5 text-sm transition-colors hover:bg-accent"
+                 className="rounded-full border border-hero-border px-5 py-2.5 text-sm transition-colors hover:bg-hero-foreground/10"
               >
                 Call us
               </a>
             </div>
           </div>
         </div>
-        <img src={documentsImage} alt="Tax and accounting documents prepared for review" width={1408} height={1008} className="mt-10 aspect-[16/5] w-full rounded-lg object-cover" />
+        <img src={documentsImage} alt="Tax and accounting documents prepared for review" width={1408} height={1008} className="mt-10 aspect-[16/5] w-full object-cover" />
       </Section>
 
       <Section className="bg-navy/40 py-16">
