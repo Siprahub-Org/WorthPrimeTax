@@ -5,8 +5,8 @@ import { FOUNDERS, OFFICES } from "@/data/site";
 import { Container, CountUp, Reveal, Section, SectionLabel } from "@/components/site/primitives";
 import { CtaBand } from "@/components/site/CtaBand";
 import { cn } from "@/lib/utils";
-import advisersImage from "@/assets/worthprime-advisers.jpg";
-import documentsImage from "@/assets/worthprime-documents.jpg";
+import advisersImage from "@/assets/worthprime-advisers-blue.jpg";
+import documentsImage from "@/assets/worthprime-documents-blue.jpg";
 import credCpa from "@/assets/credentials/cred-cpa.png";
 import credEa from "@/assets/credentials/cred-ea.png";
 import credAicpa from "@/assets/credentials/cred-aicpa.png";
@@ -42,19 +42,23 @@ export const Route = createFileRoute("/about")({
 function AboutPage() {
   return (
     <>
-      <Section className="pb-10 pt-12">
-        <SectionLabel index="01">How we started</SectionLabel>
-        <h1 className="mt-5 max-w-4xl text-[clamp(2.4rem,6vw,4.6rem)] leading-[1.03]">
-          Built on Experience. <span className="italic text-gold">Shaped by Perspective.</span>
-        </h1>
-        <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground">
-          Behind every enduring enterprise lies a confluence of sound structure, considered
-          decisions and discerning professional counsel. WorthPrime Tax was shaped by precisely
-          that philosophy—bringing together the complementary expertise of its co-founders, with
-          extensive experience across accounting, taxation, audit, payroll, legal and compliance
-          services spanning the U.S., UAE and India.
-        </p>
-        <img src={advisersImage} alt="Tax advisers reviewing financial documents" width={1408} height={1008} className="mt-10 aspect-[16/7] w-full rounded-lg object-cover" />
+      <Section className="bg-navy-deep pb-0 pt-14 text-hero-foreground">
+        <div className="grid items-end gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="pb-12 sm:pb-16">
+            <SectionLabel index="01">How we started</SectionLabel>
+            <h1 className="mt-5 max-w-4xl text-[clamp(2.4rem,6vw,4.6rem)] leading-[1.03]">
+              Built on Experience. <span className="italic text-hero-muted">Shaped by Perspective.</span>
+            </h1>
+            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-hero-muted">
+              Behind every enduring enterprise lies a confluence of sound structure, considered
+              decisions and discerning professional counsel. WorthPrime Tax was shaped by precisely
+              that philosophy—bringing together the complementary expertise of its co-founders, with
+              extensive experience across accounting, taxation, audit, payroll, legal and compliance
+              services spanning the U.S., UAE and India.
+            </p>
+          </div>
+          <img src={advisersImage} alt="Tax advisers reviewing financial documents" width={1408} height={1008} className="aspect-[4/3] w-full object-cover lg:aspect-[5/4]" />
+        </div>
       </Section>
 
       <Founders />
