@@ -59,7 +59,10 @@ function ServicesPage() {
           <img src={documentsImage} alt="Financial documents ready for tax review" width={1408} height={1008} className="aspect-[4/3] w-full object-cover lg:aspect-[5/4]" />
         </div>
 
-        <div className="flex flex-wrap gap-2 border-t border-hero-border py-7">
+      </Section>
+
+      <Section className="pt-10 sm:pt-14">
+        <div className="flex flex-wrap gap-2">
           {AUDIENCES.map((a) => (
             <button
               key={a}
@@ -70,7 +73,7 @@ function ServicesPage() {
                 "rounded-full border px-5 py-2 text-sm transition-colors",
                 filter === a
                   ? "border-gold bg-gold text-navy-deep"
-                  : "border-hero-border text-hero-muted hover:bg-hero-foreground/10",
+                  : "border-border text-foreground/80 hover:bg-accent",
               )}
             >
               {a}
