@@ -4,6 +4,7 @@ import { Play } from "lucide-react";
 import { FOUNDERS, OFFICES } from "@/data/site";
 import { Container, CountUp, Reveal, Section, SectionLabel } from "@/components/site/primitives";
 import { CtaBand } from "@/components/site/CtaBand";
+import { PricingMarquee } from "@/components/site/PricingMarquee";
 import { cn } from "@/lib/utils";
 import advisersImage from "@/assets/worthprime-advisers-blue.jpg";
 import documentsImage from "@/assets/worthprime-documents-blue.jpg";
@@ -60,6 +61,8 @@ function AboutPage() {
           <img src={advisersImage} alt="Tax advisers reviewing financial documents" width={1408} height={1008} className="aspect-[4/3] w-full object-cover lg:aspect-[5/4]" />
         </div>
       </Section>
+
+      <PricingMarquee />
 
       <Founders />
 

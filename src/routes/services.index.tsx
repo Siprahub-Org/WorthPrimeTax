@@ -6,6 +6,7 @@ import { LINKS } from "@/data/site";
 import { Container, Reveal, Section, SectionLabel } from "@/components/site/primitives";
 import { ServiceCard } from "@/components/site/ServiceCard";
 import { CtaBand } from "@/components/site/CtaBand";
+import { PricingMarquee } from "@/components/site/PricingMarquee";
 import { cn } from "@/lib/utils";
 import documentsImage from "@/assets/worthprime-documents-blue.jpg";
 
@@ -60,6 +61,8 @@ function ServicesPage() {
         </div>
 
       </Section>
+
+      <PricingMarquee />
 
       <Section className="pt-10 sm:pt-14">
         <div className="flex flex-wrap gap-2">

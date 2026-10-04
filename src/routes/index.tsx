@@ -10,12 +10,12 @@ import {
   PROCESS,
   REASONS,
   STATS,
-  TRUST_PHRASES,
 } from "@/data/site";
 import { Container, CountUp, Reveal, Section, SectionLabel } from "@/components/site/primitives";
 import { ServiceCard } from "@/components/site/ServiceCard";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { CtaBand } from "@/components/site/CtaBand";
+import { PricingMarquee } from "@/components/site/PricingMarquee";
 import { cn } from "@/lib/utils";
 import heroImage from "@/assets/worthprime-hero-blue.jpg";
 import advisersImage from "@/assets/worthprime-advisers-blue.jpg";
@@ -43,7 +43,7 @@ function Index() {
   return (
     <>
       <Hero />
-      <TrustTicker />
+      <PricingMarquee />
       <StatsBand />
       <WhoWeAre />
       <ProofSection />
@@ -110,25 +110,6 @@ function Hero() {
         </div>
       </Container>
     </section>
-  );
-}
-
-function TrustTicker() {
-  const row = [...TRUST_PHRASES, ...TRUST_PHRASES];
-  return (
-    <div className="overflow-hidden border-y border-border py-5">
-      <div className="marquee-track flex w-max gap-10 whitespace-nowrap">
-        {[...row, ...row].map((p, i) => (
-          <span
-            key={`${p}-${i}`}
-            className="flex items-center gap-10 text-sm uppercase tracking-[0.22em] text-muted-foreground"
-          >
-            {p}
-            <span className="text-gold">✦</span>
-          </span>
-        ))}
-      </div>
-    </div>
   );
 }
 
