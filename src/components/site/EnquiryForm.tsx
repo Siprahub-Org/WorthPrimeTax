@@ -3,7 +3,7 @@ import { Check } from "lucide-react";
 import { SERVICES } from "@/data/services";
 
 const field =
-  "w-full rounded-xl border border-input bg-navy-deep/60 px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 outline-none transition-colors focus:border-gold";
+  "w-full rounded-xl border border-input bg-background px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 outline-none transition-colors focus:border-gold";
 
 export function EnquiryForm({ compact = false }: { compact?: boolean }) {
   const [sent, setSent] = useState(false);
