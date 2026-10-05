@@ -79,7 +79,7 @@ function ServiceDetail() {
                 {service.audience}
               </span>
             </div>
-            <h1 className="mt-4 text-[clamp(2.2rem,5.4vw,4.2rem)] leading-[1.03]">
+            <h1 className="mt-4 text-[clamp(2.2rem,5.4vw,4.2rem)] leading-[1.03] text-hero-foreground">
               {service.name}
             </h1>
             <p className="mt-4 font-display text-2xl italic text-gold">{service.tagline}</p>

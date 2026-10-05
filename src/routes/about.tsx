@@ -47,7 +47,7 @@ function AboutPage() {
         <div className="grid items-end gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="pb-12 sm:pb-16">
             <SectionLabel index="01">How we started</SectionLabel>
-            <h1 className="mt-5 max-w-4xl text-[clamp(2.4rem,6vw,4.6rem)] leading-[1.03]">
+            <h1 className="mt-5 max-w-4xl text-[clamp(2.4rem,6vw,4.6rem)] leading-[1.03] text-hero-foreground">
               Built on Experience. <span className="italic text-hero-muted">Shaped by Perspective.</span>
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-relaxed text-hero-muted">

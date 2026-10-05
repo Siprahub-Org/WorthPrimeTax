@@ -33,27 +33,27 @@ export function ServiceCard({ service }: { service: Service }) {
         style={{ transform: flipped ? "rotateY(180deg)" : undefined }}
       >
         {/* Front */}
-        <div className="flip-face surface-card flex h-full w-full flex-col justify-between p-6">
+        <div className="flip-face surface-card flex h-full w-full flex-col justify-between border-navy-deep bg-navy-deep p-6 text-hero-foreground">
           <div className="flex items-start justify-between">
-            <span className="font-display text-5xl text-gold">{service.number}</span>
-            <span className="rounded-full border border-border px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+            <span className="font-display text-5xl text-hero-foreground">{service.number}</span>
+            <span className="rounded-full border border-hero-border px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-hero-muted">
               {service.audience}
             </span>
           </div>
           <div>
-            <h3 className="text-2xl leading-tight">{service.name}</h3>
-            <p className="mt-2 text-sm font-medium text-gold-soft">{service.tagline}</p>
+            <h3 className="text-2xl leading-tight text-hero-foreground">{service.name}</h3>
+            <p className="mt-2 text-sm font-medium text-hero-muted">{service.tagline}</p>
           </div>
         </div>
 
         {/* Back */}
-        <div className="flip-back surface-card flex h-full w-full flex-col justify-between bg-navy-soft p-6">
+        <div className="flip-back surface-card flex h-full w-full flex-col justify-between border-navy-deep bg-navy-deep p-6 text-hero-foreground">
           <div>
-            <p className="text-sm text-foreground/85">{service.summary}</p>
-            <ul className="mt-4 space-y-1.5 text-xs text-muted-foreground">
+            <p className="text-sm text-hero-foreground/90">{service.summary}</p>
+            <ul className="mt-4 space-y-1.5 text-xs text-hero-muted">
               {service.capabilities.slice(0, 4).map((c) => (
                 <li key={c} className="flex gap-2">
-                  <span className="text-gold">—</span>
+                  <span className="text-hero-foreground">—</span>
                   <span>{c}</span>
                 </li>
               ))}
@@ -62,7 +62,7 @@ export function ServiceCard({ service }: { service: Service }) {
           <Link
             to="/services/$slug"
             params={{ slug: service.slug }}
-            className="inline-flex items-center gap-1 text-sm font-medium text-gold hover:underline"
+            className="inline-flex items-center gap-1 text-sm font-medium text-hero-foreground hover:underline"
           >
             View service <ArrowUpRight className="size-4" />
           </Link>

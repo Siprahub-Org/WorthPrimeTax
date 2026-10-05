@@ -14,4 +14,4 @@
 - All site copy, service definitions and contact details live in `src/data/` (`site.ts`, `services.ts`) — single source so nav, cards, price table and detail pages never drift apart.
 - Shared page chrome and reusable building blocks live in `src/components/site/`; shadcn primitives stay in `src/components/ui/`.
 - Colours, radii and motion come only from the tokens in `src/styles.css` — no hardcoded colour utilities, so the palette can be re-themed in one place.
-- The visual system uses shared semantic tokens and reusable site components so typography, palette, and repeated promotional elements stay consistent across every route.
+- The visual system pairs brand-blue headings and selected blue promotional/service panels with black body copy on white surfaces, using shared semantic tokens and reusable site components for consistency.
