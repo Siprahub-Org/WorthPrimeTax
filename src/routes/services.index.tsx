@@ -45,7 +45,7 @@ function ServicesPage() {
         <div className="grid items-end gap-10 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="pb-12 sm:pb-16">
             <SectionLabel index="01">What we do</SectionLabel>
-            <h1 className="mt-5 max-w-4xl text-[clamp(2.4rem,6vw,4.6rem)] leading-[1.03]">
+            <h1 className="mt-5 max-w-4xl text-[clamp(2.4rem,6vw,4.6rem)] leading-[1.03] text-hero-foreground">
               The Numbers Behind Your Business.{" "}
               <span className="italic text-hero-muted">The Perspective Beyond Them.</span>
             </h1>
