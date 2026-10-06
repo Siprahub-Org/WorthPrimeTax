@@ -1,5 +1,6 @@
 import { Phone, Mail, Linkedin, Instagram } from "lucide-react";
 import { LINKS } from "@/data/site";
+import { cn } from "@/lib/utils";
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -10,23 +11,32 @@ function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 const items = [
-  { href: LINKS.whatsapp, label: "WhatsApp", Icon: WhatsAppIcon, external: true },
-  { href: LINKS.phoneHref, label: "Call us", Icon: Phone, external: false },
-  { href: `mailto:${LINKS.email}`, label: "Email us", Icon: Mail, external: false },
-  { href: LINKS.linkedin, label: "LinkedIn", Icon: Linkedin, external: true },
+  {
+    href: LINKS.whatsapp,
+    label: "WhatsApp",
+    Icon: WhatsAppIcon,
+    external: true,
+    className: "border-whatsapp bg-card text-whatsapp",
+  },
+  { href: LINKS.phoneHref, label: "Call us", Icon: Phone, external: false, className: "" },
+  { href: `mailto:${LINKS.email}`, label: "Email us", Icon: Mail, external: false, className: "" },
+  { href: LINKS.linkedin, label: "LinkedIn", Icon: Linkedin, external: true, className: "" },
 ];
 
 export function ContactCluster() {
   return (
     <div className="fixed bottom-4 right-4 z-40 flex flex-col gap-2">
-      {items.map(({ href, label, Icon, external }) => (
+      {items.map(({ href, label, Icon, external, className }) => (
         <a
           key={label}
           href={href}
           aria-label={label}
           title={label}
           {...(external ? { target: "_blank", rel: "noreferrer noopener" } : {})}
-          className="grid size-11 place-items-center rounded-full border border-navy-deep bg-navy-deep text-hero-foreground shadow-lg transition-transform hover:-translate-y-0.5"
+          className={cn(
+            "grid size-11 place-items-center rounded-full border shadow-lg transition-transform hover:-translate-y-0.5",
+            className || "border-navy-deep bg-navy-deep text-hero-foreground",
+          )}
         >
           <Icon className="size-4.5" />
         </a>
