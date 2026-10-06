@@ -1,5 +1,6 @@
 import { Phone, Mail, Linkedin, Instagram } from "lucide-react";
 import { LINKS } from "@/data/site";
+import { cn } from "@/lib/utils";
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -25,14 +26,17 @@ const items = [
 export function ContactCluster() {
   return (
     <div className="fixed bottom-4 right-4 z-40 flex flex-col gap-2">
-      {items.map(({ href, label, Icon, external }) => (
+      {items.map(({ href, label, Icon, external, className }) => (
         <a
           key={label}
           href={href}
           aria-label={label}
           title={label}
           {...(external ? { target: "_blank", rel: "noreferrer noopener" } : {})}
-          className="grid size-11 place-items-center rounded-full border border-navy-deep bg-navy-deep text-hero-foreground shadow-lg transition-transform hover:-translate-y-0.5"
+          className={cn(
+            "grid size-11 place-items-center rounded-full border shadow-lg transition-transform hover:-translate-y-0.5",
+            className || "border-navy-deep bg-navy-deep text-hero-foreground",
+          )}
         >
           <Icon className="size-4.5" />
         </a>
