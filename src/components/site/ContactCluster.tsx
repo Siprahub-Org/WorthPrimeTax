@@ -10,10 +10,16 @@ function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 const items = [
-  { href: LINKS.whatsapp, label: "WhatsApp", Icon: WhatsAppIcon, external: true },
-  { href: LINKS.phoneHref, label: "Call us", Icon: Phone, external: false },
-  { href: `mailto:${LINKS.email}`, label: "Email us", Icon: Mail, external: false },
-  { href: LINKS.linkedin, label: "LinkedIn", Icon: Linkedin, external: true },
+  {
+    href: LINKS.whatsapp,
+    label: "WhatsApp",
+    Icon: WhatsAppIcon,
+    external: true,
+    className: "border-whatsapp bg-card text-whatsapp",
+  },
+  { href: LINKS.phoneHref, label: "Call us", Icon: Phone, external: false, className: "" },
+  { href: `mailto:${LINKS.email}`, label: "Email us", Icon: Mail, external: false, className: "" },
+  { href: LINKS.linkedin, label: "LinkedIn", Icon: Linkedin, external: true, className: "" },
 ];
 
 export function ContactCluster() {

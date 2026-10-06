@@ -119,23 +119,23 @@ function Hero() {
 function StatsBand() {
   return (
     <Section className="bg-navy-soft py-14 sm:py-20">
-      <div className="grid overflow-hidden rounded-[2rem] border border-border sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid overflow-hidden rounded-[2rem] border border-stat-border bg-stat-surface shadow-lg sm:grid-cols-2 lg:grid-cols-4">
         {STATS.map((s, i) => (
           <Reveal key={s.label} delay={i * 80}>
             <div
               className={cn(
                 "h-full p-7 sm:p-9",
-                i < STATS.length - 1 && "border-b border-border",
+                i < STATS.length - 1 && "border-b border-stat-border",
                 (i === 0 || i === 2) && "sm:border-r",
                 i < 2 && "sm:border-b",
                 i < STATS.length - 1 && "lg:border-r",
                 "lg:border-b-0",
               )}
             >
-              <p className="font-sans text-[clamp(2.5rem,4vw,4rem)] font-medium leading-none text-foreground">
+              <p className="font-sans text-[clamp(2.5rem,4vw,4rem)] font-medium leading-none text-stat-foreground">
                 <CountUp value={s.value} prefix={s.prefix} suffix={s.suffix} />
               </p>
-              <p className="mt-3 text-sm leading-snug text-muted-foreground">{s.label}</p>
+              <p className="mt-3 text-sm leading-snug text-stat-muted">{s.label}</p>
             </div>
           </Reveal>
         ))}
