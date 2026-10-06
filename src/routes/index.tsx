@@ -64,11 +64,11 @@ function Hero() {
     <section className="bg-navy-deep pb-0">
       <Container>
         <div className="relative min-h-[650px] overflow-hidden sm:min-h-[720px]">
-          <img src={heroImage} alt="Tax advisers reviewing financial documents together" width={1600} height={1056} className="absolute inset-0 h-full w-full object-cover object-[62%_center] opacity-75 sm:object-center" />
-          <div className="absolute inset-0 bg-linear-to-r from-navy-deep via-navy-deep/90 to-navy-deep/25" aria-hidden />
-          <div className="absolute inset-0 bg-linear-to-l from-navy-deep via-navy-deep/40 to-transparent" aria-hidden />
-          <div className="absolute inset-0 bg-linear-to-t from-navy-deep via-navy-deep/35 to-transparent" aria-hidden />
-          <div className="absolute inset-0 bg-linear-to-b from-navy-deep/60 via-transparent to-transparent" aria-hidden />
+          <img src={heroImage} alt="Tax advisers reviewing financial documents together" width={1600} height={1056} className="absolute inset-0 h-full w-full object-cover object-[62%_center] opacity-90 sm:object-center" />
+          <div className="absolute inset-0 bg-linear-to-r from-navy-deep/95 via-navy-deep/55 to-transparent" aria-hidden />
+          <div className="absolute inset-0 bg-linear-to-l from-navy-deep/85 via-navy-deep/25 to-transparent" aria-hidden />
+          <div className="absolute inset-0 bg-linear-to-t from-navy-deep/85 via-navy-deep/20 to-transparent" aria-hidden />
+          <div className="absolute inset-0 bg-linear-to-b from-navy-deep/50 via-transparent to-transparent" aria-hidden />
           <div className="absolute inset-0 bg-linear-to-t from-navy-deep/75 via-transparent to-transparent sm:hidden" aria-hidden />
           <div className="relative flex min-h-[650px] max-w-3xl flex-col justify-center px-1 py-14 sm:min-h-[720px] sm:px-10 sm:py-16 lg:px-14">
             <SectionLabel index="01">Explore</SectionLabel>
@@ -119,23 +119,23 @@ function Hero() {
 function StatsBand() {
   return (
     <Section className="bg-navy-soft py-14 sm:py-20">
-      <div className="grid overflow-hidden rounded-[2rem] border border-stat-border bg-stat-surface shadow-lg sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid overflow-hidden rounded-[2rem] border border-border sm:grid-cols-2 lg:grid-cols-4">
         {STATS.map((s, i) => (
           <Reveal key={s.label} delay={i * 80}>
             <div
               className={cn(
                 "h-full p-7 sm:p-9",
-                i < STATS.length - 1 && "border-b border-stat-border",
+                i < STATS.length - 1 && "border-b border-border",
                 (i === 0 || i === 2) && "sm:border-r",
                 i < 2 && "sm:border-b",
                 i < STATS.length - 1 && "lg:border-r",
                 "lg:border-b-0",
               )}
             >
-              <p className="font-sans text-[clamp(2.5rem,4vw,4rem)] font-medium leading-none text-stat-foreground">
+              <p className="font-sans text-[clamp(2.5rem,4vw,4rem)] font-medium leading-none text-stat-surface">
                 <CountUp value={s.value} prefix={s.prefix} suffix={s.suffix} />
               </p>
-              <p className="mt-3 text-sm leading-snug text-stat-muted">{s.label}</p>
+              <p className="mt-3 text-sm leading-snug text-muted-foreground">{s.label}</p>
             </div>
           </Reveal>
         ))}
