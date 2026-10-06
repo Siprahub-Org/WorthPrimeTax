@@ -66,6 +66,9 @@ function Hero() {
         <div className="relative min-h-[650px] overflow-hidden sm:min-h-[720px]">
           <img src={heroImage} alt="Tax advisers reviewing financial documents together" width={1600} height={1056} className="absolute inset-0 h-full w-full object-cover object-[62%_center] opacity-75 sm:object-center" />
           <div className="absolute inset-0 bg-linear-to-r from-navy-deep via-navy-deep/90 to-navy-deep/25" aria-hidden />
+          <div className="absolute inset-0 bg-linear-to-l from-navy-deep via-navy-deep/40 to-transparent" aria-hidden />
+          <div className="absolute inset-0 bg-linear-to-t from-navy-deep via-navy-deep/35 to-transparent" aria-hidden />
+          <div className="absolute inset-0 bg-linear-to-b from-navy-deep/60 via-transparent to-transparent" aria-hidden />
           <div className="absolute inset-0 bg-linear-to-t from-navy-deep/75 via-transparent to-transparent sm:hidden" aria-hidden />
           <div className="relative flex min-h-[650px] max-w-3xl flex-col justify-center px-1 py-14 sm:min-h-[720px] sm:px-10 sm:py-16 lg:px-14">
             <SectionLabel index="01">Explore</SectionLabel>
