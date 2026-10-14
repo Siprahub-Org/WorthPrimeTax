@@ -16,7 +16,7 @@ export function EnquiryForm({ compact = false }: { compact?: boolean }) {
   if (sent) {
     return (
       <div className="surface-card flex h-full min-h-[320px] flex-col items-center justify-center p-8 text-center">
-        <span className="grid size-12 place-items-center rounded-full bg-gold text-navy-deep">
+        <span className="grid size-12 place-items-center rounded-full bg-gold text-hero-foreground">
           <Check className="size-6" />
         </span>
         <h3 className="mt-4 text-2xl">Thank you</h3>
@@ -78,7 +78,7 @@ export function EnquiryForm({ compact = false }: { compact?: boolean }) {
       </div>
       <button
         type="submit"
-        className="mt-4 w-full rounded-full bg-gold px-6 py-3 text-sm font-semibold text-navy-deep transition-transform hover:scale-[1.01]"
+        className="mt-4 w-full rounded-full bg-gold px-6 py-3 text-sm font-semibold text-hero-foreground transition-transform hover:scale-[1.01]"
       >
         Request a quote
       </button>

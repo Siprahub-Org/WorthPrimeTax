@@ -101,7 +101,7 @@ function ServiceDetail() {
               <Link
                 to="/"
                 hash="contact-form"
-                className="rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-navy-deep"
+                className="rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-hero-foreground"
               >
                 Contact us
 
