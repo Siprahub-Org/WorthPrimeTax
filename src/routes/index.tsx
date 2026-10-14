@@ -61,53 +61,62 @@ function Index() {
 
 function Hero() {
   return (
-    <section className="bg-navy-deep pb-0">
-      <Container>
-        <div className="relative min-h-[650px] overflow-hidden sm:min-h-[720px]">
-          <img src={heroImage} alt="Tax advisers reviewing financial documents together" width={1600} height={1056} className="absolute inset-0 h-full w-full object-cover object-[62%_center] opacity-90 sm:object-center" />
-          <div className="absolute inset-0 bg-linear-to-r from-navy-deep/95 via-navy-deep/55 to-transparent" aria-hidden />
-          <div className="absolute inset-0 bg-linear-to-l from-navy-deep/85 via-navy-deep/25 to-transparent" aria-hidden />
-          <div className="absolute inset-0 bg-linear-to-t from-navy-deep/85 via-navy-deep/20 to-transparent" aria-hidden />
-          <div className="absolute inset-0 bg-linear-to-b from-navy-deep/50 via-transparent to-transparent" aria-hidden />
-          <div className="absolute inset-0 bg-linear-to-t from-navy-deep/75 via-transparent to-transparent sm:hidden" aria-hidden />
-          <div className="relative flex min-h-[650px] max-w-3xl flex-col justify-center px-1 py-14 sm:min-h-[720px] sm:px-10 sm:py-16 lg:px-14">
-            <SectionLabel index="01">Explore</SectionLabel>
-            <h1 className="mt-5 text-[clamp(2.7rem,6.4vw,5.4rem)] leading-[1.01] text-hero-foreground">
-              Your Business Is More Than a Tax Return.{" "}
-              <span className="italic text-hero-muted">So Are We.</span>
-            </h1>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-hero-muted">
-              Tax obligations rarely exist in isolation. Entity structure affects taxation.
-              Accounting shapes financial visibility. Payroll carries its own compliance
-              responsibilities. And an IRS notice can quickly become a business concern.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                to="/"
-                hash="contact-form"
-                className="inline-flex items-center gap-2 rounded-md bg-hero-foreground px-6 py-3 text-sm font-semibold text-navy-deep transition-transform hover:scale-[1.03]"
-              >
-                Contact us <ArrowRight className="size-4" />
-              </Link>
-              <a
-                href={LINKS.phoneHref}
-                className="inline-flex items-center gap-2 rounded-md border border-hero-border bg-navy-deep/35 px-6 py-3 text-sm text-hero-foreground transition-colors hover:bg-hero-foreground/10"
-              >
-                Connect to us
-              </a>
-            </div>
+    <section className="relative isolate overflow-hidden bg-navy-deep">
+      <img
+        src={heroImage}
+        alt="Tax advisers reviewing financial documents together"
+        width={1600}
+        height={1056}
+        className="absolute inset-0 -z-10 h-full w-full object-cover object-[62%_center] opacity-90 sm:object-center"
+      />
+      <div
+        className="absolute inset-0 -z-10 bg-linear-to-r from-navy-deep via-navy-deep/65 to-navy-deep/20"
+        aria-hidden
+      />
+      <div
+        className="absolute inset-0 -z-10 bg-linear-to-t from-navy-deep/75 via-navy-deep/10 to-navy-deep/40"
+        aria-hidden
+      />
+      <Container className="relative">
+        <div className="flex min-h-[650px] max-w-3xl flex-col justify-center py-14 sm:min-h-[720px] sm:py-16">
+          <SectionLabel index="01" className="text-hero-muted!">
+            Explore
+          </SectionLabel>
+          <h1 className="mt-5 text-[clamp(2.7rem,6.4vw,5.4rem)] leading-[1.01] text-hero-foreground">
+            Your Business Is More Than a Tax Return.{" "}
+            <span className="italic text-hero-muted">So Are We.</span>
+          </h1>
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-hero-muted">
+            Tax obligations rarely exist in isolation. Entity structure affects taxation.
+            Accounting shapes financial visibility. Payroll carries its own compliance
+            responsibilities. And an IRS notice can quickly become a business concern.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              to="/"
+              hash="contact-form"
+              className="inline-flex items-center gap-2 rounded-md bg-hero-foreground px-6 py-3 text-sm font-semibold text-navy-deep transition-transform hover:scale-[1.03]"
+            >
+              Contact us <ArrowRight className="size-4" />
+            </Link>
+            <a
+              href={LINKS.phoneHref}
+              className="inline-flex items-center gap-2 rounded-md border border-hero-border bg-navy-deep/35 px-6 py-3 text-sm text-hero-foreground transition-colors hover:bg-hero-foreground/10"
+            >
+              Connect to us
+            </a>
+          </div>
 
-            <div className="mt-10 flex items-center gap-4">
-              <div>
-                <div className="flex items-center gap-1 text-gold">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="size-3.5 fill-current" />
-                  ))}
-                </div>
-                <p className="text-sm text-hero-muted">
-                  <span className="text-hero-foreground">500 plus</span> satisfied customers
-                </p>
+          <div className="mt-10 flex items-center gap-4">
+            <div>
+              <div className="flex items-center gap-1 text-gold">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="size-3.5 fill-current" />
+                ))}
               </div>
+              <p className="text-sm text-hero-muted">
+                <span className="text-hero-foreground">500 plus</span> satisfied customers
+              </p>
             </div>
           </div>
         </div>

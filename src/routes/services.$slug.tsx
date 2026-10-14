@@ -72,7 +72,7 @@ function ServiceDetail() {
         <div className="mt-8 grid gap-10 lg:grid-cols-[1.25fr_0.75fr]">
           <div>
             <div className="flex items-center gap-4">
-              <span className="font-display text-[clamp(3.5rem,10vw,7rem)] leading-none text-gold">
+              <span className="font-display text-[clamp(3.5rem,10vw,7rem)] leading-none text-hero-muted">
                 {service.number}
               </span>
               <span className="rounded-full border border-hero-border px-4 py-1.5 text-[11px] uppercase tracking-[0.18em] text-hero-muted">
@@ -82,16 +82,16 @@ function ServiceDetail() {
             <h1 className="mt-4 text-[clamp(2.2rem,5.4vw,4.2rem)] leading-[1.03] text-hero-foreground">
               {service.name}
             </h1>
-            <p className="mt-4 font-display text-2xl italic text-gold">{service.tagline}</p>
+            <p className="mt-4 font-display text-2xl italic text-hero-muted">{service.tagline}</p>
           </div>
 
           <div className="flex flex-col justify-between border border-hero-border bg-hero-foreground/5 p-7">
             <div>
-              <p className="label-slash">Start here</p>
+              <p className="label-slash text-hero-muted!">Start here</p>
               <p className="mt-3 text-lg leading-snug">{service.cta}</p>
               <p className="mt-3 text-sm text-hero-muted">
                 Starting from{" "}
-                <span className={service.price.startsWith("From") ? "text-gold" : ""}>
+                <span className={service.price.startsWith("From") ? "font-semibold text-hero-foreground" : ""}>
                   {service.price}
                 </span>
                 . Final fees depend on scope.
