@@ -75,7 +75,7 @@ function ServicesPage() {
               className={cn(
                 "rounded-full border px-5 py-2 text-sm transition-colors",
                 filter === a
-                  ? "border-gold bg-gold text-navy-deep"
+                  ? "border-gold bg-gold text-hero-foreground"
                   : "border-border text-foreground/80 hover:bg-accent",
               )}
             >
@@ -174,7 +174,7 @@ function ServicesPage() {
           href={LINKS.irs}
           target="_blank"
           rel="noreferrer noopener"
-          className="surface-card flex flex-wrap items-center justify-between gap-4 bg-navy-soft p-7 transition-colors hover:border-gold/60"
+          className="surface-card flex flex-wrap items-center justify-between gap-4 p-7 transition-colors hover:border-gold/60"
         >
           <div>
             <p className="label-slash">04 / IRS tool</p>
@@ -183,7 +183,7 @@ function ServicesPage() {
               Opens the official IRS refund tracker in a new tab.
             </p>
           </div>
-          <span className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-navy-deep">
+          <span className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-hero-foreground">
             Open tool <ExternalLink className="size-4" />
           </span>
         </a>

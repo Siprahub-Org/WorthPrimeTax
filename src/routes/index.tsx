@@ -119,7 +119,7 @@ function Hero() {
 function StatsBand() {
   return (
     <Section className="bg-navy-soft py-14 sm:py-20">
-      <div className="grid overflow-hidden rounded-[2rem] border border-border sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid overflow-hidden rounded-[2rem] border border-navy-deep/15 bg-tint sm:grid-cols-2 lg:grid-cols-4">
         {STATS.map((s, i) => (
           <Reveal key={s.label} delay={i * 80}>
             <div
@@ -294,25 +294,52 @@ function PricingPreview() {
     <Section className="bg-navy/40">
       <SectionLabel index="06">Pricing</SectionLabel>
       <div className="mt-6 flex flex-wrap items-end justify-between gap-5">
-        <h2 className="text-[clamp(1.8rem,4vw,3rem)] leading-tight">Starting from</h2>
-        <Link to="/services" hash="pricing" className="text-sm text-gold hover:underline">
-          See the full price chart →
+        <h2 className="text-[clamp(1.8rem,4vw,3rem)] leading-tight">
+          Starting from, <span className="italic text-gold">before scope.</span>
+        </h2>
+        <Link
+          to="/services"
+          hash="pricing"
+          className="inline-flex items-center gap-2 rounded-full bg-navy-deep px-6 py-3 text-sm font-semibold text-hero-foreground transition-transform hover:scale-[1.03]"
+        >
+          See the full price chart <ArrowRight className="size-4" />
         </Link>
       </div>
-      <div className="surface-card mt-8 divide-y divide-border overflow-hidden">
-        {rows.map((s) => (
-          <div key={s.slug} className="flex items-center justify-between gap-4 px-6 py-4">
-            <span className="text-sm">{s.name}</span>
-            <span
-              className={cn(
-                "shrink-0 text-sm",
-                s.price.startsWith("From") ? "text-gold" : "text-muted-foreground",
-              )}
-            >
-              {s.price}
-            </span>
-          </div>
-        ))}
+      <div className="surface-card mt-8 overflow-hidden rounded-3xl">
+        <div className="hidden items-center justify-between gap-4 border-b border-navy-deep/15 px-7 py-4 text-[11px] uppercase tracking-[0.18em] text-muted-foreground sm:flex">
+          <span>Service</span>
+          <span>Starting from</span>
+        </div>
+        <div className="divide-y divide-navy-deep/10">
+          {rows.map((s) => {
+            const confirmed = s.price.startsWith("From");
+            return (
+              <Link
+                key={s.slug}
+                to="/services/$slug"
+                params={{ slug: s.slug }}
+                className="group flex items-center justify-between gap-4 px-7 py-5 transition-colors hover:bg-white/70"
+              >
+                <span className="flex items-baseline gap-3 text-left">
+                  <span className="font-display text-sm text-stat-surface">{s.number}</span>
+                  <span className="text-sm sm:text-base">{s.name}</span>
+                </span>
+                <span className="flex shrink-0 items-center gap-4">
+                  {confirmed ? (
+                    <span className="font-display text-2xl text-stat-surface sm:text-3xl">
+                      {s.price}
+                    </span>
+                  ) : (
+                    <span className="rounded-full border border-navy-deep/25 px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                      Price TBC
+                    </span>
+                  )}
+                  <ArrowRight className="size-4 -translate-x-1 text-stat-surface opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100" />
+                </span>
+              </Link>
+            );
+          })}
+        </div>
       </div>
       <p className="mt-4 text-xs text-muted-foreground">
         Final fees depend on scope. Audits cover clients across U.S. states.
@@ -367,7 +394,7 @@ function ClientExperience() {
         {Array.from({ length: 4 }).map((_, i) => (
           <div
             key={i}
-            className="grid h-24 place-items-center rounded-2xl border border-dashed border-border text-xs text-muted-foreground"
+            className="grid h-24 place-items-center rounded-2xl border border-dashed border-navy-deep/25 bg-tint text-xs text-muted-foreground"
           >
             [Certification badge]
           </div>

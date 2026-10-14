@@ -50,6 +50,7 @@
   --color-ink: var(--ink);
   --color-stat-surface: var(--stat-surface);
   --color-whatsapp: var(--whatsapp);
+  --color-tint: var(--tint);
   --font-display: "Open Sans", system-ui, sans-serif;
   --font-sans: "Open Sans", system-ui, sans-serif;
 }
@@ -70,6 +71,7 @@
   --hero-border: rgb(255 255 255 / 30%);
   --stat-surface: #2e5aac;
   --whatsapp: #25d366;
+  --tint: #edf2fa;
 
   --background: var(--cream);
   --foreground: oklch(0.18 0.01 260);
@@ -128,8 +130,8 @@
 }
 
 @utility surface-card {
-  background-color: var(--color-card);
-  border: 1px solid var(--color-border);
+  background-color: var(--color-tint);
+  border: 1px solid rgb(46 90 172 / 18%);
   border-radius: var(--radius-lg);
 }
 
