@@ -79,7 +79,9 @@ function Hero() {
       />
       <Container className="relative">
         <div className="flex min-h-[650px] max-w-3xl flex-col justify-center py-14 sm:min-h-[720px] sm:py-16">
-          <SectionLabel index="01">Explore</SectionLabel>
+          <SectionLabel index="01" className="text-hero-muted!">
+            Explore
+          </SectionLabel>
           <h1 className="mt-5 text-[clamp(2.7rem,6.4vw,5.4rem)] leading-[1.01] text-hero-foreground">
             Your Business Is More Than a Tax Return.{" "}
             <span className="italic text-hero-muted">So Are We.</span>
