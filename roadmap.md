@@ -6,3 +6,4 @@
 - [x] Keep Audit at “From $5,000” and label unconfirmed prices “Price TBC.”
 - [x] Replace the generic messaging symbol with the WhatsApp brand icon.
 - [x] Verify Home, About, Services, and a service detail on desktop and mobile.
+- [x] Make the homepage hero photo span the full page width, with no visible edge.
