@@ -174,7 +174,7 @@ function ServicesPage() {
           href={LINKS.irs}
           target="_blank"
           rel="noreferrer noopener"
-          className="surface-card flex flex-wrap items-center justify-between gap-4 bg-navy-soft p-7 transition-colors hover:border-gold/60"
+          className="surface-card flex flex-wrap items-center justify-between gap-4 p-7 transition-colors hover:border-gold/60"
         >
           <div>
             <p className="label-slash">04 / IRS tool</p>
