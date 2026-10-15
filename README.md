@@ -1,26 +1,26 @@
-# Worthprimetax
+# WorthPrime Tax
 
-plan and build the website
+Marketing website for WorthPrime Tax — U.S. tax, accounting and compliance services.
 
-This project was built with [Lovable](https://lovable.dev).
-
-**Live app**: https://wptax.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/591c51e1-4e47-485b-a34a-6f6331cd6abb).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+Built with TanStack Start, React, Vite and Tailwind CSS.
 
 ## Development
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+You need [Node.js](https://nodejs.org/) (or [Bun](https://bun.sh/)).
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+git clone https://github.com/Siprahub-Org/WorthPrimeTax.git
+cd WorthPrimeTax
+bun install   # or: npm install
+bun run dev   # or: npm run dev
 ```
+
+The site runs at http://localhost:8080.
+
+## Scripts
+
+- `dev` — start the local dev server
+- `build` — production build
+- `preview` — preview the production build
+- `lint` — run ESLint
+- `format` — format with Prettier
