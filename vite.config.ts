@@ -12,4 +12,13 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    server: {
+      // Lovable-hosted assets (e.g. the logo) live under /__l5e on the deployed site;
+      // proxy them in local dev so they render outside Lovable.
+      proxy: {
+        "/__l5e": { target: "https://wptax.lovable.app", changeOrigin: true },
+      },
+    },
+  },
 });
