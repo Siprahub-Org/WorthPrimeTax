@@ -1,0 +1,98 @@
+/*
+ * WorthPrime Tax theme: the single source of truth for every colour on the site.
+ *
+ * Change a colour here and it updates everywhere. styles.css maps these
+ * variables onto the Tailwind tokens (bg-*, text-*, border-*) the components use,
+ * and the standalone SSR error page (src/lib/error-page.ts) inlines this file.
+ *
+ * Two layers:
+ *   1. Brand palette: the only raw colour values in the project. Tints and
+ *      transparencies below are mixed from these, so they follow any change.
+ *   2. Semantic roles: what each colour is for. Point a role at a different
+ *      brand colour to re-theme that part of the site.
+ */
+
+:root {
+  /* 1. Brand palette */
+  --brand-navy: #1a233a; /* WorthPrime blue: headings, hero panels, buttons */
+  --brand-blue: #2e5aac; /* secondary blue: accent links, stat panels */
+  --brand-white: #ffffff;
+  --brand-black: #000000;
+  --brand-tint: #edf2fa; /* pale blue card surface */
+  --brand-ink: oklch(0.18 0.01 260); /* near-black body copy */
+  --brand-slate: oklch(0.42 0.012 260); /* muted copy */
+  --brand-whatsapp: #25d366;
+  --brand-red: oklch(0.62 0.2 27);
+  --brand-red-foreground: oklch(0.98 0.01 85);
+
+  /* 2. Semantic roles */
+
+  /* Primary and secondary */
+  --theme-primary: var(--brand-navy);
+  --theme-primary-foreground: var(--brand-white);
+  --theme-secondary: var(--brand-blue);
+  --theme-secondary-foreground: var(--brand-white);
+
+  /* Page and surfaces */
+  --theme-page-bg: var(--brand-white);
+  --theme-surface: var(--brand-white); /* popovers, menus, plain cards */
+  --theme-card-bg: var(--brand-tint); /* .surface-card panels */
+  --theme-card-border: color-mix(in srgb, var(--brand-blue) 18%, transparent);
+  --theme-subtle-bg: color-mix(in srgb, var(--brand-navy) 6%, transparent); /* muted chips, secondary fills */
+
+  /* Text */
+  --theme-heading: var(--brand-navy);
+  --theme-text: var(--brand-ink);
+  --theme-text-muted: var(--brand-slate);
+
+  /* Borders and focus */
+  --theme-border: color-mix(in srgb, var(--brand-navy) 20%, transparent);
+  --theme-input-border: color-mix(in srgb, var(--brand-navy) 32%, transparent);
+  --theme-focus-ring: var(--brand-navy);
+
+  /* Buttons */
+  --theme-button-bg: var(--brand-navy);
+  --theme-button-text: var(--brand-white);
+  --theme-button-hover-bg: color-mix(in srgb, var(--brand-navy) 9%, transparent); /* outline/ghost button and menu-item hover */
+
+  /* Links */
+  --theme-link: var(--brand-navy);
+  --theme-link-hover: var(--brand-navy);
+  --theme-link-accent: var(--brand-blue); /* "All services →" style call-to-action links */
+
+  /* Hover surfaces */
+  --theme-hover-surface: color-mix(in srgb, var(--brand-white) 70%, transparent); /* rows highlighted on a tinted panel */
+
+  /* Hero and other dark panels */
+  --theme-hero-bg: var(--brand-navy);
+  --theme-hero-text: var(--brand-white);
+  --theme-hero-muted: color-mix(in srgb, var(--brand-white) 78%, transparent);
+  --theme-hero-border: color-mix(in srgb, var(--brand-white) 30%, transparent);
+
+  /* Navbar */
+  --theme-nav-bg: var(--brand-white); /* drawn at 95% opacity over the page */
+  --theme-nav-border: var(--theme-border);
+  --theme-nav-link: color-mix(in oklab, var(--brand-ink) 80%, transparent);
+  --theme-nav-link-hover: var(--brand-navy);
+  --theme-nav-menu-bg: var(--brand-white); /* Services dropdown and mobile menu */
+
+  /* Footer */
+  --theme-footer-bg: var(--brand-white);
+  --theme-footer-heading: var(--brand-navy);
+  --theme-footer-link: color-mix(in oklab, var(--brand-ink) 80%, transparent);
+  --theme-footer-link-hover: var(--brand-navy);
+
+  /* Overlays and status */
+  --theme-overlay: color-mix(in srgb, var(--brand-black) 80%, transparent); /* modal and drawer backdrops */
+  --theme-danger: var(--brand-red);
+  --theme-danger-foreground: var(--brand-red-foreground);
+  --theme-whatsapp: var(--brand-whatsapp);
+
+  /* App sidebar (shadcn component; not used on the marketing pages yet) */
+  --theme-sidebar-bg: var(--theme-surface);
+  --theme-sidebar-text: var(--theme-text);
+  --theme-sidebar-border: var(--theme-border);
+  --theme-sidebar-accent: var(--theme-button-hover-bg);
+  --theme-sidebar-accent-text: var(--theme-text);
+  --theme-sidebar-ring: var(--theme-focus-ring);
+}

@@ -28,12 +28,12 @@ export function ServiceCard({ service }: { service: Service }) {
           }
         }}
         className={cn(
-          "flip-inner h-full w-full rounded-3xl outline-none focus-visible:ring-2 focus-visible:ring-gold",
+          "flip-inner h-full w-full rounded-3xl outline-none focus-visible:ring-2 focus-visible:ring-primary",
         )}
         style={{ transform: flipped ? "rotateY(180deg)" : undefined }}
       >
         {/* Front */}
-        <div className="flip-face surface-card flex h-full w-full flex-col justify-between border-navy-deep bg-navy-deep p-6 text-hero-foreground">
+        <div className="flip-face surface-card flex h-full w-full flex-col justify-between border-hero bg-hero p-6 text-hero-foreground">
           <div className="flex items-start justify-between">
             <span className="font-display text-5xl text-hero-foreground">{service.number}</span>
             <span className="rounded-full border border-hero-border px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-hero-muted">
@@ -47,7 +47,7 @@ export function ServiceCard({ service }: { service: Service }) {
         </div>
 
         {/* Back */}
-        <div className="flip-back surface-card flex h-full w-full flex-col justify-between border-navy-deep bg-navy-deep p-6 text-hero-foreground">
+        <div className="flip-back surface-card flex h-full w-full flex-col justify-between border-hero bg-hero p-6 text-hero-foreground">
           <div>
             <p className="text-sm text-hero-foreground/90">{service.summary}</p>
             <ul className="mt-4 space-y-1.5 text-xs text-hero-muted">

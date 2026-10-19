@@ -25,7 +25,7 @@ function PriceItem({ service }: { service: (typeof SERVICES)[number] }) {
 
 export function PricingMarquee() {
   return (
-    <section aria-label="Featured service pricing" className="overflow-hidden border-y border-navy-deep bg-navy-deep">
+    <section aria-label="Featured service pricing" className="overflow-hidden border-y border-hero bg-hero">
       <div className="marquee-track flex w-max hover:[animation-play-state:paused] focus-within:[animation-play-state:paused]">
         {[...featuredServices, ...featuredServices].map((service, index) => (
           <PriceItem key={`${service.slug}-${index}`} service={service} />

@@ -4,7 +4,7 @@ import { ChevronDown, Menu, X } from "lucide-react";
 import { SERVICES } from "@/data/services";
 import { LINKS } from "@/data/site";
 import { cn } from "@/lib/utils";
-import logoAsset from "@/assets/worthprime-logo.jpeg.asset.json";
+import logoImage from "@/assets/worthprime-logo.webp";
 
 const NAV_ITEMS = [
   { label: "About", to: "/about" as const },
@@ -24,11 +24,11 @@ export function Nav() {
   }, [open]);
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 border-b border-border bg-background/95 px-3 backdrop-blur-xl sm:px-6">
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 border-b border-nav-border bg-nav/95 px-3 backdrop-blur-xl sm:px-6">
       <nav className="pointer-events-auto mx-auto flex min-h-20 w-full max-w-[1200px] items-center gap-2 px-1 sm:px-2">
         <Link to="/" className="flex shrink-0 items-center pr-3" aria-label="WorthPrime Tax home">
-          <span className="flex h-14 w-36 items-center overflow-hidden bg-card px-2">
-            <img src={logoAsset.url} alt="WorthPrime Tax" className="h-full w-full object-contain" />
+          <span className="flex h-14 w-36 items-center overflow-hidden px-2">
+            <img src={logoImage} alt="WorthPrime Tax" className="h-full w-full object-contain" />
           </span>
         </Link>
 
@@ -43,7 +43,7 @@ export function Nav() {
               >
                 <Link
                   to={item.to}
-                  className="flex items-center gap-1 px-3 py-2 text-sm text-foreground/80 transition-colors hover:text-gold"
+                  className="flex items-center gap-1 px-3 py-2 text-sm text-nav-link transition-colors hover:text-nav-link-hover"
                 >
                   Services
                   <ChevronDown className="size-3.5" />
@@ -56,7 +56,7 @@ export function Nav() {
                       : "invisible -translate-y-1 opacity-0",
                   )}
                 >
-                  <div className="grid grid-cols-2 gap-1 rounded-lg border border-border bg-popover p-2 shadow-xl">
+                  <div className="grid grid-cols-2 gap-1 rounded-lg border border-nav-border bg-nav-menu p-2 shadow-xl">
                     {SERVICES.map((s) => (
                       <Link
                         key={s.slug}
@@ -64,7 +64,7 @@ export function Nav() {
                         params={{ slug: s.slug }}
                         className="rounded-md px-3 py-2 text-xs leading-snug text-foreground/75 transition-colors hover:bg-accent hover:text-foreground"
                       >
-                        <span className="mr-1.5 text-gold">{s.number}</span>
+                        <span className="mr-1.5 text-primary">{s.number}</span>
                         {s.name}
                       </Link>
                     ))}
@@ -75,30 +75,27 @@ export function Nav() {
               <Link
                 key={item.label}
                 to={item.to}
-                className="px-3 py-2 text-sm text-foreground/80 transition-colors hover:text-gold"
+                className="px-3 py-2 text-sm text-nav-link transition-colors hover:text-nav-link-hover"
               >
                 {item.label}
               </Link>
             ),
           )}
           <Link
-            to="/services"
-            hash="pricing"
-            className="rounded-full px-3 py-2 text-sm text-foreground/80 transition-colors hover:bg-accent hover:text-foreground"
+            to="/pricing"
+            className="rounded-full px-3 py-2 text-sm text-nav-link transition-colors hover:bg-accent hover:text-foreground"
           >
             Pricing
           </Link>
           <Link
-            to="/"
-            hash="insights"
-            className="rounded-full px-3 py-2 text-sm text-foreground/80 transition-colors hover:bg-accent hover:text-foreground"
+            to="/insights"
+            className="rounded-full px-3 py-2 text-sm text-nav-link transition-colors hover:bg-accent hover:text-foreground"
           >
             Insights
           </Link>
           <Link
-            to="/"
-            hash="contact"
-            className="rounded-full px-3 py-2 text-sm text-foreground/80 transition-colors hover:bg-accent hover:text-foreground"
+            to="/contact"
+            className="rounded-full px-3 py-2 text-sm text-nav-link transition-colors hover:bg-accent hover:text-foreground"
           >
             Contact
           </Link>
@@ -106,7 +103,7 @@ export function Nav() {
             href={LINKS.irs}
             target="_blank"
             rel="noreferrer noopener"
-            className="rounded-full px-3 py-2 text-xs text-muted-foreground transition-colors hover:text-gold"
+            className="rounded-full px-3 py-2 text-xs text-muted-foreground transition-colors hover:text-nav-link-hover"
           >
             IRS refund status
           </a>
@@ -117,7 +114,7 @@ export function Nav() {
             href={LINKS.login}
             target="_blank"
             rel="noreferrer noopener"
-            className="rounded-md bg-brown px-4 py-2 text-sm font-semibold text-cream transition-transform hover:scale-[1.03]"
+            className="rounded-md bg-button px-4 py-2 text-sm font-semibold text-button-foreground transition-transform hover:scale-[1.03]"
           >
             Log in
           </a>
@@ -126,7 +123,7 @@ export function Nav() {
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="grid size-9 place-items-center rounded-full border border-border lg:hidden"
+            className="grid size-9 place-items-center rounded-full border border-nav-border lg:hidden"
           >
             {open ? <X className="size-4" /> : <Menu className="size-4" />}
           </button>
@@ -134,7 +131,7 @@ export function Nav() {
       </nav>
 
       {open && (
-        <div className="pointer-events-auto mx-auto mt-2 max-h-[78vh] w-full max-w-[1200px] overflow-y-auto rounded-3xl border border-border bg-popover p-4 backdrop-blur-xl lg:hidden">
+        <div className="pointer-events-auto mx-auto mt-2 max-h-[78vh] w-full max-w-[1200px] overflow-y-auto rounded-3xl border border-nav-border bg-nav-menu p-4 backdrop-blur-xl lg:hidden">
           <div className="flex flex-col gap-1">
             <Link to="/" onClick={() => setOpen(false)} className="rounded-xl px-3 py-2.5 text-sm">
               Home
@@ -145,7 +142,7 @@ export function Nav() {
             <Link to="/services" onClick={() => setOpen(false)} className="rounded-xl px-3 py-2.5 text-sm">
               Services
             </Link>
-            <div className="my-1 grid gap-0.5 border-l border-border pl-3">
+            <div className="my-1 grid gap-0.5 border-l border-nav-border pl-3">
               {SERVICES.map((s) => (
                 <Link
                   key={s.slug}
@@ -154,18 +151,18 @@ export function Nav() {
                   onClick={() => setOpen(false)}
                   className="rounded-lg px-2 py-1.5 text-xs text-muted-foreground"
                 >
-                  <span className="mr-1.5 text-gold">{s.number}</span>
+                  <span className="mr-1.5 text-primary">{s.number}</span>
                   {s.name}
                 </Link>
               ))}
             </div>
-            <Link to="/services" hash="pricing" onClick={() => setOpen(false)} className="rounded-xl px-3 py-2.5 text-sm">
+            <Link to="/pricing" onClick={() => setOpen(false)} className="rounded-xl px-3 py-2.5 text-sm">
               Pricing
             </Link>
-            <Link to="/" hash="insights" onClick={() => setOpen(false)} className="rounded-xl px-3 py-2.5 text-sm">
+            <Link to="/insights" onClick={() => setOpen(false)} className="rounded-xl px-3 py-2.5 text-sm">
               Insights
             </Link>
-            <Link to="/" hash="contact" onClick={() => setOpen(false)} className="rounded-xl px-3 py-2.5 text-sm">
+            <Link to="/contact" onClick={() => setOpen(false)} className="rounded-xl px-3 py-2.5 text-sm">
               Contact
             </Link>
             <a href={LINKS.irs} target="_blank" rel="noreferrer noopener" className="rounded-xl px-3 py-2.5 text-sm">
@@ -175,7 +172,7 @@ export function Nav() {
               href={LINKS.login}
               target="_blank"
               rel="noreferrer noopener"
-              className="mt-2 rounded-full bg-brown px-4 py-2.5 text-center text-sm font-semibold text-cream"
+              className="mt-2 rounded-full bg-button px-4 py-2.5 text-center text-sm font-semibold text-button-foreground"
             >
               Log in
             </a>

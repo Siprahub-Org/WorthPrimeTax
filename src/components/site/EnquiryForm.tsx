@@ -3,7 +3,7 @@ import { Check } from "lucide-react";
 import { SERVICES } from "@/data/services";
 
 const field =
-  "w-full rounded-xl border border-input bg-background px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 outline-none transition-colors focus:border-gold";
+  "w-full rounded-xl border border-input bg-background px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 outline-none transition-colors focus:border-primary";
 
 export function EnquiryForm({ compact = false }: { compact?: boolean }) {
   const [sent, setSent] = useState(false);
@@ -16,7 +16,7 @@ export function EnquiryForm({ compact = false }: { compact?: boolean }) {
   if (sent) {
     return (
       <div className="surface-card flex h-full min-h-[320px] flex-col items-center justify-center p-8 text-center">
-        <span className="grid size-12 place-items-center rounded-full bg-gold text-hero-foreground">
+        <span className="grid size-12 place-items-center rounded-full bg-primary text-hero-foreground">
           <Check className="size-6" />
         </span>
         <h3 className="mt-4 text-2xl">Thank you</h3>
@@ -26,7 +26,7 @@ export function EnquiryForm({ compact = false }: { compact?: boolean }) {
         <button
           type="button"
           onClick={() => setSent(false)}
-          className="mt-5 text-sm text-gold hover:underline"
+          className="mt-5 text-sm text-primary hover:underline"
         >
           Send another enquiry
         </button>
@@ -60,7 +60,7 @@ export function EnquiryForm({ compact = false }: { compact?: boolean }) {
               Service needed
             </option>
             {SERVICES.map((s) => (
-              <option key={s.slug} value={s.slug} className="bg-navy">
+              <option key={s.slug} value={s.slug} className="bg-background">
                 {s.name}
               </option>
             ))}
@@ -78,13 +78,13 @@ export function EnquiryForm({ compact = false }: { compact?: boolean }) {
       </div>
       <button
         type="submit"
-        className="mt-4 w-full rounded-full bg-gold px-6 py-3 text-sm font-semibold text-hero-foreground transition-transform hover:scale-[1.01]"
+        className="mt-4 w-full rounded-full bg-primary px-6 py-3 text-sm font-semibold text-hero-foreground transition-transform hover:scale-[1.01]"
       >
         Request a quote
       </button>
       <p className="mt-3 text-center text-xs text-muted-foreground">
         Or call {""}
-        <a href="tel:+19166231007" className="text-gold hover:underline">
+        <a href="tel:+19166231007" className="text-primary hover:underline">
           +1 (916) 623-1007
         </a>
       </p>

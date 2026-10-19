@@ -98,20 +98,8 @@ export function CountUp({
   );
 }
 
-export function SectionLabel({
-  index,
-  children,
-  className,
-}: {
-  index: string;
-  children: ReactNode;
-  className?: string;
-}) {
-  return (
-    <p className={cn("label-slash", className)}>
-      {index} / {children}
-    </p>
-  );
+export function SectionLabel({ children, className }: { children: ReactNode; className?: string }) {
+  return <p className={cn("label-slash", className)}>{children}</p>;
 }
 
 export function Container({

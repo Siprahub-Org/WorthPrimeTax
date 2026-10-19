@@ -158,3 +158,39 @@ export const FOUNDERS = [
     ],
   },
 ];
+
+export const CONTACT_PAGE = {
+  title: "Contact WorthPrime Tax | Talk to Our Tax Team",
+  description:
+    "Call, email or WhatsApp WorthPrime Tax, or send an enquiry. Offices in Glastonbury (USA), Dubai (UAE) and Hyderabad (India).",
+  label: "Get in touch",
+  heading: "Questions to resolve.",
+  headingMuted: "Decisions to make.",
+  intro:
+    "We're here to help—connect with us, we're just a click away. Tell us about your situation and the right member of our team will respond. [suggested copy, client to confirm]",
+};
+
+export const PRICING_PAGE = {
+  title: "Pricing | WorthPrime Tax",
+  description:
+    "Starting-from prices for WorthPrime Tax's U.S. tax, accounting, payroll, audit and compliance services. Final fees depend on scope.",
+  label: "Pricing",
+  heading: "Starting from,",
+  headingMuted: "before scope.",
+  intro:
+    "Every engagement is quoted after a short conversation about your entity, filings and the work involved. The chart below shows where each service starts. [suggested copy, client to confirm]",
+  chartNote:
+    "Audits are available to clients across U.S. states. Only the audit fee is confirmed; all other figures are placeholders. Final fees depend on scope.",
+};
+
+export const INSIGHTS_PAGE = {
+  title: "Insights | WorthPrime Tax",
+  description:
+    "Articles and updates from WorthPrime Tax on U.S. tax, accounting and compliance for individuals and businesses.",
+  label: "Insights",
+  heading: "Perspective on",
+  headingMuted: "what comes next.",
+  intro:
+    "Practical notes on U.S. tax, accounting and compliance—what is changing, what it means and what to do about it. [suggested copy, client to confirm]",
+  feedNote: "[These will later be fed from LinkedIn posts]",
+};

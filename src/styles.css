@@ -1,15 +1,22 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import "./styles/theme.css";
 
 @custom-variant dark (&:is(.dark *));
 
 /*
  * WorthPrime Tax design system.
  * White editorial canvas with a single WorthPrime blue.
- * All colors in oklch, exposed to Tailwind via @theme inline.
+ * Colour values live only in ./styles/theme.css. This file maps them onto the
+ * Tailwind tokens below; don't add raw colour values here.
  */
 
+/*
+ * Tailwind colour tokens. Each class family (bg-primary, text-nav-link,
+ * border-hero, ...) reads one role from theme.css, so there is exactly one
+ * definition per colour and no aliases in between.
+ */
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -18,85 +25,86 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-navy: var(--navy);
-  --color-navy-deep: var(--navy-deep);
-  --color-navy-soft: var(--navy-soft);
-  --color-hero-foreground: var(--hero-foreground);
-  --color-hero-muted: var(--hero-muted);
-  --color-hero-border: var(--hero-border);
-  --color-gold: var(--gold);
-  --color-gold-soft: var(--gold-soft);
-  --color-brown: var(--brown);
-  --color-cream: var(--cream);
-  --color-ink: var(--ink);
-  --color-stat-surface: var(--stat-surface);
-  --color-whatsapp: var(--whatsapp);
-  --color-tint: var(--tint);
+
+  /* Page, text and surfaces (also used by the shadcn components) */
+  --color-background: var(--theme-page-bg);
+  --color-foreground: var(--theme-text);
+  --color-card: var(--theme-surface);
+  --color-card-foreground: var(--theme-text);
+  --color-popover: var(--theme-surface);
+  --color-popover-foreground: var(--theme-text);
+  --color-tint: var(--theme-card-bg);
+  --color-muted: var(--theme-subtle-bg);
+  --color-muted-foreground: var(--theme-text-muted);
+  --color-hover-surface: var(--theme-hover-surface);
+  --color-overlay: var(--theme-overlay);
+
+  /* Brand */
+  --color-primary: var(--theme-primary);
+  --color-primary-foreground: var(--theme-primary-foreground);
+  --color-brand-secondary: var(--theme-secondary);
+  --color-brand-secondary-foreground: var(--theme-secondary-foreground);
+  /* shadcn "secondary" is a subtle fill, not the brand secondary colour */
+  --color-secondary: var(--theme-subtle-bg);
+  --color-secondary-foreground: var(--theme-text);
+  --color-accent: var(--theme-button-hover-bg);
+  --color-accent-foreground: var(--theme-text);
+  --color-whatsapp: var(--theme-whatsapp);
+
+  /* Borders, inputs and focus */
+  --color-border: var(--theme-border);
+  --color-input: var(--theme-input-border);
+  --color-ring: var(--theme-focus-ring);
+
+  /* Buttons and links */
+  --color-button: var(--theme-button-bg);
+  --color-button-foreground: var(--theme-button-text);
+  --color-link: var(--theme-link);
+  --color-link-hover: var(--theme-link-hover);
+  --color-link-accent: var(--theme-link-accent);
+
+  /* Hero and dark panels */
+  --color-hero: var(--theme-hero-bg);
+  --color-hero-foreground: var(--theme-hero-text);
+  --color-hero-muted: var(--theme-hero-muted);
+  --color-hero-border: var(--theme-hero-border);
+
+  /* Navbar */
+  --color-nav: var(--theme-nav-bg);
+  --color-nav-border: var(--theme-nav-border);
+  --color-nav-link: var(--theme-nav-link);
+  --color-nav-link-hover: var(--theme-nav-link-hover);
+  --color-nav-menu: var(--theme-nav-menu-bg);
+
+  /* Footer */
+  --color-footer: var(--theme-footer-bg);
+  --color-footer-heading: var(--theme-footer-heading);
+  --color-footer-link: var(--theme-footer-link);
+  --color-footer-link-hover: var(--theme-footer-link-hover);
+
+  /* Status */
+  --color-destructive: var(--theme-danger);
+  --color-destructive-foreground: var(--theme-danger-foreground);
+
+  /* App sidebar (shadcn) */
+  --color-sidebar: var(--theme-sidebar-bg);
+  --color-sidebar-foreground: var(--theme-sidebar-text);
+  --color-sidebar-border: var(--theme-sidebar-border);
+  --color-sidebar-accent: var(--theme-sidebar-accent);
+  --color-sidebar-accent-foreground: var(--theme-sidebar-accent-text);
+  --color-sidebar-ring: var(--theme-sidebar-ring);
+
   --font-display: "Open Sans", system-ui, sans-serif;
   --font-sans: "Open Sans", system-ui, sans-serif;
 }
 
 :root {
   --radius: 0.5rem;
-
-  --navy-deep: #1a233a;
-  --navy: #ffffff;
-  --navy-soft: #ffffff;
-  --gold: #1a233a;
-  --gold-soft: #1a233a;
-  --brown: #1a233a;
-  --cream: #ffffff;
-  --ink: #1a233a;
-  --hero-foreground: #ffffff;
-  --hero-muted: rgb(255 255 255 / 78%);
-  --hero-border: rgb(255 255 255 / 30%);
-  --stat-surface: #2e5aac;
-  --whatsapp: #25d366;
-  --tint: #edf2fa;
-
-  --background: var(--cream);
-  --foreground: oklch(0.18 0.01 260);
-  --card: #ffffff;
-  --card-foreground: var(--foreground);
-  --popover: #ffffff;
-  --popover-foreground: var(--foreground);
-  --primary: var(--gold);
-  --primary-foreground: #ffffff;
-  --secondary: rgb(26 35 58 / 6%);
-  --secondary-foreground: var(--foreground);
-  --muted: rgb(26 35 58 / 6%);
-  --muted-foreground: oklch(0.42 0.012 260);
-  --accent: rgb(26 35 58 / 9%);
-  --accent-foreground: var(--foreground);
-  --destructive: oklch(0.62 0.2 27);
-  --destructive-foreground: oklch(0.98 0.01 85);
-  --border: rgb(26 35 58 / 20%);
-  --input: rgb(26 35 58 / 32%);
-  --ring: var(--gold);
 }
 
 @layer base {
   * {
-    border-color: var(--color-border);
+    border-color: var(--theme-border);
   }
 
   html {
@@ -104,8 +112,8 @@
   }
 
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+    background-color: var(--theme-page-bg);
+    color: var(--theme-text);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     letter-spacing: 0;
@@ -117,7 +125,7 @@
     font-family: var(--font-display);
     font-weight: 700;
     letter-spacing: 0;
-    color: var(--color-navy-deep);
+    color: var(--theme-heading);
   }
 }
 
@@ -125,13 +133,21 @@
   font-size: 0.6875rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--theme-primary);
   font-weight: 500;
 }
 
+/* Main heading of every page hero. Pages add only colour, margin and max-width. */
+@utility hero-heading {
+  font-size: clamp(2.5rem, 4.2vw, 4.5rem);
+  line-height: 1.05;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
 @utility surface-card {
-  background-color: var(--color-tint);
-  border: 1px solid rgb(46 90 172 / 18%);
+  background-color: var(--theme-card-bg);
+  border: 1px solid var(--theme-card-border);
   border-radius: var(--radius-lg);
 }
 
@@ -169,10 +185,10 @@
 @keyframes wp-pulse {
   0%,
   100% {
-    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-gold) 30%, transparent);
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--theme-primary) 30%, transparent);
   }
   50% {
-    box-shadow: 0 0 0 10px color-mix(in oklab, var(--color-gold) 0%, transparent);
+    box-shadow: 0 0 0 10px color-mix(in oklab, var(--theme-primary) 0%, transparent);
   }
 }
 
