@@ -5,6 +5,7 @@ import { AUDIENCES, SERVICES, type Audience } from "@/data/services";
 import { LINKS } from "@/data/site";
 import { Container, Reveal, Section, SectionLabel } from "@/components/site/primitives";
 import { ServiceCard } from "@/components/site/ServiceCard";
+import { PriceChart } from "@/components/site/PriceChart";
 import { CtaBand } from "@/components/site/CtaBand";
 import { PricingMarquee } from "@/components/site/PricingMarquee";
 import { cn } from "@/lib/utils";
@@ -41,13 +42,11 @@ function ServicesPage() {
 
   return (
     <>
-      <Section className="bg-navy-deep pb-0 pt-14 text-hero-foreground">
+      <Section className="bg-hero pb-0 pt-14 text-hero-foreground">
         <div className="grid items-end gap-10 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="pb-12 sm:pb-16">
-            <SectionLabel index="01" className="text-hero-muted!">
-              What we do
-            </SectionLabel>
-            <h1 className="mt-5 max-w-4xl text-[clamp(2.4rem,6vw,4.6rem)] leading-[1.03] text-hero-foreground">
+            <SectionLabel className="text-hero-muted!">What we do</SectionLabel>
+            <h1 className="mt-5 max-w-4xl hero-heading text-hero-foreground">
               The Numbers Behind Your Business.{" "}
               <span className="italic text-hero-muted">The Perspective Beyond Them.</span>
             </h1>
@@ -77,7 +76,7 @@ function ServicesPage() {
               className={cn(
                 "rounded-full border px-5 py-2 text-sm transition-colors",
                 filter === a
-                  ? "border-gold bg-gold text-hero-foreground"
+                  ? "border-primary bg-primary text-hero-foreground"
                   : "border-border text-foreground/80 hover:bg-accent",
               )}
             >
@@ -95,61 +94,16 @@ function ServicesPage() {
         </div>
       </Section>
 
-      <Section id="pricing" className="scroll-mt-24 bg-navy/40">
-        <SectionLabel index="02">Price chart</SectionLabel>
+      <Section id="pricing" className="scroll-mt-24 bg-background/40">
+        <SectionLabel>Price chart</SectionLabel>
         <h2 className="mt-5 text-[clamp(1.9rem,4.4vw,3.2rem)] leading-tight">
-          Starting from, <span className="italic text-gold">before scope.</span>
+          Starting from, <span className="italic text-primary">before scope.</span>
         </h2>
-        <div className="surface-card mt-8 overflow-hidden">
-          <div className="hidden grid-cols-[2fr_1fr_2fr_auto] gap-4 border-b border-border px-6 py-4 text-xs uppercase tracking-[0.16em] text-muted-foreground lg:grid">
-            <span>Service</span>
-            <span>Starting from</span>
-            <span>What is included</span>
-            <span />
-          </div>
-          <div className="divide-y divide-border">
-            {SERVICES.map((s) => (
-              <div
-                key={s.slug}
-                className="grid gap-3 px-6 py-5 lg:grid-cols-[2fr_1fr_2fr_auto] lg:items-center lg:gap-4"
-              >
-                <Link
-                  to="/services/$slug"
-                  params={{ slug: s.slug }}
-                  className="text-sm transition-colors hover:text-gold"
-                >
-                  <span className="mr-2 text-gold">{s.number}</span>
-                  {s.name}
-                </Link>
-                <span
-                  className={cn(
-                    "text-sm",
-                    s.price.startsWith("From") ? "text-gold" : "text-muted-foreground",
-                  )}
-                >
-                  {s.price}
-                </span>
-                <span className="text-sm text-muted-foreground">{s.included}</span>
-                <Link
-                  to="/"
-                  hash="contact-form"
-                  className="justify-self-start rounded-full border border-border px-4 py-2 text-xs transition-colors hover:bg-accent lg:justify-self-end"
-                >
-                  Contact us
-
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-        <p className="mt-4 max-w-2xl text-xs text-muted-foreground">
-          Audits are available to clients across U.S. states. Only the audit fee is confirmed; all
-          other figures are placeholders. Final fees depend on scope.
-        </p>
+        <PriceChart />
       </Section>
 
       <Section>
-        <SectionLabel index="03">Not sure where to start?</SectionLabel>
+        <SectionLabel>Not sure where to start?</SectionLabel>
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {GUIDES.map((g, i) => {
             const service = SERVICES.find((s) => s.slug === g.slug)!;
@@ -158,10 +112,10 @@ function ServicesPage() {
                 <Link
                   to="/services/$slug"
                   params={{ slug: g.slug }}
-                  className="surface-card group flex h-full flex-col justify-between p-6 transition-colors hover:border-gold/60"
+                  className="surface-card group flex h-full flex-col justify-between p-6 transition-colors hover:border-primary/60"
                 >
                   <p className="text-lg leading-snug">{g.situation}</p>
-                  <p className="mt-6 inline-flex items-center gap-2 text-sm text-gold">
+                  <p className="mt-6 inline-flex items-center gap-2 text-sm text-primary">
                     {service.name} <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                   </p>
                 </Link>
@@ -176,16 +130,16 @@ function ServicesPage() {
           href={LINKS.irs}
           target="_blank"
           rel="noreferrer noopener"
-          className="surface-card flex flex-wrap items-center justify-between gap-4 p-7 transition-colors hover:border-gold/60"
+          className="surface-card flex flex-wrap items-center justify-between gap-4 p-7 transition-colors hover:border-primary/60"
         >
           <div>
-            <p className="label-slash">04 / IRS tool</p>
+            <p className="label-slash">IRS tool</p>
             <h3 className="mt-2 text-2xl">Check your IRS refund status</h3>
             <p className="mt-1 text-sm text-muted-foreground">
               Opens the official IRS refund tracker in a new tab.
             </p>
           </div>
-          <span className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-hero-foreground">
+          <span className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-hero-foreground">
             Open tool <ExternalLink className="size-4" />
           </span>
         </a>

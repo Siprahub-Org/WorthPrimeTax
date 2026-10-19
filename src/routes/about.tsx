@@ -43,13 +43,11 @@ export const Route = createFileRoute("/about")({
 function AboutPage() {
   return (
     <>
-      <Section className="bg-navy-deep pb-0 pt-14 text-hero-foreground">
+      <Section className="bg-hero pb-0 pt-14 text-hero-foreground">
         <div className="grid items-end gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="pb-12 sm:pb-16">
-            <SectionLabel index="01" className="text-hero-muted!">
-              How we started
-            </SectionLabel>
-            <h1 className="mt-5 max-w-4xl text-[clamp(2.4rem,6vw,4.6rem)] leading-[1.03] text-hero-foreground">
+            <SectionLabel className="text-hero-muted!">How we started</SectionLabel>
+            <h1 className="mt-5 max-w-4xl hero-heading text-hero-foreground">
               Built on Experience. <span className="italic text-hero-muted">Shaped by Perspective.</span>
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-relaxed text-hero-muted">
@@ -68,8 +66,8 @@ function AboutPage() {
 
       <Founders />
 
-      <Section className="bg-navy/40">
-        <SectionLabel index="03">Two Perspectives. One Purpose.</SectionLabel>
+      <Section className="bg-background/40">
+        <SectionLabel>Two Perspectives. One Purpose.</SectionLabel>
         <p className="mt-6 max-w-4xl text-[clamp(1.3rem,2.8vw,2.1rem)] leading-snug">
           Together, the co-founders bring a distinctive combination of Big Four experience,
           technical expertise, leadership, entrepreneurial thinking and hands-on knowledge of
@@ -85,11 +83,11 @@ function AboutPage() {
       </Section>
 
       <Section>
-        <SectionLabel index="04">Experience in numbers</SectionLabel>
+        <SectionLabel>Experience in numbers</SectionLabel>
         <div className="mt-8 grid gap-5 sm:grid-cols-3">
           <Reveal>
             <div className="surface-card h-full p-7">
-              <p className="font-display text-[clamp(2.4rem,5vw,4rem)] leading-none text-gold">
+              <p className="font-display text-[clamp(2.4rem,5vw,4rem)] leading-none text-primary">
                 <CountUp value={15} suffix="+" />
               </p>
               <p className="mt-3 text-sm text-muted-foreground">
@@ -100,7 +98,7 @@ function AboutPage() {
           </Reveal>
           <Reveal delay={80}>
             <div className="surface-card h-full p-7">
-              <p className="font-display text-[clamp(2.4rem,5vw,4rem)] leading-none text-gold">
+              <p className="font-display text-[clamp(2.4rem,5vw,4rem)] leading-none text-primary">
                 <CountUp value={3} />
               </p>
               <p className="mt-3 text-sm text-muted-foreground">
@@ -110,7 +108,7 @@ function AboutPage() {
           </Reveal>
           <Reveal delay={160}>
             <div className="surface-card h-full p-7">
-              <p className="font-display text-[clamp(2.4rem,5vw,4rem)] leading-none text-gold">
+              <p className="font-display text-[clamp(2.4rem,5vw,4rem)] leading-none text-primary">
                 2020
               </p>
               <p className="mt-3 text-sm text-muted-foreground">
@@ -121,8 +119,8 @@ function AboutPage() {
         </div>
       </Section>
 
-      <Section className="bg-navy/40">
-        <SectionLabel index="05">Leadership and team</SectionLabel>
+      <Section className="bg-background/40">
+        <SectionLabel>Leadership and team</SectionLabel>
         <p className="mt-4 text-sm text-muted-foreground">
           [Client to supply names or generic roles]
         </p>
@@ -132,14 +130,14 @@ function AboutPage() {
               <img src={i % 2 === 0 ? advisersImage : documentsImage} alt="WorthPrime team and advisory work" width={1408} height={1008} loading="lazy" className="aspect-square w-full object-cover" />
               <div className="p-5">
                 <p className="text-base">[Name]</p>
-                <p className="mt-1 text-xs uppercase tracking-widest text-gold">[Role]</p>
+                <p className="mt-1 text-xs uppercase tracking-widest text-primary">[Role]</p>
               </div>
             </div>
           ))}
         </div>
 
         <div className="mt-12">
-          <SectionLabel index="06">Credentials</SectionLabel>
+          <SectionLabel>Credentials</SectionLabel>
           <div className="mt-6 grid grid-cols-2 gap-5 sm:grid-cols-4">
             {CREDENTIALS.map((c) => (
               <div key={c.label} className="surface-card flex flex-col items-center p-6">
@@ -163,12 +161,12 @@ function AboutPage() {
       </Section>
 
       <Section>
-        <SectionLabel index="07">Offices</SectionLabel>
+        <SectionLabel>Offices</SectionLabel>
         <div className="mt-8 grid gap-5 sm:grid-cols-3">
           {OFFICES.map((o, i) => (
             <Reveal key={o.label} delay={i * 80}>
               <div className="surface-card h-full p-7">
-                <p className="label-slash">0{i + 1} / {o.region}</p>
+                <p className="label-slash">{o.region}</p>
                 <h3 className="mt-3 text-2xl">{o.label}</h3>
                 <p className="mt-3 text-sm text-muted-foreground">{o.address}</p>
               </div>
@@ -182,7 +180,7 @@ function AboutPage() {
           <img src={documentsImage} alt="Financial documents prepared for review" width={1408} height={1008} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
           <div className="absolute inset-0 bg-background/45" aria-hidden />
           <div className="relative grid min-h-[320px] place-items-center gap-3 p-8 text-center">
-          <span className="grid size-14 place-items-center rounded-full border border-gold text-gold">
+          <span className="grid size-14 place-items-center rounded-full border border-primary text-primary">
             <Play className="size-5" />
           </span>
           <p className="text-sm text-muted-foreground">
@@ -201,7 +199,7 @@ function Founders() {
   const [open, setOpen] = useState<number | null>(null);
   return (
     <Section className="py-10">
-      <SectionLabel index="02">Co-founders</SectionLabel>
+      <SectionLabel>Co-founders</SectionLabel>
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
         {FOUNDERS.map((f, i) => (
           <article
@@ -213,13 +211,13 @@ function Founders() {
             <img src={advisersImage} alt="Professional advisers in consultation" width={1408} height={1008} loading="lazy" className={cn("aspect-16/10 w-full object-cover", i === 1 && "object-right")} />
             <div className="p-7">
               <h3 className="text-3xl leading-tight">{f.name}</h3>
-              <p className="mt-1 text-xs uppercase tracking-[0.18em] text-gold">{f.title}</p>
+              <p className="mt-1 text-xs uppercase tracking-[0.18em] text-primary">{f.title}</p>
               <p className="mt-3 text-sm text-muted-foreground">{f.credential}</p>
               <button
                 type="button"
                 aria-expanded={open === i}
                 onClick={() => setOpen(open === i ? null : i)}
-                className="mt-5 text-sm text-gold hover:underline"
+                className="mt-5 text-sm text-primary hover:underline"
               >
                 {open === i ? "Hide biography" : "Read biography"}
               </button>

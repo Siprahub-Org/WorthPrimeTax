@@ -14,12 +14,12 @@ import {
 import { Container, CountUp, Reveal, Section, SectionLabel } from "@/components/site/primitives";
 import { ServiceCard } from "@/components/site/ServiceCard";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
+import { InsightCard } from "@/components/site/InsightCard";
 import { CtaBand } from "@/components/site/CtaBand";
 import { PricingMarquee } from "@/components/site/PricingMarquee";
 import { cn } from "@/lib/utils";
 import heroImage from "@/assets/worthprime-hero-blue.jpg";
 import advisersImage from "@/assets/worthprime-advisers-blue.jpg";
-import documentsImage from "@/assets/worthprime-documents-blue.jpg";
 
 const TITLE = "WorthPrime Tax | U.S. Tax, Accounting & Compliance";
 const DESCRIPTION =
@@ -61,7 +61,7 @@ function Index() {
 
 function Hero() {
   return (
-    <section className="relative isolate overflow-hidden bg-navy-deep">
+    <section className="relative isolate overflow-hidden bg-hero">
       <img
         src={heroImage}
         alt="Tax advisers reviewing financial documents together"
@@ -70,19 +70,17 @@ function Hero() {
         className="absolute inset-0 -z-10 h-full w-full object-cover object-[62%_center] opacity-90 sm:object-center"
       />
       <div
-        className="absolute inset-0 -z-10 bg-linear-to-r from-navy-deep via-navy-deep/65 to-navy-deep/20"
+        className="absolute inset-0 -z-10 bg-linear-to-r from-hero via-hero/65 to-hero/20"
         aria-hidden
       />
       <div
-        className="absolute inset-0 -z-10 bg-linear-to-t from-navy-deep/75 via-navy-deep/10 to-navy-deep/40"
+        className="absolute inset-0 -z-10 bg-linear-to-t from-hero/75 via-hero/10 to-hero/40"
         aria-hidden
       />
       <Container className="relative">
-        <div className="flex min-h-[650px] max-w-3xl flex-col justify-center py-14 sm:min-h-[720px] sm:py-16">
-          <SectionLabel index="01" className="text-hero-muted!">
-            Explore
-          </SectionLabel>
-          <h1 className="mt-5 text-[clamp(2.7rem,6.4vw,5.4rem)] leading-[1.01] text-hero-foreground">
+        <div className="flex max-w-3xl flex-col justify-center py-12 sm:py-16 lg:py-20">
+          <SectionLabel className="text-hero-muted!">Explore</SectionLabel>
+          <h1 className="mt-5 hero-heading text-hero-foreground">
             Your Business Is More Than a Tax Return.{" "}
             <span className="italic text-hero-muted">So Are We.</span>
           </h1>
@@ -95,21 +93,21 @@ function Hero() {
             <Link
               to="/"
               hash="contact-form"
-              className="inline-flex items-center gap-2 rounded-md bg-hero-foreground px-6 py-3 text-sm font-semibold text-navy-deep transition-transform hover:scale-[1.03]"
+              className="inline-flex items-center gap-2 rounded-md bg-hero-foreground px-6 py-3 text-sm font-semibold text-primary transition-transform hover:scale-[1.03]"
             >
               Contact us <ArrowRight className="size-4" />
             </Link>
             <a
               href={LINKS.phoneHref}
-              className="inline-flex items-center gap-2 rounded-md border border-hero-border bg-navy-deep/35 px-6 py-3 text-sm text-hero-foreground transition-colors hover:bg-hero-foreground/10"
+              className="inline-flex items-center gap-2 rounded-md border border-hero-border bg-hero/35 px-6 py-3 text-sm text-hero-foreground transition-colors hover:bg-hero-foreground/10"
             >
               Connect to us
             </a>
           </div>
 
-          <div className="mt-10 flex items-center gap-4">
+          <div className="mt-8 flex items-center gap-4">
             <div>
-              <div className="flex items-center gap-1 text-gold">
+              <div className="flex items-center gap-1 text-primary">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star key={i} className="size-3.5 fill-current" />
                 ))}
@@ -127,8 +125,8 @@ function Hero() {
 
 function StatsBand() {
   return (
-    <Section className="bg-navy-soft py-14 sm:py-20">
-      <div className="grid overflow-hidden rounded-[2rem] border border-navy-deep/15 bg-tint sm:grid-cols-2 lg:grid-cols-4">
+    <Section className="bg-card py-14 sm:py-20">
+      <div className="grid overflow-hidden rounded-[2rem] border border-hero/15 bg-tint sm:grid-cols-2 lg:grid-cols-4">
         {STATS.map((s, i) => (
           <Reveal key={s.label} delay={i * 80}>
             <div
@@ -141,7 +139,7 @@ function StatsBand() {
                 "lg:border-b-0",
               )}
             >
-              <p className="font-sans text-[clamp(2.5rem,4vw,4rem)] font-medium leading-none text-stat-surface">
+              <p className="font-sans text-[clamp(2.5rem,4vw,4rem)] font-medium leading-none text-brand-secondary">
                 <CountUp value={s.value} prefix={s.prefix} suffix={s.suffix} />
               </p>
               <p className="mt-3 text-sm leading-snug text-muted-foreground">{s.label}</p>
@@ -156,11 +154,11 @@ function StatsBand() {
 function WhoWeAre() {
   return (
     <Section>
-      <SectionLabel index="03">How we started</SectionLabel>
+      <SectionLabel>How we started</SectionLabel>
       <div className="mt-6 grid gap-10 lg:grid-cols-[1fr_1fr]">
         <div>
           <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
-            Built on Experience. <span className="italic text-gold">Shaped by Perspective.</span>
+            Built on Experience. <span className="italic text-primary">Shaped by Perspective.</span>
           </h2>
           <p className="mt-6 text-muted-foreground">
             Behind every enduring enterprise lies a confluence of sound structure, considered
@@ -183,7 +181,7 @@ function WhoWeAre() {
                 <img src={advisersImage} alt="Professional tax advisers in consultation" width={1408} height={1008} loading="lazy" className={cn("aspect-4/5 w-full object-cover", i === 1 && "object-right")} />
                 <div className="p-5">
                   <h3 className="text-xl leading-tight">{f.name}</h3>
-                  <p className="mt-1 text-xs uppercase tracking-widest text-gold">{f.title}</p>
+                  <p className="mt-1 text-xs uppercase tracking-widest text-primary">{f.title}</p>
                   <p className="mt-3 text-xs text-muted-foreground">{f.credential}</p>
                 </div>
               </article>
@@ -216,12 +214,12 @@ function ProofSection() {
   }, []);
 
   return (
-    <Section className="bg-navy/40">
-      <SectionLabel index="04">Why WorthPrime Tax</SectionLabel>
+    <Section className="bg-background/40">
+      <SectionLabel>Why WorthPrime Tax</SectionLabel>
       <div className="mt-6 grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
         <div className="lg:sticky lg:top-28 lg:self-start">
           <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
-            One Firm. <span className="italic text-gold">Every Business Need.</span>
+            One Firm. <span className="italic text-primary">Every Business Need.</span>
           </h2>
           <p className="mt-6 text-muted-foreground">
             Business does not operate in separate compartments. A tax decision can affect
@@ -233,9 +231,6 @@ function ProofSection() {
             WorthPrime Tax brings these disciplines together through a single, integrated
             professional relationship, giving clients a more coherent way to manage their financial
             and compliance responsibilities.
-          </p>
-          <p className="mt-8 font-display text-3xl text-gold">
-            0{active + 1} <span className="text-foreground/30">/ 0{REASONS.length}</span>
           </p>
         </div>
 
@@ -249,11 +244,11 @@ function ProofSection() {
               className={cn(
                 "surface-card p-7 transition-all duration-500",
                 active === i
-                  ? "border-gold/60 bg-navy-soft opacity-100"
+                  ? "border-primary/60 bg-card opacity-100"
                   : "opacity-55 hover:opacity-80",
               )}
             >
-              <span className="font-display text-4xl text-gold">0{i + 1}</span>
+              <span className="font-display text-4xl text-primary">0{i + 1}</span>
               <h3 className="mt-3 text-2xl leading-tight">{r.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{r.body}</p>
             </div>
@@ -267,11 +262,11 @@ function ProofSection() {
 function ServicesGrid() {
   return (
     <Section id="services">
-      <SectionLabel index="05">What we do</SectionLabel>
+      <SectionLabel>What we do</SectionLabel>
       <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
         <h2 className="max-w-3xl text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
           The Numbers Behind Your Business.{" "}
-          <span className="italic text-gold">The Perspective Beyond Them.</span>
+          <span className="italic text-primary">The Perspective Beyond Them.</span>
         </h2>
         <Link
           to="/services"
@@ -300,26 +295,25 @@ function ServicesGrid() {
 function PricingPreview() {
   const rows = SERVICES.slice(0, 5);
   return (
-    <Section className="bg-navy/40">
-      <SectionLabel index="06">Pricing</SectionLabel>
+    <Section className="bg-background/40">
+      <SectionLabel>Pricing</SectionLabel>
       <div className="mt-6 flex flex-wrap items-end justify-between gap-5">
         <h2 className="text-[clamp(1.8rem,4vw,3rem)] leading-tight">
-          Starting from, <span className="italic text-gold">before scope.</span>
+          Starting from, <span className="italic text-primary">before scope.</span>
         </h2>
         <Link
-          to="/services"
-          hash="pricing"
-          className="inline-flex items-center gap-2 rounded-full bg-navy-deep px-6 py-3 text-sm font-semibold text-hero-foreground transition-transform hover:scale-[1.03]"
+          to="/pricing"
+          className="inline-flex items-center gap-2 rounded-full bg-hero px-6 py-3 text-sm font-semibold text-hero-foreground transition-transform hover:scale-[1.03]"
         >
           See the full price chart <ArrowRight className="size-4" />
         </Link>
       </div>
       <div className="surface-card mt-8 overflow-hidden rounded-3xl">
-        <div className="hidden items-center justify-between gap-4 border-b border-navy-deep/15 px-7 py-4 text-[11px] uppercase tracking-[0.18em] text-muted-foreground sm:flex">
+        <div className="hidden items-center justify-between gap-4 border-b border-hero/15 px-7 py-4 text-[11px] uppercase tracking-[0.18em] text-muted-foreground sm:flex">
           <span>Service</span>
           <span>Starting from</span>
         </div>
-        <div className="divide-y divide-navy-deep/10">
+        <div className="divide-y divide-hero/10">
           {rows.map((s) => {
             const confirmed = s.price.startsWith("From");
             return (
@@ -327,23 +321,23 @@ function PricingPreview() {
                 key={s.slug}
                 to="/services/$slug"
                 params={{ slug: s.slug }}
-                className="group flex items-center justify-between gap-4 px-7 py-5 transition-colors hover:bg-white/70"
+                className="group flex items-center justify-between gap-4 px-7 py-5 transition-colors hover:bg-hover-surface"
               >
                 <span className="flex items-baseline gap-3 text-left">
-                  <span className="font-display text-sm text-stat-surface">{s.number}</span>
+                  <span className="font-display text-sm text-brand-secondary">{s.number}</span>
                   <span className="text-sm sm:text-base">{s.name}</span>
                 </span>
                 <span className="flex shrink-0 items-center gap-4">
                   {confirmed ? (
-                    <span className="font-display text-2xl text-stat-surface sm:text-3xl">
+                    <span className="font-display text-2xl text-brand-secondary sm:text-3xl">
                       {s.price}
                     </span>
                   ) : (
-                    <span className="rounded-full border border-navy-deep/25 px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                    <span className="rounded-full border border-hero/25 px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
                       Price TBC
                     </span>
                   )}
-                  <ArrowRight className="size-4 -translate-x-1 text-stat-surface opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100" />
+                  <ArrowRight className="size-4 -translate-x-1 text-brand-secondary opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100" />
                 </span>
               </Link>
             );
@@ -360,15 +354,15 @@ function PricingPreview() {
 function HowItWorks() {
   return (
     <Section>
-      <SectionLabel index="07">How it works</SectionLabel>
+      <SectionLabel>How it works</SectionLabel>
       <h2 className="mt-6 max-w-2xl text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
-        Four steps, <span className="italic text-gold">start to filing.</span>
+        Four steps, <span className="italic text-primary">start to filing.</span>
       </h2>
       <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {PROCESS.map((p, i) => (
           <Reveal key={p.title} delay={i * 80}>
             <div className="surface-card h-full p-6">
-              <span className="font-display text-6xl leading-none text-gold/70">0{i + 1}</span>
+              <span className="font-display text-6xl leading-none text-primary/70">0{i + 1}</span>
               <h3 className="mt-4 text-xl">{p.title}</h3>
               <p className="mt-2 text-sm text-muted-foreground">{p.body}</p>
             </div>
@@ -381,17 +375,17 @@ function HowItWorks() {
 
 function ClientExperience() {
   return (
-    <Section className="bg-navy/40">
-      <SectionLabel index="08">Client experience</SectionLabel>
+    <Section className="bg-background/40">
+      <SectionLabel>Client experience</SectionLabel>
       <h2 className="mt-6 text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
-        What clients <span className="italic text-gold">say.</span>
+        What clients <span className="italic text-primary">say.</span>
       </h2>
       <div className="mt-10 grid gap-5 lg:grid-cols-2">
         <div className="surface-card grid min-h-[260px] place-items-center p-8 text-center text-sm text-muted-foreground">
           [Google reviews widget]
         </div>
         <div className="surface-card grid min-h-[260px] place-items-center gap-3 p-8 text-center">
-          <span className="grid size-14 place-items-center rounded-full border border-gold text-gold">
+          <span className="grid size-14 place-items-center rounded-full border border-primary text-primary">
             <Play className="size-5" />
           </span>
           <p className="text-sm text-muted-foreground">
@@ -403,7 +397,7 @@ function ClientExperience() {
         {Array.from({ length: 4 }).map((_, i) => (
           <div
             key={i}
-            className="grid h-24 place-items-center rounded-2xl border border-dashed border-navy-deep/25 bg-tint text-xs text-muted-foreground"
+            className="grid h-24 place-items-center rounded-2xl border border-dashed border-hero/25 bg-tint text-xs text-muted-foreground"
           >
             [Certification badge]
           </div>
@@ -416,24 +410,23 @@ function ClientExperience() {
 function Insights() {
   return (
     <Section id="insights">
-      <SectionLabel index="09">Insights</SectionLabel>
+      <SectionLabel>Insights</SectionLabel>
       <h2 className="mt-6 text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
-        Latest from <span className="italic text-gold">WorthPrime Tax</span>
+        Latest from <span className="italic text-primary">WorthPrime Tax</span>
       </h2>
       <p className="mt-4 text-sm text-muted-foreground">
         [These will later be fed from LinkedIn posts]
       </p>
+      <Link
+        to="/insights"
+        className="mt-6 inline-flex items-center gap-2 rounded-full bg-hero px-6 py-3 text-sm font-semibold text-hero-foreground transition-transform hover:scale-[1.03]"
+      >
+        See all insights <ArrowRight className="size-4" />
+      </Link>
       <div className="mt-10 grid gap-5 sm:grid-cols-3">
         {INSIGHTS.map((a, i) => (
           <Reveal key={i} delay={i * 80}>
-            <article className="surface-card h-full overflow-hidden">
-               <img src={i === 1 ? advisersImage : documentsImage} alt="Tax planning and advisory" width={1408} height={1008} loading="lazy" className="aspect-video w-full object-cover" />
-              <div className="p-6">
-                <p className="label-slash">0{i + 1} / {a.tag}</p>
-                <h3 className="mt-3 text-lg leading-snug">{a.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{a.excerpt}</p>
-              </div>
-            </article>
+            <InsightCard insight={a} index={i} />
           </Reveal>
         ))}
       </div>
@@ -444,11 +437,11 @@ function Insights() {
 function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <Section className="bg-navy/40">
-      <SectionLabel index="10">FAQ</SectionLabel>
+    <Section className="bg-background/40">
+      <SectionLabel>FAQ</SectionLabel>
       <div className="mt-6 grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
         <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
-          Questions, <span className="italic text-gold">answered.</span>
+          Questions, <span className="italic text-primary">answered.</span>
         </h2>
         <div className="divide-y divide-border border-y border-border">
           {FAQS.map((f, i) => (
@@ -462,7 +455,7 @@ function Faq() {
                 <span className="text-base sm:text-lg">{f.q}</span>
                 <span
                   className={cn(
-                    "shrink-0 text-2xl text-gold transition-transform duration-300",
+                    "shrink-0 text-2xl text-primary transition-transform duration-300",
                     open === i && "rotate-45",
                   )}
                 >
@@ -492,10 +485,10 @@ function ContactBlock() {
     <Section id="contact-form" className="scroll-mt-28 pb-8">
       <div className="grid gap-10 lg:grid-cols-[1fr_1fr]">
         <div>
-          <SectionLabel index="11">Contact</SectionLabel>
+          <SectionLabel>Contact</SectionLabel>
           <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.2rem)] leading-[1.05]">
             For Individuals. For Businesses.{" "}
-            <span className="italic text-gold">For What Comes Next…</span>
+            <span className="italic text-primary">For What Comes Next…</span>
           </h2>
           <p className="mt-6 text-muted-foreground">
             Your financial obligations change as your circumstances change. A new business requires
