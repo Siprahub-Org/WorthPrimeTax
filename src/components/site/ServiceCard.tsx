@@ -3,9 +3,11 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import type { Service } from "@/data/services";
 import { cn } from "@/lib/utils";
+import { SERVICE_IMAGES } from "./serviceImages";
 
 export function ServiceCard({ service }: { service: Service }) {
   const [flipped, setFlipped] = useState(false);
+  const image = SERVICE_IMAGES[service.slug];
 
   return (
     <div
@@ -33,10 +35,20 @@ export function ServiceCard({ service }: { service: Service }) {
         style={{ transform: flipped ? "rotateY(180deg)" : undefined }}
       >
         {/* Front */}
-        <div className="flip-face surface-card flex h-full w-full flex-col justify-between border-hero bg-hero p-6 text-hero-foreground">
+        <div className="flip-face surface-card relative isolate flex h-full w-full flex-col justify-between overflow-hidden rounded-3xl border-hero bg-hero p-6 text-hero-foreground">
+          {image && (
+            // A wide photo band between the number and the title, faded into the navy card so the
+            // text above and below stays legible.
+            <img
+              src={image}
+              alt=""
+              loading="lazy"
+              className="absolute inset-x-0 top-[14%] -z-10 h-[56%] w-full object-cover transition-transform duration-700 ease-out [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_70%,transparent)] group-hover:scale-105"
+            />
+          )}
           <div className="flex items-start justify-between">
             <span className="font-display text-5xl text-hero-foreground">{service.number}</span>
-            <span className="rounded-full border border-hero-border px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-hero-muted">
+            <span className="rounded-full border border-hero-border bg-hero/40 px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-hero-muted backdrop-blur-sm">
               {service.audience}
             </span>
           </div>

@@ -44,6 +44,10 @@
   --color-primary-foreground: var(--theme-primary-foreground);
   --color-brand-secondary: var(--theme-secondary);
   --color-brand-secondary-foreground: var(--theme-secondary-foreground);
+  --color-brand-indigo: var(--theme-indigo);
+  --color-brand-indigo-foreground: var(--theme-indigo-foreground);
+  --color-brand-gold: var(--theme-gold);
+  --color-rating: var(--theme-rating);
   /* shadcn "secondary" is a subtle fill, not the brand secondary colour */
   --color-secondary: var(--theme-subtle-bg);
   --color-secondary-foreground: var(--theme-text);
@@ -96,6 +100,8 @@
 
   --font-display: "Open Sans", system-ui, sans-serif;
   --font-sans: "Open Sans", system-ui, sans-serif;
+  /* Editorial serif for feature headlines (e.g. "One Firm. Every Business Need.") */
+  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
 }
 
 :root {

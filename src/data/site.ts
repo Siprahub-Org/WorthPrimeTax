@@ -159,15 +159,123 @@ export const FOUNDERS = [
   },
 ];
 
+export type ClientReview = {
+  name: string;
+  /** Star rating exactly as shown on Google (1–5). */
+  rating: number;
+  /** Review text copied verbatim from Google; omitted for star-only ratings. */
+  text?: string;
+};
+
+/*
+ * Home page "What clients say" section. Only verified data goes here: reviews copied verbatim
+ * from the Google Business Profile, the profile's own rating and count, the client-supplied
+ * video, and credentials the client has confirmed. Anything left null or empty renders as a
+ * clearly marked placeholder instead.
+ */
+export const CLIENT_EXPERIENCE = {
+  label: "Client experience",
+  heading: "What clients",
+  headingMuted: "say.",
+  google: {
+    title: "Google Reviews",
+    subtitle: "Real feedback from our clients",
+    // From the WorthPrime Tax Google Business Profile (Victory Plaza, Hyderabad), checked
+    // 21 Oct 2026. Update these and `reviews` whenever the profile changes.
+    rating: 5.0 as number | null,
+    reviewCount: 4 as number | null,
+    profileUrl: "https://www.google.com/maps/place/?q=place_id:ChIJu7DvWxWXyzsRebXJXP4isaI",
+    writeReviewUrl:
+      "https://search.google.com/local/writereview?placeid=ChIJu7DvWxWXyzsRebXJXP4isaI",
+    ratingPlaceholder: "[Rating and review count from Google, client to supply]",
+  },
+  // Copied exactly as published on Google. A fourth 5-star review exists but was not visible
+  // in Google's public view; add it here once its author and text can be read.
+  reviews: [
+    { name: "Rkives Worthy", rating: 5, text: "Very reliable and reasonable compliance services." },
+    { name: "Nazrul", rating: 5 },
+    { name: "MOHI", rating: 5 },
+  ] as ClientReview[],
+  // Placeholder cards shown while `reviews` is empty, so the carousel layout can be reviewed.
+  reviewPlaceholders: 3,
+  video: {
+    title: "One-minute video testimonial",
+    body: "Hear directly from one of our clients about their experience working with WorthPrime Tax. [suggested copy, client to confirm]",
+    src: null as string | null, // [video file or URL, client to supply]
+    pendingNote: "[Video, client to supply]",
+  },
+};
+
+export type Certification = {
+  /** Key of the badge image in the home page's logo map; null shows a monogram. */
+  logo: "irs" | "aicpa" | null;
+  monogram: string;
+  issuer: string;
+  name: string;
+  status: string;
+  /** Flip to true only once the client has confirmed the credential. */
+  confirmed: boolean;
+};
+
+export const CERTIFICATIONS: Certification[] = [
+  {
+    logo: null,
+    monogram: "QB",
+    issuer: "Intuit",
+    name: "QuickBooks Certified ProAdvisor",
+    status: "Certified",
+    confirmed: false,
+  },
+  {
+    logo: null,
+    monogram: "X",
+    issuer: "Xero",
+    name: "Certified Advisor",
+    status: "Certified",
+    confirmed: false,
+  },
+  {
+    logo: "irs",
+    monogram: "IRS",
+    issuer: "IRS",
+    name: "Authorized E-File Provider",
+    status: "Authorized",
+    confirmed: false,
+  },
+  {
+    logo: "aicpa",
+    monogram: "AICPA",
+    issuer: "AICPA",
+    name: "Member Firm",
+    status: "Member",
+    confirmed: false,
+  },
+];
+
+/** Home page "Starting from, before scope." pricing section. */
+export const HOME_PRICING = {
+  label: "Pricing",
+  heading: "Starting from,",
+  headingMuted: "before scope.",
+  intro:
+    "Indicative starting prices to help you plan. Final pricing may vary depending on your specific requirements and scope of work.",
+  cta: "See the full price chart",
+  priceLabel: "Starting from",
+  /** Shown for services whose price is not confirmed yet. */
+  pendingPrice: "Price TBC",
+};
+
 export const CONTACT_PAGE = {
   title: "Contact WorthPrime Tax | Talk to Our Tax Team",
   description:
     "Call, email or WhatsApp WorthPrime Tax, or send an enquiry. Offices in Glastonbury (USA), Dubai (UAE) and Hyderabad (India).",
-  label: "Get in touch",
-  heading: "Questions to resolve.",
-  headingMuted: "Decisions to make.",
+  label: "Contact",
+  heading: "From Setup to Success,",
+  headingMuted: "We’re With You.",
   intro:
-    "We're here to help—connect with us, we're just a click away. Tell us about your situation and the right member of our team will respond. [suggested copy, client to confirm]",
+    "Questions to resolve. Decisions to make. We’re here to help—connect with us, we’re just a click away.",
+  cta: "Talk to WorthPrime Tax",
+  detailsHeading: "Contact Details",
 };
 
 export const PRICING_PAGE = {

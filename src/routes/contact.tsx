@@ -1,28 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Mail, Phone } from "lucide-react";
+import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 import { CONTACT_PAGE, LINKS, OFFICES } from "@/data/site";
-import { Reveal, Section, SectionLabel } from "@/components/site/primitives";
+import { Container, Reveal } from "@/components/site/primitives";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { PricingMarquee } from "@/components/site/PricingMarquee";
-import { WhatsAppIcon } from "@/components/site/ContactCluster";
-import advisersImage from "@/assets/worthprime-advisers-blue.jpg";
+import officeGlobeImage from "@/assets/contact-office-globe.jpg";
 
-const CHANNELS = [
-  { label: "Phone", value: LINKS.phone, href: LINKS.phoneHref, Icon: Phone, external: false },
-  {
-    label: "Email",
-    value: LINKS.email,
-    href: `mailto:${LINKS.email}`,
-    Icon: Mail,
-    external: false,
-  },
-  {
-    label: "WhatsApp",
-    value: "Message us on WhatsApp",
-    href: LINKS.whatsapp,
-    Icon: WhatsAppIcon,
-    external: true,
-  },
+const DETAILS = [
+  { label: "Phone number", value: LINKS.phone, href: LINKS.phoneHref, Icon: Phone },
+  { label: "Drop us an email", value: LINKS.email, href: `mailto:${LINKS.email}`, Icon: Mail },
+  ...OFFICES.map((o) => ({ label: o.label, value: o.address, href: undefined, Icon: MapPin })),
 ];
 
 export const Route = createFileRoute("/contact")({
@@ -42,76 +29,96 @@ export const Route = createFileRoute("/contact")({
 function ContactPage() {
   return (
     <>
-      <Section className="bg-hero pb-0 pt-14 text-hero-foreground">
-        <div className="grid items-end gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="pb-12 sm:pb-16">
-            <SectionLabel className="text-hero-muted!">{CONTACT_PAGE.label}</SectionLabel>
-            <h1 className="mt-5 max-w-4xl hero-heading text-hero-foreground">
-              {CONTACT_PAGE.heading}{" "}
-              <span className="italic text-hero-muted">{CONTACT_PAGE.headingMuted}</span>
+      <section
+        id="contact-form"
+        className="relative isolate scroll-mt-28 overflow-hidden bg-linear-to-b from-tint/70 via-background to-background"
+      >
+        {/*
+         * Blurred globe-and-desk scene in the gap between the text and the form, as in the
+         * reference. Its right edge tracks the form's left edge (both sit at ~62% of the width),
+         * and it fades out on the text side so copy stays legible.
+         */}
+        <img
+          src={officeGlobeImage}
+          alt=""
+          width={340}
+          height={721}
+          className="absolute top-[18%] right-[37%] bottom-0 -z-10 hidden w-[24%] object-cover opacity-70 [mask-image:linear-gradient(to_right,transparent,black_40%,black_88%,transparent),linear-gradient(to_bottom,transparent,black_18%)] [mask-composite:intersect] lg:block xl:opacity-90"
+        />
+
+        <Container className="grid max-w-[1760px] items-start gap-12 pt-12 pb-14 sm:pt-16 lg:grid-cols-[1.5fr_1fr] lg:gap-16 lg:px-10 lg:pt-20 xl:pr-[3%] xl:pl-[5%]">
+          <div className="min-w-0">
+            <div className="flex items-center gap-5">
+              <span className="h-0.5 w-12 rounded-full bg-brand-gold" aria-hidden />
+              <p className="text-xs font-semibold tracking-[0.22em] text-primary uppercase sm:text-sm">
+                {CONTACT_PAGE.label}
+              </p>
+            </div>
+            <h1 className="mt-5 font-serif text-[clamp(2.4rem,4.75vw,5rem)] leading-[1.02] font-bold tracking-[-0.02em]">
+              <span className="block text-primary">{CONTACT_PAGE.heading}</span>
+              <span className="block font-semibold text-brand-gold italic">
+                {CONTACT_PAGE.headingMuted}
+              </span>
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-hero-muted">
+            <p className="mt-3 max-w-[38rem] text-base leading-[1.45] text-muted-foreground sm:text-lg xl:text-[1.1875rem]">
               {CONTACT_PAGE.intro}
             </p>
+            <a
+              href={LINKS.phoneHref}
+              className="mt-6 inline-flex items-center gap-4 rounded-lg bg-primary px-8 py-4 text-base font-medium text-primary-foreground shadow-[0_14px_30px_-16px] shadow-primary/70 transition-transform hover:scale-[1.02] sm:text-lg xl:px-9 xl:text-xl"
+            >
+              {CONTACT_PAGE.cta}
+              <ArrowRight className="size-5" aria-hidden />
+            </a>
+
+            <div className="mt-7 flex items-center gap-6">
+              <h2 className="font-serif text-[clamp(1.75rem,2.2vw,2.15rem)] leading-tight font-bold">
+                {CONTACT_PAGE.detailsHeading}
+              </h2>
+              <span className="h-0.5 w-18 rounded-full bg-brand-gold" aria-hidden />
+            </div>
+            <ul className="mt-4 space-y-3">
+              {DETAILS.map(({ label, value, href, Icon }, i) => {
+                const body = (
+                  <>
+                    <span className="block text-sm text-muted-foreground sm:text-[0.95rem]">
+                      {label}
+                    </span>
+                    <span className="block text-base font-medium break-words text-primary group-hover:underline sm:text-lg xl:text-[1.1875rem]">
+                      {value}
+                    </span>
+                  </>
+                );
+                return (
+                  <li key={label}>
+                    <Reveal delay={i * 60} className="flex items-center gap-4 sm:gap-7">
+                      <span
+                        className="grid size-12 shrink-0 place-items-center rounded-full bg-brand-gold/12 text-primary sm:size-15"
+                        aria-hidden
+                      >
+                        <Icon className="size-5 sm:size-6" strokeWidth={1.6} />
+                      </span>
+                      {href ? (
+                        <a href={href} className="group min-w-0">
+                          {body}
+                        </a>
+                      ) : (
+                        <address className="max-w-[28rem] min-w-0 not-italic">{body}</address>
+                      )}
+                    </Reveal>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
-          <img
-            src={advisersImage}
-            alt="Tax advisers reviewing financial documents"
-            width={1408}
-            height={1008}
-            className="aspect-[4/3] w-full object-cover lg:aspect-[5/4]"
-          />
-        </div>
-      </Section>
+
+          <Reveal className="min-w-0 lg:sticky lg:top-28 lg:mt-10">
+            <EnquiryForm headingLevel={2} />
+          </Reveal>
+        </Container>
+      </section>
 
       <PricingMarquee />
-
-      <Section id="contact-form" className="scroll-mt-28">
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <div>
-            <SectionLabel>Contact details</SectionLabel>
-            <div className="mt-8 grid gap-4">
-              {CHANNELS.map(({ label, value, href, Icon, external }, i) => (
-                <Reveal key={label} delay={i * 80}>
-                  <a
-                    href={href}
-                    {...(external ? { target: "_blank", rel: "noreferrer noopener" } : {})}
-                    className="surface-card group flex items-center gap-4 p-5 transition-colors hover:border-primary"
-                  >
-                    <span className="grid size-11 shrink-0 place-items-center rounded-full bg-hero text-hero-foreground">
-                      <Icon className="size-4.5" />
-                    </span>
-                    <span className="min-w-0">
-                      <span className="block text-xs uppercase tracking-widest text-muted-foreground">
-                        {label}
-                      </span>
-                      <span className="block break-words text-base transition-colors group-hover:text-primary">
-                        {value}
-                      </span>
-                    </span>
-                  </a>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-          <EnquiryForm />
-        </div>
-      </Section>
-
-      <Section className="bg-background/40 pt-0 sm:pt-0">
-        <SectionLabel>Offices</SectionLabel>
-        <div className="mt-8 grid gap-5 sm:grid-cols-3">
-          {OFFICES.map((o, i) => (
-            <Reveal key={o.label} delay={i * 80}>
-              <div className="surface-card h-full p-7">
-                <p className="label-slash">{o.region}</p>
-                <h3 className="mt-3 text-2xl">{o.label}</h3>
-                <p className="mt-3 text-sm text-muted-foreground">{o.address}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
     </>
   );
 }
