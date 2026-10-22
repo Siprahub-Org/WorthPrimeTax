@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 /** Fires once when the element scrolls into view. */
@@ -96,6 +96,85 @@ export function CountUp({
       {suffix}
     </span>
   );
+}
+
+/**
+ * Active-slide state for a horizontal scroll-snap track. `goTo` scrolls the track only when it
+ * overflows (on wide screens every slide is visible, so only the active state changes), and
+ * swiping the track moves the active slide to whichever item is nearest its left edge.
+ */
+export function useSnapCarousel(count: number) {
+  const [active, setActive] = useState(0);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const itemRefs = useRef<Array<HTMLElement | null>>([]);
+  // While goTo's own smooth scroll is under way, hold the chosen slide until the track arrives
+  // (its duration varies by browser), unless the user takes over by swiping or scrolling.
+  const scrollTarget = useRef<number | null>(null);
+
+  const goTo = useCallback(
+    (index: number) => {
+      if (count === 0) return;
+      const next = (index + count) % count;
+      setActive(next);
+      const track = trackRef.current;
+      const item = itemRefs.current[next];
+      if (track && item && track.scrollWidth > track.clientWidth) {
+        const max = track.scrollWidth - track.clientWidth;
+        const left = Math.min(item.offsetLeft - track.offsetLeft, max);
+        scrollTarget.current = left;
+        track.scrollTo({ left, behavior: "smooth" });
+      }
+    },
+    [count],
+  );
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    let frame = 0;
+    const release = () => {
+      scrollTarget.current = null;
+    };
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const left = track.scrollLeft;
+        if (scrollTarget.current !== null) {
+          if (Math.abs(left - scrollTarget.current) <= 2) release();
+          return;
+        }
+        const max = track.scrollWidth - track.clientWidth;
+        if (max <= 0) return;
+        // At the far end the last slides cannot reach the left edge; treat that as the last one.
+        if (left >= max - 2) {
+          setActive(itemRefs.current.length - 1);
+          return;
+        }
+        let nearest = 0;
+        let nearestDist = Infinity;
+        itemRefs.current.forEach((item, i) => {
+          if (!item) return;
+          const dist = Math.abs(item.offsetLeft - track.offsetLeft - left);
+          if (dist < nearestDist) {
+            nearest = i;
+            nearestDist = dist;
+          }
+        });
+        setActive(nearest);
+      });
+    };
+    track.addEventListener("scroll", onScroll, { passive: true });
+    track.addEventListener("pointerdown", release, { passive: true });
+    track.addEventListener("wheel", release, { passive: true });
+    return () => {
+      track.removeEventListener("scroll", onScroll);
+      track.removeEventListener("pointerdown", release);
+      track.removeEventListener("wheel", release);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  return { active, setActive, goTo, trackRef, itemRefs };
 }
 
 export function SectionLabel({ children, className }: { children: ReactNode; className?: string }) {

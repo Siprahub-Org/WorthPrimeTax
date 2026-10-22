@@ -16,6 +16,9 @@
   /* 1. Brand palette */
   --brand-navy: #1a233a; /* WorthPrime blue: headings, hero panels, buttons */
   --brand-blue: #2e5aac; /* secondary blue: accent links, stat panels */
+  --brand-indigo: #2c2a6a; /* WorthPrime indigo (logo): step badges, accent fills */
+  --brand-gold: #b08442; /* warm gold: contact headings, rules and icon chips */
+  --brand-star: #f5b301; /* review star yellow */
   --brand-white: #ffffff;
   --brand-black: #000000;
   --brand-tint: #edf2fa; /* pale blue card surface */
@@ -32,6 +35,10 @@
   --theme-primary-foreground: var(--brand-white);
   --theme-secondary: var(--brand-blue);
   --theme-secondary-foreground: var(--brand-white);
+  --theme-indigo: var(--brand-indigo);
+  --theme-indigo-foreground: var(--brand-white);
+  --theme-gold: var(--brand-gold);
+  --theme-rating: var(--brand-star);
 
   /* Page and surfaces */
   --theme-page-bg: var(--brand-white);
