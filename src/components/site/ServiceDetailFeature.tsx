@@ -34,6 +34,7 @@ import { SERVICE_PAGE_CLOSING, type ServicePage } from "@/data/servicePages";
 import { CONTACT_PAGE, LINKS } from "@/data/site";
 import { cn } from "@/lib/utils";
 import { Container, Reveal } from "./primitives";
+import { PricingMarquee } from "./PricingMarquee";
 import { getServiceThumb, type ServiceDetailMedia } from "./serviceDetailMedia";
 import ctaImage from "@/assets/worthprime-advisers-blue.jpg";
 
@@ -236,6 +237,8 @@ export function ServiceDetailFeature({
           </div>
         </Container>
       </section>
+
+      <PricingMarquee />
 
       {/* Overview */}
       <section className="py-16 sm:py-20">
