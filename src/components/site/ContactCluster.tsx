@@ -1,3 +1,4 @@
+import { useRouterState } from "@tanstack/react-router";
 import { Instagram, Linkedin, Mail, Phone } from "lucide-react";
 import { LINKS } from "@/data/site";
 import { cn } from "@/lib/utils";
@@ -48,6 +49,13 @@ const items = [
 ];
 
 export function ContactCluster() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  // Hidden where the stack would sit over content: the contact form (which lists every channel
+  // itself), the price table's Contact us buttons, and the insights LinkedIn strip and banner.
+  if (pathname === "/contact" || pathname === "/pricing" || pathname.startsWith("/insights")) {
+    return null;
+  }
+
   return (
     <nav
       aria-label="Quick contact"

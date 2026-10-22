@@ -39,7 +39,19 @@ function validate(values: Values): Errors {
   return errors;
 }
 
-export function EnquiryForm({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
+/**
+ * `compact` is the tighter layout used beside the contact page hero: smaller heading and
+ * fields, equal columns, and no "call us" block because the page lists every channel below.
+ */
+export function EnquiryForm({
+  headingLevel = 3,
+  compact = false,
+  submitLabel = "Request a quote",
+}: {
+  headingLevel?: 2 | 3;
+  compact?: boolean;
+  submitLabel?: string;
+}) {
   const id = useId();
   const [values, setValues] = useState<Values>(EMPTY);
   const [errors, setErrors] = useState<Errors>({});
@@ -92,8 +104,11 @@ export function EnquiryForm({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
     setStatus("idle");
   }
 
-  const card =
-    "@container relative rounded-[1.75rem] border border-brand-secondary/10 bg-card p-[clamp(1.5rem,2.6vw,2.75rem)] shadow-[0_30px_80px_-40px] shadow-primary/45";
+  const card = cn(
+    "@container relative rounded-[1.75rem] border border-brand-secondary/10 bg-card shadow-[0_30px_80px_-40px] shadow-primary/45",
+    compact ? "px-6 py-6 sm:px-10 sm:py-7" : "p-[clamp(1.5rem,2.6vw,2.75rem)]",
+  );
+  const inputClass = cn(fieldClass, compact && "py-2 text-[0.95rem]");
 
   if (status === "success") {
     return (
@@ -124,19 +139,33 @@ export function EnquiryForm({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
   return (
     <form onSubmit={onSubmit} noValidate aria-busy={submitting} className={card}>
       <div className="flex items-center gap-4">
-        <span className="h-0.5 w-10 rounded-full bg-brand-gold" aria-hidden />
+        {!compact && <span className="h-0.5 w-10 rounded-full bg-brand-gold" aria-hidden />}
         <p className="text-xs font-semibold tracking-[0.22em] text-primary uppercase sm:text-sm">
           Get in touch
         </p>
       </div>
-      <Heading className="mt-5 font-serif text-[clamp(1.5rem,9.2cqi,2.95rem)] leading-[1.08] font-bold">
+      <Heading
+        className={cn(
+          "font-serif leading-[1.08] font-bold",
+          compact
+            ? "mt-3 text-[clamp(1.6rem,7.6cqi,2.4rem)] leading-[1.02]"
+            : "mt-5 text-[clamp(1.5rem,9.2cqi,2.95rem)]",
+        )}
+      >
         Fill the form,{" "}
         <span className="block font-semibold text-brand-gold italic">
           soon will get back to you.
         </span>
       </Heading>
 
-      <div className="mt-7 grid gap-x-[1.125rem] gap-y-5 sm:grid-cols-[1.08fr_1fr]">
+      <div
+        className={cn(
+          "grid",
+          compact
+            ? "mt-5 gap-3 sm:grid-cols-2"
+            : "mt-7 gap-x-[1.125rem] gap-y-5 sm:grid-cols-[1.08fr_1fr]",
+        )}
+      >
         <Field id={fieldId("name")} errorId={errorId("name")} label="Name" error={errors.name}>
           <input
             id={fieldId("name")}
@@ -148,7 +177,7 @@ export function EnquiryForm({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
             onChange={(e) => update("name", e.target.value)}
             aria-invalid={errors.name ? true : undefined}
             aria-describedby={errors.name ? errorId("name") : undefined}
-            className={fieldClass}
+            className={inputClass}
           />
         </Field>
         <Field id={fieldId("email")} errorId={errorId("email")} label="Email" error={errors.email}>
@@ -164,7 +193,7 @@ export function EnquiryForm({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
             onChange={(e) => update("email", e.target.value)}
             aria-invalid={errors.email ? true : undefined}
             aria-describedby={errors.email ? errorId("email") : undefined}
-            className={fieldClass}
+            className={inputClass}
           />
         </Field>
         <Field id={fieldId("phone")} errorId={errorId("phone")} label="Phone" error={errors.phone}>
@@ -180,7 +209,7 @@ export function EnquiryForm({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
             onChange={(e) => update("phone", e.target.value)}
             aria-invalid={errors.phone ? true : undefined}
             aria-describedby={errors.phone ? errorId("phone") : undefined}
-            className={fieldClass}
+            className={inputClass}
           />
         </Field>
         <Field
@@ -199,7 +228,7 @@ export function EnquiryForm({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
               aria-invalid={errors.service ? true : undefined}
               aria-describedby={errors.service ? errorId("service") : undefined}
               className={cn(
-                fieldClass,
+                inputClass,
                 "appearance-none pr-10",
                 !values.service && "text-muted-foreground",
               )}
@@ -229,14 +258,14 @@ export function EnquiryForm({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
           <textarea
             id={fieldId("message")}
             name="message"
-            rows={4}
+            rows={compact ? 3 : 4}
             placeholder="Short message *"
             required
             value={values.message}
             onChange={(e) => update("message", e.target.value)}
             aria-invalid={errors.message ? true : undefined}
             aria-describedby={errors.message ? errorId("message") : undefined}
-            className={cn(fieldClass, "min-h-[8.5rem] resize-y")}
+            className={cn(inputClass, "resize-y", compact ? "min-h-[4.75rem]" : "min-h-[8.5rem]")}
           />
         </Field>
       </div>
@@ -273,7 +302,10 @@ export function EnquiryForm({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
       <button
         type="submit"
         disabled={submitting}
-        className="mt-5 flex w-full items-center justify-center gap-3 rounded-lg bg-primary px-6 py-4 text-base font-medium sm:text-lg text-primary-foreground transition-[transform,opacity] enabled:hover:scale-[1.01] disabled:cursor-wait disabled:opacity-80"
+        className={cn(
+          "mt-5 flex w-full items-center justify-center gap-3 rounded-lg bg-primary px-6 font-medium text-primary-foreground transition-[transform,opacity] enabled:hover:scale-[1.01] disabled:cursor-wait disabled:opacity-80",
+          compact ? "mt-3 py-2.5 text-[1.0625rem]" : "py-4 text-base sm:text-lg",
+        )}
       >
         {submitting ? (
           <>
@@ -282,27 +314,31 @@ export function EnquiryForm({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
           </>
         ) : (
           <>
-            Request a quote
+            {submitLabel}
             <ArrowRight className="size-4" aria-hidden />
           </>
         )}
       </button>
 
-      <div className="my-6 flex items-center gap-6 text-xs font-semibold tracking-[0.2em] text-muted-foreground">
-        <span className="h-px flex-1 bg-border" aria-hidden />
-        OR
-        <span className="h-px flex-1 bg-border" aria-hidden />
-      </div>
+      {!compact && (
+        <>
+          <div className="my-6 flex items-center gap-6 text-xs font-semibold tracking-[0.2em] text-muted-foreground">
+            <span className="h-px flex-1 bg-border" aria-hidden />
+            OR
+            <span className="h-px flex-1 bg-border" aria-hidden />
+          </div>
 
-      <a
-        href={LINKS.phoneHref}
-        className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-lg bg-tint px-4 py-4 text-center text-base text-foreground transition-colors hover:bg-brand-secondary/10 sm:text-lg"
-      >
-        <Phone className="size-4 text-primary" aria-hidden />
-        <span>
-          Call us directly at <strong className="text-primary">{LINKS.phone}</strong>
-        </span>
-      </a>
+          <a
+            href={LINKS.phoneHref}
+            className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-lg bg-tint px-4 py-4 text-center text-base text-foreground transition-colors hover:bg-brand-secondary/10 sm:text-lg"
+          >
+            <Phone className="size-4 text-primary" aria-hidden />
+            <span>
+              Call us directly at <strong className="text-primary">{LINKS.phone}</strong>
+            </span>
+          </a>
+        </>
+      )}
     </form>
   );
 }
