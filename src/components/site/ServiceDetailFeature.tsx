@@ -20,22 +20,21 @@ import {
   Laptop,
   Mail,
   Network,
-  Phone,
   RotateCcw,
   ShieldCheck,
+  Star,
   TrendingUp,
   User,
   Users,
   type LucideIcon,
 } from "lucide-react";
 import { getService, HOW_THE_WORK_MOVES, type Service } from "@/data/services";
-import { SERVICE_PAGE_CLOSING, type ServicePage } from "@/data/servicePages";
-import { CONTACT_PAGE, LINKS } from "@/data/site";
+import { type ServicePage } from "@/data/servicePages";
 import { cn } from "@/lib/utils";
 import { Container, Reveal } from "./primitives";
+import { CtaBand } from "./CtaBand";
 import { PricingMarquee } from "./PricingMarquee";
 import { getServiceThumb, type ServiceDetailMedia } from "./serviceDetailMedia";
-import ctaImage from "@/assets/worthprime-advisers-blue.jpg";
 
 // Matched against each capability's text; first match wins, so specific topics come before
 // broad ones (an amended 1040 is an amendment, a 1120S is not a 1120).
@@ -102,9 +101,6 @@ function GoldRule({ className }: { className?: string }) {
   );
 }
 
-const goldButton =
-  "inline-flex items-center gap-2 rounded-lg bg-brand-gold px-6 py-3 text-sm font-semibold text-primary shadow-[0_10px_24px_-12px] shadow-brand-gold/70 transition-transform hover:scale-[1.03]";
-
 function SectionIntro({ heading, intro }: { heading: string; intro?: string }) {
   return (
     <>
@@ -169,66 +165,78 @@ export function ServiceDetailFeature({
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative isolate overflow-hidden bg-hero text-hero-foreground">
-        <img
-          src={media.hero}
-          alt=""
-          width={1600}
-          height={900}
-          fetchPriority="high"
-          className="absolute inset-0 -z-10 h-full w-full object-cover object-[70%_center] lg:left-auto lg:w-[64%]"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 -z-10 bg-hero/85 lg:bg-transparent lg:bg-linear-to-r lg:from-hero lg:from-36% lg:via-hero/75 lg:via-48% lg:to-transparent lg:to-70%"
-        />
-        <Container className="pt-6 pb-12 sm:pt-8 sm:pb-16 lg:pt-10 lg:pb-20">
-          <div className="max-w-xl">
-            <h1 className="font-serif text-[clamp(2.4rem,5.2vw,4.25rem)] leading-[1.04] font-semibold text-hero-foreground">
+      {/*
+       * Hero: copy on a white / light-blue panel at the left and the advisers photo at the right,
+       * with a soft white fade only where the two meet so the photo never sits under the text.
+       */}
+      <section className="relative isolate overflow-hidden bg-linear-to-br from-background via-background to-tint/60">
+        <Container className="relative max-w-[1540px] lg:px-10">
+          <div className="flex flex-col py-10 sm:py-12 lg:min-h-[min(calc(100svh-4rem),46rem)] lg:max-w-[min(48rem,calc(42vw_-_max(2.5rem,calc((100vw_-_1540px)/2_+_2.5rem))))] lg:justify-center lg:py-[4svh]">
+            <p className="flex items-center gap-4 text-xs font-semibold tracking-[0.3em] text-primary uppercase sm:text-sm">
+              <span className="h-0.5 w-12 rounded-full bg-primary" aria-hidden />
+              Explore
+            </p>
+            <h1 className="mt-5 font-serif text-[clamp(2.25rem,3.8vw,3.75rem)] leading-[1.08] font-bold tracking-[-0.02em] text-primary">
               {page.heading}
             </h1>
-            <p className="mt-3 font-serif text-[clamp(1.2rem,2.2vw,1.6rem)] text-hero-foreground/85 italic">
+            <p className="mt-4 font-serif text-[clamp(1.25rem,2.1vw,1.75rem)] leading-snug font-semibold text-primary italic">
               {page.tagline}
             </p>
-            <p className="mt-4 text-[0.95rem] leading-relaxed text-hero-foreground/80">
+            <p className="mt-4 max-w-[34rem] text-base leading-relaxed text-foreground/85 sm:text-lg">
               {page.intro}
             </p>
-            <GoldRule className="mt-6" />
-            <p className="mt-7 text-xs font-medium text-hero-muted">Start here</p>
-            <p className="mt-2 font-serif text-[clamp(1.25rem,2vw,1.6rem)] leading-snug">
-              {page.start.heading}
-            </p>
-            {page.start.body && (
-              <p className="mt-2 text-sm leading-relaxed text-hero-foreground/80">
-                {page.start.body}
-              </p>
-            )}
-            <p className="mt-3 text-sm text-hero-muted">
-              Starting from{" "}
-              <span className="font-semibold text-hero-foreground">{service.price}</span>. Final
-              fees depend on scope.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/contact" hash="contact-form" className={goldButton}>
-                Contact us <ArrowRight className="size-4" aria-hidden />
+
+            <div className="mt-7 flex flex-wrap items-stretch gap-4">
+              <Link
+                to="/contact"
+                hash="contact-form"
+                className="inline-flex flex-col justify-center rounded-xl bg-primary px-6 py-3 text-primary-foreground shadow-[0_14px_30px_-18px] shadow-primary/70 transition-transform hover:scale-[1.02]"
+              >
+                <span className="text-xs font-medium opacity-90">Start here</span>
+                <span className="flex items-center gap-2.5 font-serif text-lg font-semibold sm:text-xl">
+                  {page.heroCta ?? "Contact us"} <ArrowRight className="size-5" aria-hidden />
+                </span>
               </Link>
               <a
-                href={LINKS.phoneHref}
-                className="inline-flex items-center gap-2 rounded-lg border border-hero-foreground/60 px-6 py-3 text-sm font-semibold transition-colors hover:bg-hero-foreground/10"
+                href="#overview"
+                className="inline-flex items-center rounded-xl border border-primary/70 bg-background/70 px-8 font-serif text-lg font-semibold text-primary transition-colors hover:bg-tint sm:text-xl"
               >
-                <Phone className="size-4" aria-hidden /> Call us
-                <span className="sr-only">on {LINKS.phone}</span>
+                Learn more
               </a>
+            </div>
+
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              <span className="flex gap-1 text-primary" aria-hidden>
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="size-5 fill-current" />
+                ))}
+              </span>
+              <p className="text-base text-foreground">500 plus satisfied customers</p>
             </div>
           </div>
         </Container>
+
+        {/* Photo: right 58% on desktop, with the white fade on its left edge; stacked below on small screens. */}
+        <div className="relative aspect-[4/3] w-full sm:aspect-[16/9] lg:absolute lg:inset-y-0 lg:right-0 lg:-z-10 lg:aspect-auto lg:w-[58%]">
+          <img
+            src={media.hero}
+            alt=""
+            width={1600}
+            height={900}
+            fetchPriority="high"
+            className="h-full w-full object-cover object-[65%_center]"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-x-0 top-0 h-1/4 bg-linear-to-b from-background/60 to-transparent lg:inset-x-auto lg:inset-y-0 lg:left-0 lg:h-auto lg:w-[24%] lg:bg-linear-to-r lg:from-background lg:via-background/28"
+          />
+        </div>
       </section>
 
       <PricingMarquee />
 
       {/* Overview */}
-      <section className="py-16 sm:py-20">
+      <section id="overview" className="scroll-mt-20 py-12 sm:py-16">
         <Container className="grid items-center gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
           <Reveal>
             <NumberedLabel n={1}>Overview</NumberedLabel>
@@ -258,7 +266,7 @@ export function ServiceDetailFeature({
       </section>
 
       {/* What this can include */}
-      <section className="bg-tint py-16 sm:py-20">
+      <section className="bg-tint py-12 sm:py-16">
         <Container>
           <NumberedLabel n={2}>What this can include</NumberedLabel>
           <SectionIntro heading={page.included.heading} intro={page.included.intro} />
@@ -288,7 +296,7 @@ export function ServiceDetailFeature({
       </section>
 
       {/* Who it is for */}
-      <section className="py-16 sm:py-20">
+      <section className="py-12 sm:py-16">
         <Container>
           <div className="grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
             <Reveal>
@@ -338,7 +346,7 @@ export function ServiceDetailFeature({
       </section>
 
       {/* How the work moves */}
-      <section className="pb-16 sm:pb-20">
+      <section className="pb-12 sm:pb-16">
         <Container>
           <NumberedLabel n={4}>How the work moves</NumberedLabel>
           <SectionIntro heading={page.process.heading || "How the work moves"} />
@@ -357,7 +365,7 @@ export function ServiceDetailFeature({
                     />
                     <span
                       aria-hidden
-                      className="absolute top-3 left-4 font-serif text-3xl font-semibold text-brand-gold sm:text-2xl lg:text-3xl"
+                      className="absolute top-3 left-4 font-serif text-3xl font-semibold text-hero-foreground sm:text-2xl lg:text-3xl"
                     >
                       {s.step}
                     </span>
@@ -376,7 +384,7 @@ export function ServiceDetailFeature({
       </section>
 
       {/* Related services */}
-      <section className="pb-16 sm:pb-20">
+      <section className="pb-12 sm:pb-16">
         <Container>
           <NumberedLabel n={5}>Related services</NumberedLabel>
           <SectionIntro
@@ -428,37 +436,7 @@ export function ServiceDetailFeature({
         </Container>
       </section>
 
-      {/* Closing CTA */}
-      <section className="relative isolate overflow-hidden bg-hero text-hero-foreground">
-        <img
-          src={ctaImage}
-          alt=""
-          width={1408}
-          height={1008}
-          loading="lazy"
-          className="absolute inset-0 -z-10 h-full w-full object-cover object-[75%_30%] lg:left-auto lg:w-[55%]"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 -z-10 bg-hero/85 lg:bg-transparent lg:bg-linear-to-r lg:from-hero lg:from-45% lg:via-hero/70 lg:via-58% lg:to-hero/10"
-        />
-        <Container className="py-14 sm:py-16">
-          <Reveal className="max-w-2xl">
-            <p className="text-[0.6875rem] font-semibold tracking-[0.18em] text-hero-muted uppercase">
-              {SERVICE_PAGE_CLOSING.label}
-            </p>
-            <h2 className="mt-4 font-serif text-[clamp(1.75rem,3.4vw,2.6rem)] leading-[1.15] font-semibold text-hero-foreground">
-              {SERVICE_PAGE_CLOSING.heading}
-            </h2>
-            {page.closing && (
-              <p className="mt-4 leading-relaxed text-hero-foreground/80">{page.closing}</p>
-            )}
-            <Link to="/contact" hash="contact-form" className={cn(goldButton, "mt-7")}>
-              {CONTACT_PAGE.cta} <ArrowRight className="size-4" aria-hidden />
-            </Link>
-          </Reveal>
-        </Container>
-      </section>
+      <CtaBand />
     </>
   );
 }

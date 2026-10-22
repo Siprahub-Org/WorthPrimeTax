@@ -14,10 +14,9 @@
 
 :root {
   /* 1. Brand palette */
-  --brand-navy: #1a233a; /* WorthPrime blue: headings, hero panels, buttons */
+  --brand-navy: #30326f; /* WorthPrime blue: headings, hero panels, buttons */
   --brand-blue: #2e5aac; /* secondary blue: accent links, stat panels */
   --brand-indigo: #2c2a6a; /* WorthPrime indigo (logo): step badges, accent fills */
-  --brand-gold: #bf8c12; /* bright gold: heading highlights, rules and icon chips (3:1 on white for large text) */
   --brand-star: #f5b301; /* review star yellow */
   --brand-white: #ffffff;
   --brand-black: #000000;
@@ -37,7 +36,7 @@
   --theme-secondary-foreground: var(--brand-white);
   --theme-indigo: var(--brand-indigo);
   --theme-indigo-foreground: var(--brand-white);
-  --theme-gold: var(--brand-gold);
+  --theme-gold: var(--brand-navy); /* client asked for the primary blue in place of gold site-wide */
   --theme-rating: var(--brand-star);
 
   /* Page and surfaces */

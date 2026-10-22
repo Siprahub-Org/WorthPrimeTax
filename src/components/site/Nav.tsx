@@ -13,9 +13,9 @@ const WIDE_NAV: Record<string, string> = {
   "/pricing": "max-w-[1392px]",
 };
 
-// Active page gets a thin gold underline (TanStack Link sets data-status="active").
+// Active page gets a thin underline in the link colour (TanStack Link sets data-status="active").
 const navLink =
-  "relative px-3 py-2 text-sm transition-colors after:pointer-events-none after:absolute after:inset-x-3 after:bottom-0.5 after:h-0.5 after:rounded-full after:bg-brand-gold after:opacity-0 after:transition-opacity data-[status=active]:font-semibold data-[status=active]:after:opacity-100";
+  "relative px-3 py-2 text-sm transition-colors after:pointer-events-none after:absolute after:inset-x-3 after:bottom-0.5 after:h-0.5 after:rounded-full after:bg-current after:opacity-0 after:transition-opacity data-[status=active]:font-semibold data-[status=active]:after:opacity-100";
 
 const NAV_ITEMS = [
   { label: "About", to: "/about" as const },
@@ -107,9 +107,7 @@ export function Nav() {
                 <div
                   className={cn(
                     "absolute left-0 top-full w-[420px] pt-3 transition-all",
-                    servicesOpen
-                      ? "visible opacity-100"
-                      : "invisible -translate-y-1 opacity-0",
+                    servicesOpen ? "visible opacity-100" : "invisible -translate-y-1 opacity-0",
                   )}
                 >
                   <div className="grid grid-cols-2 gap-1 rounded-lg border border-nav-border bg-nav-menu p-2 shadow-xl">
@@ -190,10 +188,18 @@ export function Nav() {
             <Link to="/" onClick={() => setOpen(false)} className="rounded-xl px-3 py-2.5 text-sm">
               Home
             </Link>
-            <Link to="/about" onClick={() => setOpen(false)} className="rounded-xl px-3 py-2.5 text-sm">
+            <Link
+              to="/about"
+              onClick={() => setOpen(false)}
+              className="rounded-xl px-3 py-2.5 text-sm"
+            >
               About
             </Link>
-            <Link to="/services" onClick={() => setOpen(false)} className="rounded-xl px-3 py-2.5 text-sm">
+            <Link
+              to="/services"
+              onClick={() => setOpen(false)}
+              className="rounded-xl px-3 py-2.5 text-sm"
+            >
               Services
             </Link>
             <div className="my-1 grid gap-0.5 border-l border-nav-border pl-3">
@@ -210,16 +216,33 @@ export function Nav() {
                 </Link>
               ))}
             </div>
-            <Link to="/pricing" onClick={() => setOpen(false)} className="rounded-xl px-3 py-2.5 text-sm">
+            <Link
+              to="/pricing"
+              onClick={() => setOpen(false)}
+              className="rounded-xl px-3 py-2.5 text-sm"
+            >
               Pricing
             </Link>
-            <Link to="/insights" onClick={() => setOpen(false)} className="rounded-xl px-3 py-2.5 text-sm">
+            <Link
+              to="/insights"
+              onClick={() => setOpen(false)}
+              className="rounded-xl px-3 py-2.5 text-sm"
+            >
               Insights
             </Link>
-            <Link to="/contact" onClick={() => setOpen(false)} className="rounded-xl px-3 py-2.5 text-sm">
+            <Link
+              to="/contact"
+              onClick={() => setOpen(false)}
+              className="rounded-xl px-3 py-2.5 text-sm"
+            >
               Contact
             </Link>
-            <a href={LINKS.irs} target="_blank" rel="noreferrer noopener" className="rounded-xl px-3 py-2.5 text-sm">
+            <a
+              href={LINKS.irs}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="rounded-xl px-3 py-2.5 text-sm"
+            >
               IRS refund status
             </a>
             <a
@@ -230,7 +253,6 @@ export function Nav() {
             >
               Log in
             </a>
-
           </div>
         </div>
       )}

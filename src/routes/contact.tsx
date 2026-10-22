@@ -65,22 +65,23 @@ function ContactPage() {
           <div className="relative flex min-w-0 flex-col lg:py-6">
             {/*
              * Soft globe-and-desk scene filling the hero height between the copy and the form.
-             * It runs under the form card's left edge and fades out towards the text.
+             * It runs under the form card's left edge and fades out towards the text; kept faint so
+             * the copy laid over it stays readable.
              */}
             <img
               src={officeGlobeImage}
               alt=""
               width={340}
               height={721}
-              className="absolute -inset-y-6 -right-[4.5rem] -z-10 hidden w-[46%] object-cover [mask-image:linear-gradient(to_right,transparent,black_38%,black_82%,transparent)] lg:block"
+              className="absolute -inset-y-6 -right-[4.5rem] -z-10 hidden w-[46%] object-cover opacity-30 [mask-image:linear-gradient(to_right,transparent,black_38%,black_82%,transparent)] lg:block"
             />
             <h1 className="font-serif text-[clamp(2.25rem,4vw,4.25rem)] leading-[1.02] font-bold tracking-[-0.02em]">
               <span className="block text-primary">{CONTACT_PAGE.heading}</span>
-              <span className="block font-semibold text-brand-gold italic">
+              <span className="block font-semibold text-primary italic">
                 {CONTACT_PAGE.headingMuted}
               </span>
             </h1>
-            <p className="mt-4 max-w-[36rem] text-base leading-snug text-muted-foreground sm:text-lg xl:text-[1.25rem]">
+            <p className="mt-4 max-w-[36rem] text-base leading-snug text-foreground/85 sm:text-lg xl:text-[1.25rem]">
               {CONTACT_PAGE.intro}
             </p>
 
@@ -97,7 +98,7 @@ function ContactPage() {
                     </span>
                     <div className="min-w-0">
                       <p className="text-[0.9rem] font-semibold text-primary">{h.title}</p>
-                      <p className="mt-1 text-[0.8125rem] leading-snug text-muted-foreground">
+                      <p className="mt-1 text-[0.8125rem] leading-snug text-foreground/85">
                         {h.text}
                       </p>
                     </div>

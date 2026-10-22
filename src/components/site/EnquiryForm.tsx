@@ -1,5 +1,15 @@
 import { useId, useState, type FormEvent, type ReactNode } from "react";
-import { ArrowRight, Check, ChevronDown, CircleAlert, Loader2, Phone } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  ChevronDown,
+  CircleAlert,
+  Loader2,
+  Mail,
+  Phone,
+  User,
+  type LucideIcon,
+} from "lucide-react";
 import { SERVICES } from "@/data/services";
 import { LINKS } from "@/data/site";
 import {
@@ -26,7 +36,7 @@ const FAILURE_MESSAGES: Record<FailedResult, string> = {
 };
 
 const fieldClass =
-  "w-full rounded-lg border border-input bg-card px-4 py-[0.9rem] text-base text-foreground placeholder:text-muted-foreground outline-none transition-[border-color,box-shadow] focus:border-primary focus:ring-2 focus:ring-primary/15 aria-[invalid=true]:border-destructive aria-[invalid=true]:focus:ring-destructive/15";
+  "w-full rounded-lg border border-input bg-card px-4 py-[0.9rem] text-base text-foreground placeholder:text-muted-foreground outline-none transition-[border-color] focus:border-primary aria-[invalid=true]:border-destructive";
 
 function validate(values: Values): Errors {
   const result = enquirySchema.safeParse(values);
@@ -40,8 +50,8 @@ function validate(values: Values): Errors {
 }
 
 /**
- * `compact` is the tighter layout used beside the contact page hero: smaller heading and
- * fields, equal columns, and no "call us" block because the page lists every channel below.
+ * `compact` is the tighter layout used beside the contact page hero: smaller heading and fields
+ * with placeholder-only labels. The full layout (home page) shows labels above the fields.
  */
 export function EnquiryForm({
   headingLevel = 3,
@@ -139,77 +149,98 @@ export function EnquiryForm({
   return (
     <form onSubmit={onSubmit} noValidate aria-busy={submitting} className={card}>
       <div className="flex items-center gap-4">
-        {!compact && <span className="h-0.5 w-10 rounded-full bg-brand-gold" aria-hidden />}
+        {!compact && <span className="h-0.5 w-10 rounded-full bg-brand-secondary" aria-hidden />}
         <p className="text-xs font-semibold tracking-[0.22em] text-primary uppercase sm:text-sm">
           Get in touch
         </p>
       </div>
-      <Heading
-        className={cn(
-          "font-serif leading-[1.08] font-bold",
-          compact
-            ? "mt-3 text-[clamp(1.6rem,7.6cqi,2.4rem)] leading-[1.02]"
-            : "mt-5 text-[clamp(1.5rem,9.2cqi,2.95rem)]",
-        )}
-      >
-        Fill the form,{" "}
-        <span className="block font-semibold text-brand-gold italic">
-          soon will get back to you.
-        </span>
-      </Heading>
+      {compact ? (
+        <Heading className="mt-3 font-serif text-[clamp(1.6rem,7.6cqi,2.4rem)] leading-[1.02] font-bold">
+          Fill the form,{" "}
+          <span className="block font-semibold italic">soon will get back to you.</span>
+        </Heading>
+      ) : (
+        <>
+          <Heading className="mt-4 font-serif text-[clamp(1.6rem,7cqi,2.6rem)] leading-[1.1] font-bold text-primary">
+            Tell us how we can help.
+          </Heading>
+          <p className="mt-2 text-base text-foreground/75">
+            Fill out the form below and our team will get back to you soon.
+          </p>
+        </>
+      )}
 
       <div
         className={cn(
           "grid",
-          compact
-            ? "mt-5 gap-3 sm:grid-cols-2"
-            : "mt-7 gap-x-[1.125rem] gap-y-5 sm:grid-cols-[1.08fr_1fr]",
+          compact ? "mt-5 gap-3 sm:grid-cols-2" : "mt-6 gap-x-5 gap-y-4 sm:grid-cols-2",
         )}
       >
-        <Field id={fieldId("name")} errorId={errorId("name")} label="Name" error={errors.name}>
+        <Field
+          id={fieldId("name")}
+          errorId={errorId("name")}
+          label="Name"
+          error={errors.name}
+          showLabel={!compact}
+          icon={compact ? undefined : User}
+        >
           <input
             id={fieldId("name")}
             name="name"
             autoComplete="name"
-            placeholder="Name *"
+            placeholder={compact ? "Name *" : "John Doe"}
             required
             value={values.name}
             onChange={(e) => update("name", e.target.value)}
             aria-invalid={errors.name ? true : undefined}
             aria-describedby={errors.name ? errorId("name") : undefined}
-            className={inputClass}
+            className={cn(inputClass, !compact && "pr-11")}
           />
         </Field>
-        <Field id={fieldId("email")} errorId={errorId("email")} label="Email" error={errors.email}>
+        <Field
+          id={fieldId("email")}
+          errorId={errorId("email")}
+          label="Email"
+          error={errors.email}
+          showLabel={!compact}
+          icon={compact ? undefined : Mail}
+        >
           <input
             id={fieldId("email")}
             name="email"
             type="email"
             autoComplete="email"
             inputMode="email"
-            placeholder="Email *"
+            placeholder={compact ? "Email *" : "you@company.com"}
             required
             value={values.email}
             onChange={(e) => update("email", e.target.value)}
             aria-invalid={errors.email ? true : undefined}
             aria-describedby={errors.email ? errorId("email") : undefined}
-            className={inputClass}
+            className={cn(inputClass, !compact && "pr-11")}
           />
         </Field>
-        <Field id={fieldId("phone")} errorId={errorId("phone")} label="Phone" error={errors.phone}>
+        <Field
+          id={fieldId("phone")}
+          errorId={errorId("phone")}
+          label="Phone"
+          error={errors.phone}
+          showLabel={!compact}
+          icon={compact ? undefined : Phone}
+        >
           <input
             id={fieldId("phone")}
             name="phone"
             type="tel"
             autoComplete="tel"
             inputMode="tel"
-            placeholder="Phone *"
+            placeholder={compact ? "Phone *" : "Your phone number"}
             required
             value={values.phone}
             onChange={(e) => update("phone", e.target.value)}
             aria-invalid={errors.phone ? true : undefined}
             aria-describedby={errors.phone ? errorId("phone") : undefined}
-            className={inputClass}
+            className={cn(inputClass, !compact && "pr-11")}
           />
         </Field>
         <Field
@@ -217,6 +248,7 @@ export function EnquiryForm({
           errorId={errorId("service")}
           label="Service needed"
           error={errors.service}
+          showLabel={!compact}
         >
           <div className="relative">
             <select
@@ -234,7 +266,7 @@ export function EnquiryForm({
               )}
             >
               <option value="" disabled>
-                Service needed *
+                {compact ? "Service needed *" : "Select a service"}
               </option>
               {SERVICES.map((s) => (
                 <option key={s.slug} value={s.slug} className="text-foreground">
@@ -253,19 +285,24 @@ export function EnquiryForm({
           errorId={errorId("message")}
           label="Short message"
           error={errors.message}
+          showLabel={!compact}
           className="sm:col-span-2"
         >
           <textarea
             id={fieldId("message")}
             name="message"
             rows={compact ? 3 : 4}
-            placeholder="Short message *"
+            placeholder={compact ? "Short message *" : "Tell us a bit about your needs…"}
             required
             value={values.message}
             onChange={(e) => update("message", e.target.value)}
             aria-invalid={errors.message ? true : undefined}
             aria-describedby={errors.message ? errorId("message") : undefined}
-            className={cn(inputClass, "resize-y", compact ? "min-h-[4.75rem]" : "min-h-[8.5rem]")}
+            className={cn(
+              inputClass,
+              "resize-none",
+              compact ? "min-h-[4.75rem]" : "min-h-[8.5rem]",
+            )}
           />
         </Field>
       </div>
@@ -319,26 +356,6 @@ export function EnquiryForm({
           </>
         )}
       </button>
-
-      {!compact && (
-        <>
-          <div className="my-6 flex items-center gap-6 text-xs font-semibold tracking-[0.2em] text-muted-foreground">
-            <span className="h-px flex-1 bg-border" aria-hidden />
-            OR
-            <span className="h-px flex-1 bg-border" aria-hidden />
-          </div>
-
-          <a
-            href={LINKS.phoneHref}
-            className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-lg bg-tint px-4 py-4 text-center text-base text-foreground transition-colors hover:bg-brand-secondary/10 sm:text-lg"
-          >
-            <Phone className="size-4 text-primary" aria-hidden />
-            <span>
-              Call us directly at <strong className="text-primary">{LINKS.phone}</strong>
-            </span>
-          </a>
-        </>
-      )}
     </form>
   );
 }
@@ -348,6 +365,8 @@ function Field({
   errorId,
   label,
   error,
+  showLabel = false,
+  icon: Icon,
   className,
   children,
 }: {
@@ -355,15 +374,36 @@ function Field({
   errorId: string;
   label: string;
   error?: string | undefined;
+  /** Show the label above the field instead of keeping it for screen readers only. */
+  showLabel?: boolean;
+  /** Decorative icon drawn inside the right edge of the field. */
+  icon?: LucideIcon;
   className?: string;
   children: ReactNode;
 }) {
   return (
     <div className={className}>
-      <label htmlFor={id} className="sr-only">
-        {label} (required)
-      </label>
-      {children}
+      {showLabel ? (
+        <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-primary">
+          {label} <span aria-hidden>*</span>
+          <span className="sr-only">(required)</span>
+        </label>
+      ) : (
+        <label htmlFor={id} className="sr-only">
+          {label} (required)
+        </label>
+      )}
+      {Icon ? (
+        <div className="relative">
+          {children}
+          <Icon
+            className="pointer-events-none absolute top-1/2 right-3.5 size-[1.125rem] -translate-y-1/2 text-primary/60"
+            aria-hidden
+          />
+        </div>
+      ) : (
+        children
+      )}
       {error && (
         <p id={errorId} className="mt-1.5 text-xs text-destructive">
           {error}

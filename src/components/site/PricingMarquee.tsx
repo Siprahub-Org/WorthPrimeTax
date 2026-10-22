@@ -10,13 +10,13 @@ function PriceItem({ service }: { service: (typeof SERVICES)[number] }) {
     <Link
       to="/services/$slug"
       params={{ slug: service.slug }}
-      className="group flex shrink-0 items-center gap-4 px-7 py-5 outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-hero-foreground sm:gap-6 sm:px-10 sm:py-6"
+      className="group flex shrink-0 items-center gap-3 px-5 py-2.5 outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-hero-foreground sm:gap-4 sm:px-7"
     >
-      <span className="text-sm font-semibold text-hero-foreground/80 transition-colors group-hover:text-hero-foreground">
+      <span className="text-xs font-medium text-hero-foreground/80 transition-colors group-hover:text-hero-foreground sm:text-sm">
         {service.name}
       </span>
-      <span className="text-lg font-bold text-hero-foreground sm:text-xl">{displayPrice}</span>
-      <span className="text-hero-foreground/35" aria-hidden>
+      <span className="text-sm font-semibold text-hero-foreground">{displayPrice}</span>
+      <span className="text-xs text-hero-foreground/35" aria-hidden>
         •
       </span>
     </Link>

@@ -11,6 +11,8 @@ export type ServicePage = {
   tagline: string;
   intro: string;
   start: { heading: string; body: string };
+  /** Label on the hero's primary button; pages without one say "Contact us". */
+  heroCta?: string;
   overview: { heading: string; paragraphs: string[] };
   included: { heading: string; intro: string; groups: Array<{ title: string; items: string[] }> };
   whoFor: { heading: string; intro: string; audiences: Array<{ title: string; body: string }> };
@@ -20,11 +22,6 @@ export type ServicePage = {
   closing: string;
 };
 
-export const SERVICE_PAGE_CLOSING = {
-  label: "From setup to success, we're with you",
-  heading: "Whatever Your Next Financial Decision, Make It With Perspective.",
-};
-
 const SERVICE_PAGES: Record<string, ServicePage> = {
   "us-tax-services": {
     label: "Individuals & Businesses",
@@ -32,6 +29,7 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
     tagline: "Tax obligations managed with precision.",
     intro:
       "From individual income tax returns to complex business tax filings, WorthPrime Tax helps individuals, entrepreneurs and businesses navigate U.S. tax requirements with accuracy, clarity and confidence.",
+    heroCta: "Bring greater precision",
     start: {
       heading: "Bring greater precision to your tax position.",
       body: "Get professional support for tax preparation, filing, planning and IRS-related matters.",
@@ -135,6 +133,7 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
     tagline: "The right structure creates room to grow.",
     intro:
       "Starting a business in the U.S. begins with choosing the right legal and tax structure. WorthPrime Tax helps entrepreneurs and business owners navigate U.S. company formation, LLC registration, corporation setup and entity restructuring with confidence.",
+    heroCta: "Build the right structure",
     start: {
       heading: "Build the right structure from the outset.",
       body: "Choose a business entity with taxation, ownership, compliance and future growth in mind.",
@@ -330,6 +329,7 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
     tagline: "Every pay cycle deserves precision.",
     intro:
       "Accurate payroll is essential to employee confidence and business compliance. WorthPrime Tax provides U.S. payroll processing, payroll tax reporting and administration support to help businesses manage employee payments, maintain reliable payroll records and meet applicable federal and state requirements.",
+    heroCta: "Bring greater control",
     start: {
       heading: "Bring Greater Control to Every Pay Cycle.",
       body: "From payroll calculations to year-end reporting, keep your payroll organised, accurate and compliant.",
@@ -734,6 +734,7 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
     tagline: "The right identification. The right filing path.",
     intro:
       "Need an Individual Taxpayer Identification Number (ITIN) for U.S. tax purposes? WorthPrime Tax assists eligible individuals with new ITIN applications, renewals, IRS Form W-7 preparation and supporting documentation to help them navigate the application process with greater clarity and accuracy.",
+    heroCta: "Get your ITIN in order",
     start: {
       heading: "Get Your ITIN Requirements in Order.",
       body: "From understanding eligibility to preparing the required documentation, take the next step toward meeting your U.S. tax identification requirements.",
@@ -838,6 +839,7 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
     tagline: "When accuracy calls for a second look.",
     intro:
       "Errors, omissions or newly discovered information can affect previously filed tax returns. WorthPrime Tax provides amended tax return preparation and filing assistance for individuals and businesses, helping correct reporting discrepancies, update financial information and address applicable IRS requirements.",
+    heroCta: "Correct the record",
     start: {
       heading: "Correct the Record With Precision.",
       body: "From reviewing an original filing to preparing an amended return, get professional support to address tax reporting errors with clarity and confidence.",
