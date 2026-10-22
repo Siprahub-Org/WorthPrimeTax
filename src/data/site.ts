@@ -94,6 +94,18 @@ export const PROCESS = [
   },
 ];
 
+/** Home page contact section, beside the enquiry form. */
+export const HOME_CONTACT = {
+  heading: "Let’s talk about",
+  headingAccent: "what comes next.",
+  intro:
+    "Whether you’re an individual, entrepreneur or growing business, we’re here to help you stay compliant and confident. Share a few details and our team will get back to you shortly.",
+  replyNote: "We typically reply within 24 hours",
+};
+
+export const FAQ_INTRO =
+  "Find quick answers to common questions about our U.S. tax services, process, pricing and more.";
+
 export const FAQS = [
   {
     q: "How much does it cost?",
@@ -250,7 +262,8 @@ export const CLIENT_EXPERIENCE = {
     // 21 Oct 2026. Update these and `reviews` whenever the profile changes.
     rating: 5.0 as number | null,
     reviewCount: 4 as number | null,
-    profileUrl: "https://www.google.com/maps/place/?q=place_id:ChIJu7DvWxWXyzsRebXJXP4isaI",
+    // Opens the business's reviews panel on Google (checked: redirects to its Google listing).
+    reviewsUrl: "https://search.google.com/local/reviews?placeid=ChIJu7DvWxWXyzsRebXJXP4isaI",
     writeReviewUrl:
       "https://search.google.com/local/writereview?placeid=ChIJu7DvWxWXyzsRebXJXP4isaI",
     ratingPlaceholder: "[Rating and review count from Google, client to supply]",
@@ -391,6 +404,20 @@ export const INSIGHTS_PAGE = {
 };
 
 /** Navy call-to-action banner shown at the foot of the pricing and insights pages. */
+/** Large closing CTA band on the home, About and Services pages. */
+export const CTA_BAND = {
+  label: "From setup to success, we're with you",
+  heading: "Make your next financial decision with confidence.",
+  intro: "Tax guidance, business support, and financial clarity—built around you.",
+  primary: "Talk to a Tax Expert",
+  secondary: "Explore Our Services",
+  points: [
+    { title: "Trusted", text: "Tax Guidance" },
+    { title: "End-to-End", text: "Support" },
+    { title: "Personalized", text: "for Individuals & Businesses" },
+  ],
+};
+
 export const CTA_BANNER = {
   label: "From setup to success, we're with you",
   heading: "Whatever the next financial decision looks like,",

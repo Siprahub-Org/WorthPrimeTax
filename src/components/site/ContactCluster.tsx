@@ -12,7 +12,7 @@ export function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 const button =
-  "grid size-11 place-items-center rounded-full border shadow-md transition duration-200 sm:size-12 motion-reduce:transition-none";
+  "grid size-9 place-items-center rounded-full border shadow-md transition duration-200 sm:size-10 motion-reduce:transition-none";
 const interactive =
   "hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:hover:translate-y-0";
 const navy = "border-hero bg-hero text-hero-foreground";
@@ -59,7 +59,7 @@ export function ContactCluster() {
   return (
     <nav
       aria-label="Quick contact"
-      className="fixed bottom-4 right-4 z-40 flex flex-col gap-2.5 sm:bottom-6 sm:right-6 sm:gap-3"
+      className="fixed bottom-4 right-4 z-40 flex flex-col gap-2 sm:bottom-5 sm:right-5"
     >
       {items.map(({ href, label, Icon, external, className }) => (
         <a
@@ -70,7 +70,7 @@ export function ContactCluster() {
           {...(external ? { target: "_blank", rel: "noreferrer noopener" } : {})}
           className={cn(button, interactive, className)}
         >
-          <Icon className="size-4.5 sm:size-5" />
+          <Icon className="size-4 sm:size-[1.125rem]" />
         </a>
       ))}
       {/* Not a link until the client supplies an Instagram URL. */}
@@ -78,7 +78,7 @@ export function ContactCluster() {
         title="Instagram [optional, client to supply]"
         className={cn(button, "border-dashed border-border bg-card text-muted-foreground")}
       >
-        <Instagram aria-hidden className="size-4.5 sm:size-5" />
+        <Instagram aria-hidden className="size-4 sm:size-[1.125rem]" />
       </span>
     </nav>
   );

@@ -41,7 +41,7 @@ function InsightsPage() {
           <div className="max-w-[34rem] lg:max-w-[46%]">
             <h1 className="font-serif text-[clamp(2.25rem,4vw,3.75rem)] leading-[1] font-bold tracking-[-0.02em]">
               <span className="block text-primary">{INSIGHTS_PAGE.heading}</span>
-              <span className="block font-semibold text-brand-gold italic">
+              <span className="block font-semibold text-primary italic">
                 {INSIGHTS_PAGE.headingMuted}
               </span>
             </h1>

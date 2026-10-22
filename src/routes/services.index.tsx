@@ -42,25 +42,49 @@ function ServicesPage() {
 
   return (
     <>
-      <Section className="bg-hero pb-0 pt-6 text-hero-foreground sm:pt-8">
-        <div className="grid items-end gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="pb-12 sm:pb-16 lg:self-start">
-            <h1 className="max-w-4xl hero-heading text-hero-foreground">
-              The Numbers Behind Your Business.{" "}
-              <span className="italic text-hero-muted">The Perspective Beyond Them.</span>
-            </h1>
-            <p className="mt-6 max-w-2xl text-hero-muted">
-              From Individual Tax and Form 1040 filings to U.S. business tax, Form 1120, Form 1120S and
-              Form 1065, our work is designed around accuracy, compliance and the broader objectives of
-              the client. Whether you are forming an LLC, operating a C Corp, S Corp or Partnership,
-              managing payroll, maintaining your books through QuickBooks, or responding to an IRS
-              Audit, we bring the relevant expertise into sharper focus.
-            </p>
-          </div>
-          <img src={documentsImage} alt="Financial documents ready for tax review" width={1408} height={1008} className="aspect-[4/3] w-full object-cover lg:aspect-[5/4]" />
+      {/*
+       * Same treatment as the home hero: the photo fills the section and a white wash on the left
+       * keeps the copy readable. This photo is busier on the left, so the wash is a little stronger.
+       */}
+      <section className="relative isolate overflow-hidden bg-background text-foreground">
+        <div className="absolute inset-0 -z-10">
+          <img
+            src={documentsImage}
+            alt="Financial documents ready for tax review"
+            width={1200}
+            height={896}
+            className="h-full w-full object-cover object-[70%_center]"
+          />
+          <div
+            className="absolute inset-0 bg-background/45 lg:bg-transparent lg:bg-linear-to-r lg:from-background/55 lg:from-25% lg:via-background/38 lg:via-50% lg:to-transparent lg:to-75%"
+            aria-hidden
+          />
         </div>
-
-      </Section>
+        <Container className="relative max-w-[1540px] lg:px-10">
+          <div className="flex max-w-[860px] flex-col pt-16 pb-20 sm:pt-20 sm:pb-24 lg:min-h-[calc(100svh-4rem)] lg:justify-center lg:pt-[3svh] lg:pb-[5svh]">
+            <h1 className="font-serif text-[clamp(2.4rem,4.3vw,4.6rem)] leading-[1.08] font-bold tracking-[-0.02em] text-primary xl:text-[clamp(2.25rem,min(4.3vw,8svh),4.6rem)]">
+              The Numbers Behind Your Business.{" "}
+              <span className="font-semibold italic">The Perspective Beyond Them.</span>
+            </h1>
+            <p className="mt-5 -mx-3 max-w-[44rem] rounded-2xl bg-background/70 px-3 py-3 text-base leading-relaxed text-foreground/85 backdrop-blur-sm sm:-mx-4 sm:px-4 sm:py-4 sm:text-lg xl:text-[clamp(1rem,2.1svh,1.25rem)]">
+              From Individual Tax and Form 1040 filings to U.S. business tax, Form 1120, Form 1120S
+              and Form 1065, our work is designed around accuracy, compliance and the broader
+              objectives of the client. Whether you are forming an LLC, operating a C Corp, S Corp
+              or Partnership, managing payroll, maintaining your books through QuickBooks, or
+              responding to an IRS Audit, we bring the relevant expertise into sharper focus.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4 xl:mt-[clamp(1rem,3.4svh,2rem)]">
+              <Link
+                to="/contact"
+                hash="contact-form"
+                className="inline-flex items-center gap-2.5 rounded-md bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground xl:px-11 xl:py-[clamp(0.75rem,1.9svh,1.1rem)] xl:text-lg transition-transform hover:scale-[1.03]"
+              >
+                Contact us <ArrowRight className="size-5" />
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </section>
 
       <PricingMarquee />
 
@@ -115,7 +139,8 @@ function ServicesPage() {
                 >
                   <p className="text-lg leading-snug">{g.situation}</p>
                   <p className="mt-6 inline-flex items-center gap-2 text-sm text-primary">
-                    {service.name} <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                    {service.name}{" "}
+                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                   </p>
                 </Link>
               </Reveal>

@@ -1,49 +1,54 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   ArrowRight,
-  ArrowUpRight,
+  CalendarDays,
   ChartColumnIncreasing,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
+  CircleDollarSign,
+  FileText,
   Files,
+  Folder,
+  Mail,
+  MapPin,
   MessageSquareQuote,
+  Phone,
   Play,
   Quote,
   ShieldCheck,
   Star,
   Users,
   Video,
+  type LucideIcon,
 } from "lucide-react";
 import { SERVICES } from "@/data/services";
 import {
   CERTIFICATIONS,
   CLIENT_EXPERIENCE,
+  FAQ_INTRO,
   FAQS,
   FOUNDERS,
+  HOME_CONTACT,
   HOME_PRICING,
   INSIGHTS,
   LINKS,
+  OFFICES,
   PROCESS,
   REASONS,
   STATS,
 } from "@/data/site";
-import {
-  Container,
-  CountUp,
-  Reveal,
-  Section,
-  SectionLabel,
-  useSnapCarousel,
-} from "@/components/site/primitives";
+import { Container, CountUp, Reveal, Section, useSnapCarousel } from "@/components/site/primitives";
 import { ServiceCard } from "@/components/site/ServiceCard";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
+import { FaqIllustration } from "@/components/site/FaqIllustration";
 import { InsightCard } from "@/components/site/InsightCard";
 import { CtaBand } from "@/components/site/CtaBand";
 import { PricingMarquee } from "@/components/site/PricingMarquee";
 import { SERVICE_IMAGES } from "@/components/site/serviceImages";
 import { cn } from "@/lib/utils";
-import heroImage from "@/assets/worthprime-hero-blue.jpg";
+import heroImage from "@/assets/worthprime-hero-team.webp";
 import advisersImage from "@/assets/worthprime-advisers-blue.jpg";
 import workspaceImage from "@/assets/worthprime-workspace.webp";
 import stepTalkImage from "@/assets/process/step-talk.jpg";
@@ -95,90 +100,65 @@ function Index() {
 
 function Hero() {
   return (
-    <section className="relative isolate overflow-hidden bg-linear-to-r from-background via-background to-tint/60">
+    <section className="relative isolate overflow-hidden bg-background text-foreground">
       {/*
-       * On extra-large screens the photo fills the whole hero and a white wash on the left keeps the
-       * navy copy readable over it, as in the approved design.
+       * The photo fills the hero at every size; a soft white wash, strongest on the left, keeps the
+       * navy copy readable while the advisers stay clear on the right, as in the approved design.
        */}
-      <div className="absolute inset-0 -z-10 hidden xl:block">
+      <div className="absolute inset-0 -z-10">
         <img
           src={heroImage}
           alt="Tax advisers reviewing financial documents together"
-          width={1264}
-          height={848}
+          width={1531}
+          height={1027}
           className="h-full w-full object-cover object-[68%_center]"
         />
         <div
-          className="absolute inset-0 bg-linear-to-r from-background from-16% via-background/70 via-36% to-transparent to-58%"
+          className="absolute inset-0 bg-background/50 lg:bg-transparent lg:bg-linear-to-r lg:from-background/60 lg:from-15% lg:via-background/25 lg:via-45% lg:to-transparent lg:to-65%"
           aria-hidden
         />
       </div>
       {/* Wider than the standard container, like the reference; the nav widens to match on this page. */}
       <Container className="relative max-w-[1540px] lg:px-10">
-        <div className="flex max-w-[900px] flex-col pt-6 pb-10 sm:pt-8 sm:pb-12 lg:pt-10 lg:pb-16 xl:min-h-[calc(100svh-4rem)] xl:justify-center xl:pt-[3svh] xl:pb-[5svh]">
-          <h1 className="max-w-[36rem] font-serif xl:[text-shadow:0_0_28px_var(--color-background),0_0_10px_var(--color-background)] text-[clamp(2.4rem,4.3vw,4.6rem)] xl:max-w-none xl:text-[clamp(2.25rem,min(4.5vw,7.8svh),4.8rem)] leading-[1.04] font-bold tracking-[-0.02em] text-primary">
+        <div className="flex max-w-[900px] flex-col pt-16 pb-20 sm:pt-20 sm:pb-24 lg:min-h-[calc(100svh-4rem)] lg:justify-center lg:pt-[3svh] lg:pb-[5svh]">
+          <h1 className="font-serif text-[clamp(2.4rem,4.3vw,4.6rem)] leading-[1.08] font-bold tracking-[-0.02em] text-primary xl:text-[clamp(2.25rem,min(4.3vw,8svh),4.6rem)]">
             {/* Two lines on wide screens: the break falls after "More Than". */}
             <span className="xl:block xl:whitespace-nowrap">Your Business Is More Than</span>{" "}
-            <span className="xl:whitespace-nowrap">
-              a Tax Return. <span className="font-semibold text-brand-gold italic">So Are We.</span>
-            </span>
+            <span className="xl:whitespace-nowrap">a Tax Return.</span>
           </h1>
-          <p className="mt-6 max-w-[37rem] text-base leading-relaxed text-foreground/85 sm:text-lg xl:[text-shadow:0_0_14px_var(--color-background),0_0_6px_var(--color-background)] xl:mt-[clamp(0.75rem,2.6svh,1.5rem)] xl:max-w-none xl:text-[clamp(1rem,2.1svh,1.25rem)]">
-            {/* Three set lines on wide screens, as in the approved design. */}
+          <p className="mt-6 max-w-[37rem] text-base leading-relaxed text-foreground/85 sm:text-lg xl:mt-[clamp(0.75rem,2.6svh,1.5rem)] xl:max-w-none xl:text-[clamp(1rem,2.1svh,1.25rem)]">
+            {/* Four set lines on wide screens, as requested by the client. */}
             <span className="xl:block xl:whitespace-nowrap">
-              Tax obligations rarely exist in isolation. Entity structure affects taxation.
+              Tax obligations rarely exist in isolation. Entity structure affects
             </span>{" "}
             <span className="xl:block xl:whitespace-nowrap">
-              Accounting shapes financial visibility. Payroll carries its own compliance
+              taxation. Accounting shapes financial visibility. Payroll carries
             </span>{" "}
             <span className="xl:block xl:whitespace-nowrap">
-              responsibilities. And an IRS notice can quickly become a business concern.
+              its own compliance responsibilities. And an IRS notice
+            </span>{" "}
+            <span className="xl:block xl:whitespace-nowrap">
+              can quickly become a business concern.
             </span>
           </p>
           <div className="mt-8 flex flex-wrap gap-4 xl:mt-[clamp(1rem,3.4svh,2rem)]">
             <Link
               to="/"
               hash="contact-form"
-              className="inline-flex items-center gap-2.5 rounded-md bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground xl:px-11 xl:py-[clamp(0.75rem,1.7svh,1rem)] xl:text-lg shadow-[0_14px_30px_-18px] shadow-primary/70 transition-transform hover:scale-[1.03]"
+              className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.03] sm:text-base"
             >
               Contact us <ArrowRight className="size-4" />
             </Link>
-            <a
-              href={LINKS.phoneHref}
-              className="inline-flex items-center gap-2 rounded-md border border-primary/70 bg-background px-8 py-3.5 text-base font-semibold text-primary xl:px-11 xl:py-[clamp(0.75rem,1.7svh,1rem)] xl:text-lg transition-colors hover:bg-tint"
-            >
-              Connect to us
-            </a>
-          </div>
-
-          <div className="mt-10 flex flex-wrap items-center gap-3 xl:mt-[clamp(1rem,4svh,2.5rem)]">
-            <div className="flex items-center gap-1 text-brand-gold">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className="size-4 fill-current xl:size-5" />
-              ))}
-            </div>
-            <p className="text-[0.95rem] text-foreground/85 xl:text-[1.0625rem]">
-              <span className="font-semibold text-primary">500 plus</span> satisfied customers
-            </p>
           </div>
         </div>
       </Container>
-
-      {/* Below extra-large screens the photo stacks under the text instead of sitting behind it. */}
-      <img
-        src={heroImage}
-        alt=""
-        width={1264}
-        height={848}
-        className="aspect-[16/10] w-full object-cover object-[65%_center] sm:aspect-[16/8] lg:aspect-[16/7] xl:hidden"
-      />
     </section>
   );
 }
 
 function StatsBand() {
   return (
-    <Section className="bg-card py-14 sm:py-20">
+    <Section className="bg-card py-10 sm:py-14">
       <div className="grid overflow-hidden rounded-[2rem] border border-hero/15 bg-tint sm:grid-cols-2 lg:grid-cols-4">
         {STATS.map((s, i) => (
           <Reveal key={s.label} delay={i * 80}>
@@ -207,8 +187,7 @@ function StatsBand() {
 function WhoWeAre() {
   return (
     <Section>
-      <SectionLabel>How we started</SectionLabel>
-      <div className="mt-6 grid gap-10 lg:grid-cols-[1fr_1fr]">
+      <div className="grid gap-10 lg:grid-cols-[1fr_1fr]">
         <div>
           <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
             Built on Experience. <span className="italic text-primary">Shaped by Perspective.</span>
@@ -260,32 +239,24 @@ const pad2 = (n: number) => String(n).padStart(2, "0");
 
 function ProofSection() {
   const total = REASONS.length;
-  // On narrow screens the cards become a swipeable track; on desktop the controls move the highlight.
-  const { active, setActive, goTo, trackRef, itemRefs: cardRefs } = useSnapCarousel(total);
+  // On narrow screens the cards become a swipeable track; on desktop tapping a card highlights it.
+  const { active, setActive, trackRef, itemRefs: cardRefs } = useSnapCarousel(total);
 
   return (
     <section
       aria-labelledby="why-worthprime-heading"
-      className="relative isolate overflow-hidden bg-background py-16 sm:py-24"
+      className="relative isolate overflow-hidden bg-background py-12 sm:py-16"
     >
       <div
-        className="absolute inset-0 -z-10 bg-linear-to-br from-tint via-background to-background"
+        className="absolute inset-0 -z-10 bg-linear-to-b from-background via-tint/70 to-background"
         aria-hidden
       />
       <div
-        className="absolute -top-40 right-0 -z-10 size-[36rem] rounded-full bg-brand-secondary/10 blur-3xl"
+        className="absolute top-1/4 right-0 -z-10 size-[36rem] rounded-full bg-brand-secondary/10 blur-3xl"
         aria-hidden
       />
       <Container>
-        <div className="flex items-center gap-4">
-          <span className="flex items-center gap-2" aria-hidden>
-            <span className="h-0.5 w-10 rounded-full bg-brand-secondary" />
-            <span className="h-0.5 w-5 rounded-full bg-border" />
-          </span>
-          <SectionLabel>Why WorthPrime Tax</SectionLabel>
-        </div>
-
-        <div className="mt-6 grid items-center gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-12">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-12">
           <div className="min-w-0">
             <h2
               id="why-worthprime-heading"
@@ -385,56 +356,6 @@ function ProofSection() {
             );
           })}
         </div>
-
-        {/* Left-aligned stack on phones so the fixed contact buttons (bottom-right) never cover the arrows. */}
-        <div className="mt-4 flex flex-col items-start gap-4 sm:mt-8 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-2">
-            {REASONS.map((r, i) => (
-              <button
-                key={r.title}
-                type="button"
-                onClick={() => goTo(i)}
-                aria-label={`Show reason ${i + 1}: ${r.title}`}
-                aria-current={active === i ? "true" : undefined}
-                className="group grid h-6 place-items-center"
-              >
-                <span
-                  className={cn(
-                    "block h-1 rounded-full transition-all duration-300",
-                    active === i
-                      ? "w-11 bg-primary"
-                      : "w-8 bg-border group-hover:bg-brand-secondary/50",
-                  )}
-                />
-              </button>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => goTo(active - 1)}
-              aria-label="Previous reason"
-              className="grid size-10 place-items-center rounded-full border border-input text-primary transition-colors hover:bg-accent"
-            >
-              <ChevronLeft className="size-4" />
-            </button>
-            <span
-              className="min-w-[4.5rem] text-center text-sm tabular-nums text-muted-foreground"
-              aria-live="polite"
-            >
-              <span className="text-primary">{pad2(active + 1)}</span> / {pad2(total)}
-            </span>
-            <button
-              type="button"
-              onClick={() => goTo(active + 1)}
-              aria-label="Next reason"
-              className="grid size-10 place-items-center rounded-full bg-primary text-primary-foreground transition-transform hover:scale-105"
-            >
-              <ChevronRight className="size-4" />
-            </button>
-          </div>
-        </div>
       </Container>
     </section>
   );
@@ -443,8 +364,7 @@ function ProofSection() {
 function ServicesGrid() {
   return (
     <Section id="services">
-      <SectionLabel>What we do</SectionLabel>
-      <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
+      <div className="flex flex-wrap items-end justify-between gap-6">
         <h2 className="max-w-3xl text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
           The Numbers Behind Your Business.{" "}
           <span className="italic text-primary">The Perspective Beyond Them.</span>
@@ -477,30 +397,60 @@ function ServicesGrid() {
 const displayPrice = (price: string) =>
   price.startsWith("From") ? price : HOME_PRICING.pendingPrice;
 
+const AUTO_SCROLL_MS = 100;
+const AUTO_SCROLL_STEP = 4;
+
 function PricingPreview() {
   const services = SERVICES;
   const trackRef = useRef<HTMLUListElement | null>(null);
-  const [atStart, setAtStart] = useState(true);
-  const [atEnd, setAtEnd] = useState(false);
   const [dragging, setDragging] = useState(false);
   // Mouse drag state; touch and trackpads use the browser's native scrolling instead.
   const drag = useRef<{ x: number; left: number; moved: boolean } | null>(null);
 
+  // The cards are rendered three times, back to back, so the row can loop endlessly in either
+  // direction: the visitor stays in the middle copy, and whenever the scroll reaches an outer
+  // copy it jumps by one copy's width, which looks identical. This is that width.
+  const loopWidth = () => {
+    const items = trackRef.current?.querySelectorAll("li");
+    if (!items || items.length < services.length * 3) return 0;
+    return (
+      (items[services.length] as HTMLElement).getBoundingClientRect().left -
+      (items[0] as HTMLElement).getBoundingClientRect().left
+    );
+  };
+
+  // Keeps the scroll position inside the middle copy.
+  const wrap = () => {
+    const track = trackRef.current;
+    const width = loopWidth();
+    if (!track || !width) return;
+    if (track.scrollLeft >= width * 2) track.scrollLeft -= width;
+    else if (track.scrollLeft < width) track.scrollLeft += width;
+  };
+
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
-    const update = () => {
-      const max = track.scrollWidth - track.clientWidth;
-      setAtStart(track.scrollLeft <= 2);
-      setAtEnd(track.scrollLeft >= max - 2);
-    };
-    update();
-    track.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => {
-      track.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-    };
+    track.scrollLeft = loopWidth();
+    track.addEventListener("scroll", wrap, { passive: true });
+    return () => track.removeEventListener("scroll", wrap);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Auto-scroll: nudge the row every 0.1s. It stops while the visitor hovers, focuses, touches or
+  // drags the row, and never stops at the end because the row loops.
+  const paused = useRef(false);
+  const holdUntil = useRef(0);
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => {
+      const track = trackRef.current;
+      if (!track || paused.current || document.hidden || Date.now() < holdUntil.current) return;
+      track.scrollLeft += AUTO_SCROLL_STEP;
+      wrap();
+    }, AUTO_SCROLL_MS);
+    return () => window.clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Moves the row by exactly one card (plus the gap), so cards stay aligned after each press.
@@ -517,18 +467,16 @@ function PricingPreview() {
   };
 
   const arrow = (dir: -1 | 1) => {
-    const disabled = dir < 0 ? atStart : atEnd;
     return (
       <button
         type="button"
         onClick={() => scrollByCard(dir)}
-        disabled={disabled}
         aria-label={dir < 0 ? "Previous services" : "Next services"}
         className={cn(
-          "grid size-11 place-items-center rounded-full border transition-colors disabled:cursor-not-allowed disabled:opacity-35",
+          "grid size-11 place-items-center rounded-full border transition-colors",
           dir < 0
-            ? "border-input bg-card text-primary enabled:hover:bg-accent"
-            : "border-primary bg-primary text-primary-foreground enabled:hover:bg-primary/90",
+            ? "border-input bg-card text-primary hover:bg-accent"
+            : "border-primary bg-primary text-primary-foreground hover:bg-primary/90",
         )}
       >
         {dir < 0 ? <ChevronLeft className="size-5" /> : <ChevronRight className="size-5" />}
@@ -539,7 +487,7 @@ function PricingPreview() {
   return (
     <section
       aria-labelledby="home-pricing-heading"
-      className="relative isolate overflow-hidden bg-background py-16 sm:py-24"
+      className="relative isolate overflow-hidden bg-background py-12 sm:py-16"
     >
       <img
         src={pricingDeskImage}
@@ -550,13 +498,9 @@ function PricingPreview() {
         className="absolute top-0 right-0 -z-10 hidden h-[58%] w-[64%] object-cover object-left [mask-image:linear-gradient(to_right,transparent,black_38%),linear-gradient(to_bottom,black_65%,transparent)] [mask-composite:intersect] md:block"
       />
       <Container>
-        <div className="flex items-center gap-5">
-          <span className="h-0.5 w-12 rounded-full bg-brand-gold" aria-hidden />
-          <SectionLabel className="text-primary">{HOME_PRICING.label}</SectionLabel>
-        </div>
         <h2
           id="home-pricing-heading"
-          className="mt-5 font-serif text-[clamp(2.4rem,5.2vw,4.4rem)] leading-[1.02] font-bold tracking-[-0.02em]"
+          className="font-serif text-[clamp(2.4rem,5.2vw,4.4rem)] leading-[1.02] font-bold tracking-[-0.02em]"
         >
           <span className="block text-primary">{HOME_PRICING.heading}</span>
           <span className="block font-semibold text-brand-gold italic">
@@ -582,10 +526,26 @@ function PricingPreview() {
         </div>
 
         <div className="relative mt-8">
+          {/* Soft colour shapes behind the row: this is what the glass cards blur and tint. */}
+          <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden>
+            <span className="absolute -top-6 left-[6%] size-64 rounded-full bg-brand-secondary/40 blur-3xl" />
+            <span className="absolute top-10 left-[38%] size-72 rounded-full bg-primary/25 blur-3xl" />
+            <span className="absolute -bottom-6 left-[68%] size-64 rounded-full bg-brand-secondary/35 blur-3xl" />
+          </div>
           <ul
             ref={trackRef}
             tabIndex={0}
             aria-label="Starting prices by service"
+            onPointerEnter={() => (paused.current = true)}
+            onPointerLeave={() => (paused.current = false)}
+            onFocus={() => (paused.current = true)}
+            onBlur={() => (paused.current = false)}
+            onTouchStart={() => (paused.current = true)}
+            onTouchEnd={() => {
+              // Let a swipe's momentum finish before the row starts moving again.
+              holdUntil.current = Date.now() + 2500;
+              paused.current = false;
+            }}
             onPointerDown={(e) => {
               if (e.pointerType !== "mouse" || e.button !== 0 || !trackRef.current) return;
               drag.current = { x: e.clientX, left: trackRef.current.scrollLeft, moved: false };
@@ -619,24 +579,29 @@ function PricingPreview() {
             }}
             className={cn(
               "-mx-5 flex gap-5 overflow-x-auto overscroll-x-contain scroll-px-5 px-5 pt-2 pb-8 outline-none [scrollbar-width:none] focus-visible:ring-2 focus-visible:ring-primary/30 sm:-mx-8 sm:scroll-px-8 sm:px-8 [&::-webkit-scrollbar]:hidden",
-              dragging ? "cursor-grabbing snap-none select-none" : "snap-x snap-mandatory",
+              // No scroll snapping: it would pull the slow auto-scroll back to the nearest card.
+              dragging && "cursor-grabbing select-none",
               "[@media(pointer:fine)]:cursor-grab",
             )}
           >
-            {services.map((s) => {
+            {[...services, ...services, ...services].map((s, index) => {
               const image = SERVICE_IMAGES[s.slug];
+              // Only the middle copy is real for keyboards and screen readers.
+              const isCopy = Math.floor(index / services.length) !== 1;
               return (
                 <li
-                  key={s.slug}
-                  className="w-[80%] max-w-[19rem] shrink-0 snap-start sm:w-[18.5rem]"
+                  key={`${s.slug}-${index}`}
+                  aria-hidden={isCopy || undefined}
+                  className="w-[80%] max-w-[19rem] shrink-0 sm:w-[18.5rem]"
                 >
                   <Link
                     to="/services/$slug"
                     params={{ slug: s.slug }}
+                    tabIndex={isCopy ? -1 : undefined}
                     draggable={false}
-                    className="group flex h-full flex-col rounded-2xl border border-brand-secondary/10 bg-card p-3 shadow-[0_20px_50px_-34px] shadow-primary/45 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-34px]"
+                    className="group flex h-full flex-col rounded-3xl border border-card/80 bg-card/45 p-3 shadow-[inset_0_1px_0_var(--color-card),0_24px_48px_-20px] shadow-primary/40 backdrop-blur-xl backdrop-saturate-150 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[inset_0_1px_0_var(--color-card),0_32px_56px_-20px]"
                   >
-                    <div className="aspect-2/1 overflow-hidden rounded-xl bg-tint">
+                    <div className="aspect-2/1 overflow-hidden rounded-2xl bg-tint/60">
                       {image && (
                         <img
                           src={image}
@@ -647,25 +612,22 @@ function PricingPreview() {
                         />
                       )}
                     </div>
-                    <div className="flex flex-1 flex-col px-2 pt-5 pb-1.5">
-                      <div className="flex items-center gap-4">
-                        <span className="text-lg font-semibold text-brand-gold tabular-nums">
-                          {s.number}
-                        </span>
-                        <span className="h-px w-12 bg-brand-gold/50" aria-hidden />
-                      </div>
-                      <h3 className="mt-3 min-h-[2.4em] font-serif text-[1.4rem] leading-[1.2] font-semibold text-primary">
+                    <div className="flex flex-1 flex-col px-2 pt-4 pb-1.5">
+                      <span className="text-sm font-semibold tracking-widest text-primary/70 tabular-nums">
+                        {s.number}
+                      </span>
+                      <h3 className="mt-1 min-h-[2.4em] font-serif text-[1.35rem] leading-[1.2] font-semibold text-primary">
                         {s.name}
                       </h3>
-                      <div className="mt-auto flex items-end justify-between gap-3 pt-5">
+                      <div className="mt-auto flex items-end justify-between gap-3 pt-4">
                         <div>
-                          <p className="text-sm text-muted-foreground">{HOME_PRICING.priceLabel}</p>
+                          <p className="text-sm text-foreground/70">{HOME_PRICING.priceLabel}</p>
                           <p className="mt-0.5 text-xl font-bold text-primary">
                             {displayPrice(s.price)}
                           </p>
                         </div>
                         <span
-                          className="grid size-11 shrink-0 place-items-center rounded-full border-[1.5px] border-brand-gold text-brand-gold transition-colors group-hover:bg-brand-gold group-hover:text-primary-foreground"
+                          className="grid size-11 shrink-0 place-items-center rounded-full border border-primary/30 bg-card/60 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground"
                           aria-hidden
                         >
                           <ArrowRight className="size-5" />
@@ -679,10 +641,7 @@ function PricingPreview() {
           </ul>
           {/* Edge fade hinting that more cards are off-screen. */}
           <div
-            className={cn(
-              "pointer-events-none absolute inset-y-0 -right-5 w-16 bg-linear-to-l from-background to-transparent transition-opacity sm:-right-8",
-              atEnd && "opacity-0",
-            )}
+            className="pointer-events-none absolute inset-y-0 -right-5 w-16 bg-linear-to-l from-background to-transparent sm:-right-8"
             aria-hidden
           />
         </div>
@@ -705,8 +664,7 @@ const PROCESS_OFFSETS = ["lg:translate-y-10", "lg:translate-y-16", "lg:translate
 function HowItWorks() {
   return (
     <Section className="relative isolate overflow-hidden bg-linear-to-b from-background via-tint/40 to-background">
-      <SectionLabel>How it works</SectionLabel>
-      <h2 className="mt-6 max-w-3xl text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
+      <h2 className="max-w-3xl text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
         Four steps, <span className="italic text-primary">start to filing.</span>
       </h2>
       <span className="mt-6 block h-0.5 w-16 rounded-full bg-brand-indigo" aria-hidden />
@@ -778,14 +736,14 @@ const formatDuration = (seconds: number) => {
 };
 
 function ClientExperience() {
-  const { label, heading, headingMuted } = CLIENT_EXPERIENCE;
+  const { heading, headingMuted } = CLIENT_EXPERIENCE;
   return (
     <section
       aria-labelledby="client-experience-heading"
-      className="relative isolate overflow-hidden bg-background py-16 sm:py-24"
+      className="relative isolate overflow-hidden bg-background py-12 sm:py-16"
     >
       <div
-        className="absolute inset-0 -z-10 bg-linear-to-b from-tint/70 via-background to-background"
+        className="absolute inset-0 -z-10 bg-linear-to-b from-background via-tint/60 to-background"
         aria-hidden
       />
       <div
@@ -793,13 +751,9 @@ function ClientExperience() {
         aria-hidden
       />
       <Container>
-        <div className="flex items-center gap-4">
-          <span className="h-0.5 w-10 rounded-full bg-brand-secondary" aria-hidden />
-          <SectionLabel>{label}</SectionLabel>
-        </div>
         <h2
           id="client-experience-heading"
-          className="mt-5 text-[clamp(2.2rem,5vw,4rem)] leading-[1.02] tracking-[-0.02em]"
+          className="text-[clamp(2.2rem,5vw,4rem)] leading-[1.02] tracking-[-0.02em]"
         >
           {heading} <span className="font-serif font-semibold italic">{headingMuted}</span>
         </h2>
@@ -893,25 +847,8 @@ const AVATAR_TINTS = [
 function ReviewsPanel() {
   const { google, reviews, reviewPlaceholders } = CLIENT_EXPERIENCE;
   const count = reviews.length || reviewPlaceholders;
-  const { active, goTo, trackRef, itemRefs } = useSnapCarousel(count);
-
-  const arrow = (dir: -1 | 1, className: string) => (
-    <button
-      type="button"
-      onClick={() => goTo(active + dir)}
-      aria-label={dir < 0 ? "Previous review" : "Next review"}
-      className={cn(
-        "size-12 place-items-center rounded-full bg-card text-primary shadow-[0_10px_28px_-10px] shadow-primary/40 ring-1 ring-brand-secondary/10 transition-transform hover:scale-105",
-        className,
-      )}
-    >
-      {dir < 0 ? (
-        <ChevronLeft className="size-5" strokeWidth={2.5} />
-      ) : (
-        <ChevronRight className="size-5" strokeWidth={2.5} />
-      )}
-    </button>
-  );
+  // The reviews swipe (touch) or scroll (mouse) in their row; there are no arrows or dots.
+  const { trackRef, itemRefs } = useSnapCarousel(count);
 
   return (
     <div className="relative min-w-0 rounded-[1.75rem] border border-brand-secondary/10 bg-card p-5 shadow-[0_24px_60px_-36px] shadow-primary/40 sm:px-8 sm:pt-7 sm:pb-6">
@@ -944,7 +881,7 @@ function ReviewsPanel() {
           </div>
           {google.rating !== null && google.reviewCount !== null ? (
             <a
-              href={google.profileUrl}
+              href={google.reviewsUrl}
               target="_blank"
               rel="noreferrer noopener"
               className="mt-1.5 inline-block text-xs text-muted-foreground underline-offset-4 hover:text-primary hover:underline sm:text-sm"
@@ -983,8 +920,20 @@ function ReviewsPanel() {
                 }}
                 aria-roledescription="slide"
                 aria-label={`Review ${i + 1} of ${count}`}
-                className="flex w-[85%] shrink-0 snap-start flex-col rounded-2xl border border-brand-secondary/10 bg-card/80 p-5 shadow-[0_12px_30px_-26px] shadow-primary/40 sm:w-[calc((100%-1rem)/2)] xl:w-[calc((100%-2rem)/3)]"
+                className="relative flex w-[85%] shrink-0 snap-start flex-col rounded-2xl border border-brand-secondary/10 bg-card/80 p-5 shadow-[0_12px_30px_-26px] shadow-primary/40 transition-shadow hover:shadow-[0_16px_34px_-22px] sm:w-[calc((100%-1rem)/2)] xl:w-[calc((100%-2rem)/3)]"
               >
+                {/* Whole card links to the reviews on Google. */}
+                <a
+                  href={google.reviewsUrl}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="absolute inset-0 rounded-2xl focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:outline-none"
+                >
+                  <span className="sr-only">
+                    Read {review ? `${review.name}'s` : "this"} review on Google (opens in a new
+                    tab)
+                  </span>
+                </a>
                 <Stars {...(review ? { rating: review.rating } : {})} className="size-[1.125rem]" />
                 {review && !review.text ? (
                   // Star-only Google ratings: say so plainly rather than inventing a quote.
@@ -1019,45 +968,9 @@ function ReviewsPanel() {
             );
           })}
         </div>
-        {arrow(-1, "absolute top-1/2 -left-11 z-10 hidden -translate-y-1/2 sm:grid")}
-        {arrow(1, "absolute top-1/2 -right-11 z-10 hidden -translate-y-1/2 sm:grid")}
       </div>
 
-      <div className="mt-6 flex items-center justify-center gap-4">
-        {arrow(-1, "grid size-10 sm:hidden")}
-        <div className="flex items-center gap-1.5">
-          {Array.from({ length: count }).map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => goTo(i)}
-              aria-label={`Show review ${i + 1}`}
-              aria-current={active === i ? "true" : undefined}
-              className="grid size-6 place-items-center"
-            >
-              <span
-                className={cn(
-                  "block size-3 rounded-full transition-colors duration-300",
-                  active === i ? "bg-brand-secondary" : "bg-brand-secondary/20",
-                )}
-              />
-            </button>
-          ))}
-        </div>
-        {arrow(1, "grid size-10 sm:hidden")}
-      </div>
-
-      <div className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 border-t border-brand-secondary/10 pt-5">
-        <a
-          href={google.profileUrl}
-          target="_blank"
-          rel="noreferrer noopener"
-          className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 hover:underline"
-        >
-          See all reviews on Google
-          <ArrowUpRight className="size-4" aria-hidden />
-          <span className="sr-only">(opens in a new tab)</span>
-        </a>
+      <div className="mt-5 flex justify-center">
         <a
           href={google.writeReviewUrl}
           target="_blank"
@@ -1148,8 +1061,7 @@ function VideoTestimonial() {
 function Insights() {
   return (
     <Section id="insights">
-      <SectionLabel>Insights</SectionLabel>
-      <h2 className="mt-6 text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
+      <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
         Latest from <span className="italic text-primary">WorthPrime Tax</span>
       </h2>
       <p className="mt-4 text-sm text-muted-foreground">
@@ -1172,47 +1084,96 @@ function Insights() {
   );
 }
 
+// One icon per FAQS entry, in order: pricing, clients, IRS notice, documents, timing.
+const FAQ_ICONS = [CircleDollarSign, Users, FileText, Folder, CalendarDays];
+
 function Faq() {
+  // Pricing (the first question) starts open.
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <Section className="bg-background/40">
-      <SectionLabel>FAQ</SectionLabel>
-      <div className="mt-6 grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-        <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
-          Questions, <span className="italic text-primary">answered.</span>
-        </h2>
-        <div className="divide-y divide-border border-y border-border">
-          {FAQS.map((f, i) => (
-            <div key={f.q}>
-              <button
-                type="button"
-                aria-expanded={open === i}
-                onClick={() => setOpen(open === i ? null : i)}
-                className="flex w-full items-center justify-between gap-6 py-5 text-left"
-              >
-                <span className="text-base sm:text-lg">{f.q}</span>
-                <span
-                  className={cn(
-                    "shrink-0 text-2xl text-primary transition-transform duration-300",
-                    open === i && "rotate-45",
-                  )}
-                >
-                  +
-                </span>
-              </button>
-              <div
+    <Section className="relative isolate overflow-hidden">
+      <div
+        className="absolute inset-0 -z-10 bg-linear-to-b from-background via-tint/50 to-background"
+        aria-hidden
+      />
+      <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-12">
+        <div>
+          <h2 className="font-serif text-[clamp(2rem,3.6vw,3.1rem)] leading-[1.04] font-bold tracking-[-0.02em] text-primary">
+            Questions, <span className="block text-brand-secondary italic">answered.</span>
+          </h2>
+          <p className="mt-3 max-w-sm text-sm leading-relaxed text-foreground/80 sm:text-base">
+            {FAQ_INTRO}
+          </p>
+          <Link
+            to="/"
+            hash="contact-form"
+            className="mt-5 inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground shadow-[0_14px_30px_-18px] shadow-primary/70 transition-transform hover:scale-[1.03]"
+          >
+            Contact us <ArrowRight className="size-4" aria-hidden />
+          </Link>
+          <FaqIllustration className="mt-5 hidden max-w-[14rem] lg:block" />
+        </div>
+
+        <ul className="space-y-2.5">
+          {FAQS.map((f, i) => {
+            const Icon = FAQ_ICONS[i] ?? FileText;
+            const isOpen = open === i;
+            const panelId = `faq-panel-${i}`;
+            const buttonId = `faq-button-${i}`;
+            return (
+              <li
+                key={f.q}
                 className={cn(
-                  "grid transition-all duration-300",
-                  open === i ? "grid-rows-[1fr] pb-5 opacity-100" : "grid-rows-[0fr] opacity-0",
+                  "rounded-2xl border shadow-[0_14px_34px_-28px] shadow-primary/60 transition-colors duration-300",
+                  isOpen ? "border-brand-secondary/30 bg-tint/70" : "border-border bg-card",
                 )}
               >
-                <div className="overflow-hidden">
-                  <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+                <h3>
+                  <button
+                    type="button"
+                    id={buttonId}
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    onClick={() => setOpen(isOpen ? null : i)}
+                    className="flex w-full items-center gap-3 px-4 py-3 text-left sm:gap-4 sm:px-5 sm:py-3.5"
+                  >
+                    <span
+                      className="grid size-9 shrink-0 place-items-center rounded-full bg-tint text-primary sm:size-10"
+                      aria-hidden
+                    >
+                      <Icon className="size-4 sm:size-5" strokeWidth={1.6} />
+                    </span>
+                    <span className="min-w-0 flex-1 text-sm font-semibold text-primary sm:text-base">
+                      {f.q}
+                    </span>
+                    <ChevronDown
+                      className={cn(
+                        "size-4 shrink-0 text-primary transition-transform duration-300",
+                        isOpen && "rotate-180",
+                      )}
+                      aria-hidden
+                    />
+                  </button>
+                </h3>
+                <div
+                  id={panelId}
+                  role="region"
+                  aria-labelledby={buttonId}
+                  className={cn(
+                    "grid transition-[grid-template-rows,opacity] duration-300 ease-out",
+                    isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+                  )}
+                >
+                  <div className="overflow-hidden">
+                    <p className="mx-4 border-t border-brand-secondary/15 pt-3 pb-4 text-sm leading-relaxed text-foreground/80 sm:mr-5 sm:ml-[4.25rem]">
+                      {f.a}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
-        </div>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </Section>
   );
@@ -1220,23 +1181,89 @@ function Faq() {
 
 function ContactBlock() {
   return (
-    <Section id="contact-form" className="scroll-mt-28 pb-8">
-      <div className="grid gap-10 lg:grid-cols-[1fr_1fr]">
+    <Section id="contact-form" className="relative isolate scroll-mt-28 overflow-hidden">
+      <div
+        className="absolute inset-0 -z-10 bg-linear-to-b from-background via-tint/70 to-tint/40"
+        aria-hidden
+      />
+      <div
+        className="absolute top-1/4 left-[38%] -z-10 hidden size-[32rem] rounded-full bg-brand-secondary/10 blur-3xl lg:block"
+        aria-hidden
+      />
+      <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-14">
         <div>
-          <SectionLabel>Contact</SectionLabel>
-          <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.2rem)] leading-[1.05]">
-            For Individuals. For Businesses.{" "}
-            <span className="italic text-primary">For What Comes Next…</span>
+          <h2 className="font-serif text-[clamp(2.4rem,5vw,4.25rem)] leading-[1.04] font-bold tracking-[-0.02em] text-primary">
+            {HOME_CONTACT.heading}{" "}
+            <span className="block text-brand-secondary italic">{HOME_CONTACT.headingAccent}</span>
           </h2>
-          <p className="mt-6 text-muted-foreground">
-            Your financial obligations change as your circumstances change. A new business requires
-            the right structure. A growing company needs reliable books and payroll. Tax season
-            calls for accurate filings. International activity can create additional reporting
-            requirements. And when the IRS raises a question, the response needs to be deliberate.
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg">
+            {HOME_CONTACT.intro}
           </p>
+
+          <ul className="mt-8 space-y-5">
+            <ContactLine icon={Phone} title="Call us">
+              <a href={LINKS.phoneHref} className="text-lg text-foreground hover:text-primary">
+                {LINKS.phone}
+              </a>
+            </ContactLine>
+            <ContactLine icon={Mail} title="Email us" note={HOME_CONTACT.replyNote}>
+              <a
+                href={`mailto:${LINKS.email}`}
+                className="text-lg break-all text-foreground hover:text-primary"
+              >
+                {LINKS.email}
+              </a>
+            </ContactLine>
+            <ContactLine icon={MapPin} title="Visit us">
+              <span className="text-lg text-foreground">{OFFICES[0].address}</span>
+            </ContactLine>
+          </ul>
+
+          <div className="mt-8 flex flex-wrap gap-4">
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2.5 rounded-lg bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground shadow-[0_14px_30px_-18px] shadow-primary/70 transition-transform hover:scale-[1.03]"
+            >
+              Contact us <ArrowRight className="size-5" aria-hidden />
+            </Link>
+            <Link
+              to="/services"
+              className="inline-flex items-center rounded-lg border border-primary/70 bg-card px-8 py-3.5 text-base font-semibold text-primary transition-colors hover:bg-tint"
+            >
+              View services
+            </Link>
+          </div>
         </div>
-        <EnquiryForm />
+        <EnquiryForm submitLabel="Submit request" />
       </div>
     </Section>
+  );
+}
+
+function ContactLine({
+  icon: Icon,
+  title,
+  note,
+  children,
+}: {
+  icon: LucideIcon;
+  title: string;
+  note?: string;
+  children: ReactNode;
+}) {
+  return (
+    <li className="flex items-center gap-4">
+      <span
+        className="grid size-14 shrink-0 place-items-center rounded-full bg-brand-secondary/10 text-primary"
+        aria-hidden
+      >
+        <Icon className="size-6" strokeWidth={1.6} />
+      </span>
+      <div className="min-w-0">
+        <p className="font-semibold text-primary">{title}</p>
+        <div className="mt-0.5">{children}</div>
+        {note && <p className="mt-0.5 text-sm text-foreground/70">{note}</p>}
+      </div>
+    </li>
   );
 }
