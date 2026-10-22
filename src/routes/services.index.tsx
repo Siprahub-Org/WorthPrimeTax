@@ -42,11 +42,10 @@ function ServicesPage() {
 
   return (
     <>
-      <Section className="bg-hero pb-0 pt-14 text-hero-foreground">
+      <Section className="bg-hero pb-0 pt-6 text-hero-foreground sm:pt-8">
         <div className="grid items-end gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="pb-12 sm:pb-16">
-            <SectionLabel className="text-hero-muted!">What we do</SectionLabel>
-            <h1 className="mt-5 max-w-4xl hero-heading text-hero-foreground">
+          <div className="pb-12 sm:pb-16 lg:self-start">
+            <h1 className="max-w-4xl hero-heading text-hero-foreground">
               The Numbers Behind Your Business.{" "}
               <span className="italic text-hero-muted">The Perspective Beyond Them.</span>
             </h1>

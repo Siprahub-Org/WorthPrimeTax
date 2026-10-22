@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
   type ErrorComponentProps,
@@ -14,6 +15,8 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Nav } from "@/components/site/Nav";
+import { heroOverlay } from "@/components/site/heroOverlay";
+import { cn } from "@/lib/utils";
 import { Footer } from "@/components/site/Footer";
 import { ContactCluster } from "@/components/site/ContactCluster";
 
@@ -122,11 +125,21 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const photoHero = useRouterState({ select: (s) => heroOverlay(s.location.pathname) !== null });
 
   return (
     <QueryClientProvider client={queryClient}>
       <Nav />
-      <main className="min-h-screen pt-20">
+      <main
+        className={cn(
+          "min-h-screen",
+          // Photo-hero pages let the hero run up behind the transparent nav; a 4rem spacer at the
+          // top of that first section keeps its content clear of the bar.
+          photoHero
+            ? "[&>section:first-child]:before:block [&>section:first-child]:before:h-16 [&>section:first-child]:before:content-['']"
+            : "pt-16",
+        )}
+      >
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
       </main>

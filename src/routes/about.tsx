@@ -43,11 +43,10 @@ export const Route = createFileRoute("/about")({
 function AboutPage() {
   return (
     <>
-      <Section className="bg-hero pb-0 pt-14 text-hero-foreground">
+      <Section className="bg-hero pb-0 pt-6 text-hero-foreground sm:pt-8">
         <div className="grid items-end gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="pb-12 sm:pb-16">
-            <SectionLabel className="text-hero-muted!">How we started</SectionLabel>
-            <h1 className="mt-5 max-w-4xl hero-heading text-hero-foreground">
+          <div className="pb-12 sm:pb-16 lg:self-start">
+            <h1 className="max-w-4xl hero-heading text-hero-foreground">
               Built on Experience. <span className="italic text-hero-muted">Shaped by Perspective.</span>
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-relaxed text-hero-muted">
