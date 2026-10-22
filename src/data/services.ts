@@ -318,9 +318,24 @@ export const AUDIENCES: Array<"All" | Audience> = [
 ];
 
 export const HOW_THE_WORK_MOVES = [
-  { step: "01", title: "Understand", body: "We establish the facts, the entity and the obligations that apply." },
-  { step: "02", title: "Prepare", body: "The work is prepared and reviewed against the wider financial position." },
-  { step: "03", title: "Deliver", body: "Filed, documented and supported through anything that follows." },
+  {
+    step: "01",
+    title: "Understand",
+    body: "We establish the facts, the entity and the obligations that apply.",
+    points: ["Facts", "Entity", "Obligations"],
+  },
+  {
+    step: "02",
+    title: "Prepare",
+    body: "The work is prepared and reviewed against the wider financial position.",
+    points: ["Draft", "Financial review", "Quality check"],
+  },
+  {
+    step: "03",
+    title: "Deliver",
+    body: "Filed, documented and supported through anything that follows.",
+    points: ["Filed", "Documented", "Supported"],
+  },
 ];
 
 export function getService(slug: string) {
