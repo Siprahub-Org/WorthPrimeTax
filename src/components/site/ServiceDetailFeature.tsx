@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import {
-  ArrowLeft,
   ArrowLeftRight,
   ArrowRight,
   Banknote,
@@ -184,21 +183,9 @@ export function ServiceDetailFeature({
           aria-hidden
           className="absolute inset-0 -z-10 bg-hero/85 lg:bg-transparent lg:bg-linear-to-r lg:from-hero lg:from-36% lg:via-hero/75 lg:via-48% lg:to-transparent lg:to-70%"
         />
-        <Container className="py-12 sm:py-16 lg:py-20">
+        <Container className="pt-6 pb-12 sm:pt-8 sm:pb-16 lg:pt-10 lg:pb-20">
           <div className="max-w-xl">
-            <NumberedLabel n={Number(service.number)} className="text-hero-muted">
-              {page.label}
-            </NumberedLabel>
-            <nav aria-label="Breadcrumb" className="mt-5">
-              <Link
-                to="/services"
-                className="inline-flex items-center gap-2 rounded-full border border-hero-border px-4 py-1.5 text-[0.6875rem] font-medium tracking-[0.16em] text-hero-foreground/85 uppercase transition-colors hover:bg-hero-foreground/10"
-              >
-                <ArrowLeft className="size-3.5" aria-hidden />
-                All services
-              </Link>
-            </nav>
-            <h1 className="mt-6 font-serif text-[clamp(2.4rem,5.2vw,4.25rem)] leading-[1.04] font-semibold text-hero-foreground">
+            <h1 className="font-serif text-[clamp(2.4rem,5.2vw,4.25rem)] leading-[1.04] font-semibold text-hero-foreground">
               {page.heading}
             </h1>
             <p className="mt-3 font-serif text-[clamp(1.2rem,2.2vw,1.6rem)] text-hero-foreground/85 italic">

@@ -18,8 +18,7 @@ export const OFFICES = [
   {
     label: "Branch Office (UAE)",
     region: "United Arab Emirates",
-    address:
-      "The Meydan Hotel, Grandstand, 6th floor, Meydan Road, Nad Al Sheba, Dubai, UAE",
+    address: "The Meydan Hotel, Grandstand, 6th floor, Meydan Road, Nad Al Sheba, Dubai, UAE",
   },
   {
     label: "Branch Office (India)",
@@ -118,23 +117,90 @@ export const FAQS = [
   },
 ];
 
-export const INSIGHTS = [
+export type Insight = {
+  slug: string;
+  tag: "Tax" | "Compliance" | "Accounting";
+  /** ISO date, shown as e.g. "Oct 15, 2026". */
+  date: string;
+  title: string;
+  excerpt: string;
+  body: string[];
+  takeaways: string[];
+  /** Closing call to action; links to the named service page, or the contact form when absent. */
+  cta: { label: string; serviceSlug?: string };
+};
+
+export const INSIGHTS: Insight[] = [
   {
+    slug: "key-us-tax-changes-2026",
     tag: "Tax",
-    title: "[Article title — to be fed from LinkedIn posts]",
-    excerpt: "[Article excerpt placeholder]",
+    date: "2026-10-15",
+    title: "Key U.S. Tax Changes for 2026 and What They Mean for You",
+    excerpt:
+      "A practical overview of important tax updates and how individuals and businesses can prepare.",
+    body: [
+      "Stay informed about U.S. tax developments that may affect your personal finances or business operations. Understanding changes to tax rules, deductions, credits, and filing requirements can help you prepare for tax season and make informed financial decisions.",
+      "Our tax specialists help individuals and businesses understand their filing obligations, organize financial records, and identify applicable tax considerations.",
+    ],
+    takeaways: [
+      "Review your tax planning strategy for the 2026 tax year.",
+      "Keep income records and supporting documents organized.",
+      "Evaluate applicable deductions and credits with a qualified tax professional.",
+      "Plan ahead for filing deadlines and estimated tax obligations.",
+    ],
+    cta: { label: "Plan Your Taxes with WorthPrime", serviceSlug: "us-tax-services" },
   },
   {
+    slug: "strengthening-compliance-changing-regulatory-landscape",
     tag: "Compliance",
-    title: "[Article title — to be fed from LinkedIn posts]",
-    excerpt: "[Article excerpt placeholder]",
+    date: "2026-10-08",
+    title: "Strengthening Compliance in a Changing Regulatory Landscape",
+    excerpt: "Insights on evolving IRS requirements and best practices for maintaining compliance.",
+    body: [
+      "Tax and regulatory compliance requires careful documentation, timely reporting, and an understanding of applicable requirements. Businesses operating across jurisdictions may face additional responsibilities involving financial reporting, tax filings, and regulatory disclosures.",
+      "A structured compliance process helps reduce errors, improve recordkeeping, and prepare organizations for questions from regulatory authorities.",
+    ],
+    takeaways: [
+      "Maintain accurate financial and business records.",
+      "Review filing obligations regularly.",
+      "Identify reporting requirements relevant to your business structure.",
+      "Seek professional guidance when regulations or circumstances change.",
+    ],
+    cta: { label: "Strengthen Your Compliance Process" },
   },
   {
+    slug: "year-end-accounting-checklist-us-businesses",
     tag: "Accounting",
-    title: "[Article title — to be fed from LinkedIn posts]",
-    excerpt: "[Article excerpt placeholder]",
+    date: "2026-10-01",
+    title: "Year-End Accounting Checklist for U.S. Businesses",
+    excerpt: "Key steps to close the year, stay compliant and start the next year with confidence.",
+    body: [
+      "Year-end accounting is an opportunity to review financial performance, reconcile accounts, and prepare for the next reporting period. Completing these tasks early can help businesses identify discrepancies and organize the documentation needed for tax preparation.",
+      "A consistent closing process also gives business owners a clearer picture of cash flow, expenses, and financial obligations.",
+    ],
+    takeaways: [
+      "Reconcile bank and credit card statements.",
+      "Review outstanding invoices and accounts payable.",
+      "Verify payroll records and related tax documentation.",
+      "Organize receipts, expense records, and supporting documents.",
+      "Review financial statements before closing the books.",
+    ],
+    cta: { label: "Prepare for Year-End with WorthPrime", serviceSlug: "accounting-bookkeeping" },
   },
 ];
+
+export function getInsight(slug: string) {
+  return INSIGHTS.find((a) => a.slug === slug);
+}
+
+export function formatInsightDate(iso: string) {
+  return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
 
 export const FOUNDERS = [
   {
@@ -275,7 +341,13 @@ export const CONTACT_PAGE = {
   intro:
     "Questions to resolve. Decisions to make. We’re here to help—connect with us, we’re just a click away.",
   cta: "Talk to WorthPrime Tax",
+  highlights: [
+    { title: "Quick Response", text: "We typically reply within 24 hours" },
+    { title: "Trusted Experts", text: "U.S. tax & compliance specialists" },
+    { title: "Global Support", text: "Serving clients worldwide" },
+  ],
   detailsHeading: "Contact Details",
+  detailsIntro: "Reach out to our offices or connect with us directly.",
 };
 
 export const PRICING_PAGE = {
@@ -283,10 +355,15 @@ export const PRICING_PAGE = {
   description:
     "Starting-from prices for WorthPrime Tax's U.S. tax, accounting, payroll, audit and compliance services. Final fees depend on scope.",
   label: "Pricing",
-  heading: "Starting from,",
-  headingMuted: "before scope.",
+  heading: "Transparent Pricing.",
+  headingMuted: "Trusted Expertise.",
   intro:
-    "Every engagement is quoted after a short conversation about your entity, filings and the work involved. The chart below shows where each service starts. [suggested copy, client to confirm]",
+    "Every engagement is quoted after a short conversation about your entity, filings and the work involved. The chart below shows where each service starts.",
+  highlights: [
+    { title: "Clear & Transparent", text: "No hidden fees" },
+    { title: "Experienced Team", text: "U.S. tax & compliance specialists" },
+    { title: "Nationwide Support", text: "Serving clients across the U.S." },
+  ],
   chartNote:
     "Audits are available to clients across U.S. states. Only the audit fee is confirmed; all other figures are placeholders. Final fees depend on scope.",
 };
@@ -299,6 +376,25 @@ export const INSIGHTS_PAGE = {
   heading: "Perspective on",
   headingMuted: "what comes next.",
   intro:
-    "Practical notes on U.S. tax, accounting and compliance—what is changing, what it means and what to do about it. [suggested copy, client to confirm]",
+    "Practical insights on U.S. tax, accounting and compliance—what is changing, what it means and what to do about it.",
   feedNote: "[These will later be fed from LinkedIn posts]",
+  latestLabel: "Latest insights",
+  latestHeading: "Latest Articles",
+  latestIntro:
+    "Stay informed with the latest insights on U.S. tax, accounting and compliance to help you make confident decisions.",
+  linkedinHeading: "Get new insights on LinkedIn",
+  linkedinText:
+    "Follow WorthPrime Tax on LinkedIn for practical insights on U.S. taxation, accounting, business compliance, and financial planning.",
+  linkedinCta: "Follow WorthPrime Tax",
+  disclaimer:
+    "This content is for general informational purposes only and does not constitute tax, legal, or accounting advice. Tax rules and filing requirements depend on individual circumstances and applicable law. Consult a qualified professional regarding your situation.",
+};
+
+/** Navy call-to-action banner shown at the foot of the pricing and insights pages. */
+export const CTA_BANNER = {
+  label: "From setup to success, we're with you",
+  heading: "Whatever the next financial decision looks like,",
+  headingAccent: "make it with perspective.",
+  button: "Talk to Our Experts",
+  caption: "Get a customized quote based on your needs.",
 };

@@ -95,64 +95,83 @@ function Index() {
 
 function Hero() {
   return (
-    <section className="relative isolate overflow-hidden bg-hero">
-      <img
-        src={heroImage}
-        alt="Tax advisers reviewing financial documents together"
-        width={1600}
-        height={1056}
-        className="absolute inset-0 -z-10 h-full w-full object-cover object-[62%_center] opacity-90 sm:object-center"
-      />
-      <div
-        className="absolute inset-0 -z-10 bg-linear-to-r from-hero via-hero/65 to-hero/20"
-        aria-hidden
-      />
-      <div
-        className="absolute inset-0 -z-10 bg-linear-to-t from-hero/75 via-hero/10 to-hero/40"
-        aria-hidden
-      />
-      <Container className="relative">
-        <div className="flex max-w-3xl flex-col justify-center py-12 sm:py-16 lg:py-20">
-          <SectionLabel className="text-hero-muted!">Explore</SectionLabel>
-          <h1 className="mt-5 hero-heading text-hero-foreground">
-            Your Business Is More Than a Tax Return.{" "}
-            <span className="italic text-hero-muted">So Are We.</span>
+    <section className="relative isolate overflow-hidden bg-linear-to-r from-background via-background to-tint/60">
+      {/*
+       * On extra-large screens the photo fills the whole hero and a white wash on the left keeps the
+       * navy copy readable over it, as in the approved design.
+       */}
+      <div className="absolute inset-0 -z-10 hidden xl:block">
+        <img
+          src={heroImage}
+          alt="Tax advisers reviewing financial documents together"
+          width={1264}
+          height={848}
+          className="h-full w-full object-cover object-[68%_center]"
+        />
+        <div
+          className="absolute inset-0 bg-linear-to-r from-background from-16% via-background/70 via-36% to-transparent to-58%"
+          aria-hidden
+        />
+      </div>
+      {/* Wider than the standard container, like the reference; the nav widens to match on this page. */}
+      <Container className="relative max-w-[1540px] lg:px-10">
+        <div className="flex max-w-[900px] flex-col pt-6 pb-10 sm:pt-8 sm:pb-12 lg:pt-10 lg:pb-16 xl:min-h-[calc(100svh-4rem)] xl:justify-center xl:pt-[3svh] xl:pb-[5svh]">
+          <h1 className="max-w-[36rem] font-serif xl:[text-shadow:0_0_28px_var(--color-background),0_0_10px_var(--color-background)] text-[clamp(2.4rem,4.3vw,4.6rem)] xl:max-w-none xl:text-[clamp(2.25rem,min(4.5vw,7.8svh),4.8rem)] leading-[1.04] font-bold tracking-[-0.02em] text-primary">
+            {/* Two lines on wide screens: the break falls after "More Than". */}
+            <span className="xl:block xl:whitespace-nowrap">Your Business Is More Than</span>{" "}
+            <span className="xl:whitespace-nowrap">
+              a Tax Return. <span className="font-semibold text-brand-gold italic">So Are We.</span>
+            </span>
           </h1>
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-hero-muted">
-            Tax obligations rarely exist in isolation. Entity structure affects taxation.
-            Accounting shapes financial visibility. Payroll carries its own compliance
-            responsibilities. And an IRS notice can quickly become a business concern.
+          <p className="mt-6 max-w-[37rem] text-base leading-relaxed text-foreground/85 sm:text-lg xl:[text-shadow:0_0_14px_var(--color-background),0_0_6px_var(--color-background)] xl:mt-[clamp(0.75rem,2.6svh,1.5rem)] xl:max-w-none xl:text-[clamp(1rem,2.1svh,1.25rem)]">
+            {/* Three set lines on wide screens, as in the approved design. */}
+            <span className="xl:block xl:whitespace-nowrap">
+              Tax obligations rarely exist in isolation. Entity structure affects taxation.
+            </span>{" "}
+            <span className="xl:block xl:whitespace-nowrap">
+              Accounting shapes financial visibility. Payroll carries its own compliance
+            </span>{" "}
+            <span className="xl:block xl:whitespace-nowrap">
+              responsibilities. And an IRS notice can quickly become a business concern.
+            </span>
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap gap-4 xl:mt-[clamp(1rem,3.4svh,2rem)]">
             <Link
               to="/"
               hash="contact-form"
-              className="inline-flex items-center gap-2 rounded-md bg-hero-foreground px-6 py-3 text-sm font-semibold text-primary transition-transform hover:scale-[1.03]"
+              className="inline-flex items-center gap-2.5 rounded-md bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground xl:px-11 xl:py-[clamp(0.75rem,1.7svh,1rem)] xl:text-lg shadow-[0_14px_30px_-18px] shadow-primary/70 transition-transform hover:scale-[1.03]"
             >
               Contact us <ArrowRight className="size-4" />
             </Link>
             <a
               href={LINKS.phoneHref}
-              className="inline-flex items-center gap-2 rounded-md border border-hero-border bg-hero/35 px-6 py-3 text-sm text-hero-foreground transition-colors hover:bg-hero-foreground/10"
+              className="inline-flex items-center gap-2 rounded-md border border-primary/70 bg-background px-8 py-3.5 text-base font-semibold text-primary xl:px-11 xl:py-[clamp(0.75rem,1.7svh,1rem)] xl:text-lg transition-colors hover:bg-tint"
             >
               Connect to us
             </a>
           </div>
 
-          <div className="mt-8 flex items-center gap-4">
-            <div>
-              <div className="flex items-center gap-1 text-primary">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="size-3.5 fill-current" />
-                ))}
-              </div>
-              <p className="text-sm text-hero-muted">
-                <span className="text-hero-foreground">500 plus</span> satisfied customers
-              </p>
+          <div className="mt-10 flex flex-wrap items-center gap-3 xl:mt-[clamp(1rem,4svh,2.5rem)]">
+            <div className="flex items-center gap-1 text-brand-gold">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} className="size-4 fill-current xl:size-5" />
+              ))}
             </div>
+            <p className="text-[0.95rem] text-foreground/85 xl:text-[1.0625rem]">
+              <span className="font-semibold text-primary">500 plus</span> satisfied customers
+            </p>
           </div>
         </div>
       </Container>
+
+      {/* Below extra-large screens the photo stacks under the text instead of sitting behind it. */}
+      <img
+        src={heroImage}
+        alt=""
+        width={1264}
+        height={848}
+        className="aspect-[16/10] w-full object-cover object-[65%_center] sm:aspect-[16/8] lg:aspect-[16/7] xl:hidden"
+      />
     </section>
   );
 }
@@ -212,7 +231,14 @@ function WhoWeAre() {
           {FOUNDERS.map((f, i) => (
             <Reveal key={f.name} delay={i * 100}>
               <article className="surface-card overflow-hidden">
-                <img src={advisersImage} alt="Professional tax advisers in consultation" width={1408} height={1008} loading="lazy" className={cn("aspect-4/5 w-full object-cover", i === 1 && "object-right")} />
+                <img
+                  src={advisersImage}
+                  alt="Professional tax advisers in consultation"
+                  width={1408}
+                  height={1008}
+                  loading="lazy"
+                  className={cn("aspect-4/5 w-full object-cover", i === 1 && "object-right")}
+                />
                 <div className="p-5">
                   <h3 className="text-xl leading-tight">{f.name}</h3>
                   <p className="mt-1 text-xs uppercase tracking-widest text-primary">{f.title}</p>
