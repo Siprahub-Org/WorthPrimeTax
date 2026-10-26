@@ -13,6 +13,13 @@ export type ServicePage = {
   start: { heading: string; body: string };
   /** Label on the hero's primary button; pages without one say "Contact us". */
   heroCta?: string;
+  /**
+   * Hero heading split into lines, in place of `heading`; `accent` parts are bright blue and
+   * `underline` adds a curved stroke beneath.
+   */
+  heroBackdrop?: {
+    lines: Array<Array<{ text: string; accent?: boolean; underline?: boolean }>>;
+  };
   overview: { heading: string; paragraphs: string[] };
   included: { heading: string; intro: string; groups: Array<{ title: string; items: string[] }> };
   whoFor: { heading: string; intro: string; audiences: Array<{ title: string; body: string }> };
@@ -30,6 +37,17 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
     intro:
       "From individual income tax returns to complex business tax filings, WorthPrime Tax helps individuals, entrepreneurs and businesses navigate U.S. tax requirements with accuracy, clarity and confidence.",
     heroCta: "Bring greater precision",
+    // Heading from the client's hero design (2026-10-23).
+    heroBackdrop: {
+      lines: [
+        [{ text: "Your Taxes. Our Expertise." }],
+        [
+          { text: "Your Peace", accent: true },
+          { text: " of " },
+          { text: "Mind.", accent: true, underline: true },
+        ],
+      ],
+    },
     start: {
       heading: "Bring greater precision to your tax position.",
       body: "Get professional support for tax preparation, filing, planning and IRS-related matters.",

@@ -75,8 +75,8 @@ export function Footer() {
                   href={LINKS.phoneHref}
                   className={`group inline-flex items-center gap-4 ${focusRing}`}
                 >
-                  <span className="grid size-11 shrink-0 place-items-center rounded-full bg-tint text-footer-heading">
-                    <Phone className="size-4.5" />
+                  <span className="grid shrink-0 place-items-center text-footer-heading">
+                    <Phone className="size-6.5" strokeWidth={1.5} />
                   </span>
                   <span className="font-semibold text-footer-heading group-hover:underline">
                     {LINKS.phone}
@@ -88,8 +88,8 @@ export function Footer() {
                   href={`mailto:${LINKS.email}`}
                   className={`group inline-flex items-center gap-4 ${focusRing}`}
                 >
-                  <span className="grid size-11 shrink-0 place-items-center rounded-full bg-tint text-footer-heading">
-                    <Mail className="size-4.5" />
+                  <span className="grid shrink-0 place-items-center text-footer-heading">
+                    <Mail className="size-6.5" strokeWidth={1.5} />
                   </span>
                   <span className="text-sm text-footer-heading group-hover:underline sm:text-base">
                     {LINKS.email}
@@ -148,8 +148,8 @@ export function Footer() {
             <ul className="mt-4 divide-y divide-border">
               {OFFICES.map((o) => (
                 <li key={o.label} className="flex gap-4 py-5 first:pt-2 last:pb-0">
-                  <span className="grid size-10 shrink-0 place-items-center rounded-full bg-tint text-footer-heading">
-                    <MapPin aria-hidden className="size-4.5" />
+                  <span className="grid shrink-0 place-items-center text-footer-heading">
+                    <MapPin aria-hidden className="size-6.5" strokeWidth={1.5} />
                   </span>
                   <address className="min-w-0 not-italic">
                     <span className="block text-xs font-bold uppercase tracking-[0.14em] text-footer-heading">

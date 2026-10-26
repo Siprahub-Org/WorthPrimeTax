@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, CreditCard, Menu, X } from "lucide-react";
 import { SERVICES } from "@/data/services";
 import { LINKS } from "@/data/site";
 import { cn } from "@/lib/utils";
@@ -10,8 +10,11 @@ import { heroOverlay } from "./heroOverlay";
 const WIDE_NAV: Record<string, string> = {
   "/": "max-w-[1492px]",
   "/contact": "max-w-[1492px]",
+  "/services": "max-w-[1492px]",
   "/pricing": "max-w-[1392px]",
 };
+// Service detail pages use the same 1540px hero container as the home page.
+const SERVICE_DETAIL_NAV = "max-w-[1492px]";
 
 // Active page gets a thin underline in the link colour (TanStack Link sets data-status="active").
 const navLink =
@@ -26,10 +29,11 @@ export function Nav() {
   const [open, setOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  // Pages with a wider layout (home hero and contact 1540px, pricing 1440px) widen the bar to match; minus the
-  // header padding, this lines the logo and Log in button up with their content edges.
+  // Pages with a wider layout (home hero, contact and service pages 1540px, pricing 1440px) widen the bar to match; minus the
+  // header padding, this lines the logo and Login/Register button up with their content edges.
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const wideWidth = WIDE_NAV[pathname];
+  const wideWidth =
+    WIDE_NAV[pathname] ?? (pathname.startsWith("/services/") ? SERVICE_DETAIL_NAV : undefined);
   // Transparent only while at the top of a dark-hero page with the mobile menu closed.
   const tone = scrolled || open ? null : heroOverlay(pathname);
   const transparent = tone !== null;
@@ -81,6 +85,8 @@ export function Nav() {
             <img
               src={logoImage}
               alt="WorthPrime Tax"
+              width={1438}
+              height={1094}
               className={cn(
                 "h-full w-full object-contain transition-[filter] duration-300",
                 wideWidth && "object-left",
@@ -156,16 +162,31 @@ export function Nav() {
         </div>
 
         <div className="ml-auto flex items-center gap-2">
+          {/* Icon-only below sm so both buttons, the logo and the menu fit on a phone. */}
+          <Link
+            to="/payment-methods"
+            aria-label="Pay here"
+            className={cn(
+              "inline-flex h-8 items-center gap-1.5 rounded-full border px-2 text-[0.8125rem] font-medium whitespace-nowrap transition-transform hover:scale-[1.03] sm:px-3",
+              overlay
+                ? "border-hero-foreground/60 text-hero-foreground"
+                : "border-primary bg-background text-primary",
+            )}
+          >
+            <CreditCard className="size-3.5" strokeWidth={1.75} aria-hidden />
+            <span className="hidden sm:inline">Pay Here</span>
+          </Link>
           <a
             href={LINKS.login}
             target="_blank"
             rel="noreferrer noopener"
+            aria-label="Login or register"
             className={cn(
-              "rounded-md bg-button px-4 py-2 text-sm font-semibold text-button-foreground transition-transform hover:scale-[1.03]",
+              "inline-flex h-8 items-center rounded-lg bg-button px-2.5 text-[0.6875rem] font-medium tracking-wide whitespace-nowrap text-button-foreground uppercase transition-transform hover:scale-[1.03] sm:px-3 sm:text-xs",
               overlay && "ring-1 ring-hero-foreground/25",
             )}
           >
-            Log in
+            Login<span className="hidden sm:inline">/Register</span>
           </a>
           <button
             type="button"
@@ -249,9 +270,9 @@ export function Nav() {
               href={LINKS.login}
               target="_blank"
               rel="noreferrer noopener"
-              className="mt-2 rounded-full bg-button px-4 py-2.5 text-center text-sm font-semibold text-button-foreground"
+              className="mt-2 rounded-xl bg-button px-4 py-2.5 text-center text-sm font-medium tracking-wide text-button-foreground uppercase"
             >
-              Log in
+              Login/Register
             </a>
           </div>
         </div>

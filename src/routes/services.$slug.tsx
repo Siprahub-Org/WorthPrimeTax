@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { getService } from "@/data/services";
+import { breadcrumbJsonLd, seoHead, serviceCrumbs } from "@/lib/seo";
 import { getServicePage } from "@/data/servicePages";
 import { Section } from "@/components/site/primitives";
 import { ServiceDetailFeature } from "@/components/site/ServiceDetailFeature";
@@ -18,24 +19,23 @@ export const Route = createFileRoute("/services/$slug")({
           { title: "Service not found | WorthPrime Tax" },
           { name: "robots", content: "noindex" },
           { property: "og:title", content: "Service not found | WorthPrime Tax" },
-          { property: "og:description", content: "The requested WorthPrime Tax service could not be found." },
+          {
+            property: "og:description",
+            content: "The requested WorthPrime Tax service could not be found.",
+          },
           { property: "og:type", content: "website" },
           { name: "twitter:card", content: "summary_large_image" },
         ],
       };
     }
     const { service } = loaderData;
-    const title = `${service.name} | WorthPrime Tax`;
-    const description = service.summary;
     return {
-      meta: [
-        { title },
-        { name: "description", content: description },
-        { property: "og:title", content: title },
-        { property: "og:description", content: description },
-        { property: "og:type", content: "website" },
-        { name: "twitter:card", content: "summary_large_image" },
-      ],
+      ...seoHead({
+        title: `${service.name} | WorthPrime Tax`,
+        description: service.summary,
+        path: `/services/${service.slug}`,
+      }),
+      scripts: [breadcrumbJsonLd(serviceCrumbs(service))],
     };
   },
   notFoundComponent: ServiceNotFound,

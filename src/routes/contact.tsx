@@ -1,8 +1,10 @@
 import type { ReactNode } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { seoHead } from "@/lib/seo";
 import { Globe, Headphones, Mail, MapPin, Phone, ShieldCheck } from "lucide-react";
 import { CONTACT_PAGE, LINKS, OFFICES } from "@/data/site";
 import { Container } from "@/components/site/primitives";
+import { CtaBand } from "@/components/site/CtaBand";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { PricingMarquee } from "@/components/site/PricingMarquee";
 import { WhatsAppIcon } from "@/components/site/ContactCluster";
@@ -39,16 +41,8 @@ const CHANNELS = [
 const WIDE = "max-w-[1540px] lg:px-10";
 
 export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: CONTACT_PAGE.title },
-      { name: "description", content: CONTACT_PAGE.description },
-      { property: "og:title", content: CONTACT_PAGE.title },
-      { property: "og:description", content: CONTACT_PAGE.description },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () =>
+    seoHead({ title: CONTACT_PAGE.title, description: CONTACT_PAGE.description, path: "/contact" }),
   component: ContactPage,
 });
 
@@ -90,11 +84,8 @@ function ContactPage() {
                 const Icon = HIGHLIGHT_ICONS[i] ?? Globe;
                 return (
                   <li key={h.title} className="flex items-center gap-3.5 sm:px-3.5 sm:first:pl-0">
-                    <span
-                      className="grid size-14 shrink-0 place-items-center rounded-full bg-brand-gold/15 text-primary"
-                      aria-hidden
-                    >
-                      <Icon className="size-6" strokeWidth={1.5} />
+                    <span className="grid shrink-0 place-items-center text-primary" aria-hidden>
+                      <Icon className="size-6.5" strokeWidth={1.5} />
                     </span>
                     <div className="min-w-0">
                       <p className="text-[0.9rem] font-semibold text-primary">{h.title}</p>
@@ -143,11 +134,8 @@ function ContactPage() {
                     {...(external ? { target: "_blank", rel: "noreferrer noopener" } : {})}
                     className="group flex h-full items-center gap-3.5 rounded-xl border border-border bg-card py-3 pr-5 pl-3 transition-[border-color,box-shadow] hover:border-primary/30 hover:shadow-[0_14px_30px_-22px] hover:shadow-primary/50"
                   >
-                    <span
-                      className="grid size-13 shrink-0 place-items-center rounded-full bg-brand-gold/15 text-primary"
-                      aria-hidden
-                    >
-                      <Icon className="size-6" />
+                    <span className="grid shrink-0 place-items-center text-primary" aria-hidden>
+                      <Icon className="size-6.5" strokeWidth={1.5} />
                     </span>
                     <span className="min-w-0">
                       <span className="block text-[0.8125rem] text-muted-foreground">{label}</span>
@@ -167,11 +155,8 @@ function ContactPage() {
                 key={office.label}
                 className="flex min-w-0 items-start gap-5 rounded-xl border border-border bg-card px-5 py-4"
               >
-                <span
-                  className="grid size-13 shrink-0 place-items-center rounded-full bg-brand-gold/15 text-primary"
-                  aria-hidden
-                >
-                  <MapPin className="size-6" strokeWidth={1.6} />
+                <span className="grid shrink-0 place-items-center text-primary" aria-hidden>
+                  <MapPin className="size-6.5" strokeWidth={1.5} />
                 </span>
                 <address className="min-w-0 not-italic">
                   <span className="flex items-center gap-3 text-[0.95rem] font-semibold text-primary">
@@ -189,6 +174,8 @@ function ContactPage() {
       </section>
 
       <PricingMarquee />
+
+      <CtaBand />
     </>
   );
 }

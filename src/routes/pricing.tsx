@@ -1,9 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Info, ShieldCheck, UsersRound, Globe } from "lucide-react";
+import { seoHead } from "@/lib/seo";
+import { ShieldCheck, UsersRound, Globe } from "lucide-react";
 import { PRICING_PAGE } from "@/data/site";
 import { Container } from "@/components/site/primitives";
+import { HeroCta } from "@/components/site/HeroCta";
 import { PricingTable } from "@/components/site/PricingTable";
-import { ConsultationBanner } from "@/components/site/ConsultationBanner";
+import { CtaBand } from "@/components/site/CtaBand";
 import pricingDeskImage from "@/assets/pricing-desk.jpg";
 
 const HIGHLIGHT_ICONS = [ShieldCheck, UsersRound, Globe];
@@ -12,16 +14,8 @@ const HIGHLIGHT_ICONS = [ShieldCheck, UsersRound, Globe];
 const WIDE = "max-w-[1440px] lg:px-10";
 
 export const Route = createFileRoute("/pricing")({
-  head: () => ({
-    meta: [
-      { title: PRICING_PAGE.title },
-      { name: "description", content: PRICING_PAGE.description },
-      { property: "og:title", content: PRICING_PAGE.title },
-      { property: "og:description", content: PRICING_PAGE.description },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () =>
+    seoHead({ title: PRICING_PAGE.title, description: PRICING_PAGE.description, path: "/pricing" }),
   component: PricingPage,
 });
 
@@ -57,17 +51,15 @@ function PricingPage() {
             <p className="mt-3 max-w-[34rem] text-base leading-snug text-muted-foreground sm:text-[1.0625rem]">
               {PRICING_PAGE.intro}
             </p>
+            <HeroCta className="mt-5" />
 
             <ul className="mt-5 grid gap-4 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-border">
               {PRICING_PAGE.highlights.map((h, i) => {
                 const Icon = HIGHLIGHT_ICONS[i] ?? Globe;
                 return (
                   <li key={h.title} className="flex items-center gap-2.5 sm:px-3 sm:first:pl-0">
-                    <span
-                      className="grid size-11 shrink-0 place-items-center rounded-full bg-brand-gold/15 text-primary"
-                      aria-hidden
-                    >
-                      <Icon className="size-5.5" strokeWidth={1.5} />
+                    <span className="grid shrink-0 place-items-center text-primary" aria-hidden>
+                      <Icon className="size-6.5" strokeWidth={1.5} />
                     </span>
                     <div className="min-w-0">
                       <p className="text-[0.8125rem] font-semibold whitespace-nowrap text-primary">
@@ -99,14 +91,10 @@ function PricingPage() {
           <div className="rounded-2xl border border-border bg-card p-2 shadow-[0_24px_60px_-36px] shadow-primary/40 sm:p-3">
             <PricingTable />
           </div>
-          <p className="mt-3 flex items-start gap-2 text-xs leading-relaxed text-muted-foreground">
-            <Info className="mt-px size-4 shrink-0 text-primary" aria-hidden />
-            {PRICING_PAGE.chartNote}
-          </p>
         </Container>
       </section>
 
-      <ConsultationBanner />
+      <CtaBand />
     </>
   );
 }

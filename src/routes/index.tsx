@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { seoHead } from "@/lib/seo";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   ArrowRight,
@@ -42,6 +43,7 @@ import {
 import { Container, CountUp, Reveal, Section, useSnapCarousel } from "@/components/site/primitives";
 import { ServiceCard } from "@/components/site/ServiceCard";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
+import { HeroCta } from "@/components/site/HeroCta";
 import { FaqIllustration } from "@/components/site/FaqIllustration";
 import { InsightCard } from "@/components/site/InsightCard";
 import { CtaBand } from "@/components/site/CtaBand";
@@ -49,7 +51,7 @@ import { PricingMarquee } from "@/components/site/PricingMarquee";
 import { SERVICE_IMAGES } from "@/components/site/serviceImages";
 import { cn } from "@/lib/utils";
 import heroImage from "@/assets/worthprime-hero-team.webp";
-import advisersImage from "@/assets/worthprime-advisers-blue.jpg";
+import advisersImage from "@/assets/worthprime-advisers-blue.webp";
 import workspaceImage from "@/assets/worthprime-workspace.webp";
 import stepTalkImage from "@/assets/process/step-talk.jpg";
 import stepScopeImage from "@/assets/process/step-scope.jpg";
@@ -65,16 +67,7 @@ const DESCRIPTION =
   "WorthPrime Tax brings U.S. tax, accounting, payroll, audit and IRS compliance together through a single, integrated professional relationship.";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: TITLE },
-      { name: "description", content: DESCRIPTION },
-      { property: "og:title", content: TITLE },
-      { property: "og:description", content: DESCRIPTION },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () => seoHead({ title: TITLE, description: DESCRIPTION, path: "/" }),
   component: Index,
 });
 
@@ -111,6 +104,7 @@ function Hero() {
           alt="Tax advisers reviewing financial documents together"
           width={1531}
           height={1027}
+          fetchPriority="high"
           className="h-full w-full object-cover object-[68%_center]"
         />
         <div
@@ -122,9 +116,9 @@ function Hero() {
       <Container className="relative max-w-[1540px] lg:px-10">
         <div className="flex max-w-[900px] flex-col pt-16 pb-20 sm:pt-20 sm:pb-24 lg:min-h-[calc(100svh-4rem)] lg:justify-center lg:pt-[3svh] lg:pb-[5svh]">
           <h1 className="font-serif text-[clamp(2.4rem,4.3vw,4.6rem)] leading-[1.08] font-bold tracking-[-0.02em] text-primary xl:text-[clamp(2.25rem,min(4.3vw,8svh),4.6rem)]">
-            {/* Two lines on wide screens: the break falls after "More Than". */}
-            <span className="xl:block xl:whitespace-nowrap">Your Business Is More Than</span>{" "}
-            <span className="xl:whitespace-nowrap">a Tax Return.</span>
+            {/* Two lines on wide screens: the break falls after "Is More". */}
+            <span className="xl:block xl:whitespace-nowrap">Your Business Is More</span>{" "}
+            <span className="xl:whitespace-nowrap">Than a Tax Return.</span>
           </h1>
           <p className="mt-6 max-w-[37rem] text-base leading-relaxed text-foreground/85 sm:text-lg xl:mt-[clamp(0.75rem,2.6svh,1.5rem)] xl:max-w-none xl:text-[clamp(1rem,2.1svh,1.25rem)]">
             {/* Four set lines on wide screens, as requested by the client. */}
@@ -142,13 +136,7 @@ function Hero() {
             </span>
           </p>
           <div className="mt-8 flex flex-wrap gap-4 xl:mt-[clamp(1rem,3.4svh,2rem)]">
-            <Link
-              to="/"
-              hash="contact-form"
-              className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.03] sm:text-base"
-            >
-              Contact us <ArrowRight className="size-4" />
-            </Link>
+            <HeroCta toHome />
           </div>
         </div>
       </Container>
@@ -336,14 +324,14 @@ function ProofSection() {
                   </div>
                   <span
                     className={cn(
-                      "grid size-14 shrink-0 place-items-center rounded-full transition-colors sm:size-16",
+                      "grid shrink-0 place-items-center transition-colors",
                       isActive
-                        ? "bg-brand-indigo text-brand-indigo-foreground"
-                        : "bg-tint text-brand-secondary group-hover:bg-brand-secondary/15",
+                        ? "text-brand-indigo"
+                        : "text-brand-secondary group-hover:text-brand-indigo",
                     )}
                     aria-hidden
                   >
-                    <Icon className="size-6 sm:size-7" strokeWidth={1.75} />
+                    <Icon className="size-6.5" strokeWidth={1.5} />
                   </span>
                 </div>
                 <h3 className="mt-6 font-serif text-xl leading-snug font-bold text-primary sm:text-[1.3rem] lg:min-h-[4.125em]">
@@ -606,6 +594,8 @@ function PricingPreview() {
                         <img
                           src={image}
                           alt=""
+                          width={1400}
+                          height={788}
                           draggable={false}
                           loading="lazy"
                           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -1137,11 +1127,8 @@ function Faq() {
                     onClick={() => setOpen(isOpen ? null : i)}
                     className="flex w-full items-center gap-3 px-4 py-3 text-left sm:gap-4 sm:px-5 sm:py-3.5"
                   >
-                    <span
-                      className="grid size-9 shrink-0 place-items-center rounded-full bg-tint text-primary sm:size-10"
-                      aria-hidden
-                    >
-                      <Icon className="size-4 sm:size-5" strokeWidth={1.6} />
+                    <span className="grid shrink-0 place-items-center text-primary" aria-hidden>
+                      <Icon className="size-6.5" strokeWidth={1.5} />
                     </span>
                     <span className="min-w-0 flex-1 text-sm font-semibold text-primary sm:text-base">
                       {f.q}
@@ -1253,11 +1240,8 @@ function ContactLine({
 }) {
   return (
     <li className="flex items-center gap-4">
-      <span
-        className="grid size-14 shrink-0 place-items-center rounded-full bg-brand-secondary/10 text-primary"
-        aria-hidden
-      >
-        <Icon className="size-6" strokeWidth={1.6} />
+      <span className="grid shrink-0 place-items-center text-primary" aria-hidden>
+        <Icon className="size-6.5" strokeWidth={1.5} />
       </span>
       <div className="min-w-0">
         <p className="font-semibold text-primary">{title}</p>

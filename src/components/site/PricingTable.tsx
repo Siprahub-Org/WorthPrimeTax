@@ -37,15 +37,19 @@ function ServiceIcon({ slug }: { slug: string }) {
   );
 }
 
-function ContactButton({ service }: { service: Service }) {
+/**
+ * One Contact us button for the whole table: at the right of the header row on large screens,
+ * above the stacked cards below that.
+ */
+function ContactButton() {
   return (
     <Link
       to="/contact"
-      aria-label={`Contact us about ${service.name}`}
-      className="inline-flex items-center gap-1.5 rounded-md bg-primary px-4 py-1.5 text-xs font-medium whitespace-nowrap text-primary-foreground transition-opacity hover:opacity-90"
+      hash="contact-form"
+      className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-2 text-sm font-medium tracking-normal whitespace-nowrap text-primary-foreground normal-case transition-opacity hover:opacity-90"
     >
       Contact us
-      <ArrowRight className="size-3.5" aria-hidden />
+      <ArrowRight className="size-4" aria-hidden />
     </Link>
   );
 }
@@ -69,6 +73,10 @@ const th =
 export function PricingTable() {
   return (
     <>
+      <div className="mb-3 flex justify-end lg:hidden">
+        <ContactButton />
+      </div>
+
       <div className="hidden overflow-hidden rounded-xl border border-border lg:block">
         <table className="w-full border-collapse">
           <thead className="bg-tint">
@@ -82,31 +90,31 @@ export function PricingTable() {
               <th scope="col" className={cn(th, "w-44")}>
                 Starting from
               </th>
-              <th scope="col" className={th}>
-                What is included
-              </th>
-              <th scope="col" className={cn(th, "w-36 pr-5 text-center")}>
-                Action
+              <th scope="col" className={cn(th, "py-2 pr-4")}>
+                <span className="flex items-center justify-between gap-4">
+                  What is included
+                  <ContactButton />
+                </span>
               </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
             {SERVICES.map((s) => (
               <tr key={s.slug}>
-                <td className="py-1 pr-2 pl-5 text-sm text-muted-foreground">{s.number}</td>
-                <th scope="row" className="border-r border-border px-4 py-1 text-left font-normal">
+                <td className="py-2.5 pr-2 pl-5 text-sm text-muted-foreground">{s.number}</td>
+                <th
+                  scope="row"
+                  className="border-r border-border px-4 py-2.5 text-left font-normal"
+                >
                   <span className="flex items-center gap-4">
                     <ServiceIcon slug={s.slug} />
                     <ServiceLink service={s} />
                   </span>
                 </th>
-                <td className="border-r border-border px-4 py-1">
+                <td className="border-r border-border px-4 py-2.5">
                   <PriceTag price={s.price} />
                 </td>
-                <td className="px-4 py-1 text-sm text-muted-foreground">{s.included}</td>
-                <td className="py-1 pr-4 pl-2 text-right">
-                  <ContactButton service={s} />
-                </td>
+                <td className="px-4 py-2.5 text-sm text-muted-foreground">{s.included}</td>
               </tr>
             ))}
           </tbody>
@@ -124,12 +132,9 @@ export function PricingTable() {
             <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
               {s.included}
             </p>
-            <div className="mt-4 flex items-center justify-between gap-3">
-              <span>
-                <span className="sr-only">Starting from </span>
-                <PriceTag price={s.price} />
-              </span>
-              <ContactButton service={s} />
+            <div className="mt-4">
+              <span className="sr-only">Starting from </span>
+              <PriceTag price={s.price} />
             </div>
           </li>
         ))}

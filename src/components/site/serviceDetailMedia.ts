@@ -1,7 +1,7 @@
 import { SERVICE_IMAGES } from "./serviceImages";
-import fallbackHero from "@/assets/worthprime-hero-blue.jpg";
-import fallbackIncluded from "@/assets/worthprime-documents-blue.jpg";
-import fallbackWhoFor from "@/assets/worthprime-advisers-blue.jpg";
+import heroBackdrop from "@/assets/service-pages/hero-backdrop.webp";
+import fallbackIncluded from "@/assets/worthprime-documents-blue.webp";
+import fallbackWhoFor from "@/assets/worthprime-advisers-blue.webp";
 import fallbackOverview from "@/assets/worthprime-workspace.webp";
 import stepUnderstand from "@/assets/service-pages/steps/understand.jpg";
 import stepPrepare from "@/assets/service-pages/steps/prepare.jpg";
@@ -11,13 +11,15 @@ import stepDeliver from "@/assets/service-pages/steps/deliver.jpg";
  * Service detail page photography. Drop files into src/assets/service-pages/<service-slug>/
  * named by slot — hero, overview, included, who-for, thumb (.jpg, .png or .webp) — and the
  * page picks them up. Missing slots fall back to the shared brand photos below.
+ * Every page shares the hero background above; a `hero-backdrop` file in a service folder
+ * replaces it for that page.
  */
 const files = import.meta.glob<string>("../../assets/service-pages/*/*.{jpg,jpeg,png,webp,avif}", {
   eager: true,
   import: "default",
 });
 
-const SLOTS = ["hero", "overview", "included", "who-for", "thumb"] as const;
+const SLOTS = ["hero-backdrop", "overview", "included", "who-for", "thumb"] as const;
 type Slot = (typeof SLOTS)[number];
 
 const BY_SERVICE: Record<string, Partial<Record<Slot, string>>> = {};
@@ -30,7 +32,10 @@ for (const [path, url] of Object.entries(files)) {
 }
 
 // Descriptions for client-supplied photos; fallbacks get generic text from the service name.
-const ALT_TEXT: Record<string, Partial<Record<Exclude<Slot, "hero" | "thumb">, string>>> = {
+const ALT_TEXT: Record<
+  string,
+  Partial<Record<Exclude<Slot, "hero-backdrop" | "thumb">, string>>
+> = {
   "us-tax-services": {
     overview:
       "Laptop showing a U.S. tax services dashboard with filing status for Forms 1040, 1120, 1120S and 1065",
@@ -76,7 +81,7 @@ const ALT_TEXT: Record<string, Partial<Record<Exclude<Slot, "hero" | "thumb">, s
 type Image = { src: string; alt: string };
 
 export type ServiceDetailMedia = {
-  hero: string;
+  heroBackdrop: string;
   overview: Image;
   included: Image;
   whoFor: Image;
@@ -88,7 +93,7 @@ export function getServiceDetailMedia(slug: string, name: string): ServiceDetail
   const own = BY_SERVICE[slug] ?? {};
   const alt = ALT_TEXT[slug] ?? {};
   return {
-    hero: own.hero ?? fallbackHero,
+    heroBackdrop: own["hero-backdrop"] ?? heroBackdrop,
     overview: {
       src: own.overview ?? SERVICE_IMAGES[slug] ?? fallbackOverview,
       alt: alt.overview ?? `${name} at WorthPrime Tax`,

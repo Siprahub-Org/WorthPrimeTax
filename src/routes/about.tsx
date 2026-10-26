@@ -1,18 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { seoHead } from "@/lib/seo";
 import { useState } from "react";
 import { Play } from "lucide-react";
 import { FOUNDERS, OFFICES } from "@/data/site";
 import { Container, CountUp, Reveal, Section, SectionLabel } from "@/components/site/primitives";
 import { CtaBand } from "@/components/site/CtaBand";
+import { HeroCta } from "@/components/site/HeroCta";
 import { PricingMarquee } from "@/components/site/PricingMarquee";
 import { cn } from "@/lib/utils";
-import advisersImage from "@/assets/worthprime-advisers-blue.jpg";
-import documentsImage from "@/assets/worthprime-documents-blue.jpg";
+import advisersImage from "@/assets/worthprime-advisers-blue.webp";
+import documentsImage from "@/assets/worthprime-documents-blue.webp";
 import credCpa from "@/assets/credentials/cred-cpa.png";
 import credEa from "@/assets/credentials/cred-ea.png";
 import credAicpa from "@/assets/credentials/cred-aicpa.png";
 import credIrs from "@/assets/credentials/cred-irs.png";
-
 
 const TITLE = "About WorthPrime Tax | Built on Experience";
 const DESCRIPTION =
@@ -25,18 +26,8 @@ const CREDENTIALS = [
   { label: "IRS", src: credIrs },
 ];
 
-
 export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: TITLE },
-      { name: "description", content: DESCRIPTION },
-      { property: "og:title", content: TITLE },
-      { property: "og:description", content: DESCRIPTION },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () => seoHead({ title: TITLE, description: DESCRIPTION, path: "/about" }),
   component: AboutPage,
 });
 
@@ -47,7 +38,8 @@ function AboutPage() {
         <div className="grid items-end gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="pb-12 sm:pb-16 lg:self-start">
             <h1 className="max-w-4xl hero-heading text-hero-foreground">
-              Built on Experience. <span className="italic text-hero-muted">Shaped by Perspective.</span>
+              Built on Experience.{" "}
+              <span className="italic text-hero-muted">Shaped by Perspective.</span>
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-relaxed text-hero-muted">
               Behind every enduring enterprise lies a confluence of sound structure, considered
@@ -56,8 +48,15 @@ function AboutPage() {
               extensive experience across accounting, taxation, audit, payroll, legal and compliance
               services spanning the U.S., UAE and India.
             </p>
+            <HeroCta onDark className="mt-8" />
           </div>
-          <img src={advisersImage} alt="Tax advisers reviewing financial documents" width={1408} height={1008} className="aspect-[4/3] w-full object-cover lg:aspect-[5/4]" />
+          <img
+            src={advisersImage}
+            alt="Tax advisers reviewing financial documents"
+            width={1408}
+            height={1008}
+            className="aspect-[4/3] w-full object-cover lg:aspect-[5/4]"
+          />
         </div>
       </Section>
 
@@ -66,7 +65,7 @@ function AboutPage() {
       <Founders />
 
       <Section className="bg-background/40">
-        <SectionLabel>Two Perspectives. One Purpose.</SectionLabel>
+        <SectionLabel as="h2">Two Perspectives. One Purpose.</SectionLabel>
         <p className="mt-6 max-w-4xl text-[clamp(1.3rem,2.8vw,2.1rem)] leading-snug">
           Together, the co-founders bring a distinctive combination of Big Four experience,
           technical expertise, leadership, entrepreneurial thinking and hands-on knowledge of
@@ -82,7 +81,7 @@ function AboutPage() {
       </Section>
 
       <Section>
-        <SectionLabel>Experience in numbers</SectionLabel>
+        <SectionLabel as="h2">Experience in numbers</SectionLabel>
         <div className="mt-8 grid gap-5 sm:grid-cols-3">
           <Reveal>
             <div className="surface-card h-full p-7">
@@ -119,14 +118,21 @@ function AboutPage() {
       </Section>
 
       <Section className="bg-background/40">
-        <SectionLabel>Leadership and team</SectionLabel>
+        <SectionLabel as="h2">Leadership and team</SectionLabel>
         <p className="mt-4 text-sm text-muted-foreground">
           [Client to supply names or generic roles]
         </p>
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <div key={i} className="surface-card overflow-hidden">
-              <img src={i % 2 === 0 ? advisersImage : documentsImage} alt="WorthPrime team and advisory work" width={1408} height={1008} loading="lazy" className="aspect-square w-full object-cover" />
+              <img
+                src={i % 2 === 0 ? advisersImage : documentsImage}
+                alt="WorthPrime team and advisory work"
+                width={1408}
+                height={1008}
+                loading="lazy"
+                className="aspect-square w-full object-cover"
+              />
               <div className="p-5">
                 <p className="text-base">[Name]</p>
                 <p className="mt-1 text-xs uppercase tracking-widest text-primary">[Role]</p>
@@ -154,13 +160,14 @@ function AboutPage() {
               </div>
             ))}
           </div>
-          <p className="mt-4 text-xs text-muted-foreground">[Stock badges — client to confirm credentials]</p>
+          <p className="mt-4 text-xs text-muted-foreground">
+            [Stock badges — client to confirm credentials]
+          </p>
         </div>
-
       </Section>
 
       <Section>
-        <SectionLabel>Offices</SectionLabel>
+        <SectionLabel as="h2">Offices</SectionLabel>
         <div className="mt-8 grid gap-5 sm:grid-cols-3">
           {OFFICES.map((o, i) => (
             <Reveal key={o.label} delay={i * 80}>
@@ -176,15 +183,22 @@ function AboutPage() {
 
       <Container>
         <div className="surface-card relative min-h-[320px] overflow-hidden">
-          <img src={documentsImage} alt="Financial documents prepared for review" width={1408} height={1008} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+          <img
+            src={documentsImage}
+            alt="Financial documents prepared for review"
+            width={1408}
+            height={1008}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
           <div className="absolute inset-0 bg-background/45" aria-hidden />
           <div className="relative grid min-h-[320px] place-items-center gap-3 p-8 text-center">
-          <span className="grid size-14 place-items-center rounded-full border border-primary text-primary">
-            <Play className="size-5" />
-          </span>
-          <p className="text-sm text-muted-foreground">
-            [Optional one-minute firm video — client to supply]
-          </p>
+            <span className="grid size-14 place-items-center rounded-full border border-primary text-primary">
+              <Play className="size-5" />
+            </span>
+            <p className="text-sm text-muted-foreground">
+              [Optional one-minute firm video — client to supply]
+            </p>
           </div>
         </div>
       </Container>
@@ -198,7 +212,7 @@ function Founders() {
   const [open, setOpen] = useState<number | null>(null);
   return (
     <Section className="py-10">
-      <SectionLabel>Co-founders</SectionLabel>
+      <SectionLabel as="h2">Co-founders</SectionLabel>
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
         {FOUNDERS.map((f, i) => (
           <article
@@ -207,7 +221,14 @@ function Founders() {
             onMouseLeave={() => setOpen(null)}
             className="surface-card group relative overflow-hidden"
           >
-            <img src={advisersImage} alt="Professional advisers in consultation" width={1408} height={1008} loading="lazy" className={cn("aspect-16/10 w-full object-cover", i === 1 && "object-right")} />
+            <img
+              src={advisersImage}
+              alt="Professional advisers in consultation"
+              width={1408}
+              height={1008}
+              loading="lazy"
+              className={cn("aspect-16/10 w-full object-cover", i === 1 && "object-right")}
+            />
             <div className="p-7">
               <h3 className="text-3xl leading-tight">{f.name}</h3>
               <p className="mt-1 text-xs uppercase tracking-[0.18em] text-primary">{f.title}</p>

@@ -22,7 +22,6 @@ import {
   Network,
   RotateCcw,
   ShieldCheck,
-  Star,
   TrendingUp,
   User,
   Users,
@@ -32,6 +31,8 @@ import { getService, HOW_THE_WORK_MOVES, type Service } from "@/data/services";
 import { type ServicePage } from "@/data/servicePages";
 import { cn } from "@/lib/utils";
 import { Container, Reveal } from "./primitives";
+import { BackdropHero } from "./BackdropHero";
+import { serviceCrumbs } from "@/lib/seo";
 import { CtaBand } from "./CtaBand";
 import { PricingMarquee } from "./PricingMarquee";
 import { getServiceThumb, type ServiceDetailMedia } from "./serviceDetailMedia";
@@ -165,73 +166,12 @@ export function ServiceDetailFeature({
 
   return (
     <>
-      {/*
-       * Hero: copy on a white / light-blue panel at the left and the advisers photo at the right,
-       * with a soft white fade only where the two meet so the photo never sits under the text.
-       */}
-      <section className="relative isolate overflow-hidden bg-linear-to-br from-background via-background to-tint/60">
-        <Container className="relative max-w-[1540px] lg:px-10">
-          <div className="flex flex-col py-10 sm:py-12 lg:min-h-[min(calc(100svh-4rem),46rem)] lg:max-w-[min(48rem,calc(42vw_-_max(2.5rem,calc((100vw_-_1540px)/2_+_2.5rem))))] lg:justify-center lg:py-[4svh]">
-            <p className="flex items-center gap-4 text-xs font-semibold tracking-[0.3em] text-primary uppercase sm:text-sm">
-              <span className="h-0.5 w-12 rounded-full bg-primary" aria-hidden />
-              Explore
-            </p>
-            <h1 className="mt-5 font-serif text-[clamp(2.25rem,3.8vw,3.75rem)] leading-[1.08] font-bold tracking-[-0.02em] text-primary">
-              {page.heading}
-            </h1>
-            <p className="mt-4 font-serif text-[clamp(1.25rem,2.1vw,1.75rem)] leading-snug font-semibold text-primary italic">
-              {page.tagline}
-            </p>
-            <p className="mt-4 max-w-[34rem] text-base leading-relaxed text-foreground/85 sm:text-lg">
-              {page.intro}
-            </p>
-
-            <div className="mt-7 flex flex-wrap items-stretch gap-4">
-              <Link
-                to="/contact"
-                hash="contact-form"
-                className="inline-flex flex-col justify-center rounded-xl bg-primary px-6 py-3 text-primary-foreground shadow-[0_14px_30px_-18px] shadow-primary/70 transition-transform hover:scale-[1.02]"
-              >
-                <span className="text-xs font-medium opacity-90">Start here</span>
-                <span className="flex items-center gap-2.5 font-serif text-lg font-semibold sm:text-xl">
-                  {page.heroCta ?? "Contact us"} <ArrowRight className="size-5" aria-hidden />
-                </span>
-              </Link>
-              <a
-                href="#overview"
-                className="inline-flex items-center rounded-xl border border-primary/70 bg-background/70 px-8 font-serif text-lg font-semibold text-primary transition-colors hover:bg-tint sm:text-xl"
-              >
-                Learn more
-              </a>
-            </div>
-
-            <div className="mt-7 flex flex-wrap items-center gap-3">
-              <span className="flex gap-1 text-primary" aria-hidden>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="size-5 fill-current" />
-                ))}
-              </span>
-              <p className="text-base text-foreground">500 plus satisfied customers</p>
-            </div>
-          </div>
-        </Container>
-
-        {/* Photo: right 58% on desktop, with the white fade on its left edge; stacked below on small screens. */}
-        <div className="relative aspect-[4/3] w-full sm:aspect-[16/9] lg:absolute lg:inset-y-0 lg:right-0 lg:-z-10 lg:aspect-auto lg:w-[58%]">
-          <img
-            src={media.hero}
-            alt=""
-            width={1600}
-            height={900}
-            fetchPriority="high"
-            className="h-full w-full object-cover object-[65%_center]"
-          />
-          <div
-            aria-hidden
-            className="absolute inset-x-0 top-0 h-1/4 bg-linear-to-b from-background/60 to-transparent lg:inset-x-auto lg:inset-y-0 lg:left-0 lg:h-auto lg:w-[24%] lg:bg-linear-to-r lg:from-background lg:via-background/28"
-          />
-        </div>
-      </section>
+      <BackdropHero
+        lines={page.heroBackdrop?.lines ?? [[{ text: page.heading }]]}
+        intro={page.intro}
+        crumbs={serviceCrumbs(service)}
+        image={media.heroBackdrop}
+      />
 
       <PricingMarquee />
 

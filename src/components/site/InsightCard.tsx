@@ -1,6 +1,6 @@
 import { INSIGHTS } from "@/data/site";
-import advisersImage from "@/assets/worthprime-advisers-blue.jpg";
-import documentsImage from "@/assets/worthprime-documents-blue.jpg";
+import advisersImage from "@/assets/worthprime-advisers-blue.webp";
+import documentsImage from "@/assets/worthprime-documents-blue.webp";
 
 export function InsightCard({
   insight,

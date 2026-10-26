@@ -1,5 +1,5 @@
-import documentsImage from "@/assets/worthprime-documents-blue.jpg";
-import advisersImage from "@/assets/worthprime-advisers-blue.jpg";
+import documentsImage from "@/assets/worthprime-documents-blue.webp";
+import advisersImage from "@/assets/worthprime-advisers-blue.webp";
 import pricingDeskImage from "@/assets/pricing-desk.jpg";
 
 type Image = { src: string; alt: string; width: number; height: number };
