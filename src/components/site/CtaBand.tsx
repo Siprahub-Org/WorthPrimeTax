@@ -18,8 +18,7 @@ export function CtaBand() {
         <div className="mx-auto max-w-[1440px] overflow-hidden rounded-2xl bg-linear-to-br from-hero via-hero to-brand-secondary p-6 text-hero-foreground shadow-[0_24px_60px_-40px] shadow-primary/70 sm:p-10 lg:min-h-[440px] lg:p-12">
           <div className="grid items-center gap-8 lg:min-h-[344px] lg:grid-cols-[55fr_45fr] lg:gap-6">
             <div>
-              <p className="flex items-center gap-3 text-xs font-medium tracking-[0.22em] text-hero-foreground/90 uppercase sm:text-[0.8rem]">
-                <span className="h-px w-8 bg-hero-foreground/70" aria-hidden />
+              <p className="text-xs font-medium tracking-[0.22em] text-hero-foreground/90 uppercase sm:text-[0.8rem]">
                 {CTA_BAND.label}
               </p>
               <h2 className="mt-4 font-display text-[clamp(2rem,3.2vw,3.5rem)] leading-[1.08] font-bold tracking-[-0.02em] text-hero-foreground">
@@ -31,7 +30,7 @@ export function CtaBand() {
 
               <div className="mt-5 flex flex-wrap gap-3">
                 <Link
-                  to="/"
+                  to="/contact"
                   hash="contact-form"
                   className="inline-flex h-12 items-center gap-2 rounded-xl bg-hero-foreground px-6 text-base font-semibold text-primary transition-transform hover:scale-[1.03]"
                 >

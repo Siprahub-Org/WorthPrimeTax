@@ -177,21 +177,22 @@ export function useSnapCarousel(count: number) {
   return { active, setActive, goTo, trackRef, itemRefs };
 }
 
-export function SectionLabel({ children, className }: { children: ReactNode; className?: string }) {
-  return <p className={cn("label-slash", className)}>{children}</p>;
-}
-
-export function Container({
+/** `as="h2"` when the label is the only heading of its section, so the outline has no gaps. */
+export function SectionLabel({
   children,
   className,
+  as: Tag = "p",
 }: {
   children: ReactNode;
   className?: string;
+  as?: "p" | "h2";
 }) {
+  return <Tag className={cn("label-slash", className)}>{children}</Tag>;
+}
+
+export function Container({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div className={cn("mx-auto w-full max-w-[1200px] px-5 sm:px-8", className)}>
-      {children}
-    </div>
+    <div className={cn("mx-auto w-full max-w-[1200px] px-5 sm:px-8", className)}>{children}</div>
   );
 }
 

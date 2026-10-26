@@ -12,6 +12,7 @@ export type Service = {
   capabilities: string[];
   whoFor: string;
   cta: string;
+  /** Starting price. Only the Audit fee is confirmed; the rest are illustrative [suggested, client to confirm]. */
   price: string;
   included: string;
 };
@@ -46,7 +47,7 @@ export const SERVICES: Service[] = [
     whoFor:
       "Individuals with U.S. filing obligations, and businesses filing as a C Corp, S Corp or partnership. [suggested copy]",
     cta: "Bring greater precision to your tax position",
-    price: "[price TBC]",
+    price: "From $5,499",
     included: "Preparation, review and filing of federal and state returns",
   },
   {
@@ -79,7 +80,7 @@ export const SERVICES: Service[] = [
     whoFor:
       "Founders starting out, and established owners whose current structure no longer fits. [suggested copy]",
     cta: "Build the right structure from the outset",
-    price: "[price TBC]",
+    price: "From $5,999",
     included: "Entity selection, formation filings, EIN and state registration",
   },
   {
@@ -109,7 +110,7 @@ export const SERVICES: Service[] = [
     whoFor:
       "Businesses without an in-house finance function, and those whose books have fallen behind. [suggested copy]",
     cta: "Put your financial records to work",
-    price: "[price TBC]",
+    price: "From $6,499",
     included: "Monthly bookkeeping, reconciliation and financial reporting",
   },
   {
@@ -138,7 +139,7 @@ export const SERVICES: Service[] = [
     whoFor:
       "Employers running W-2 staff, and businesses paying consultants or gig workers. [suggested copy]",
     cta: "Bring greater control to every pay cycle",
-    price: "[price TBC]",
+    price: "From $6,999",
     included: "Pay cycle processing, payroll tax filings and year-end forms",
   },
   {
@@ -192,10 +193,9 @@ export const SERVICES: Service[] = [
       "Resolution strategy",
       "Amended filing support where applicable",
     ],
-    whoFor:
-      "Anyone holding an IRS letter, and businesses under examination. [suggested copy]",
+    whoFor: "Anyone holding an IRS letter, and businesses under examination. [suggested copy]",
     cta: "Turn an IRS concern into a structured response",
-    price: "[price TBC]",
+    price: "From $7,499",
     included: "Notice review, response preparation and IRS correspondence",
   },
   {
@@ -204,8 +204,7 @@ export const SERVICES: Service[] = [
     name: "FBAR, FATCA & BOIR Compliance",
     audience: "Compliance",
     tagline: "International reporting demands precision.",
-    summary:
-      "Cross-border and ownership reporting identified, prepared and reported accurately.",
+    summary: "Cross-border and ownership reporting identified, prepared and reported accurately.",
     overview: [
       "Cross-border financial interests can create reporting obligations that extend well beyond the standard tax return. FBAR, FATCA and BOIR requirements each carry their own reporting considerations, thresholds and deadlines.",
       "WorthPrime Tax assists taxpayers and businesses with applicable international and ownership reporting obligations, helping ensure required information is identified, prepared and reported accurately.",
@@ -223,7 +222,7 @@ export const SERVICES: Service[] = [
     whoFor:
       "Taxpayers with overseas accounts or assets, and entities with reportable beneficial owners. [suggested copy]",
     cta: "Stay ahead of your reporting obligations",
-    price: "[price TBC]",
+    price: "From $7,999",
     included: "Threshold review, preparation and submission of required reports",
   },
   {
@@ -232,8 +231,7 @@ export const SERVICES: Service[] = [
     name: "ITIN Services",
     audience: "Individuals",
     tagline: "The right identification. The right filing path.",
-    summary:
-      "ITIN applications and renewals prepared with the supporting documentation in order.",
+    summary: "ITIN applications and renewals prepared with the supporting documentation in order.",
     overview: [
       "An Individual Taxpayer Identification Number (ITIN) can be essential for individuals who have U.S. tax filing obligations but are not eligible for a Social Security Number.",
       "WorthPrime Tax assists eligible individuals with ITIN applications and related documentation, bringing greater structure and accuracy to the process.",
@@ -249,7 +247,7 @@ export const SERVICES: Service[] = [
     whoFor:
       "Individuals with U.S. filing obligations who are not eligible for a Social Security Number. [suggested copy]",
     cta: "Get your ITIN requirements in order",
-    price: "[price TBC]",
+    price: "From $8,499",
     included: "Application preparation, document review and filing support",
   },
   {
@@ -278,7 +276,7 @@ export const SERVICES: Service[] = [
     whoFor:
       "Taxpayers who have spotted an error, or received new information after filing. [suggested copy]",
     cta: "Correct the record with precision",
-    price: "[price TBC]",
+    price: "From $8,999",
     included: "Return review, amended preparation and filing",
   },
   {
@@ -304,7 +302,7 @@ export const SERVICES: Service[] = [
     whoFor:
       "Businesses formalising a commercial relationship, or reviewing one already in place. [suggested copy]",
     cta: "Give your business arrangements greater clarity",
-    price: "[price TBC]",
+    price: "From $9,999",
     included: "Drafting, review and refinement of commercial documents",
   },
 ];

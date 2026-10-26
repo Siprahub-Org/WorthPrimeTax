@@ -5,7 +5,14 @@ import type { Service } from "@/data/services";
 import { cn } from "@/lib/utils";
 import { SERVICE_IMAGES } from "./serviceImages";
 
-export function ServiceCard({ service }: { service: Service }) {
+/** `photoOnly` (Services page) shows the whole photo on the front with no navy panel or fade. */
+export function ServiceCard({
+  service,
+  photoOnly = false,
+}: {
+  service: Service;
+  photoOnly?: boolean;
+}) {
   const [flipped, setFlipped] = useState(false);
   const image = SERVICE_IMAGES[service.slug];
 
@@ -35,26 +42,59 @@ export function ServiceCard({ service }: { service: Service }) {
         style={{ transform: flipped ? "rotateY(180deg)" : undefined }}
       >
         {/* Front */}
-        <div className="flip-face surface-card relative isolate flex h-full w-full flex-col justify-between overflow-hidden rounded-3xl border-hero bg-hero p-6 text-hero-foreground">
+        <div
+          className={cn(
+            "flip-face surface-card relative isolate flex h-full w-full flex-col justify-between overflow-hidden rounded-3xl p-6 text-hero-foreground",
+            photoOnly && "justify-end",
+            photoOnly && image ? "border-transparent bg-transparent" : "border-hero bg-hero",
+          )}
+        >
           {image && (
-            // A wide photo band between the number and the title, faded into the navy card so the
+            // Whole card when photoOnly; otherwise a wide band between the number and the title, faded into the navy card so the
             // text above and below stays legible.
             <img
               src={image}
               alt=""
+              width={1400}
+              height={788}
               loading="lazy"
-              className="absolute inset-x-0 top-[14%] -z-10 h-[56%] w-full object-cover transition-transform duration-700 ease-out [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_70%,transparent)] group-hover:scale-105"
+              className={cn(
+                "absolute -z-10 w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105",
+                photoOnly
+                  ? "inset-0 h-full"
+                  : "inset-x-0 top-[14%] h-[56%] [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_70%,transparent)]",
+              )}
             />
           )}
-          <div className="flex items-start justify-between">
-            <span className="font-display text-5xl text-hero-foreground">{service.number}</span>
-            <span className="rounded-full border border-hero-border bg-hero/40 px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-hero-muted backdrop-blur-sm">
-              {service.audience}
-            </span>
-          </div>
-          <div>
-            <h3 className="text-2xl leading-tight text-hero-foreground">{service.name}</h3>
-            <p className="mt-2 text-sm font-medium text-hero-muted">{service.tagline}</p>
+          {/* On a bare photo (Services page) the card shows just the name and tagline, on a frosted
+              white panel so they read on light and dark photos alike; no number or audience tag. */}
+          {!photoOnly && (
+            <div className="flex items-start justify-between">
+              <span className="font-display text-5xl text-hero-foreground">{service.number}</span>
+              <span className="rounded-full border border-hero-border bg-hero/40 px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-hero-muted backdrop-blur-sm">
+                {service.audience}
+              </span>
+            </div>
+          )}
+          <div
+            className={cn(photoOnly && "rounded-2xl bg-background/85 px-4 py-3 backdrop-blur-sm")}
+          >
+            <h3
+              className={cn(
+                "text-2xl leading-tight",
+                photoOnly ? "text-xl font-bold text-primary" : "text-hero-foreground",
+              )}
+            >
+              {service.name}
+            </h3>
+            <p
+              className={cn(
+                "mt-2 text-sm font-medium",
+                photoOnly ? "mt-1 text-foreground/80" : "text-hero-muted",
+              )}
+            >
+              {service.tagline}
+            </p>
           </div>
         </div>
 

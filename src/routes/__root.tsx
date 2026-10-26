@@ -4,7 +4,6 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
-  useRouterState,
   HeadContent,
   Scripts,
   type ErrorComponentProps,
@@ -14,15 +13,17 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { siteJsonLd } from "../lib/seo";
 import { Nav } from "@/components/site/Nav";
-import { heroOverlay } from "@/components/site/heroOverlay";
-import { cn } from "@/lib/utils";
 import { Footer } from "@/components/site/Footer";
 import { ContactCluster } from "@/components/site/ContactCluster";
 
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      {/* React hoists these into <head>; the route tree has no head() for unknown URLs. */}
+      <title>Page not found | WorthPrime Tax</title>
+      <meta name="robots" content="noindex" />
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-foreground">404</h1>
         <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
@@ -87,8 +88,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "author", content: "WorthPrime Tax" },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "WorthPrime Tax" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    scripts: [siteJsonLd()],
     links: [
       {
         rel: "stylesheet",
@@ -100,7 +103,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,600;1,8..60,700&display=swap",
       },
+      { rel: "icon", href: "/favicon.ico", sizes: "48x48" },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
     ],
   }),
   shellComponent: RootShell,
@@ -125,20 +130,25 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const photoHero = useRouterState({ select: (s) => heroOverlay(s.location.pathname) !== null });
 
   return (
     <QueryClientProvider client={queryClient}>
+      {/* First tab stop: lets keyboard users jump past the nav. Hidden until focused. */}
+      <a
+        href="#main"
+        className="sr-only z-[100] rounded-md bg-primary text-sm font-medium text-primary-foreground focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:px-4 focus:py-2"
+      >
+        Skip to main content
+      </a>
       <Nav />
+      {/*
+       * Every page lets its first section run up behind the transparent nav; a 4rem spacer at the
+       * top of that section keeps its content clear of the bar.
+       */}
       <main
-        className={cn(
-          "min-h-screen",
-          // Photo-hero pages let the hero run up behind the transparent nav; a 4rem spacer at the
-          // top of that first section keeps its content clear of the bar.
-          photoHero
-            ? "[&>section:first-child]:before:block [&>section:first-child]:before:h-16 [&>section:first-child]:before:content-['']"
-            : "pt-16",
-        )}
+        id="main"
+        tabIndex={-1}
+        className="min-h-screen outline-none [&>:first-child]:before:block [&>:first-child]:before:h-16 [&>:first-child]:before:content-['']"
       >
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />

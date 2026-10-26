@@ -1,13 +1,9 @@
 /**
- * Pages whose first section is a full-bleed photo hero, and its tone. On these the bar sits
- * transparent over the hero at the top of the page (the root layout lets the hero run up behind
- * it): navy text over the light home and Services heroes (service pages too: their photos are
- * bright along the top), white text over the navy About hero.
+ * Tone of each page's first section. On every page the bar sits transparent over that section at
+ * the top of the page (the root layout lets it run up behind the bar): white text over the navy
+ * About hero, navy text over the light first section everywhere else.
  */
-export function heroOverlay(pathname: string): "light" | "dark" | null {
-  if (pathname === "/" || pathname === "/services" || pathname.startsWith("/services/")) {
-    return "light";
-  }
+export function heroOverlay(pathname: string): "light" | "dark" {
   if (pathname === "/about") return "dark";
-  return null;
+  return "light";
 }

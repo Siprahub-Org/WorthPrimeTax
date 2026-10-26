@@ -50,8 +50,8 @@ function validate(values: Values): Errors {
 }
 
 /**
- * `compact` is the tighter layout used beside the contact page hero: smaller heading and fields
- * with placeholder-only labels. The full layout (home page) shows labels above the fields.
+ * `compact` is the tighter layout used beside the contact page hero: smaller heading and fields,
+ * labels above empty fields. The full layout (home page) adds example placeholders and icons.
  */
 export function EnquiryForm({
   headingLevel = 3,
@@ -148,16 +148,19 @@ export function EnquiryForm({
 
   return (
     <form onSubmit={onSubmit} noValidate aria-busy={submitting} className={card}>
-      <div className="flex items-center gap-4">
-        {!compact && <span className="h-0.5 w-10 rounded-full bg-brand-secondary" aria-hidden />}
-        <p className="text-xs font-semibold tracking-[0.22em] text-primary uppercase sm:text-sm">
-          Get in touch
-        </p>
-      </div>
+      {/* The compact (contact page) form opens straight with its heading: one line once the card is
+          wide enough, sized to the card so it never overflows. */}
+      {!compact && (
+        <div className="flex items-center gap-4">
+          <span className="h-0.5 w-10 rounded-full bg-brand-secondary" aria-hidden />
+          <p className="text-xs font-semibold tracking-[0.22em] text-primary uppercase sm:text-sm">
+            Get in touch
+          </p>
+        </div>
+      )}
       {compact ? (
-        <Heading className="mt-3 font-serif text-[clamp(1.6rem,7.6cqi,2.4rem)] leading-[1.02] font-bold">
-          Fill the form,{" "}
-          <span className="block font-semibold italic">soon will get back to you.</span>
+        <Heading className="font-serif text-[clamp(1.4rem,6.6cqi,2rem)] leading-[1.15] font-bold @sm:text-[5.6cqi] @sm:whitespace-nowrap">
+          Fill the form, <span className="font-semibold italic">soon will get back to you.</span>
         </Heading>
       ) : (
         <>
@@ -181,14 +184,14 @@ export function EnquiryForm({
           errorId={errorId("name")}
           label="Name"
           error={errors.name}
-          showLabel={!compact}
+          showLabel
           icon={compact ? undefined : User}
         >
           <input
             id={fieldId("name")}
             name="name"
             autoComplete="name"
-            placeholder={compact ? "Name *" : "John Doe"}
+            placeholder={compact ? undefined : "John Doe"}
             required
             value={values.name}
             onChange={(e) => update("name", e.target.value)}
@@ -202,7 +205,7 @@ export function EnquiryForm({
           errorId={errorId("email")}
           label="Email"
           error={errors.email}
-          showLabel={!compact}
+          showLabel
           icon={compact ? undefined : Mail}
         >
           <input
@@ -211,7 +214,7 @@ export function EnquiryForm({
             type="email"
             autoComplete="email"
             inputMode="email"
-            placeholder={compact ? "Email *" : "you@company.com"}
+            placeholder={compact ? undefined : "you@company.com"}
             required
             value={values.email}
             onChange={(e) => update("email", e.target.value)}
@@ -225,7 +228,7 @@ export function EnquiryForm({
           errorId={errorId("phone")}
           label="Phone"
           error={errors.phone}
-          showLabel={!compact}
+          showLabel
           icon={compact ? undefined : Phone}
         >
           <input
@@ -234,7 +237,7 @@ export function EnquiryForm({
             type="tel"
             autoComplete="tel"
             inputMode="tel"
-            placeholder={compact ? "Phone *" : "Your phone number"}
+            placeholder={compact ? undefined : "Your phone number"}
             required
             value={values.phone}
             onChange={(e) => update("phone", e.target.value)}
@@ -248,7 +251,7 @@ export function EnquiryForm({
           errorId={errorId("service")}
           label="Service needed"
           error={errors.service}
-          showLabel={!compact}
+          showLabel
         >
           <div className="relative">
             <select
@@ -266,7 +269,7 @@ export function EnquiryForm({
               )}
             >
               <option value="" disabled>
-                {compact ? "Service needed *" : "Select a service"}
+                Select a service
               </option>
               {SERVICES.map((s) => (
                 <option key={s.slug} value={s.slug} className="text-foreground">
@@ -285,14 +288,14 @@ export function EnquiryForm({
           errorId={errorId("message")}
           label="Short message"
           error={errors.message}
-          showLabel={!compact}
+          showLabel
           className="sm:col-span-2"
         >
           <textarea
             id={fieldId("message")}
             name="message"
             rows={compact ? 3 : 4}
-            placeholder={compact ? "Short message *" : "Tell us a bit about your needs…"}
+            placeholder={compact ? undefined : "Tell us a bit about your needs…"}
             required
             value={values.message}
             onChange={(e) => update("message", e.target.value)}

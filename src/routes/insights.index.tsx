@@ -1,29 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { seoHead } from "@/lib/seo";
 import { ArrowRight } from "lucide-react";
-import { INSIGHTS, INSIGHTS_PAGE, LINKS } from "@/data/site";
+import { HAS_LINKEDIN, INSIGHTS, INSIGHTS_PAGE, LINKS } from "@/data/site";
 import { Container } from "@/components/site/primitives";
 import { ArticleCard } from "@/components/site/ArticleCard";
+import { HeroCta } from "@/components/site/HeroCta";
 import { LinkedInBand } from "@/components/site/LinkedInBand";
-import { ConsultationBanner } from "@/components/site/ConsultationBanner";
-import heroImage from "@/assets/worthprime-hero-blue.jpg";
+import { CtaBand } from "@/components/site/CtaBand";
+import heroImage from "@/assets/worthprime-hero-blue.webp";
 
 export const Route = createFileRoute("/insights/")({
-  head: () => ({
-    meta: [
-      { title: INSIGHTS_PAGE.title },
-      { name: "description", content: INSIGHTS_PAGE.description },
-      { property: "og:title", content: INSIGHTS_PAGE.title },
-      { property: "og:description", content: INSIGHTS_PAGE.description },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () =>
+    seoHead({
+      title: INSIGHTS_PAGE.title,
+      description: INSIGHTS_PAGE.description,
+      path: "/insights",
+    }),
   component: InsightsPage,
 });
-
-function GoldRule() {
-  return <span className="h-0.5 w-12 rounded-full bg-brand-gold" aria-hidden />;
-}
 
 function InsightsPage() {
   return (
@@ -48,6 +42,7 @@ function InsightsPage() {
             <p className="mt-4 text-base leading-snug text-muted-foreground sm:text-[1.0625rem]">
               {INSIGHTS_PAGE.intro}
             </p>
+            <HeroCta className="mt-6" />
           </div>
           <img
             src={heroImage}
@@ -61,13 +56,7 @@ function InsightsPage() {
 
       <section aria-labelledby="latest-articles" className="pt-6 pb-5 sm:pt-8">
         <Container>
-          <div className="flex items-center gap-4">
-            <GoldRule />
-            <p className="text-xs font-semibold tracking-[0.24em] text-primary uppercase">
-              {INSIGHTS_PAGE.latestLabel}
-            </p>
-          </div>
-          <div className="mt-2 flex flex-col gap-3 lg:flex-row lg:items-end lg:gap-6">
+          <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:gap-6">
             <h2
               id="latest-articles"
               className="shrink-0 font-serif text-[clamp(1.85rem,2.8vw,2.4rem)] leading-tight font-bold text-primary"
@@ -77,15 +66,17 @@ function InsightsPage() {
             <p className="max-w-[30rem] text-[0.95rem] leading-snug text-muted-foreground lg:pb-1.5">
               {INSIGHTS_PAGE.latestIntro}
             </p>
-            <a
-              href={LINKS.linkedin}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="inline-flex items-center gap-2 self-start text-sm font-semibold text-primary underline underline-offset-4 lg:ml-auto lg:self-auto lg:pb-1.5"
-            >
-              View all articles
-              <ArrowRight className="size-4" aria-hidden />
-            </a>
+            {HAS_LINKEDIN && (
+              <a
+                href={LINKS.linkedin}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-flex items-center gap-2 self-start text-sm font-semibold text-primary underline underline-offset-4 lg:ml-auto lg:self-auto lg:pb-1.5"
+              >
+                View all articles
+                <ArrowRight className="size-4" aria-hidden />
+              </a>
+            )}
           </div>
 
           <ul className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -96,16 +87,18 @@ function InsightsPage() {
             ))}
           </ul>
 
-          <div className="mt-5">
-            <LinkedInBand />
-          </div>
+          {HAS_LINKEDIN && (
+            <div className="mt-5">
+              <LinkedInBand />
+            </div>
+          )}
           <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
             {INSIGHTS_PAGE.disclaimer}
           </p>
         </Container>
       </section>
 
-      <ConsultationBanner />
+      <CtaBand />
     </>
   );
 }

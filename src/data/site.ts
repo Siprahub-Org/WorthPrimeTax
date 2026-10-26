@@ -9,6 +9,20 @@ export const LINKS = {
   whatsapp: "https://wa.me/19166231007",
 };
 
+/** LinkedIn links and icons stay hidden until the client supplies a real profile URL above. */
+/**
+ * Production origin for canonical tags, the sitemap, Open Graph URLs and structured data. Change it
+ * here only. worthprimetax.com still serves the old site until the domain is moved to this one.
+ */
+export const SITE = {
+  url: "https://worthprimetax.com",
+  name: "WorthPrime Tax",
+  // [NEED: client-approved 1200x630 social sharing image; the hero photo stands in until then]
+  socialImageAlt: "WorthPrime Tax advisers at work",
+};
+
+export const HAS_LINKEDIN = LINKS.linkedin.startsWith("http");
+
 export const OFFICES = [
   {
     label: "Headquarter (USA)",
@@ -378,7 +392,7 @@ export const PRICING_PAGE = {
     { title: "Nationwide Support", text: "Serving clients across the U.S." },
   ],
   chartNote:
-    "Audits are available to clients across U.S. states. Only the audit fee is confirmed; all other figures are placeholders. Final fees depend on scope.",
+    "Audits are available to clients across U.S. states. Prices shown are illustrative estimates; final fees depend on the complexity and scope of each service.",
 };
 
 export const INSIGHTS_PAGE = {
@@ -391,7 +405,6 @@ export const INSIGHTS_PAGE = {
   intro:
     "Practical insights on U.S. tax, accounting and compliance—what is changing, what it means and what to do about it.",
   feedNote: "[These will later be fed from LinkedIn posts]",
-  latestLabel: "Latest insights",
   latestHeading: "Latest Articles",
   latestIntro:
     "Stay informed with the latest insights on U.S. tax, accounting and compliance to help you make confident decisions.",
@@ -403,8 +416,7 @@ export const INSIGHTS_PAGE = {
     "This content is for general informational purposes only and does not constitute tax, legal, or accounting advice. Tax rules and filing requirements depend on individual circumstances and applicable law. Consult a qualified professional regarding your situation.",
 };
 
-/** Navy call-to-action banner shown at the foot of the pricing and insights pages. */
-/** Large closing CTA band on the home, About and Services pages. */
+/** Large closing CTA band, shown near the foot of every page. */
 export const CTA_BAND = {
   label: "From setup to success, we're with you",
   heading: "Make your next financial decision with confidence.",
@@ -418,10 +430,42 @@ export const CTA_BAND = {
   ],
 };
 
+/** Smaller navy banner (ConsultationBanner); no page shows it now that every page uses CTA_BAND. */
 export const CTA_BANNER = {
   label: "From setup to success, we're with you",
   heading: "Whatever the next financial decision looks like,",
   headingAccent: "make it with perspective.",
   button: "Talk to Our Experts",
   caption: "Get a customized quote based on your needs.",
+};
+
+// Payment details are copied exactly from the client's current payment section. Do not edit
+// without the client's confirmation.
+export const PAYMENT_PAGE = {
+  title: "Payment Methods | WorthPrime Tax",
+  description: "Pay WorthPrime Tax by Zelle or PayPal. Cards accepted, no PayPal account needed.",
+  // Page copy below follows the client's payment page design (2026-10-23).
+  label: "Secure & Convenient",
+  heading: "Pay us",
+  headingAccent: "through",
+  or: "OR",
+  intro: "Choose the payment method that works best for you.",
+  features: [
+    { title: "Secure Transactions", text: "Your payment information is safe with us." },
+    { title: "Multiple Payment Options", text: "Choose the method that suits you." },
+    { title: "Need Help?", text: "Contact our support team for any payment related questions." },
+  ],
+  zelle: {
+    label: "Zelle ID:",
+    id: "helpdesk@worthprimetax.com",
+    qrAlt:
+      "Zelle QR code for WorthPrime Tax, Legal and Compliance Services. Scan with your banking app to send money with Zelle.",
+  },
+  paypal: {
+    alt: "Secure payments by PayPal. Visa, Mastercard, Discover and American Express accepted. No PayPal account needed.",
+    newTab: "(opens PayPal in a new tab)",
+    // Supplied by the client on 2026-10-23. It carries session-style parameters
+    // (flowlogging_id, mfid); [NEED: confirm with client this checkout link stays valid].
+    href: "https://www.paypal.com/webapps/shoppingcart?flowlogging_id=f271965d6dfee&mfid=1792731901054_f271965d6dfee#/checkout/openButton",
+  },
 };

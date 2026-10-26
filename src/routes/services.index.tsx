@@ -1,31 +1,24 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { seoHead } from "@/lib/seo";
 import { useState } from "react";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { AUDIENCES, SERVICES, type Audience } from "@/data/services";
 import { LINKS } from "@/data/site";
 import { Container, Reveal, Section, SectionLabel } from "@/components/site/primitives";
 import { ServiceCard } from "@/components/site/ServiceCard";
-import { PriceChart } from "@/components/site/PriceChart";
+import { PricingTable } from "@/components/site/PricingTable";
+import { BackdropHero } from "@/components/site/BackdropHero";
 import { CtaBand } from "@/components/site/CtaBand";
 import { PricingMarquee } from "@/components/site/PricingMarquee";
 import { cn } from "@/lib/utils";
-import documentsImage from "@/assets/worthprime-documents-blue.jpg";
+import heroBackdrop from "@/assets/service-pages/hero-backdrop.webp";
 
 const TITLE = "Services | WorthPrime Tax";
 const DESCRIPTION =
   "Ten U.S. tax, accounting, payroll, audit and compliance services — with a starting-from price chart and guidance on where to begin.";
 
 export const Route = createFileRoute("/services/")({
-  head: () => ({
-    meta: [
-      { title: TITLE },
-      { name: "description", content: DESCRIPTION },
-      { property: "og:title", content: TITLE },
-      { property: "og:description", content: DESCRIPTION },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () => seoHead({ title: TITLE, description: DESCRIPTION, path: "/services" }),
   component: ServicesPage,
 });
 
@@ -42,53 +35,20 @@ function ServicesPage() {
 
   return (
     <>
-      {/*
-       * Same treatment as the home hero: the photo fills the section and a white wash on the left
-       * keeps the copy readable. This photo is busier on the left, so the wash is a little stronger.
-       */}
-      <section className="relative isolate overflow-hidden bg-background text-foreground">
-        <div className="absolute inset-0 -z-10">
-          <img
-            src={documentsImage}
-            alt="Financial documents ready for tax review"
-            width={1200}
-            height={896}
-            className="h-full w-full object-cover object-[70%_center]"
-          />
-          <div
-            className="absolute inset-0 bg-background/45 lg:bg-transparent lg:bg-linear-to-r lg:from-background/55 lg:from-25% lg:via-background/38 lg:via-50% lg:to-transparent lg:to-75%"
-            aria-hidden
-          />
-        </div>
-        <Container className="relative max-w-[1540px] lg:px-10">
-          <div className="flex max-w-[860px] flex-col pt-16 pb-20 sm:pt-20 sm:pb-24 lg:min-h-[calc(100svh-4rem)] lg:justify-center lg:pt-[3svh] lg:pb-[5svh]">
-            <h1 className="font-serif text-[clamp(2.4rem,4.3vw,4.6rem)] leading-[1.08] font-bold tracking-[-0.02em] text-primary xl:text-[clamp(2.25rem,min(4.3vw,8svh),4.6rem)]">
-              The Numbers Behind Your Business.{" "}
-              <span className="font-semibold italic">The Perspective Beyond Them.</span>
-            </h1>
-            <p className="mt-5 -mx-3 max-w-[44rem] rounded-2xl bg-background/70 px-3 py-3 text-base leading-relaxed text-foreground/85 backdrop-blur-sm sm:-mx-4 sm:px-4 sm:py-4 sm:text-lg xl:text-[clamp(1rem,2.1svh,1.25rem)]">
-              From Individual Tax and Form 1040 filings to U.S. business tax, Form 1120, Form 1120S
-              and Form 1065, our work is designed around accuracy, compliance and the broader
-              objectives of the client. Whether you are forming an LLC, operating a C Corp, S Corp
-              or Partnership, managing payroll, maintaining your books through QuickBooks, or
-              responding to an IRS Audit, we bring the relevant expertise into sharper focus.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4 xl:mt-[clamp(1rem,3.4svh,2rem)]">
-              <Link
-                to="/contact"
-                hash="contact-form"
-                className="inline-flex items-center gap-2.5 rounded-md bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground xl:px-11 xl:py-[clamp(0.75rem,1.9svh,1.1rem)] xl:text-lg transition-transform hover:scale-[1.03]"
-              >
-                Contact us <ArrowRight className="size-5" />
-              </Link>
-            </div>
-          </div>
-        </Container>
-      </section>
+      <BackdropHero
+        lines={[
+          [{ text: "The Numbers Behind Your Business." }],
+          [{ text: "The Perspective Beyond Them.", accent: true }],
+        ]}
+        intro="From Individual Tax and Form 1040 filings to U.S. business tax, Form 1120, Form 1120S and Form 1065, our work is designed around accuracy, compliance and the broader objectives of the client. Whether you are forming an LLC, operating a C Corp, S Corp or Partnership, managing payroll, maintaining your books through QuickBooks, or responding to an IRS Audit, we bring the relevant expertise into sharper focus."
+        image={heroBackdrop}
+      />
 
       <PricingMarquee />
 
       <Section className="pt-10 sm:pt-14">
+        {/* The cards carry h3 names; this keeps the outline h1 → h2 → h3 without changing the look. */}
+        <h2 className="sr-only">All services</h2>
         <div className="flex flex-wrap gap-2">
           {AUDIENCES.map((a) => (
             <button
@@ -111,7 +71,7 @@ function ServicesPage() {
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {shown.map((s, i) => (
             <Reveal key={s.slug} delay={(i % 3) * 70}>
-              <ServiceCard service={s} />
+              <ServiceCard service={s} photoOnly />
             </Reveal>
           ))}
         </div>
@@ -122,7 +82,10 @@ function ServicesPage() {
         <h2 className="mt-5 text-[clamp(1.9rem,4.4vw,3.2rem)] leading-tight">
           Starting from, <span className="italic text-primary">before scope.</span>
         </h2>
-        <PriceChart />
+        {/* Same table as the Pricing page. */}
+        <div className="mt-8 rounded-2xl border border-border bg-card p-2 shadow-[0_24px_60px_-36px] shadow-primary/40 sm:p-3">
+          <PricingTable />
+        </div>
       </Section>
 
       <Section>

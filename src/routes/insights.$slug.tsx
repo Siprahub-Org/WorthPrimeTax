@@ -1,11 +1,13 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, Check } from "lucide-react";
-import { formatInsightDate, getInsight, INSIGHTS_PAGE } from "@/data/site";
+import { ArrowRight, Check } from "lucide-react";
+import { formatInsightDate, getInsight, HAS_LINKEDIN, INSIGHTS_PAGE, SITE } from "@/data/site";
+import { absoluteUrl, breadcrumbJsonLd, insightCrumbs, jsonLdScript, seoHead } from "@/lib/seo";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { Container, Section } from "@/components/site/primitives";
 import { InsightTag } from "@/components/site/ArticleCard";
 import { INSIGHT_IMAGES } from "@/components/site/insightImages";
 import { LinkedInBand } from "@/components/site/LinkedInBand";
-import { ConsultationBanner } from "@/components/site/ConsultationBanner";
+import { CtaBand } from "@/components/site/CtaBand";
 
 export const Route = createFileRoute("/insights/$slug")({
   loader: ({ params }) => {
@@ -23,15 +25,28 @@ export const Route = createFileRoute("/insights/$slug")({
       };
     }
     const { insight } = loaderData;
-    const title = `${insight.title} | WorthPrime Tax`;
+    const path = `/insights/${insight.slug}`;
+    const image = INSIGHT_IMAGES[insight.slug];
     return {
-      meta: [
-        { title },
-        { name: "description", content: insight.excerpt },
-        { property: "og:title", content: title },
-        { property: "og:description", content: insight.excerpt },
-        { property: "og:type", content: "article" },
-        { name: "twitter:card", content: "summary_large_image" },
+      ...seoHead({
+        title: `${insight.title} | WorthPrime Tax`,
+        description: insight.excerpt,
+        path,
+        type: "article",
+      }),
+      scripts: [
+        breadcrumbJsonLd(insightCrumbs(insight)),
+        jsonLdScript({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: insight.title,
+          description: insight.excerpt,
+          datePublished: insight.date,
+          mainEntityOfPage: absoluteUrl(path),
+          ...(image && { image: absoluteUrl(image.src) }),
+          author: { "@id": `${SITE.url}/#organization` },
+          publisher: { "@id": `${SITE.url}/#organization` },
+        }),
       ],
     };
   },
@@ -56,13 +71,7 @@ function InsightPage() {
     <>
       <article className="bg-linear-to-b from-tint to-background pt-8 pb-10 sm:pt-10">
         <Container className="max-w-[880px]">
-          <Link
-            to="/insights"
-            className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
-          >
-            <ArrowLeft className="size-4" aria-hidden />
-            All insights
-          </Link>
+          <Breadcrumbs crumbs={insightCrumbs(insight)} />
 
           <div className="mt-6 flex items-center gap-4">
             <InsightTag tag={insight.tag} />
@@ -137,11 +146,13 @@ function InsightPage() {
         </Container>
       </article>
 
-      <Container className="pb-6">
-        <LinkedInBand />
-      </Container>
+      {HAS_LINKEDIN && (
+        <Container className="pb-6">
+          <LinkedInBand />
+        </Container>
+      )}
 
-      <ConsultationBanner />
+      <CtaBand />
     </>
   );
 }

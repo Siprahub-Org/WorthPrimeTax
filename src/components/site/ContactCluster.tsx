@@ -1,6 +1,6 @@
 import { useRouterState } from "@tanstack/react-router";
-import { Instagram, Linkedin, Mail, Phone } from "lucide-react";
-import { LINKS } from "@/data/site";
+import { Linkedin, Mail, Phone } from "lucide-react";
+import { HAS_LINKEDIN, LINKS } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 export function WhatsAppIcon({ className }: { className?: string }) {
@@ -12,9 +12,9 @@ export function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 const button =
-  "grid size-9 place-items-center rounded-full border shadow-md transition duration-200 sm:size-10 motion-reduce:transition-none";
+  "grid size-8 place-items-center rounded-full border shadow-sm transition duration-200 sm:size-9 motion-reduce:transition-none";
 const interactive =
-  "hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:hover:translate-y-0";
+  "hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:hover:translate-y-0";
 const navy = "border-hero bg-hero text-hero-foreground";
 
 const items = [
@@ -39,13 +39,17 @@ const items = [
     external: false,
     className: navy,
   },
-  {
-    href: LINKS.linkedin,
-    label: "WorthPrime Tax on LinkedIn",
-    Icon: Linkedin,
-    external: true,
-    className: navy,
-  },
+  ...(HAS_LINKEDIN
+    ? [
+        {
+          href: LINKS.linkedin,
+          label: "WorthPrime Tax on LinkedIn",
+          Icon: Linkedin,
+          external: true,
+          className: navy,
+        },
+      ]
+    : []),
 ];
 
 export function ContactCluster() {
@@ -59,7 +63,7 @@ export function ContactCluster() {
   return (
     <nav
       aria-label="Quick contact"
-      className="fixed bottom-4 right-4 z-40 flex flex-col gap-2 sm:bottom-5 sm:right-5"
+      className="fixed bottom-4 right-4 z-40 flex flex-col gap-1.5 sm:bottom-5 sm:right-5"
     >
       {items.map(({ href, label, Icon, external, className }) => (
         <a
@@ -70,16 +74,18 @@ export function ContactCluster() {
           {...(external ? { target: "_blank", rel: "noreferrer noopener" } : {})}
           className={cn(button, interactive, className)}
         >
-          <Icon className="size-4 sm:size-[1.125rem]" />
+          <Icon className="size-3.5 sm:size-4" />
         </a>
       ))}
-      {/* Not a link until the client supplies an Instagram URL. */}
-      <span
-        title="Instagram [optional, client to supply]"
-        className={cn(button, "border-dashed border-border bg-card text-muted-foreground")}
-      >
-        <Instagram aria-hidden className="size-4 sm:size-[1.125rem]" />
-      </span>
+      {/* LinkedIn shows as a plain icon until the client supplies the profile URL; then it joins the links above. */}
+      {!HAS_LINKEDIN && (
+        <span
+          title="LinkedIn [client to supply]"
+          className={cn(button, "border-dashed border-border bg-card text-muted-foreground")}
+        >
+          <Linkedin aria-hidden className="size-3.5 sm:size-4" />
+        </span>
+      )}
     </nav>
   );
 }
