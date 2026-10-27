@@ -13,6 +13,8 @@ const STATIC_PATHS = [
   "/insights",
   "/contact",
   "/payment-methods",
+  "/privacy-policy",
+  "/terms-of-use",
 ];
 
 function sitemapXml() {

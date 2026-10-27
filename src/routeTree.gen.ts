@@ -14,7 +14,9 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as PaymentMethodsRouteImport } from './routes/payment-methods'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as TermsOfUseRouteImport } from './routes/terms-of-use'
 import { Route as InsightsIndexRouteImport } from './routes/insights.index'
 import { Route as InsightsSlugRouteImport } from './routes/insights.$slug'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
@@ -45,9 +47,19 @@ const PricingRoute = PricingRouteImport.update({
   path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsOfUseRoute = TermsOfUseRouteImport.update({
+  id: '/terms-of-use',
+  path: '/terms-of-use',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InsightsIndexRoute = InsightsIndexRouteImport.update({
@@ -77,7 +89,9 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/payment-methods': typeof PaymentMethodsRoute
   '/pricing': typeof PricingRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms-of-use': typeof TermsOfUseRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/insights/': typeof InsightsIndexRoute
@@ -89,7 +103,9 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/payment-methods': typeof PaymentMethodsRoute
   '/pricing': typeof PricingRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms-of-use': typeof TermsOfUseRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/insights': typeof InsightsIndexRoute
@@ -102,7 +118,9 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/payment-methods': typeof PaymentMethodsRoute
   '/pricing': typeof PricingRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms-of-use': typeof TermsOfUseRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/insights/': typeof InsightsIndexRoute
@@ -116,7 +134,9 @@ export interface FileRouteTypes {
     | '/contact'
     | '/payment-methods'
     | '/pricing'
+    | '/privacy-policy'
     | '/sitemap.xml'
+    | '/terms-of-use'
     | '/insights/$slug'
     | '/services/$slug'
     | '/insights/'
@@ -128,7 +148,9 @@ export interface FileRouteTypes {
     | '/contact'
     | '/payment-methods'
     | '/pricing'
+    | '/privacy-policy'
     | '/sitemap.xml'
+    | '/terms-of-use'
     | '/insights/$slug'
     | '/services/$slug'
     | '/insights'
@@ -140,7 +162,9 @@ export interface FileRouteTypes {
     | '/contact'
     | '/payment-methods'
     | '/pricing'
+    | '/privacy-policy'
     | '/sitemap.xml'
+    | '/terms-of-use'
     | '/insights/$slug'
     | '/services/$slug'
     | '/insights/'
@@ -153,7 +177,9 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   PaymentMethodsRoute: typeof PaymentMethodsRoute
   PricingRoute: typeof PricingRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TermsOfUseRoute: typeof TermsOfUseRoute
   InsightsSlugRoute: typeof InsightsSlugRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
   InsightsIndexRoute: typeof InsightsIndexRoute
@@ -197,11 +223,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms-of-use': {
+      id: '/terms-of-use'
+      path: '/terms-of-use'
+      fullPath: '/terms-of-use'
+      preLoaderRoute: typeof TermsOfUseRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/insights/': {
@@ -241,7 +281,9 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   PaymentMethodsRoute: PaymentMethodsRoute,
   PricingRoute: PricingRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TermsOfUseRoute: TermsOfUseRoute,
   InsightsSlugRoute: InsightsSlugRoute,
   ServicesSlugRoute: ServicesSlugRoute,
   InsightsIndexRoute: InsightsIndexRoute,

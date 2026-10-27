@@ -1,17 +1,14 @@
 import type { ReactNode } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { seoHead } from "@/lib/seo";
-import { Globe, Headphones, Mail, MapPin, Phone, ShieldCheck } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { CONTACT_PAGE, LINKS, OFFICES } from "@/data/site";
 import { Container } from "@/components/site/primitives";
 import { CtaBand } from "@/components/site/CtaBand";
-import { EnquiryForm } from "@/components/site/EnquiryForm";
+import { ContactSection } from "@/components/site/ContactSection";
 import { PricingMarquee } from "@/components/site/PricingMarquee";
 import { WhatsAppIcon } from "@/components/site/ContactCluster";
 import { cn } from "@/lib/utils";
-import officeGlobeImage from "@/assets/contact-office-globe.jpg";
-
-const HIGHLIGHT_ICONS = [Headphones, ShieldCheck, Globe];
 
 const CHANNELS = [
   {
@@ -49,61 +46,9 @@ export const Route = createFileRoute("/contact")({
 function ContactPage() {
   return (
     <>
-      <section
-        id="contact-form"
-        className="relative isolate scroll-mt-20 overflow-hidden bg-linear-to-b from-tint to-tint/40"
-      >
-        <Container
-          className={`${WIDE} grid gap-8 pt-5 pb-8 sm:pt-6 sm:pb-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,33rem)] lg:gap-10 lg:pt-5 lg:pb-6`}
-        >
-          <div className="relative flex min-w-0 flex-col lg:py-6">
-            {/*
-             * Soft globe-and-desk scene filling the hero height between the copy and the form.
-             * It runs under the form card's left edge and fades out towards the text; kept faint so
-             * the copy laid over it stays readable.
-             */}
-            <img
-              src={officeGlobeImage}
-              alt=""
-              width={340}
-              height={721}
-              className="absolute -inset-y-6 -right-[4.5rem] -z-10 hidden w-[46%] object-cover opacity-30 [mask-image:linear-gradient(to_right,transparent,black_38%,black_82%,transparent)] lg:block"
-            />
-            <h1 className="font-serif text-[clamp(2.25rem,4vw,4.25rem)] leading-[1.02] font-bold tracking-[-0.02em]">
-              <span className="block text-primary">{CONTACT_PAGE.heading}</span>
-              <span className="block font-semibold text-primary italic">
-                {CONTACT_PAGE.headingMuted}
-              </span>
-            </h1>
-            <p className="mt-4 max-w-[36rem] text-base leading-snug text-foreground/85 sm:text-lg xl:text-[1.25rem]">
-              {CONTACT_PAGE.intro}
-            </p>
+      <ContactSection asPageHeading compact />
 
-            <ul className="mt-8 grid max-w-[44rem] gap-5 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-border">
-              {CONTACT_PAGE.highlights.map((h, i) => {
-                const Icon = HIGHLIGHT_ICONS[i] ?? Globe;
-                return (
-                  <li key={h.title} className="flex items-center gap-3.5 sm:px-3.5 sm:first:pl-0">
-                    <span className="grid shrink-0 place-items-center text-primary" aria-hidden>
-                      <Icon className="size-6.5" strokeWidth={1.5} />
-                    </span>
-                    <div className="min-w-0">
-                      <p className="text-[0.9rem] font-semibold text-primary">{h.title}</p>
-                      <p className="mt-1 text-[0.8125rem] leading-snug text-foreground/85">
-                        {h.text}
-                      </p>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-
-          <div className="min-w-0 lg:self-start">
-            <EnquiryForm headingLevel={2} compact submitLabel={CONTACT_PAGE.cta} />
-          </div>
-        </Container>
-      </section>
+      <PricingMarquee />
 
       <section aria-labelledby="contact-details" className="pt-5 pb-10 sm:pb-12">
         <Container className={WIDE}>
@@ -172,8 +117,6 @@ function ContactPage() {
           </ul>
         </Container>
       </section>
-
-      <PricingMarquee />
 
       <CtaBand />
     </>

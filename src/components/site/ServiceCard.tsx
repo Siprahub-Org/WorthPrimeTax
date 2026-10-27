@@ -18,7 +18,7 @@ export function ServiceCard({
 
   return (
     <div
-      className="flip-scene group h-[320px]"
+      className="flip-scene group h-[280px]"
       onMouseEnter={() => setFlipped(true)}
       onMouseLeave={() => setFlipped(false)}
     >
@@ -46,24 +46,25 @@ export function ServiceCard({
           className={cn(
             "flip-face surface-card relative isolate flex h-full w-full flex-col justify-between overflow-hidden rounded-3xl p-6 text-hero-foreground",
             photoOnly && "justify-end",
-            photoOnly && image ? "border-transparent bg-transparent" : "border-hero bg-hero",
+            image ? "border-transparent bg-transparent" : "border-hero bg-hero",
           )}
         >
           {image && (
-            // Whole card when photoOnly; otherwise a wide band between the number and the title, faded into the navy card so the
-            // text above and below stays legible.
+            // The photo fills the whole card, with no navy panel.
             <img
               src={image}
               alt=""
               width={1400}
               height={788}
               loading="lazy"
-              className={cn(
-                "absolute -z-10 w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105",
-                photoOnly
-                  ? "inset-0 h-full"
-                  : "inset-x-0 top-[14%] h-[56%] [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_70%,transparent)]",
-              )}
+              className="absolute inset-0 -z-10 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+          )}
+          {image && !photoOnly && (
+            // Soft dark shade behind the white number and title so they read on any photo.
+            <span
+              className="absolute inset-0 -z-10 bg-linear-to-t from-foreground/80 via-foreground/10 to-foreground/30"
+              aria-hidden
             />
           )}
           {/* On a bare photo (Services page) the card shows just the name and tagline, on a frosted

@@ -6,6 +6,7 @@ import { AUDIENCES, SERVICES, type Audience } from "@/data/services";
 import { LINKS } from "@/data/site";
 import { Container, Reveal, Section, SectionLabel } from "@/components/site/primitives";
 import { ServiceCard } from "@/components/site/ServiceCard";
+import { SERVICE_GRID, serviceCardSpan } from "@/components/site/serviceGrid";
 import { PricingTable } from "@/components/site/PricingTable";
 import { BackdropHero } from "@/components/site/BackdropHero";
 import { CtaBand } from "@/components/site/CtaBand";
@@ -68,9 +69,9 @@ function ServicesPage() {
           ))}
         </div>
 
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className={cn("mt-8", SERVICE_GRID)}>
           {shown.map((s, i) => (
-            <Reveal key={s.slug} delay={(i % 3) * 70}>
+            <Reveal key={s.slug} delay={(i % 5) * 70} className={serviceCardSpan(i)}>
               <ServiceCard service={s} photoOnly />
             </Reveal>
           ))}
@@ -121,7 +122,7 @@ function ServicesPage() {
         >
           <div>
             <p className="label-slash">IRS tool</p>
-            <h3 className="mt-2 text-2xl">Check your IRS refund status</h3>
+            <h3 className="mt-2 text-2xl">Check your IRS Refund Status</h3>
             <p className="mt-1 text-sm text-muted-foreground">
               Opens the official IRS refund tracker in a new tab.
             </p>

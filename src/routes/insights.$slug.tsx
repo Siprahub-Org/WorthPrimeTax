@@ -8,6 +8,7 @@ import { InsightTag } from "@/components/site/ArticleCard";
 import { INSIGHT_IMAGES } from "@/components/site/insightImages";
 import { LinkedInBand } from "@/components/site/LinkedInBand";
 import { CtaBand } from "@/components/site/CtaBand";
+import { PricingMarquee } from "@/components/site/PricingMarquee";
 
 export const Route = createFileRoute("/insights/$slug")({
   loader: ({ params }) => {
@@ -93,7 +94,13 @@ function InsightPage() {
               className="mt-7 aspect-[2.2/1] w-full rounded-xl object-cover"
             />
           )}
+        </Container>
 
+        <div className="mt-8">
+          <PricingMarquee />
+        </div>
+
+        <Container className="max-w-[880px]">
           <div className="mt-8 space-y-4 text-[1.0625rem] leading-relaxed text-foreground">
             {insight.body.map((paragraph) => (
               <p key={paragraph.slice(0, 32)}>{paragraph}</p>
