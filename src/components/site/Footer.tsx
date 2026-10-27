@@ -218,11 +218,12 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 border-t border-border py-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-muted-foreground">
+        {/* Copyright centred; policy links on the right (both centred and stacked on phones). */}
+        <div className="grid items-center gap-3 border-t border-border py-4 text-center sm:grid-cols-[1fr_auto_1fr]">
+          <p className="text-xs text-muted-foreground sm:col-start-2">
             © {new Date().getFullYear()} WorthPrime. All rights reserved.
           </p>
-          <p className="flex items-center gap-3 text-xs text-muted-foreground">
+          <p className="flex items-center justify-center gap-3 text-xs text-muted-foreground sm:justify-self-end">
             <Link
               to="/privacy-policy"
               className={`hover:text-footer-link-hover hover:underline ${focusRing}`}
