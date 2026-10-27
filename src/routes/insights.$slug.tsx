@@ -20,7 +20,7 @@ export const Route = createFileRoute("/insights/$slug")({
     if (!loaderData) {
       return {
         meta: [
-          { title: "Article not found | WorthPrime Tax" },
+          { title: "Article Not Found | WorthPrime Tax" },
           { name: "robots", content: "noindex" },
         ],
       };
@@ -54,7 +54,7 @@ export const Route = createFileRoute("/insights/$slug")({
   component: InsightPage,
   notFoundComponent: () => (
     <Section>
-      <h1 className="font-serif text-3xl font-bold text-primary">Article not found</h1>
+      <h1 className="font-serif text-3xl font-bold text-primary">Article Not Found</h1>
       <Link to="/insights" className="mt-4 inline-block text-primary underline">
         Back to all insights
       </Link>
@@ -112,7 +112,7 @@ function InsightPage() {
             className="mt-8 rounded-xl border border-border bg-card p-6 sm:p-7"
           >
             <h2 id="takeaways" className="font-serif text-2xl font-bold text-primary">
-              Key takeaways
+              Key Takeaways
             </h2>
             <ul className="mt-4 space-y-3">
               {insight.takeaways.map((t) => (

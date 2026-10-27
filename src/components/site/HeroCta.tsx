@@ -26,7 +26,7 @@ export function HeroCta({
         className,
       )}
     >
-      Contact us <ArrowRight className="size-4" aria-hidden />
+      Contact Us <ArrowRight className="size-4" aria-hidden />
     </Link>
   );
 }

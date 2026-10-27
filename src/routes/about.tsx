@@ -60,7 +60,7 @@ const CREDENTIALS: { label: string; text: string; icon?: LucideIcon; monogram?: 
   { label: "CPA", text: "Certified Public Accountant", icon: Users },
   { label: "Enrolled Agent", text: "IRS Enrolled Agent", monogram: "EA" },
   { label: "AICPA", text: "American Institute of CPAs", icon: BadgeCheck },
-  { label: "IRS", text: "Authorized e-File Provider", icon: ShieldCheck },
+  { label: "IRS", text: "Authorized E-File Provider", icon: ShieldCheck },
 ];
 
 // Landmark drawing per office, in OFFICES order.
@@ -517,11 +517,11 @@ function AboutPage() {
         <dl className="mx-auto grid max-w-[1200px] grid-cols-2 gap-6 px-5 py-8 sm:px-8 lg:grid-cols-4 lg:divide-x lg:divide-border">
           <Stat
             value={<CountUp value={15} suffix="+" />}
-            label="Years of combined leadership experience"
+            label="Years of Combined Leadership Experience"
           />
-          <Stat value={<CountUp value={500} suffix="+" />} label="Satisfied clients" />
-          <Stat value={<CountUp value={3} />} label="Global offices" />
-          <Stat value="End-to-end" label="Tax & compliance support" />
+          <Stat value={<CountUp value={500} suffix="+" />} label="Satisfied Clients" />
+          <Stat value={<CountUp value={3} />} label="Global Offices" />
+          <Stat value="End-to-end" label="Tax & Compliance Support" />
         </dl>
       </section>
 
@@ -542,7 +542,7 @@ function AboutPage() {
               </p>
               <span className="mt-3 block h-px w-24 bg-primary/40" aria-hidden />
               <h2 className={cn("mt-5 text-[clamp(1.3rem,1.9vw,1.7rem)]", HEADING)}>
-                A stronger foundation for what's next.
+                A Stronger Foundation for What's Next.
               </h2>
             </div>
           </div>
@@ -581,7 +581,7 @@ function AboutPage() {
           <div>
             <SectionLabel>Professional Standards</SectionLabel>
             <h2 className={cn("mt-4 text-[clamp(1.9rem,3.4vw,2.8rem)]", HEADING)}>
-              Expertise you can rely on.
+              Expertise You Can Rely On.
             </h2>
           </div>
           <p className="text-sm text-muted-foreground">
@@ -613,7 +613,7 @@ function AboutPage() {
           <div>
             <SectionLabel>Our Presence</SectionLabel>
             <h2 className={cn("mt-4 text-[clamp(1.7rem,2.3vw,2.2rem)]", HEADING)}>
-              Local understanding. Global perspective.
+              Local Understanding. Global Perspective.
             </h2>
             <p className="mt-5 text-sm text-muted-foreground">
               With offices in the U.S., UAE and India, we bring a global outlook and local insight
@@ -650,9 +650,9 @@ function AboutPage() {
       <section className="overflow-hidden">
         <div className="mx-auto grid max-w-[1440px] items-center gap-10 lg:grid-cols-2">
           <div className="px-5 pt-12 sm:px-8 lg:py-16 lg:pl-[max(2rem,calc((100vw-1200px)/2))]">
-            <SectionLabel>Get to know WorthPrime</SectionLabel>
+            <SectionLabel>Get to Know WorthPrime</SectionLabel>
             <h2 className={cn("mt-4 text-[clamp(1.9rem,3.4vw,2.8rem)]", HEADING)}>
-              Meet the people behind the expertise.
+              Meet the People Behind the Expertise.
             </h2>
             <p className="mt-5 max-w-lg text-sm text-muted-foreground">
               A closer look into our approach, our values and our commitment to helping clients make
@@ -663,7 +663,7 @@ function AboutPage() {
                 <Play className="size-5" aria-hidden />
               </span>
               <span className="text-sm">
-                <span className="block font-semibold text-primary">Play company video</span>
+                <span className="block font-semibold text-primary">Play Company Video</span>
                 <span className="text-muted-foreground">[Video — client to supply]</span>
               </span>
             </p>
@@ -826,9 +826,9 @@ function Founders() {
     <Section>
       <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
         <div>
-          <SectionLabel>Co-founders</SectionLabel>
+          <SectionLabel>Co-Founders</SectionLabel>
           <h2 className={cn("mt-4 text-[clamp(1.9rem,3.4vw,2.8rem)]", HEADING)}>
-            Leadership grounded in experience.
+            Leadership Grounded in Experience.
           </h2>
         </div>
         <div>
@@ -887,7 +887,7 @@ function Founders() {
                 onClick={() => setOpen(i)}
                 className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
               >
-                Read full biography
+                Read Full Biography
                 <ArrowRight className="size-3.5" aria-hidden />
               </button>
             </div>

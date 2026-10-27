@@ -58,21 +58,21 @@ export const STATS = [
     value: 12,
     prefix: "$",
     suffix: "M+",
-    label: "Tax saved for clients",
+    label: "Tax Saved for Clients",
   },
-  { value: 5000, prefix: "", suffix: "+", label: "Clients served" },
-  { value: 99, prefix: "", suffix: "%", label: "Client satisfaction rate" },
+  { value: 5000, prefix: "", suffix: "+", label: "Clients Served" },
+  { value: 99, prefix: "", suffix: "%", label: "Client Satisfaction Rate" },
   {
     value: 20,
     prefix: "",
     suffix: "+",
-    label: "Years of experience",
+    label: "Years of Experience",
   },
 ];
 
 export const REASONS = [
   {
-    title: "Expertise that makes complexity easier.",
+    title: "Expertise That Makes Complexity Easier.",
     body: "Our experience spans tax, accounting, payroll, audit, business formation and compliance. We apply that breadth not simply to complete a task, but to understand the context in which the task matters.",
   },
   {
@@ -91,27 +91,27 @@ export const REASONS = [
 
 export const PROCESS = [
   {
-    title: "Talk to us",
-    body: "Share your situation, entity type and the filings or notices in front of you. [suggested, client to confirm]",
+    title: "Talk to Us",
+    body: "Share your situation, entity type and the filings or notices in front of you.",
   },
   {
-    title: "Scope and quote",
-    body: "We confirm what the work involves, who it affects and what it will cost before anything begins. [suggested, client to confirm]",
+    title: "Scope and Quote",
+    body: "We confirm what the work involves, who it affects and what it will cost before anything begins.",
   },
   {
-    title: "We do the work",
-    body: "Preparation, review and filing handled with the wider tax and accounting picture in mind. [suggested, client to confirm]",
+    title: "We Do the Work",
+    body: "Preparation, review and filing handled with the wider tax and accounting picture in mind.",
   },
   {
-    title: "Stay compliant",
-    body: "Year-round support for deadlines, notices and the decisions that follow. [suggested, client to confirm]",
+    title: "Stay Compliant",
+    body: "Year-round support for deadlines, notices and the decisions that follow.",
   },
 ];
 
 /** Home page contact section, beside the enquiry form. */
 export const HOME_CONTACT = {
-  heading: "Let’s talk about",
-  headingAccent: "what comes next.",
+  heading: "Let’s Talk About",
+  headingAccent: "What Comes Next.",
   intro:
     "Whether you’re an individual, entrepreneur or growing business, we’re here to help you stay compliant and confident. Share a few details and our team will get back to you shortly.",
   replyNote: "We typically reply within 24 hours",
@@ -122,24 +122,24 @@ export const FAQ_INTRO =
 
 export const FAQS = [
   {
-    q: "How much does it cost?",
-    a: "Fees depend on entity type, the number of filings and the scope of work. Audits start from $5,000. Every other engagement is quoted after a short conversation. [suggested, client to confirm]",
+    q: "How Much Does It Cost?",
+    a: "Fees depend on entity type, the number of filings and the scope of work. Audits start from $5,000. Every other engagement is quoted after a short conversation.",
   },
   {
-    q: "Who do you work with?",
-    a: "U.S. individuals, entrepreneurs and businesses—from a first Form 1040 to C Corps, S Corps and partnerships with payroll and cross-border reporting. [suggested, client to confirm]",
+    q: "Who Do You Work With?",
+    a: "U.S. individuals, entrepreneurs and businesses—from a first Form 1040 to C Corps, S Corps and partnerships with payroll and cross-border reporting.",
   },
   {
-    q: "I have received an IRS notice. What now?",
-    a: "Send it to us before you respond. We review what is being requested, why it was raised and prepare a structured response with the supporting documentation. [suggested, client to confirm]",
+    q: "I Have Received an IRS Notice. What Now?",
+    a: "Send it to us before you respond. We review what is being requested, why it was raised and prepare a structured response with the supporting documentation.",
   },
   {
-    q: "How do I share my documents?",
-    a: "Securely, through our client portal, after we confirm exactly which records are needed for your engagement. [suggested, client to confirm]",
+    q: "How Do I Share My Documents?",
+    a: "Securely, through our client portal, after we confirm exactly which records are needed for your engagement.",
   },
   {
-    q: "When should I start?",
-    a: "Earlier is better. Structure, bookkeeping and payroll decisions made before year end shape the filing that follows. [suggested, client to confirm]",
+    q: "When Should I Start?",
+    a: "Earlier is better. Structure, bookkeeping and payroll decisions made before year end shape the filing that follows.",
   },
 ];
 
@@ -174,7 +174,7 @@ export const INSIGHTS: Insight[] = [
       "Evaluate applicable deductions and credits with a qualified tax professional.",
       "Plan ahead for filing deadlines and estimated tax obligations.",
     ],
-    cta: { label: "Plan Your Taxes with WorthPrime", serviceSlug: "us-tax-services" },
+    cta: { label: "Plan Your Taxes With WorthPrime", serviceSlug: "us-tax-services" },
   },
   {
     slug: "strengthening-compliance-changing-regulatory-landscape",
@@ -211,7 +211,7 @@ export const INSIGHTS: Insight[] = [
       "Organize receipts, expense records, and supporting documents.",
       "Review financial statements before closing the books.",
     ],
-    cta: { label: "Prepare for Year-End with WorthPrime", serviceSlug: "accounting-bookkeeping" },
+    cta: { label: "Prepare for Year-End With WorthPrime", serviceSlug: "accounting-bookkeeping" },
   },
 ];
 
@@ -270,12 +270,12 @@ export type ClientReview = {
  * clearly marked placeholder instead.
  */
 export const CLIENT_EXPERIENCE = {
-  label: "Client experience",
-  heading: "What clients",
-  headingMuted: "say.",
+  label: "Client Experience",
+  heading: "What Clients",
+  headingMuted: "Say.",
   google: {
     title: "Google Reviews",
-    subtitle: "Real feedback from our clients",
+    subtitle: "Real Feedback From Our Clients",
     // From the WorthPrime Tax Google Business Profile (Victory Plaza, Hyderabad), checked
     // 21 Oct 2026. Update these and `reviews` whenever the profile changes.
     rating: 5.0 as number | null,
@@ -296,8 +296,8 @@ export const CLIENT_EXPERIENCE = {
   // Placeholder cards shown while `reviews` is empty, so the carousel layout can be reviewed.
   reviewPlaceholders: 3,
   video: {
-    title: "One-minute video testimonial",
-    body: "Hear directly from one of our clients about their experience working with WorthPrime Tax. [suggested copy, client to confirm]",
+    title: "One-Minute Video Testimonial",
+    body: "Hear directly from one of our clients about their experience working with WorthPrime Tax.",
     src: null as string | null, // [video file or URL, client to supply]
     pendingNote: "[Video, client to supply]",
   },
@@ -352,12 +352,12 @@ export const CERTIFICATIONS: Certification[] = [
 /** Home page "Starting from, before scope." pricing section. */
 export const HOME_PRICING = {
   label: "Pricing",
-  heading: "Starting from,",
-  headingMuted: "before scope.",
+  heading: "Starting From,",
+  headingMuted: "Before Scope.",
   intro:
     "Indicative starting prices to help you plan. Final pricing may vary depending on your specific requirements and scope of work.",
-  cta: "See the full price chart",
-  priceLabel: "Starting from",
+  cta: "See the Full Price Chart",
+  priceLabel: "Starting From",
   /** Shown for services whose price is not confirmed yet. */
   pendingPrice: "Price TBC",
 };
@@ -374,7 +374,7 @@ export const CONTACT_PAGE = {
   cta: "Talk to WorthPrime Tax",
   highlights: [
     { title: "Quick Response", text: "We typically reply within 24 hours" },
-    { title: "Trusted Experts", text: "U.S. tax & compliance specialists" },
+    { title: "Trusted Experts", text: "U.S. Tax & Compliance Specialists" },
     { title: "Global Support", text: "Serving clients worldwide" },
   ],
   detailsHeading: "Contact Details",
@@ -391,9 +391,9 @@ export const PRICING_PAGE = {
   intro:
     "Every engagement is quoted after a short conversation about your entity, filings and the work involved. The chart below shows where each service starts.",
   highlights: [
-    { title: "Clear & Transparent", text: "No hidden fees" },
-    { title: "Experienced Team", text: "U.S. tax & compliance specialists" },
-    { title: "Nationwide Support", text: "Serving clients across the U.S." },
+    { title: "Clear & Transparent", text: "No Hidden Fees" },
+    { title: "Experienced Team", text: "U.S. Tax & Compliance Specialists" },
+    { title: "Nationwide Support", text: "Serving Clients Across the U.S." },
   ],
   chartNote:
     "Audits are available to clients across U.S. states. Final fees depend on the complexity and scope of each service.",
@@ -405,14 +405,14 @@ export const INSIGHTS_PAGE = {
     "Articles and updates from WorthPrime Tax on U.S. tax, accounting and compliance for individuals and businesses.",
   label: "Insights",
   heading: "Perspective on",
-  headingMuted: "what comes next.",
+  headingMuted: "What Comes Next.",
   intro:
     "Practical insights on U.S. tax, accounting and compliance—what is changing, what it means and what to do about it.",
   feedNote: "[These will later be fed from LinkedIn posts]",
   latestHeading: "Latest Articles",
   latestIntro:
     "Stay informed with the latest insights on U.S. tax, accounting and compliance to help you make confident decisions.",
-  linkedinHeading: "Get new insights on LinkedIn",
+  linkedinHeading: "Get New Insights on LinkedIn",
   linkedinText:
     "Follow WorthPrime Tax on LinkedIn for practical insights on U.S. taxation, accounting, business compliance, and financial planning.",
   linkedinCta: "Follow WorthPrime Tax",
@@ -422,8 +422,8 @@ export const INSIGHTS_PAGE = {
 
 /** Large closing CTA band, shown near the foot of every page. */
 export const CTA_BAND = {
-  label: "From setup to success, we're with you",
-  heading: "Make your next financial decision with confidence.",
+  label: "From Setup to Success, We're With You",
+  heading: "Make Your Next Financial Decision With Confidence.",
   intro: "Tax guidance, business support, and financial clarity—built around you.",
   primary: "Talk to a Tax Expert",
   secondary: "Explore Our Services",
@@ -436,9 +436,9 @@ export const CTA_BAND = {
 
 /** Smaller navy banner (ConsultationBanner); no page shows it now that every page uses CTA_BAND. */
 export const CTA_BANNER = {
-  label: "From setup to success, we're with you",
-  heading: "Whatever the next financial decision looks like,",
-  headingAccent: "make it with perspective.",
+  label: "From Setup to Success, We're With You",
+  heading: "Whatever the Next Financial Decision Looks Like,",
+  headingAccent: "Make It With Perspective.",
   button: "Talk to Our Experts",
   caption: "Get a customized quote based on your needs.",
 };
@@ -450,8 +450,8 @@ export const PAYMENT_PAGE = {
   description: "Pay WorthPrime Tax by Zelle or PayPal. Cards accepted, no PayPal account needed.",
   // Page copy below follows the client's payment page design (2026-10-23).
   label: "Secure & Convenient",
-  heading: "Pay us",
-  headingAccent: "through",
+  heading: "Pay Us",
+  headingAccent: "Through",
   or: "OR",
   intro: "Choose the payment method that works best for you.",
   features: [
@@ -493,38 +493,38 @@ export const PRIVACY_PAGE: LegalPage = {
   updated: "[date TBC]",
   sections: [
     {
-      heading: "Information we collect",
+      heading: "Information We Collect",
       body: [
         "We collect the details you choose to share with us, such as your name, email address, phone number and the information you provide about your tax or business needs when you contact us or use our services.",
         "We may also collect basic technical information when you visit this website, such as your browser type and the pages you view.",
       ],
     },
     {
-      heading: "How we use your information",
+      heading: "How We Use Your Information",
       body: [
         "We use your information to respond to enquiries, provide and improve our services, meet our legal and regulatory obligations, and keep you informed about matters relevant to your engagement with us.",
       ],
     },
     {
-      heading: "How we protect your information",
+      heading: "How We Protect Your Information",
       body: [
         "We apply reasonable administrative, technical and physical safeguards to protect your information against unauthorised access, loss or misuse.",
       ],
     },
     {
-      heading: "Sharing your information",
+      heading: "Sharing Your Information",
       body: [
         "We do not sell your personal information. We share it only with service providers who help us deliver our services, or where the law requires us to do so.",
       ],
     },
     {
-      heading: "Your choices",
+      heading: "Your Choices",
       body: [
         "You may ask us to access, correct or delete the personal information we hold about you, subject to our legal record-keeping obligations.",
       ],
     },
     {
-      heading: "Contact us",
+      heading: "Contact Us",
       body: [
         "If you have questions about this policy, please contact us at helpdesk@worthprimetax.com.",
       ],
@@ -542,37 +542,37 @@ export const TERMS_PAGE: LegalPage = {
   updated: "[date TBC]",
   sections: [
     {
-      heading: "Use of this website",
+      heading: "Use of This Website",
       body: [
         "You may use this website for lawful purposes only. You agree not to misuse the site or interfere with its normal operation.",
       ],
     },
     {
-      heading: "No professional advice",
+      heading: "No Professional Advice",
       body: [
         "The content on this website is for general information only and does not constitute tax, legal or financial advice. A professional relationship is formed only once an engagement has been agreed in writing.",
       ],
     },
     {
-      heading: "Prices and services",
+      heading: "Prices and Services",
       body: [
         "Prices shown on this website are starting prices. Final fees depend on the complexity and scope of each service and are confirmed before work begins.",
       ],
     },
     {
-      heading: "Intellectual property",
+      heading: "Intellectual Property",
       body: [
         "All content on this website, including text, graphics and logos, belongs to WorthPrime Tax unless stated otherwise and may not be reused without permission.",
       ],
     },
     {
-      heading: "Limitation of liability",
+      heading: "Limitation of Liability",
       body: [
         "WorthPrime Tax is not liable for any loss arising from reliance on the general information on this website.",
       ],
     },
     {
-      heading: "Changes to these terms",
+      heading: "Changes to These Terms",
       body: [
         "We may update these terms from time to time. The latest version will always be available on this page.",
       ],

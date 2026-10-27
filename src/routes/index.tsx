@@ -144,7 +144,7 @@ function Hero() {
               to="/services"
               className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.03] sm:text-base"
             >
-              Explore our services <ArrowRight className="size-4" aria-hidden />
+              Explore Our Services <ArrowRight className="size-4" aria-hidden />
             </Link>
           </div>
         </div>
@@ -187,7 +187,7 @@ function WhoWeAre() {
       <div className="grid gap-10 lg:grid-cols-[1fr_1fr]">
         <div>
           <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
-            Built on Experience. <span className="italic text-primary">Shaped by Perspective.</span>
+            Built on Experience. <span className="text-primary">Shaped by Perspective.</span>
           </h2>
           <p className="mt-6 text-muted-foreground">
             Behind every enduring enterprise lies a confluence of sound structure, considered
@@ -200,7 +200,7 @@ function WhoWeAre() {
             to="/about"
             className="mt-7 inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm transition-colors hover:bg-accent"
           >
-            More about us <ArrowRight className="size-4" />
+            More About Us <ArrowRight className="size-4" />
           </Link>
         </div>
         <div className="grid gap-5 sm:grid-cols-2">
@@ -368,13 +368,13 @@ function ServicesGrid() {
       <div className="flex flex-wrap items-end justify-between gap-6">
         <h2 className="max-w-3xl text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
           The Numbers Behind Your Business.{" "}
-          <span className="italic text-primary">The Perspective Beyond Them.</span>
+          <span className="text-primary">The Perspective Beyond Them.</span>
         </h2>
         <Link
           to="/services"
           className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm transition-colors hover:bg-accent"
         >
-          All services <ArrowRight className="size-4" />
+          All Services <ArrowRight className="size-4" />
         </Link>
       </div>
       <p className="mt-5 max-w-2xl text-muted-foreground">
@@ -504,9 +504,7 @@ function PricingPreview() {
           className="font-serif text-[clamp(2.4rem,5.2vw,4.4rem)] leading-[1.02] font-bold tracking-[-0.02em]"
         >
           <span className="block text-primary">{HOME_PRICING.heading}</span>
-          <span className="block font-semibold text-brand-gold italic">
-            {HOME_PRICING.headingMuted}
-          </span>
+          <span className="block font-semibold text-brand-gold">{HOME_PRICING.headingMuted}</span>
         </h2>
         <p className="mt-5 max-w-[37rem] text-base leading-relaxed text-muted-foreground sm:text-lg">
           {HOME_PRICING.intro}
@@ -668,7 +666,7 @@ function HowItWorks() {
   return (
     <Section className="relative isolate overflow-hidden bg-linear-to-b from-background via-tint/40 to-background">
       <h2 className="max-w-3xl text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
-        Four steps, <span className="italic text-primary">start to filing.</span>
+        Four Steps, <span className="text-primary">Start to Filing.</span>
       </h2>
       <span className="mt-6 block h-0.5 w-16 rounded-full bg-brand-indigo" aria-hidden />
 
@@ -809,7 +807,7 @@ function ClientExperience() {
           id="client-experience-heading"
           className="text-[clamp(2.2rem,5vw,4rem)] leading-[1.02] tracking-[-0.02em]"
         >
-          {heading} <span className="font-serif font-semibold italic">{headingMuted}</span>
+          {heading} <span className="font-serif font-semibold">{headingMuted}</span>
         </h2>
 
         <div className="mt-10 grid gap-6 lg:grid-cols-[1.15fr_1fr]">
@@ -948,7 +946,7 @@ function ReviewsPanel() {
                 <Stars {...(review ? { rating: review.rating } : {})} className="size-[1.125rem]" />
                 {review && !review.text ? (
                   // Star-only Google ratings: say so plainly rather than inventing a quote.
-                  <p className="mt-4 flex-1 text-[0.95rem] leading-relaxed text-muted-foreground italic">
+                  <p className="mt-4 flex-1 text-[0.95rem] leading-relaxed text-muted-foreground">
                     Rated {review.rating} stars on Google.
                   </p>
                 ) : (
@@ -989,7 +987,7 @@ function ReviewsPanel() {
           className="inline-flex items-center gap-2 rounded-full border border-brand-secondary/20 bg-card px-4 py-2 text-sm font-semibold text-primary shadow-[0_8px_20px_-14px] shadow-primary/50 transition-colors hover:bg-tint"
         >
           <img src={googleLogo} alt="" width={16} height={16} className="size-4" />
-          Write a Google review
+          Write a Google Review
           <span className="sr-only">(opens in a new tab)</span>
         </a>
       </div>
@@ -1073,7 +1071,7 @@ function Insights() {
   return (
     <Section id="insights">
       <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
-        Latest from <span className="italic text-primary">WorthPrime Tax</span>
+        Latest From <span className="text-primary">WorthPrime Tax</span>
       </h2>
       <p className="mt-4 text-sm text-muted-foreground">
         [These will later be fed from LinkedIn posts]
@@ -1082,7 +1080,7 @@ function Insights() {
         to="/insights"
         className="mt-6 inline-flex items-center gap-2 rounded-full bg-hero px-6 py-3 text-sm font-semibold text-hero-foreground transition-transform hover:scale-[1.03]"
       >
-        See all insights <ArrowRight className="size-4" />
+        See All Insights <ArrowRight className="size-4" />
       </Link>
       <div className="mt-10 grid gap-5 sm:grid-cols-3">
         {INSIGHTS.map((a, i) => (
@@ -1110,7 +1108,7 @@ function Faq() {
       <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-12">
         <div>
           <h2 className="font-serif text-[clamp(2rem,3.6vw,3.1rem)] leading-[1.04] font-bold tracking-[-0.02em] text-primary">
-            Questions, <span className="block text-brand-secondary italic">answered.</span>
+            Questions, <span className="block text-brand-secondary">Answered.</span>
           </h2>
           <p className="mt-3 max-w-sm text-sm leading-relaxed text-foreground/80 sm:text-base">
             {FAQ_INTRO}
@@ -1120,7 +1118,7 @@ function Faq() {
             hash="contact-form"
             className="mt-5 inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground shadow-[0_14px_30px_-18px] shadow-primary/70 transition-transform hover:scale-[1.03]"
           >
-            Contact us <ArrowRight className="size-4" aria-hidden />
+            Contact Us <ArrowRight className="size-4" aria-hidden />
           </Link>
           <FaqIllustration className="mt-5 hidden max-w-[14rem] lg:block" />
         </div>

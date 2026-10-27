@@ -48,9 +48,21 @@ function ContactButton() {
       hash="contact-form"
       className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-2 text-sm font-medium tracking-normal whitespace-nowrap text-primary-foreground normal-case transition-opacity hover:opacity-90"
     >
-      Contact us
+      Contact Us
       <ArrowRight className="size-4" aria-hidden />
     </Link>
+  );
+}
+
+/** The row number, with an invisible lead so a lettered-only part sits under the first part's letter. */
+function RowNumber({ row }: { row: PriceRow }) {
+  return (
+    <>
+      <span className="invisible" aria-hidden>
+        {row.numberLead}
+      </span>
+      {row.number}
+    </>
   );
 }
 
@@ -72,8 +84,10 @@ type PriceRow = {
   name: string;
   price: string;
   included: string;
-  /** Split services get a letter per row (01a, 01b), so each part can be referred to. */
+  /** Split services get a letter per row: the first shows the number too (1 (a)), the rest only the letter ((b)). */
   number?: string;
+  /** Invisible copy of the number that lines a lettered-only part up under the first one. */
+  numberLead?: string;
 };
 
 // A service with tiers gets one row per tier, all linking to the same service page.
@@ -85,7 +99,8 @@ const ROWS: PriceRow[] = SERVICES.flatMap((s) =>
         name: t.name,
         price: t.price,
         included: t.included,
-        number: `${s.number}${String.fromCharCode(97 + i)}`,
+        number: i === 0 ? `${Number(s.number)} (a)` : `(${String.fromCharCode(97 + i)})`,
+        numberLead: i === 0 ? undefined : `${Number(s.number)} `,
       }))
     : [
         {
@@ -121,17 +136,19 @@ export function PricingTable() {
                 Service
               </th>
               <th scope="col" className={th}>
-                What is included
+                What Is Included
               </th>
               <th scope="col" className={cn(th, "w-72 py-2 pr-4")}>
-                <span className="whitespace-nowrap">Starting from</span>
+                <span className="whitespace-nowrap">Starting From</span>
               </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
             {ROWS.map((r) => (
               <tr key={r.key}>
-                <td className="py-2.5 pr-2 pl-5 text-sm text-muted-foreground">{r.number}</td>
+                <td className="py-2.5 pr-2 pl-5 text-sm whitespace-pre text-muted-foreground">
+                  <RowNumber row={r} />
+                </td>
                 <th
                   scope="row"
                   className="border-r border-border px-4 py-2.5 text-left font-normal"
@@ -158,7 +175,11 @@ export function PricingTable() {
         {ROWS.map((r) => (
           <li key={r.key} className="flex flex-col rounded-xl border border-border bg-card p-4">
             <div className="flex items-center gap-3">
-              {r.number && <span className="text-xs text-muted-foreground">{r.number}</span>}
+              {r.number && (
+                <span className="text-xs whitespace-pre text-muted-foreground">
+                  <RowNumber row={r} />
+                </span>
+              )}
               <ServiceIcon slug={r.service.slug} />
               <ServiceLink service={r.service} name={r.name} />
             </div>
@@ -166,7 +187,7 @@ export function PricingTable() {
               {r.included}
             </p>
             <div className="mt-4">
-              <span className="sr-only">Starting from </span>
+              <span className="sr-only">Starting From </span>
               <PriceTag price={r.price} />
             </div>
           </li>

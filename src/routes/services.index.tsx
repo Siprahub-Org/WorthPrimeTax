@@ -24,10 +24,10 @@ export const Route = createFileRoute("/services/")({
 });
 
 const GUIDES = [
-  { situation: "Starting a new business", slug: "business-formation-entity-structuring" },
-  { situation: "Growing and need reliable books", slug: "accounting-bookkeeping" },
-  { situation: "Received an IRS letter", slug: "irs-audit-notice-resolution" },
-  { situation: "Hold overseas accounts", slug: "fbar-fatca-boir-compliance" },
+  { situation: "Starting a New Business", slug: "business-formation-entity-structuring" },
+  { situation: "Growing and Need Reliable Books", slug: "accounting-bookkeeping" },
+  { situation: "Received an IRS Letter", slug: "irs-audit-notice-resolution" },
+  { situation: "Hold Overseas Accounts", slug: "fbar-fatca-boir-compliance" },
 ];
 
 function ServicesPage() {
@@ -49,7 +49,7 @@ function ServicesPage() {
 
       <Section className="pt-10 sm:pt-14">
         {/* The cards carry h3 names; this keeps the outline h1 → h2 → h3 without changing the look. */}
-        <h2 className="sr-only">All services</h2>
+        <h2 className="sr-only">All Services</h2>
         <div className="flex flex-wrap gap-2">
           {AUDIENCES.map((a) => (
             <button
@@ -79,9 +79,9 @@ function ServicesPage() {
       </Section>
 
       <Section id="pricing" className="scroll-mt-24 bg-background/40">
-        <SectionLabel>Price chart</SectionLabel>
+        <SectionLabel>Price Chart</SectionLabel>
         <h2 className="mt-5 text-[clamp(1.9rem,4.4vw,3.2rem)] leading-tight">
-          Starting from, <span className="italic text-primary">before scope.</span>
+          Starting From, <span className="text-primary">Before Scope.</span>
         </h2>
         {/* Same table as the Pricing page. */}
         <div className="mt-8 rounded-2xl border border-border bg-card p-2 shadow-[0_24px_60px_-36px] shadow-primary/40 sm:p-3">
@@ -90,7 +90,7 @@ function ServicesPage() {
       </Section>
 
       <Section>
-        <SectionLabel>Not sure where to start?</SectionLabel>
+        <SectionLabel>Not Sure Where to Start?</SectionLabel>
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {GUIDES.map((g, i) => {
             const service = SERVICES.find((s) => s.slug === g.slug)!;
@@ -121,14 +121,14 @@ function ServicesPage() {
           className="surface-card flex flex-wrap items-center justify-between gap-4 p-7 transition-colors hover:border-primary/60"
         >
           <div>
-            <p className="label-slash">IRS tool</p>
-            <h3 className="mt-2 text-2xl">Check your IRS Refund Status</h3>
+            <p className="label-slash">IRS Tool</p>
+            <h3 className="mt-2 text-2xl">Check Your IRS Refund Status</h3>
             <p className="mt-1 text-sm text-muted-foreground">
               Opens the official IRS refund tracker in a new tab.
             </p>
           </div>
           <span className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-hero-foreground">
-            Open tool <ExternalLink className="size-4" />
+            Open Tool <ExternalLink className="size-4" />
           </span>
         </a>
       </Container>

@@ -203,10 +203,10 @@ export function ServiceDetailFeature({
         </Container>
       </section>
 
-      {/* What this can include */}
+      {/* What This Can Include */}
       <section className="bg-tint py-12 sm:py-16">
         <Container>
-          <NumberedLabel n={2}>What this can include</NumberedLabel>
+          <NumberedLabel n={2}>What This Can Include</NumberedLabel>
           <SectionIntro heading={page.included.heading} intro={page.included.intro} />
           <div className="mt-8 grid gap-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-stretch">
             <img
@@ -233,12 +233,12 @@ export function ServiceDetailFeature({
         </Container>
       </section>
 
-      {/* Who it is for */}
+      {/* Who It Is For */}
       <section className="py-12 sm:py-16">
         <Container>
           <div className="grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
             <Reveal>
-              <NumberedLabel n={3}>Who it is for</NumberedLabel>
+              <NumberedLabel n={3}>Who It Is For</NumberedLabel>
               <h2 className="mt-5 font-serif text-[clamp(1.7rem,2.8vw,2.3rem)] leading-[1.18] font-semibold text-primary">
                 {page.whoFor.heading}
               </h2>
@@ -286,8 +286,8 @@ export function ServiceDetailFeature({
       {/* How the work moves */}
       <section className="pb-12 sm:pb-16">
         <Container>
-          <NumberedLabel n={4}>How the work moves</NumberedLabel>
-          <SectionIntro heading={page.process.heading || "How the work moves"} />
+          <NumberedLabel n={4}>How the Work Moves</NumberedLabel>
+          <SectionIntro heading={page.process.heading || "How the Work Moves"} />
           <ol className="mt-8 grid gap-5 sm:grid-cols-3">
             {HOW_THE_WORK_MOVES.map((s, i) => (
               <li key={s.step}>
@@ -321,12 +321,12 @@ export function ServiceDetailFeature({
         </Container>
       </section>
 
-      {/* Related services */}
+      {/* Related Services */}
       <section className="pb-12 sm:pb-16">
         <Container>
-          <NumberedLabel n={5}>Related services</NumberedLabel>
+          <NumberedLabel n={5}>Related Services</NumberedLabel>
           <SectionIntro
-            heading={page.related.heading || "Related services"}
+            heading={page.related.heading || "Related Services"}
             intro={page.related.intro}
           />
           <ul className="mt-8 grid gap-5 md:grid-cols-3">

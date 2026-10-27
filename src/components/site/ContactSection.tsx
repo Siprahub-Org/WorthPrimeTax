@@ -1,6 +1,5 @@
 import type { ComponentType, ReactNode } from "react";
-import { Link } from "@tanstack/react-router";
-import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { HOME_CONTACT, LINKS, OFFICES } from "@/data/site";
 import { cn } from "@/lib/utils";
 import { WhatsAppIcon } from "./ContactCluster";
@@ -8,7 +7,7 @@ import { EnquiryForm } from "./EnquiryForm";
 import { Section } from "./primitives";
 
 /**
- * "Let's talk about what comes next" block: contact lines and buttons beside the enquiry form.
+ * "Let's talk about what comes next" block: contact lines beside the enquiry form.
  * The contact page uses it as its hero (h1); the home page uses the smaller `compact` size.
  */
 export function ContactSection({
@@ -49,7 +48,7 @@ export function ContactSection({
             )}
           >
             {HOME_CONTACT.heading}{" "}
-            <span className="block text-brand-secondary italic">{HOME_CONTACT.headingAccent}</span>
+            <span className="block text-brand-secondary">{HOME_CONTACT.headingAccent}</span>
           </Heading>
           <p
             className={cn(
@@ -61,7 +60,7 @@ export function ContactSection({
           </p>
 
           <ul className={compact ? "mt-6 space-y-4" : "mt-8 space-y-5"}>
-            <ContactLine icon={Phone} title="Call us" compact={compact}>
+            <ContactLine icon={Phone} title="Call Us" compact={compact}>
               <a href={LINKS.phoneHref} className={cn(value, "text-foreground hover:text-primary")}>
                 {LINKS.phone}
               </a>
@@ -78,7 +77,7 @@ export function ContactSection({
             </ContactLine>
             <ContactLine
               icon={Mail}
-              title="Email us"
+              title="Email Us"
               note={HOME_CONTACT.replyNote}
               compact={compact}
             >
@@ -89,36 +88,12 @@ export function ContactSection({
                 {LINKS.email}
               </a>
             </ContactLine>
-            <ContactLine icon={MapPin} title="Visit us" compact={compact}>
+            <ContactLine icon={MapPin} title="Visit Us" compact={compact}>
               <span className={cn(value, "text-foreground")}>{OFFICES[0].address}</span>
             </ContactLine>
           </ul>
-
-          {/* Contact page: no buttons, the form sits right beside this text. */}
-          {!asPageHeading && (
-            <div className={cn("flex flex-wrap gap-4", compact ? "mt-6" : "mt-8")}>
-              <Link
-                to="/contact"
-                className={cn(
-                  "inline-flex items-center gap-2.5 rounded-lg bg-primary font-semibold text-primary-foreground shadow-[0_14px_30px_-18px] shadow-primary/70 transition-transform hover:scale-[1.03]",
-                  compact ? "px-6 py-3 text-sm" : "px-8 py-3.5 text-base",
-                )}
-              >
-                Contact us <ArrowRight className="size-5" aria-hidden />
-              </Link>
-              <Link
-                to="/services"
-                className={cn(
-                  "inline-flex items-center rounded-lg border border-primary/70 bg-card font-semibold text-primary transition-colors hover:bg-tint",
-                  compact ? "px-6 py-3 text-sm" : "px-8 py-3.5 text-base",
-                )}
-              >
-                View services
-              </Link>
-            </div>
-          )}
         </div>
-        <EnquiryForm headingLevel={asPageHeading ? 2 : 3} submitLabel="Submit request" />
+        <EnquiryForm headingLevel={asPageHeading ? 2 : 3} submitLabel="Submit Request" />
       </div>
     </Section>
   );

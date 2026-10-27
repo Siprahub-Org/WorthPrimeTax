@@ -36,9 +36,7 @@ function InsightsPage() {
           <div className="max-w-[34rem] lg:max-w-[46%]">
             <h1 className="font-serif text-[clamp(2.25rem,4vw,3.75rem)] leading-[1] font-bold tracking-[-0.02em]">
               <span className="block text-primary">{INSIGHTS_PAGE.heading}</span>
-              <span className="block font-semibold text-primary italic">
-                {INSIGHTS_PAGE.headingMuted}
-              </span>
+              <span className="block font-semibold text-primary">{INSIGHTS_PAGE.headingMuted}</span>
             </h1>
             <p className="mt-4 text-base leading-snug text-muted-foreground sm:text-[1.0625rem]">
               {INSIGHTS_PAGE.intro}
@@ -76,7 +74,7 @@ function InsightsPage() {
                 rel="noreferrer noopener"
                 className="inline-flex items-center gap-2 self-start text-sm font-semibold text-primary underline underline-offset-4 lg:ml-auto lg:self-auto lg:pb-1.5"
               >
-                View all articles
+                View All Articles
                 <ArrowRight className="size-4" aria-hidden />
               </a>
             )}

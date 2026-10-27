@@ -56,7 +56,7 @@ function validate(values: Values): Errors {
 export function EnquiryForm({
   headingLevel = 3,
   compact = false,
-  submitLabel = "Request a quote",
+  submitLabel = "Request a Quote",
 }: {
   headingLevel?: 2 | 3;
   compact?: boolean;
@@ -129,7 +129,7 @@ export function EnquiryForm({
         <span className="grid size-14 place-items-center rounded-full bg-primary text-primary-foreground">
           <Check className="size-7" aria-hidden />
         </span>
-        <Heading className="mt-5 font-serif text-3xl">Thank you.</Heading>
+        <Heading className="mt-5 font-serif text-3xl">Thank You.</Heading>
         <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
           Your enquiry has been sent. A member of our team will get back to you soon.
         </p>
@@ -138,7 +138,7 @@ export function EnquiryForm({
           onClick={reset}
           className="mt-6 text-sm font-semibold text-primary underline-offset-4 hover:underline"
         >
-          Send another enquiry
+          Send Another Enquiry
         </button>
       </div>
     );
@@ -154,18 +154,18 @@ export function EnquiryForm({
         <div className="flex items-center gap-4">
           <span className="h-0.5 w-8 rounded-full bg-brand-secondary" aria-hidden />
           <p className="text-[0.7rem] font-semibold tracking-[0.22em] text-primary uppercase">
-            Get in touch
+            Get in Touch
           </p>
         </div>
       )}
       {compact ? (
         <Heading className="font-serif text-[clamp(1.4rem,6.6cqi,2rem)] leading-[1.15] font-bold @sm:text-[5.6cqi] @sm:whitespace-nowrap">
-          Fill the form, <span className="font-semibold italic">soon will get back to you.</span>
+          Fill the form, <span className="font-semibold">soon will get back to you.</span>
         </Heading>
       ) : (
         <>
           <Heading className="mt-3 font-serif text-[clamp(1.4rem,5.5cqi,1.9rem)] leading-[1.15] font-bold text-primary">
-            Tell us how we can help.
+            Tell Us How We Can Help.
           </Heading>
           <p className="mt-1.5 text-sm text-foreground/75">
             Fill out the form below and our team will get back to you soon.
@@ -249,7 +249,7 @@ export function EnquiryForm({
         <Field
           id={fieldId("service")}
           errorId={errorId("service")}
-          label="Service needed"
+          label="Service Needed"
           error={errors.service}
           showLabel
         >
@@ -269,7 +269,7 @@ export function EnquiryForm({
               )}
             >
               <option value="" disabled>
-                Select a service
+                Select a Service
               </option>
               {SERVICES.map((s) => (
                 <option key={s.slug} value={s.slug} className="text-foreground">
@@ -286,7 +286,7 @@ export function EnquiryForm({
         <Field
           id={fieldId("message")}
           errorId={errorId("message")}
-          label="Short message"
+          label="Short Message"
           error={errors.message}
           showLabel
           className="sm:col-span-2"
