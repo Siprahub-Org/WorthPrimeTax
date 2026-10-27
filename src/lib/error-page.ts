@@ -6,7 +6,7 @@ export function renderErrorPage(): string {
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>This page didn't load</title>
+    <title>This Page Didn't Load</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
       ${themeCss}
@@ -22,11 +22,11 @@ export function renderErrorPage(): string {
   </head>
   <body>
     <div class="card">
-      <h1>This page didn't load</h1>
+      <h1>This Page Didn't Load</h1>
       <p>Something went wrong on our end. You can try refreshing or head back home.</p>
       <div class="actions">
-        <button class="primary" onclick="location.reload()">Try again</button>
-        <a class="secondary" href="/">Go home</a>
+        <button class="primary" onclick="location.reload()">Try Again</button>
+        <a class="secondary" href="/">Go Home</a>
       </div>
     </div>
   </body>

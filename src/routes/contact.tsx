@@ -12,14 +12,14 @@ import { cn } from "@/lib/utils";
 
 const CHANNELS = [
   {
-    label: "Phone number",
+    label: "Phone Number",
     value: LINKS.phone,
     href: LINKS.phoneHref,
     Icon: Phone,
     external: false,
   },
   {
-    label: "Email us",
+    label: "Email Us",
     value: LINKS.email,
     href: `mailto:${LINKS.email}`,
     Icon: Mail,

@@ -9,8 +9,8 @@ export function PriceChart() {
       <div className="surface-card mt-8 overflow-hidden">
         <div className="hidden grid-cols-[2fr_1fr_2fr_auto] gap-4 border-b border-border px-6 py-4 text-xs uppercase tracking-[0.16em] text-muted-foreground lg:grid">
           <span>Service</span>
-          <span>Starting from</span>
-          <span>What is included</span>
+          <span>Starting From</span>
+          <span>What Is Included</span>
           <span />
         </div>
         <div className="divide-y divide-border">
@@ -40,7 +40,7 @@ export function PriceChart() {
                 to="/contact"
                 className="justify-self-start rounded-full border border-border px-4 py-2 text-xs transition-colors hover:bg-accent lg:justify-self-end"
               >
-                Contact us
+                Contact Us
               </Link>
             </div>
           ))}

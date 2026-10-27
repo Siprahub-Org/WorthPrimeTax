@@ -117,7 +117,7 @@ export function ServiceCard({
             params={{ slug: service.slug }}
             className="inline-flex items-center gap-1 text-sm font-medium text-hero-foreground hover:underline"
           >
-            View service <ArrowUpRight className="size-4" />
+            View Service <ArrowUpRight className="size-4" />
           </Link>
         </div>
       </div>

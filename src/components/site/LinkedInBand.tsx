@@ -14,7 +14,7 @@ export function LinkedInBand() {
         </span>
         <div>
           <p className="text-[0.6875rem] font-semibold tracking-[0.18em] text-primary uppercase">
-            Follow us
+            Follow Us
           </p>
           <h2 className="mt-1 font-serif text-[clamp(1.35rem,2vw,1.6rem)] leading-tight font-bold text-primary">
             {INSIGHTS_PAGE.linkedinHeading}

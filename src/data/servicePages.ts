@@ -33,7 +33,7 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
   "us-tax-services": {
     label: "Individuals & Businesses",
     heading: "U.S. Tax Preparation & Filing Services",
-    tagline: "Tax obligations managed with precision.",
+    tagline: "Tax Obligations Managed With Precision.",
     intro:
       "From individual income tax returns to complex business tax filings, WorthPrime Tax helps individuals, entrepreneurs and businesses navigate U.S. tax requirements with accuracy, clarity and confidence.",
     heroCta: "Bring greater precision",
@@ -49,7 +49,7 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
       ],
     },
     start: {
-      heading: "Bring greater precision to your tax position.",
+      heading: "Bring Greater Precision to Your Tax Position.",
       body: "Get professional support for tax preparation, filing, planning and IRS-related matters.",
     },
     overview: {
@@ -67,8 +67,8 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
           title: "Individual Tax Services",
           items: [
             "Form 1040 — U.S. Individual Income Tax Returns",
-            "Individual income tax planning",
-            "Tax return preparation and filing",
+            "Individual Income Tax Planning",
+            "Tax Return Preparation and Filing",
           ],
         },
         {
@@ -77,21 +77,21 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
             "Form 1120 — C Corporation Tax Returns",
             "Form 1120-S — S Corporation Tax Returns",
             "Form 1065 — Partnership Tax Returns",
-            "U.S. business tax compliance",
+            "U.S. Business Tax Compliance",
           ],
         },
         {
           title: "Nonprofit Tax Filing",
           items: [
-            "Form 990, Form 990-EZ and Form 990-N — Applicable tax-exempt organisation reporting",
+            "Form 990, Form 990-EZ and Form 990-N — Applicable Tax-Exempt Organisation Reporting",
           ],
         },
         {
           title: "Additional Tax & IRS Support",
           items: [
-            "Amended U.S. tax returns",
-            "IRS correspondence and notice resolution",
-            "IRS audit assistance",
+            "Amended U.S. Tax Returns",
+            "IRS Correspondence and Notice Resolution",
+            "IRS Audit Assistance",
           ],
         },
       ],
@@ -148,12 +148,12 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
   "business-formation-entity-structuring": {
     label: "Businesses",
     heading: "Business Formation & Entity Structuring",
-    tagline: "The right structure creates room to grow.",
+    tagline: "The Right Structure Creates Room to Grow.",
     intro:
       "Starting a business in the U.S. begins with choosing the right legal and tax structure. WorthPrime Tax helps entrepreneurs and business owners navigate U.S. company formation, LLC registration, corporation setup and entity restructuring with confidence.",
     heroCta: "Build the right structure",
     start: {
-      heading: "Build the right structure from the outset.",
+      heading: "Build the Right Structure From the Outset.",
       body: "Choose a business entity with taxation, ownership, compliance and future growth in mind.",
     },
     overview: {
@@ -172,29 +172,29 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
         {
           title: "Company Formation & Registration",
           items: [
-            "Single-Member LLC formation",
-            "C Corporation formation",
-            "S Corporation tax election assistance for eligible entities",
-            "Partnership formation",
-            "State business registration coordination",
+            "Single-Member LLC Formation",
+            "C Corporation Formation",
+            "S Corporation Tax Election Assistance for Eligible Entities",
+            "Partnership Formation",
+            "State Business Registration Coordination",
           ],
         },
         {
           title: "Business Structure & Restructuring",
           items: [
-            "Business entity structure evaluation",
-            "Entity conversion and restructuring considerations",
-            "LLC to S Corporation tax classification assistance",
-            "LLC, corporation and partnership restructuring support, where applicable",
+            "Business Entity Structure Evaluation",
+            "Entity Conversion and Restructuring Considerations",
+            "LLC to S Corporation Tax Classification Assistance",
+            "LLC, Corporation and Partnership Restructuring Support, Where Applicable",
           ],
         },
         {
           title: "Registration & Ongoing Compliance",
           items: [
-            "Employer Identification Number (EIN) assistance",
-            "Business bank account assistance",
-            "Business compliance requirements",
-            "Ongoing entity compliance support",
+            "Employer Identification Number (EIN) Assistance",
+            "Business Bank Account Assistance",
+            "Business Compliance Requirements",
+            "Ongoing Entity Compliance Support",
           ],
         },
       ],
@@ -252,7 +252,7 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
   "accounting-bookkeeping": {
     label: "Businesses",
     heading: "Accounting & Bookkeeping Services",
-    tagline: "Better books. Better visibility. Better decisions.",
+    tagline: "Better Books. Better Visibility. Better Decisions.",
     intro:
       "Accurate financial records are the foundation of a well-managed business. WorthPrime Tax provides accounting and bookkeeping services to help U.S. businesses maintain organised records, monitor cash flow and make informed financial decisions.",
     start: {
@@ -275,19 +275,19 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
         {
           title: "Bookkeeping & Financial Records",
           items: [
-            "Bookkeeping and transaction recording",
-            "QuickBooks setup and support",
-            "Financial record maintenance",
-            "Tax-ready bookkeeping",
+            "Bookkeeping and Transaction Recording",
+            "QuickBooks Setup and Support",
+            "Financial Record Maintenance",
+            "Tax-Ready Bookkeeping",
           ],
         },
         {
           title: "Accounting & Reconciliation",
-          items: ["Bank and account reconciliations", "Monthly accounting", "Year-end accounting"],
+          items: ["Bank and Account Reconciliations", "Monthly Accounting", "Year-End Accounting"],
         },
         {
           title: "Financial Reporting & Business Visibility",
-          items: ["Financial reporting", "Accounts payable and accounts receivable reporting"],
+          items: ["Financial Reporting", "Accounts Payable and Accounts Receivable Reporting"],
         },
       ],
     },
@@ -344,7 +344,7 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
   "us-payroll-services": {
     label: "Businesses",
     heading: "U.S. Payroll Services",
-    tagline: "Every pay cycle deserves precision.",
+    tagline: "Every Pay Cycle Deserves Precision.",
     intro:
       "Accurate payroll is essential to employee confidence and business compliance. WorthPrime Tax provides U.S. payroll processing, payroll tax reporting and administration support to help businesses manage employee payments, maintain reliable payroll records and meet applicable federal and state requirements.",
     heroCta: "Bring greater control",
@@ -368,25 +368,25 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
         {
           title: "Payroll Processing & Employee Records",
           items: [
-            "U.S. payroll processing",
-            "Employee payroll records",
-            "Ongoing payroll administration",
+            "U.S. Payroll Processing",
+            "Employee Payroll Records",
+            "Ongoing Payroll Administration",
           ],
         },
         {
           title: "Payroll Tax & Compliance",
           items: [
-            "Payroll tax calculations",
-            "Federal and state payroll compliance",
-            "Payroll reconciliations",
+            "Payroll Tax Calculations",
+            "Federal and State Payroll Compliance",
+            "Payroll Reconciliations",
           ],
         },
         {
           title: "Year-End Payroll Reporting",
           items: [
-            "Form W-2 preparation and reporting",
-            "Year-end payroll reporting",
-            "Applicable Form 1099-NEC reporting for independent contractors",
+            "Form W-2 Preparation and Reporting",
+            "Year-End Payroll Reporting",
+            "Applicable Form 1099-NEC Reporting for Independent Contractors",
           ],
         },
       ],
@@ -444,7 +444,7 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
   "audit-financial-assurance": {
     label: "Assurance",
     heading: "Audit & Financial Assurance Services",
-    tagline: "Independent perspective. Stronger financial discipline.",
+    tagline: "Independent Perspective. Stronger Financial Discipline.",
     intro:
       "Reliable financial information builds confidence among business owners, investors, lenders and stakeholders. WorthPrime Tax provides financial audit, review and assurance services to help businesses assess reporting accuracy, strengthen internal controls and address applicable regulatory requirements.",
     start: {
@@ -467,22 +467,22 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
         {
           title: "Financial Statement Audit & Review",
           items: [
-            "Independent financial statement audits",
-            "Independent financial statement reviews",
-            "Special audits involving non-U.S. GAAP reporting requirements",
+            "Independent Financial Statement Audits",
+            "Independent Financial Statement Reviews",
+            "Special Audits Involving Non-U.S. GAAP Reporting Requirements",
           ],
         },
         {
           title: "Financial Reporting & Compilation",
           items: [
-            "Financial statement compilation and preparation services",
-            "Financial reporting and management reviews",
+            "Financial Statement Compilation and Preparation Services",
+            "Financial Reporting and Management Reviews",
           ],
         },
         {
           title: "Internal Controls & IT Assurance",
           items: [
-            "Internal control effectiveness reporting, including applicable SOX requirements",
+            "Internal Control Effectiveness Reporting, Including Applicable SOX Requirements",
             "IT assurance engagements, including SOC 2 Type 1 and Type 2 reporting",
           ],
         },
@@ -545,7 +545,7 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
   "irs-audit-notice-resolution": {
     label: "Compliance",
     heading: "IRS Audit & Notice Resolution Services",
-    tagline: "When the IRS comes calling, clarity matters.",
+    tagline: "When the IRS Comes Calling, Clarity Matters.",
     intro:
       "Received an IRS notice or facing a tax examination? WorthPrime Tax provides IRS notice review, audit assistance and tax resolution support for individuals and businesses. We help you understand the issue, prepare supporting documentation and take appropriate steps toward addressing your tax concerns.",
     start: {
@@ -568,25 +568,25 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
         {
           title: "IRS Notice Review & Tax Analysis",
           items: [
-            "IRS notice and letter review",
-            "Tax issue identification and analysis",
-            "Review of reported income, deductions and discrepancies",
+            "IRS Notice and Letter Review",
+            "Tax Issue Identification and Analysis",
+            "Review of Reported Income, Deductions and Discrepancies",
           ],
         },
         {
           title: "Audit Assistance & Documentation",
           items: [
-            "IRS audit assistance",
-            "Supporting documentation review and organisation",
-            "IRS response preparation",
+            "IRS Audit Assistance",
+            "Supporting Documentation Review and Organisation",
+            "IRS Response Preparation",
           ],
         },
         {
           title: "IRS Correspondence & Resolution Support",
           items: [
-            "Assistance with IRS correspondence",
-            "Tax resolution strategy and next-step guidance",
-            "Amended tax return assistance, where applicable",
+            "Assistance With IRS Correspondence",
+            "Tax Resolution Strategy and Next-Step Guidance",
+            "Amended Tax Return Assistance, Where Applicable",
           ],
         },
       ],
@@ -644,7 +644,7 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
   "fbar-fatca-boir-compliance": {
     label: "Compliance",
     heading: "FBAR, FATCA & BOIR Compliance Services",
-    tagline: "International reporting demands precision.",
+    tagline: "International Reporting Demands Precision.",
     intro:
       "Foreign bank accounts, international financial assets and certain ownership structures can create U.S. reporting obligations beyond a standard tax return. WorthPrime Tax helps individuals and businesses navigate FBAR filing, FATCA reporting and applicable beneficial ownership reporting requirements with clarity, accuracy and attention to compliance.",
     start: {
@@ -668,25 +668,25 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
         {
           title: "Foreign Bank Account Reporting (FBAR)",
           items: [
-            "FBAR preparation and reporting — FinCEN Form 114",
-            "Foreign financial account reporting",
-            "Review of applicable account reporting requirements",
+            "FBAR Preparation and Reporting — FinCEN Form 114",
+            "Foreign Financial Account Reporting",
+            "Review of Applicable Account Reporting Requirements",
           ],
         },
         {
           title: "FATCA & Foreign Asset Reporting",
           items: [
-            "FATCA-related reporting, including applicable IRS Form 8938",
-            "Foreign financial asset reporting",
-            "International information reporting",
+            "FATCA-Related Reporting, Including Applicable IRS Form 8938",
+            "Foreign Financial Asset Reporting",
+            "International Information Reporting",
           ],
         },
         {
           title: "Beneficial Ownership Reporting",
           items: [
-            "Assessment of applicable beneficial ownership reporting requirements",
-            "BOIR compliance assistance for qualifying foreign reporting companies",
-            "Review of relevant ownership information and filing obligations",
+            "Assessment of Applicable Beneficial Ownership Reporting Requirements",
+            "BOIR Compliance Assistance for Qualifying Foreign Reporting Companies",
+            "Review of Relevant Ownership Information and Filing Obligations",
           ],
         },
       ],
@@ -749,7 +749,7 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
     // The document gives no eyebrow for this page; this is the service's audience from services.ts.
     label: "Individuals",
     heading: "ITIN Application & Renewal Services",
-    tagline: "The right identification. The right filing path.",
+    tagline: "The Right Identification. The Right Filing Path.",
     intro:
       "Need an Individual Taxpayer Identification Number (ITIN) for U.S. tax purposes? WorthPrime Tax assists eligible individuals with new ITIN applications, renewals, IRS Form W-7 preparation and supporting documentation to help them navigate the application process with greater clarity and accuracy.",
     heroCta: "Get your ITIN in order",
@@ -773,26 +773,26 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
         {
           title: "New ITIN Applications",
           items: [
-            "New ITIN application assistance",
-            "IRS Form W-7 preparation and review",
-            "ITIN eligibility and application requirement review",
+            "New ITIN Application Assistance",
+            "IRS Form W-7 Preparation and Review",
+            "ITIN Eligibility and Application Requirement Review",
           ],
         },
         {
           title: "ITIN Renewal Services",
           items: [
-            "Expired ITIN renewal assistance",
-            "Form W-7 renewal preparation",
-            "Review of relevant renewal requirements",
+            "Expired ITIN Renewal Assistance",
+            "Form W-7 Renewal Preparation",
+            "Review of Relevant Renewal Requirements",
           ],
         },
         {
           title: "Documentation & Tax Filing Support",
           items: [
-            "Supporting identity and foreign-status documentation review",
-            "ITIN application completeness review",
-            "Tax return-related ITIN requirements",
-            "Guidance on applicable application submission procedures",
+            "Supporting Identity and Foreign-Status Documentation Review",
+            "ITIN Application Completeness Review",
+            "Tax Return-Related ITIN Requirements",
+            "Guidance on Applicable Application Submission Procedures",
           ],
         },
       ],
@@ -854,7 +854,7 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
   "amended-tax-returns": {
     label: "Individuals & Businesses",
     heading: "Amended Tax Return Services",
-    tagline: "When accuracy calls for a second look.",
+    tagline: "When Accuracy Calls for a Second Look.",
     intro:
       "Errors, omissions or newly discovered information can affect previously filed tax returns. WorthPrime Tax provides amended tax return preparation and filing assistance for individuals and businesses, helping correct reporting discrepancies, update financial information and address applicable IRS requirements.",
     heroCta: "Correct the record",
@@ -878,26 +878,26 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
         {
           title: "Tax Return Review & Error Identification",
           items: [
-            "Review of previously filed tax returns",
-            "Identification of errors, omissions and reporting discrepancies",
-            "Review of income, deductions and tax credits",
+            "Review of Previously Filed Tax Returns",
+            "Identification of Errors, Omissions and Reporting Discrepancies",
+            "Review of Income, Deductions and Tax Credits",
           ],
         },
         {
           title: "Amended Tax Return Preparation",
           items: [
             "Form 1040-X — Amended Individual Income Tax Returns",
-            "Form 1120-X and applicable amended Form 1120 filings — C Corporations",
-            "Amended Form 1120-S filings — S Corporations",
+            "Form 1120-X and Applicable Amended Form 1120 Filings — C Corporations",
+            "Amended Form 1120-S Filings — S Corporations",
             "Applicable amended partnership returns or Administrative Adjustment Requests (AARs), including Form 1065-X where appropriate",
           ],
         },
         {
           title: "Documentation & IRS Support",
           items: [
-            "Updates to taxpayer information and supporting schedules",
-            "Review of relevant supporting documentation",
-            "Assistance with IRS correspondence related to amended returns",
+            "Updates to Taxpayer Information and Supporting Schedules",
+            "Review of Relevant Supporting Documentation",
+            "Assistance With IRS Correspondence Related to Amended Returns",
           ],
         },
       ],
@@ -959,7 +959,7 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
   "legal-business-document-drafting": {
     label: "Businesses",
     heading: "Legal & Business Document Drafting",
-    tagline: "Clear documents. Defined obligations. Stronger business relationships.",
+    tagline: "Clear Documents. Defined Obligations. Stronger Business Relationships.",
     intro:
       "Well-structured agreements help businesses establish clear expectations, responsibilities and commercial terms. WorthPrime Tax supports business agreement drafting, commercial documentation and contract review requirements, helping organisations prepare and refine documents that reflect their business arrangements.",
     start: {
@@ -982,23 +982,23 @@ const SERVICE_PAGES: Record<string, ServicePage> = {
         {
           title: "Business Agreements & Contracts",
           items: [
-            "Business agreement drafting support",
-            "Commercial contract preparation",
+            "Business Agreement Drafting Support",
+            "Commercial Contract Preparation",
             "Memoranda of Understanding (MoUs)",
           ],
         },
         {
           title: "Business Documentation",
           items: [
-            "Business-related document preparation",
-            "Organisation of commercial terms and responsibilities",
+            "Business-Related Document Preparation",
+            "Organisation of Commercial Terms and Responsibilities",
           ],
         },
         {
           title: "Contract Review & Refinement",
           items: [
-            "Review of existing business agreements",
-            "Document updates, revisions and refinement",
+            "Review of Existing Business Agreements",
+            "Document Updates, Revisions and Refinement",
           ],
         },
       ],

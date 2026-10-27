@@ -16,9 +16,9 @@ export const Route = createFileRoute("/services/$slug")({
     if (!loaderData) {
       return {
         meta: [
-          { title: "Service not found | WorthPrime Tax" },
+          { title: "Service Not Found | WorthPrime Tax" },
           { name: "robots", content: "noindex" },
-          { property: "og:title", content: "Service not found | WorthPrime Tax" },
+          { property: "og:title", content: "Service Not Found | WorthPrime Tax" },
           {
             property: "og:description",
             content: "The requested WorthPrime Tax service could not be found.",
@@ -45,9 +45,9 @@ export const Route = createFileRoute("/services/$slug")({
 function ServiceNotFound() {
   return (
     <Section>
-      <h1 className="text-4xl">Service not found</h1>
+      <h1 className="text-4xl">Service Not Found</h1>
       <Link to="/services" className="mt-6 inline-block text-primary hover:underline">
-        ← All services
+        ← All Services
       </Link>
     </Section>
   );

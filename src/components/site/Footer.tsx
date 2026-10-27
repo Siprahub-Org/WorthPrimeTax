@@ -179,7 +179,7 @@ export function Footer() {
               to="/services"
               className={`group mt-5 inline-flex items-center gap-2 text-sm font-semibold text-link-accent transition-colors hover:text-footer-link-hover ${focusRing}`}
             >
-              All services
+              All Services
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </nav>

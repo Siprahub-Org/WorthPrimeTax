@@ -45,7 +45,7 @@ function PricingPage() {
           <div className="max-w-[40rem] lg:max-w-[47%]">
             <h1 className="font-serif text-[clamp(2.25rem,3.9vw,3.6rem)] leading-[1.02] font-bold tracking-[-0.02em]">
               <span className="block text-primary">{PRICING_PAGE.heading}</span>
-              <span className="block font-semibold text-brand-gold italic">
+              <span className="block font-semibold text-brand-gold">
                 {PRICING_PAGE.headingMuted}
               </span>
             </h1>
