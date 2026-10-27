@@ -474,107 +474,212 @@ export const PAYMENT_PAGE = {
   },
 };
 
+export type LegalSection = {
+  heading: string;
+  body: string[];
+  /** Optional bullet list shown after the body paragraphs. */
+  list?: string[];
+  /** Optional paragraph shown after the list. */
+  after?: string;
+};
+
 export type LegalPage = {
   title: string;
   description: string;
   heading: string;
   intro: string;
   updated: string;
-  sections: { heading: string; body: string[] }[];
+  sections: LegalSection[];
+  /** Heading of the contact card at the end of the page. */
+  contactHeading: string;
 };
 
-/** Privacy Policy page. [placeholder: client to supply the final, legally reviewed text] */
+/*
+ * Privacy Policy and Terms of Use. [placeholder: general wording written for the site build; the
+ * client must have the final text reviewed by their legal adviser before launch, and confirm the
+ * effective date and governing law.]
+ */
 export const PRIVACY_PAGE: LegalPage = {
   title: "Privacy Policy | WorthPrime Tax",
-  description: "How WorthPrime Tax collects, uses and protects the information you share with us.",
+  description:
+    "How WorthPrime Tax collects, uses, shares and protects the personal information of visitors and clients.",
   heading: "Privacy Policy",
   intro:
-    "Your privacy matters to us. This policy explains what information we collect, how we use it and the choices you have.",
+    "Your trust matters to us. This Privacy Policy explains how WorthPrime Tax collects, uses, shares and protects personal information when you visit our website or use our services.",
   updated: "[date TBC]",
+  contactHeading: "Questions About Your Privacy?",
   sections: [
     {
-      heading: "Information We Collect",
+      heading: "Who We Are",
       body: [
-        "We collect the details you choose to share with us, such as your name, email address, phone number and the information you provide about your tax or business needs when you contact us or use our services.",
-        "We may also collect basic technical information when you visit this website, such as your browser type and the pages you view.",
+        "WorthPrime Tax (“WorthPrime”, “we”, “us” or “our”) provides U.S. tax, accounting, payroll, compliance and advisory services to individuals and businesses, with offices in the United States, the United Arab Emirates and India.",
+        "This policy applies to personal information we collect through this website, through enquiries and correspondence, and in the course of providing our services.",
+      ],
+    },
+    {
+      heading: "Information We Collect",
+      body: ["Depending on how you interact with us, we may collect the following information:"],
+      list: [
+        "Contact details, such as your name, email address, phone number and postal address.",
+        "Identification and tax information, such as taxpayer identification numbers, filing history and the documents you provide for tax preparation or compliance work.",
+        "Financial and business information, such as income, accounts, payroll and entity records needed to deliver a service.",
+        "Enquiry details, such as the service you are interested in and the message you send us.",
+        "Technical information, such as your browser type, device, IP address and the pages you visit on this website.",
       ],
     },
     {
       heading: "How We Use Your Information",
+      body: ["We use personal information only for legitimate business purposes, including to:"],
+      list: [
+        "Respond to enquiries and provide quotes.",
+        "Prepare, review and file returns, reports and other documents on your behalf.",
+        "Communicate with you about your engagement, deadlines and requirements.",
+        "Meet our legal, regulatory and professional obligations, including record keeping.",
+        "Maintain, secure and improve our website and services.",
+      ],
+    },
+    {
+      heading: "How We Share Your Information",
       body: [
-        "We use your information to respond to enquiries, provide and improve our services, meet our legal and regulatory obligations, and keep you informed about matters relevant to your engagement with us.",
+        "We do not sell or rent your personal information. We share it only where necessary, for example:",
+      ],
+      list: [
+        "With government and tax authorities, such as the IRS, when you engage us to file or correspond on your behalf.",
+        "With trusted service providers who support our operations, such as secure document storage, payment processing and email services, under confidentiality obligations.",
+        "Between our offices, where needed to deliver your engagement.",
+        "Where required by law, regulation or legal process, or to protect our rights.",
+      ],
+    },
+    {
+      heading: "Data Retention",
+      body: [
+        "We keep personal information for as long as needed to provide our services and to meet legal, tax and professional record-keeping requirements. When information is no longer required, we delete or anonymise it securely.",
       ],
     },
     {
       heading: "How We Protect Your Information",
       body: [
-        "We apply reasonable administrative, technical and physical safeguards to protect your information against unauthorised access, loss or misuse.",
+        "We use administrative, technical and physical safeguards designed to protect personal information against unauthorised access, loss, misuse or alteration. These include access controls, secure transfer methods and confidentiality commitments from our team.",
+        "No method of transmission or storage is completely secure, so we cannot guarantee absolute security, but we work continually to protect the information entrusted to us.",
       ],
     },
     {
-      heading: "Sharing Your Information",
+      heading: "Cookies and Analytics",
       body: [
-        "We do not sell your personal information. We share it only with service providers who help us deliver our services, or where the law requires us to do so.",
+        "This website may use cookies and similar technologies to keep the site working, remember your preferences and understand how visitors use our pages. You can control or delete cookies through your browser settings; some parts of the site may not work as intended without them.",
       ],
     },
     {
-      heading: "Your Choices",
+      heading: "International Transfers",
       body: [
-        "You may ask us to access, correct or delete the personal information we hold about you, subject to our legal record-keeping obligations.",
+        "Because we operate in the United States, the United Arab Emirates and India, your information may be processed in a country other than the one where you live. Where this happens, we take reasonable steps to make sure it remains protected in line with this policy.",
       ],
     },
     {
-      heading: "Contact Us",
+      heading: "Your Rights and Choices",
+      body: ["Subject to applicable law, you may ask us to:"],
+      list: [
+        "Access the personal information we hold about you.",
+        "Correct information that is inaccurate or incomplete.",
+        "Delete your information, where we are not required to keep it.",
+        "Stop sending you marketing communications.",
+      ],
+      after:
+        "To make a request, contact us using the details below. We may need to verify your identity before responding.",
+    },
+    {
+      heading: "Children’s Privacy",
       body: [
-        "If you have questions about this policy, please contact us at helpdesk@worthprimetax.com.",
+        "Our website is not directed at children under 13, and we do not knowingly collect personal information from them through this website. Information about dependants is collected only from their parent or guardian as part of a tax engagement.",
+      ],
+    },
+    {
+      heading: "Changes to This Policy",
+      body: [
+        "We may update this Privacy Policy from time to time. The latest version will always be published on this page, with the date it was last updated.",
       ],
     },
   ],
 };
 
-/** Terms of Use page. [placeholder: client to supply the final, legally reviewed text] */
 export const TERMS_PAGE: LegalPage = {
   title: "Terms of Use | WorthPrime Tax",
-  description: "The terms that apply when you use the WorthPrime Tax website.",
+  description: "The terms that govern your use of the WorthPrime Tax website.",
   heading: "Terms of Use",
   intro:
-    "These terms apply to your use of the WorthPrime Tax website. By using the site, you agree to them.",
+    "These Terms of Use govern your access to and use of the WorthPrime Tax website. Please read them carefully. By using this website, you agree to these terms.",
   updated: "[date TBC]",
+  contactHeading: "Questions About These Terms?",
   sections: [
     {
-      heading: "Use of This Website",
+      heading: "Acceptance of These Terms",
       body: [
-        "You may use this website for lawful purposes only. You agree not to misuse the site or interfere with its normal operation.",
+        "By accessing or using this website, you confirm that you have read, understood and agree to be bound by these Terms of Use and our Privacy Policy. If you do not agree, please do not use the website.",
+      ],
+    },
+    {
+      heading: "Use of This Website",
+      body: ["You agree to use this website only for lawful purposes. You must not:"],
+      list: [
+        "Use the website in a way that breaches any applicable law or regulation.",
+        "Attempt to gain unauthorised access to the website, its servers or connected systems.",
+        "Introduce viruses or other harmful material, or interfere with the website’s operation.",
+        "Copy, scrape or reproduce website content for commercial purposes without our written permission.",
       ],
     },
     {
       heading: "No Professional Advice",
       body: [
-        "The content on this website is for general information only and does not constitute tax, legal or financial advice. A professional relationship is formed only once an engagement has been agreed in writing.",
+        "The content on this website, including articles and insights, is provided for general information only. It does not constitute tax, legal, accounting or financial advice, and should not be relied on as a substitute for advice tailored to your circumstances.",
+        "Tax laws and regulations change frequently. Always consult a qualified professional before acting on any information.",
       ],
     },
     {
-      heading: "Prices and Services",
+      heading: "Engagement of Services",
       body: [
-        "Prices shown on this website are starting prices. Final fees depend on the complexity and scope of each service and are confirmed before work begins.",
+        "Using this website or sending an enquiry does not create a client relationship. A professional relationship begins only when we have agreed the scope, fees and terms of an engagement with you in writing.",
+      ],
+    },
+    {
+      heading: "Fees and Payments",
+      body: [
+        "Prices shown on this website are starting prices. Final fees depend on the complexity and scope of each service and are confirmed in writing before work begins. Payments made through the methods listed on our Payment Methods page are subject to the terms of the relevant payment provider.",
       ],
     },
     {
       heading: "Intellectual Property",
       body: [
-        "All content on this website, including text, graphics and logos, belongs to WorthPrime Tax unless stated otherwise and may not be reused without permission.",
+        "All content on this website, including text, graphics, logos and design, is owned by or licensed to WorthPrime Tax and is protected by intellectual property laws. You may view and print pages for personal, non-commercial use only.",
+      ],
+    },
+    {
+      heading: "Third-Party Links",
+      body: [
+        "This website may link to third-party websites, such as the IRS refund status tool or payment providers. We are not responsible for the content, availability or privacy practices of those websites, and a link does not imply endorsement.",
+      ],
+    },
+    {
+      heading: "Disclaimer",
+      body: [
+        "This website is provided on an “as is” and “as available” basis. While we aim to keep information accurate and up to date, we make no warranties about its completeness, accuracy or availability.",
       ],
     },
     {
       heading: "Limitation of Liability",
       body: [
-        "WorthPrime Tax is not liable for any loss arising from reliance on the general information on this website.",
+        "To the fullest extent permitted by law, WorthPrime Tax is not liable for any direct, indirect or consequential loss arising from your use of, or reliance on, this website or its content.",
+      ],
+    },
+    {
+      heading: "Governing Law",
+      body: [
+        "These terms are governed by the laws of [jurisdiction TBC], and any disputes will be subject to the jurisdiction of its courts.",
       ],
     },
     {
       heading: "Changes to These Terms",
       body: [
-        "We may update these terms from time to time. The latest version will always be available on this page.",
+        "We may update these Terms of Use from time to time. Changes take effect when they are published on this page, so please review it periodically.",
       ],
     },
   ],

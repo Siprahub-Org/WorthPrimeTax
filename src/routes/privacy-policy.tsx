@@ -10,5 +10,10 @@ export const Route = createFileRoute("/privacy-policy")({
       description: PRIVACY_PAGE.description,
       path: "/privacy-policy",
     }),
-  component: () => <LegalPageView page={PRIVACY_PAGE} />,
+  component: () => (
+    <LegalPageView
+      page={PRIVACY_PAGE}
+      related={{ label: "Read Our Terms of Use", to: "/terms-of-use" }}
+    />
+  ),
 });
