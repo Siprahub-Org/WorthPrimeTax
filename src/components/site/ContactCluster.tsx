@@ -1,6 +1,5 @@
-import { useRouterState } from "@tanstack/react-router";
-import { Linkedin, Mail, Phone } from "lucide-react";
-import { HAS_LINKEDIN, LINKS } from "@/data/site";
+import { Mail, Phone } from "lucide-react";
+import { LINKS } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 export function WhatsAppIcon({ className }: { className?: string }) {
@@ -39,27 +38,10 @@ const items = [
     external: false,
     className: navy,
   },
-  ...(HAS_LINKEDIN
-    ? [
-        {
-          href: LINKS.linkedin,
-          label: "WorthPrime Tax on LinkedIn",
-          Icon: Linkedin,
-          external: true,
-          className: navy,
-        },
-      ]
-    : []),
 ];
 
+// Shown on every page so the quick contact buttons are always in the same place.
 export function ContactCluster() {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
-  // Hidden where the stack would sit over content: the contact form (which lists every channel
-  // itself), the price table's Contact us buttons, and the insights LinkedIn strip and banner.
-  if (pathname === "/contact" || pathname === "/pricing" || pathname.startsWith("/insights")) {
-    return null;
-  }
-
   return (
     <nav
       aria-label="Quick contact"
@@ -77,15 +59,6 @@ export function ContactCluster() {
           <Icon className="size-3.5 sm:size-4" />
         </a>
       ))}
-      {/* LinkedIn shows as a plain icon until the client supplies the profile URL; then it joins the links above. */}
-      {!HAS_LINKEDIN && (
-        <span
-          title="LinkedIn [client to supply]"
-          className={cn(button, "border-dashed border-border bg-card text-muted-foreground")}
-        >
-          <Linkedin aria-hidden className="size-3.5 sm:size-4" />
-        </span>
-      )}
     </nav>
   );
 }

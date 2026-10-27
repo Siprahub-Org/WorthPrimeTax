@@ -2,11 +2,11 @@ export const LINKS = {
   pay: "https://worthprimetax.com/Payment.aspx",
   login: "https://worthprimetax.com/Login.aspx",
   irs: "https://sa.www4.irs.gov/irfof/lang/en/irfofgetstatus.jsp",
-  linkedin: "#", // [placeholder, client to supply]
-  phone: "+1 (916) 623-1007",
-  phoneHref: "tel:+19166231007",
+  linkedin: "https://www.linkedin.com/company/worthprime-tax-legal-and-compliance-services-inc/",
+  phone: "+1 (646) 798-3907",
+  phoneHref: "tel:+16467983907",
   email: "helpdesk@worthprimetax.com",
-  whatsapp: "https://wa.me/19166231007",
+  whatsapp: "https://wa.me/16467983907",
 };
 
 /** LinkedIn links and icons stay hidden until the client supplies a real profile URL above. */
@@ -233,6 +233,8 @@ export const FOUNDERS = [
     name: "Abuzer Ahmed Siddiqui",
     title: "Co-Founder",
     credential: "Qualified Company Secretary (ICSI) · 15+ years · PwC and Deloitte",
+    summary:
+      "Brings extensive experience across corporate advisory, compliance and business structuring, with a strong focus on client-centric solutions.",
     bio: [
       "A Qualified Company Secretary from ICSI, Abuzer brings more than 15 years of multifaceted experience across accounting, taxation, payroll, due diligence, legal and compliance services, with professional exposure at PwC and Deloitte across the U.S., UAE and India. His expertise extends across U.S. Corporate Tax, U.S. Payroll, Middle East Corporate Tax and VAT, alongside the incorporation and dissolution of businesses across these jurisdictions.",
       "His experience has shaped a leadership perspective grounded in strategic thinking, adaptability and decisive execution. Having led pilot projects and worked with teams exceeding 100 professionals, he has developed a distinctive understanding of building operations from the ground up, refining processes and scaling them with purpose.",
@@ -240,11 +242,13 @@ export const FOUNDERS = [
     ],
   },
   {
-    name: "Jafiruddin Mohammad",
+    name: "Zafir",
     title: "Co-Founder",
     credential: "Certified Public Accountant · 15 years · PwC and PepsiCo",
+    summary:
+      "Combines deep expertise in audit, accounting, financial planning and tax, with an entrepreneurial perspective to help clients grow with confidence.",
     bio: [
-      "A Certified Public Accountant with 15 years of experience across audit, accounting, financial planning and tax, Jafiruddin brings a distinctive blend of institutional discipline and entrepreneurial perspective to WorthPrime Tax. His professional journey includes management roles with global organisations such as PwC and PepsiCo, where he gained extensive experience across financial strategy, reporting and regulatory compliance.",
+      "A Certified Public Accountant with 15 years of experience across audit, accounting, financial planning and tax, Zafir brings a distinctive blend of institutional discipline and entrepreneurial perspective to WorthPrime Tax. His professional journey includes management roles with global organisations such as PwC and PepsiCo, where he gained extensive experience across financial strategy, reporting and regulatory compliance.",
       "His transition from global corporate environments to entrepreneurship was driven by a desire to translate that experience into practical, commercially relevant financial guidance. This journey culminated in the co-founding of WorthPrime Tax in 2020, establishing a professional practice shaped by both corporate perspective and entrepreneurial agility.",
       "Today, he draws upon a wealth of institutional experience while retaining the agility and entrepreneurial conviction of a growing firm—delivering thoughtful, high-quality financial solutions and advisory services shaped around the evolving needs of businesses and individuals.",
     ],
@@ -392,7 +396,7 @@ export const PRICING_PAGE = {
     { title: "Nationwide Support", text: "Serving clients across the U.S." },
   ],
   chartNote:
-    "Audits are available to clients across U.S. states. Prices shown are illustrative estimates; final fees depend on the complexity and scope of each service.",
+    "Audits are available to clients across U.S. states. Final fees depend on the complexity and scope of each service.",
 };
 
 export const INSIGHTS_PAGE = {
@@ -468,4 +472,110 @@ export const PAYMENT_PAGE = {
     // (flowlogging_id, mfid); [NEED: confirm with client this checkout link stays valid].
     href: "https://www.paypal.com/webapps/shoppingcart?flowlogging_id=f271965d6dfee&mfid=1792731901054_f271965d6dfee#/checkout/openButton",
   },
+};
+
+export type LegalPage = {
+  title: string;
+  description: string;
+  heading: string;
+  intro: string;
+  updated: string;
+  sections: { heading: string; body: string[] }[];
+};
+
+/** Privacy Policy page. [placeholder: client to supply the final, legally reviewed text] */
+export const PRIVACY_PAGE: LegalPage = {
+  title: "Privacy Policy | WorthPrime Tax",
+  description: "How WorthPrime Tax collects, uses and protects the information you share with us.",
+  heading: "Privacy Policy",
+  intro:
+    "Your privacy matters to us. This policy explains what information we collect, how we use it and the choices you have.",
+  updated: "[date TBC]",
+  sections: [
+    {
+      heading: "Information we collect",
+      body: [
+        "We collect the details you choose to share with us, such as your name, email address, phone number and the information you provide about your tax or business needs when you contact us or use our services.",
+        "We may also collect basic technical information when you visit this website, such as your browser type and the pages you view.",
+      ],
+    },
+    {
+      heading: "How we use your information",
+      body: [
+        "We use your information to respond to enquiries, provide and improve our services, meet our legal and regulatory obligations, and keep you informed about matters relevant to your engagement with us.",
+      ],
+    },
+    {
+      heading: "How we protect your information",
+      body: [
+        "We apply reasonable administrative, technical and physical safeguards to protect your information against unauthorised access, loss or misuse.",
+      ],
+    },
+    {
+      heading: "Sharing your information",
+      body: [
+        "We do not sell your personal information. We share it only with service providers who help us deliver our services, or where the law requires us to do so.",
+      ],
+    },
+    {
+      heading: "Your choices",
+      body: [
+        "You may ask us to access, correct or delete the personal information we hold about you, subject to our legal record-keeping obligations.",
+      ],
+    },
+    {
+      heading: "Contact us",
+      body: [
+        "If you have questions about this policy, please contact us at helpdesk@worthprimetax.com.",
+      ],
+    },
+  ],
+};
+
+/** Terms of Use page. [placeholder: client to supply the final, legally reviewed text] */
+export const TERMS_PAGE: LegalPage = {
+  title: "Terms of Use | WorthPrime Tax",
+  description: "The terms that apply when you use the WorthPrime Tax website.",
+  heading: "Terms of Use",
+  intro:
+    "These terms apply to your use of the WorthPrime Tax website. By using the site, you agree to them.",
+  updated: "[date TBC]",
+  sections: [
+    {
+      heading: "Use of this website",
+      body: [
+        "You may use this website for lawful purposes only. You agree not to misuse the site or interfere with its normal operation.",
+      ],
+    },
+    {
+      heading: "No professional advice",
+      body: [
+        "The content on this website is for general information only and does not constitute tax, legal or financial advice. A professional relationship is formed only once an engagement has been agreed in writing.",
+      ],
+    },
+    {
+      heading: "Prices and services",
+      body: [
+        "Prices shown on this website are starting prices. Final fees depend on the complexity and scope of each service and are confirmed before work begins.",
+      ],
+    },
+    {
+      heading: "Intellectual property",
+      body: [
+        "All content on this website, including text, graphics and logos, belongs to WorthPrime Tax unless stated otherwise and may not be reused without permission.",
+      ],
+    },
+    {
+      heading: "Limitation of liability",
+      body: [
+        "WorthPrime Tax is not liable for any loss arising from reliance on the general information on this website.",
+      ],
+    },
+    {
+      heading: "Changes to these terms",
+      body: [
+        "We may update these terms from time to time. The latest version will always be available on this page.",
+      ],
+    },
+  ],
 };

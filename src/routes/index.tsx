@@ -12,10 +12,7 @@ import {
   FileText,
   Files,
   Folder,
-  Mail,
-  MapPin,
   MessageSquareQuote,
-  Phone,
   Play,
   Quote,
   ShieldCheck,
@@ -31,18 +28,23 @@ import {
   FAQ_INTRO,
   FAQS,
   FOUNDERS,
-  HOME_CONTACT,
   HOME_PRICING,
   INSIGHTS,
-  LINKS,
-  OFFICES,
   PROCESS,
   REASONS,
   STATS,
 } from "@/data/site";
-import { Container, CountUp, Reveal, Section, useSnapCarousel } from "@/components/site/primitives";
+import {
+  Container,
+  CountUp,
+  Reveal,
+  Section,
+  SectionLabel,
+  useSnapCarousel,
+} from "@/components/site/primitives";
 import { ServiceCard } from "@/components/site/ServiceCard";
-import { EnquiryForm } from "@/components/site/EnquiryForm";
+import { SERVICE_GRID, serviceCardSpan } from "@/components/site/serviceGrid";
+import { ContactSection } from "@/components/site/ContactSection";
 import { HeroCta } from "@/components/site/HeroCta";
 import { FaqIllustration } from "@/components/site/FaqIllustration";
 import { InsightCard } from "@/components/site/InsightCard";
@@ -52,6 +54,7 @@ import { SERVICE_IMAGES } from "@/components/site/serviceImages";
 import { cn } from "@/lib/utils";
 import heroImage from "@/assets/worthprime-hero-team.webp";
 import advisersImage from "@/assets/worthprime-advisers-blue.webp";
+import { FOUNDER_PHOTOS } from "@/components/site/founderPhotos";
 import workspaceImage from "@/assets/worthprime-workspace.webp";
 import stepTalkImage from "@/assets/process/step-talk.jpg";
 import stepScopeImage from "@/assets/process/step-scope.jpg";
@@ -83,10 +86,11 @@ function Index() {
       <PricingPreview />
       <HowItWorks />
       <ClientExperience />
+      <Certifications />
       <Insights />
       <Faq />
       <CtaBand />
-      <ContactBlock />
+      <ContactSection compact />
     </>
   );
 }
@@ -136,7 +140,12 @@ function Hero() {
             </span>
           </p>
           <div className="mt-8 flex flex-wrap gap-4 xl:mt-[clamp(1rem,3.4svh,2rem)]">
-            <HeroCta toHome />
+            <Link
+              to="/services"
+              className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.03] sm:text-base"
+            >
+              Explore our services <ArrowRight className="size-4" aria-hidden />
+            </Link>
           </div>
         </div>
       </Container>
@@ -199,12 +208,16 @@ function WhoWeAre() {
             <Reveal key={f.name} delay={i * 100}>
               <article className="surface-card overflow-hidden">
                 <img
-                  src={advisersImage}
-                  alt="Professional tax advisers in consultation"
+                  src={FOUNDER_PHOTOS[i] ?? advisersImage}
+                  alt={
+                    FOUNDER_PHOTOS[i]
+                      ? `Portrait of ${f.name}`
+                      : "Professional tax advisers in consultation"
+                  }
                   width={1408}
                   height={1008}
                   loading="lazy"
-                  className={cn("aspect-4/5 w-full object-cover", i === 1 && "object-right")}
+                  className="aspect-4/5 w-full object-cover object-top"
                 />
                 <div className="p-5">
                   <h3 className="text-xl leading-tight">{f.name}</h3>
@@ -370,9 +383,9 @@ function ServicesGrid() {
         requirements, combining technical knowledge with a practical understanding of how financial
         decisions affect the wider business.
       </p>
-      <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className={cn("mt-10", SERVICE_GRID)}>
         {SERVICES.map((s, i) => (
-          <Reveal key={s.slug} delay={(i % 3) * 80}>
+          <Reveal key={s.slug} delay={(i % 5) * 80} className={serviceCardSpan(i)}>
             <ServiceCard service={s} />
           </Reveal>
         ))}
@@ -725,6 +738,57 @@ const formatDuration = (seconds: number) => {
   return `${Math.floor(total / 60)}:${pad2(total % 60)}`;
 };
 
+/** Certifications as their own section, after the client experience block. */
+function Certifications() {
+  return (
+    <Section id="certifications" className="bg-card py-12 sm:py-16">
+      <SectionLabel as="h2">Certifications</SectionLabel>
+      <ul className="mt-6 grid gap-4 sm:auto-rows-fr sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+        {CERTIFICATIONS.map((c) => (
+          <li
+            key={c.name}
+            className="flex items-center gap-4 rounded-2xl border border-brand-secondary/15 bg-card p-5 shadow-[0_16px_40px_-30px] shadow-primary/40"
+          >
+            {c.logo ? (
+              <img
+                src={CREDENTIAL_LOGOS[c.logo]}
+                alt={`${c.issuer} badge`}
+                width={64}
+                height={64}
+                loading="lazy"
+                className="size-16 shrink-0 object-contain"
+              />
+            ) : (
+              <span
+                className="grid size-16 shrink-0 place-items-center rounded-full bg-linear-to-br from-brand-secondary to-brand-indigo text-lg font-bold text-brand-secondary-foreground"
+                aria-hidden
+              >
+                {c.monogram}
+              </span>
+            )}
+            <div className="min-w-0">
+              <p className="text-[11px] tracking-[0.16em] text-muted-foreground uppercase">
+                {c.issuer}
+              </p>
+              <p className="mt-1 leading-snug font-semibold text-primary">{c.name}</p>
+              <span
+                className={cn(
+                  "mt-2 inline-block rounded-full px-2.5 py-0.5 text-[11px]",
+                  c.confirmed
+                    ? "bg-tint font-semibold tracking-[0.12em] text-brand-secondary uppercase"
+                    : "border border-dashed border-brand-secondary/30 text-muted-foreground",
+                )}
+              >
+                {c.confirmed ? c.status : "[client to confirm]"}
+              </span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </Section>
+  );
+}
+
 function ClientExperience() {
   const { heading, headingMuted } = CLIENT_EXPERIENCE;
   return (
@@ -752,49 +816,6 @@ function ClientExperience() {
           <ReviewsPanel />
           <VideoTestimonial />
         </div>
-
-        <ul className="mt-6 grid gap-4 sm:auto-rows-fr sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
-          {CERTIFICATIONS.map((c) => (
-            <li
-              key={c.name}
-              className="flex items-center gap-4 rounded-2xl border border-brand-secondary/15 bg-card p-5 shadow-[0_16px_40px_-30px] shadow-primary/40"
-            >
-              {c.logo ? (
-                <img
-                  src={CREDENTIAL_LOGOS[c.logo]}
-                  alt={`${c.issuer} badge`}
-                  width={64}
-                  height={64}
-                  loading="lazy"
-                  className="size-16 shrink-0 object-contain"
-                />
-              ) : (
-                <span
-                  className="grid size-16 shrink-0 place-items-center rounded-full bg-linear-to-br from-brand-secondary to-brand-indigo text-lg font-bold text-brand-secondary-foreground"
-                  aria-hidden
-                >
-                  {c.monogram}
-                </span>
-              )}
-              <div className="min-w-0">
-                <p className="text-[11px] tracking-[0.16em] text-muted-foreground uppercase">
-                  {c.issuer}
-                </p>
-                <p className="mt-1 leading-snug font-semibold text-primary">{c.name}</p>
-                <span
-                  className={cn(
-                    "mt-2 inline-block rounded-full px-2.5 py-0.5 text-[11px]",
-                    c.confirmed
-                      ? "bg-tint font-semibold tracking-[0.12em] text-brand-secondary uppercase"
-                      : "border border-dashed border-brand-secondary/30 text-muted-foreground",
-                  )}
-                >
-                  {c.confirmed ? c.status : "[client to confirm]"}
-                </span>
-              </div>
-            </li>
-          ))}
-        </ul>
       </Container>
     </section>
   );
@@ -1163,91 +1184,5 @@ function Faq() {
         </ul>
       </div>
     </Section>
-  );
-}
-
-function ContactBlock() {
-  return (
-    <Section id="contact-form" className="relative isolate scroll-mt-28 overflow-hidden">
-      <div
-        className="absolute inset-0 -z-10 bg-linear-to-b from-background via-tint/70 to-tint/40"
-        aria-hidden
-      />
-      <div
-        className="absolute top-1/4 left-[38%] -z-10 hidden size-[32rem] rounded-full bg-brand-secondary/10 blur-3xl lg:block"
-        aria-hidden
-      />
-      <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-14">
-        <div>
-          <h2 className="font-serif text-[clamp(2.4rem,5vw,4.25rem)] leading-[1.04] font-bold tracking-[-0.02em] text-primary">
-            {HOME_CONTACT.heading}{" "}
-            <span className="block text-brand-secondary italic">{HOME_CONTACT.headingAccent}</span>
-          </h2>
-          <p className="mt-5 max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg">
-            {HOME_CONTACT.intro}
-          </p>
-
-          <ul className="mt-8 space-y-5">
-            <ContactLine icon={Phone} title="Call us">
-              <a href={LINKS.phoneHref} className="text-lg text-foreground hover:text-primary">
-                {LINKS.phone}
-              </a>
-            </ContactLine>
-            <ContactLine icon={Mail} title="Email us" note={HOME_CONTACT.replyNote}>
-              <a
-                href={`mailto:${LINKS.email}`}
-                className="text-lg break-all text-foreground hover:text-primary"
-              >
-                {LINKS.email}
-              </a>
-            </ContactLine>
-            <ContactLine icon={MapPin} title="Visit us">
-              <span className="text-lg text-foreground">{OFFICES[0].address}</span>
-            </ContactLine>
-          </ul>
-
-          <div className="mt-8 flex flex-wrap gap-4">
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2.5 rounded-lg bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground shadow-[0_14px_30px_-18px] shadow-primary/70 transition-transform hover:scale-[1.03]"
-            >
-              Contact us <ArrowRight className="size-5" aria-hidden />
-            </Link>
-            <Link
-              to="/services"
-              className="inline-flex items-center rounded-lg border border-primary/70 bg-card px-8 py-3.5 text-base font-semibold text-primary transition-colors hover:bg-tint"
-            >
-              View services
-            </Link>
-          </div>
-        </div>
-        <EnquiryForm submitLabel="Submit request" />
-      </div>
-    </Section>
-  );
-}
-
-function ContactLine({
-  icon: Icon,
-  title,
-  note,
-  children,
-}: {
-  icon: LucideIcon;
-  title: string;
-  note?: string;
-  children: ReactNode;
-}) {
-  return (
-    <li className="flex items-center gap-4">
-      <span className="grid shrink-0 place-items-center text-primary" aria-hidden>
-        <Icon className="size-6.5" strokeWidth={1.5} />
-      </span>
-      <div className="min-w-0">
-        <p className="font-semibold text-primary">{title}</p>
-        <div className="mt-0.5">{children}</div>
-        {note && <p className="mt-0.5 text-sm text-foreground/70">{note}</p>}
-      </div>
-    </li>
   );
 }

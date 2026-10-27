@@ -1,0 +1,152 @@
+import type { ComponentType, ReactNode } from "react";
+import { Link } from "@tanstack/react-router";
+import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
+import { HOME_CONTACT, LINKS, OFFICES } from "@/data/site";
+import { cn } from "@/lib/utils";
+import { WhatsAppIcon } from "./ContactCluster";
+import { EnquiryForm } from "./EnquiryForm";
+import { Section } from "./primitives";
+
+/**
+ * "Let's talk about what comes next" block: contact lines and buttons beside the enquiry form.
+ * The contact page uses it as its hero (h1); the home page uses the smaller `compact` size.
+ */
+export function ContactSection({
+  asPageHeading = false,
+  compact = false,
+}: {
+  asPageHeading?: boolean;
+  compact?: boolean;
+}) {
+  const Heading = asPageHeading ? "h1" : "h2";
+  const value = compact ? "text-[0.95rem]" : "text-lg";
+  return (
+    <Section
+      id="contact-form"
+      className={cn("relative isolate scroll-mt-28 overflow-hidden", compact && "py-10 sm:py-12")}
+    >
+      <div
+        className="absolute inset-0 -z-10 bg-linear-to-b from-background via-tint/70 to-tint/40"
+        aria-hidden
+      />
+      <div
+        className="absolute top-1/4 left-[38%] -z-10 hidden size-[32rem] rounded-full bg-brand-secondary/10 blur-3xl lg:block"
+        aria-hidden
+      />
+      <div
+        className={cn(
+          "grid items-center lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]",
+          // Compact: the heading lines up with the top of the form card.
+          compact && "lg:items-start",
+          compact ? "gap-8 lg:gap-12" : "gap-10 lg:gap-14",
+        )}
+      >
+        <div>
+          <Heading
+            className={cn(
+              "font-serif leading-[1.04] font-bold tracking-[-0.02em] text-primary",
+              compact ? "text-[clamp(2rem,4vw,3.25rem)]" : "text-[clamp(2.4rem,5vw,4.25rem)]",
+            )}
+          >
+            {HOME_CONTACT.heading}{" "}
+            <span className="block text-brand-secondary italic">{HOME_CONTACT.headingAccent}</span>
+          </Heading>
+          <p
+            className={cn(
+              "max-w-xl leading-relaxed text-foreground/80",
+              compact ? "mt-4 text-[0.95rem]" : "mt-5 text-base sm:text-lg",
+            )}
+          >
+            {HOME_CONTACT.intro}
+          </p>
+
+          <ul className={compact ? "mt-6 space-y-4" : "mt-8 space-y-5"}>
+            <ContactLine icon={Phone} title="Call us" compact={compact}>
+              <a href={LINKS.phoneHref} className={cn(value, "text-foreground hover:text-primary")}>
+                {LINKS.phone}
+              </a>
+            </ContactLine>
+            <ContactLine icon={WhatsAppIcon} title="WhatsApp" compact={compact}>
+              <a
+                href={LINKS.whatsapp}
+                target="_blank"
+                rel="noreferrer noopener"
+                className={cn(value, "text-foreground hover:text-primary")}
+              >
+                {LINKS.phone}
+              </a>
+            </ContactLine>
+            <ContactLine
+              icon={Mail}
+              title="Email us"
+              note={HOME_CONTACT.replyNote}
+              compact={compact}
+            >
+              <a
+                href={`mailto:${LINKS.email}`}
+                className={cn(value, "break-all text-foreground hover:text-primary")}
+              >
+                {LINKS.email}
+              </a>
+            </ContactLine>
+            <ContactLine icon={MapPin} title="Visit us" compact={compact}>
+              <span className={cn(value, "text-foreground")}>{OFFICES[0].address}</span>
+            </ContactLine>
+          </ul>
+
+          {/* Contact page: no buttons, the form sits right beside this text. */}
+          {!asPageHeading && (
+            <div className={cn("flex flex-wrap gap-4", compact ? "mt-6" : "mt-8")}>
+              <Link
+                to="/contact"
+                className={cn(
+                  "inline-flex items-center gap-2.5 rounded-lg bg-primary font-semibold text-primary-foreground shadow-[0_14px_30px_-18px] shadow-primary/70 transition-transform hover:scale-[1.03]",
+                  compact ? "px-6 py-3 text-sm" : "px-8 py-3.5 text-base",
+                )}
+              >
+                Contact us <ArrowRight className="size-5" aria-hidden />
+              </Link>
+              <Link
+                to="/services"
+                className={cn(
+                  "inline-flex items-center rounded-lg border border-primary/70 bg-card font-semibold text-primary transition-colors hover:bg-tint",
+                  compact ? "px-6 py-3 text-sm" : "px-8 py-3.5 text-base",
+                )}
+              >
+                View services
+              </Link>
+            </div>
+          )}
+        </div>
+        <EnquiryForm headingLevel={asPageHeading ? 2 : 3} submitLabel="Submit request" />
+      </div>
+    </Section>
+  );
+}
+
+function ContactLine({
+  icon: Icon,
+  title,
+  note,
+  compact,
+  children,
+}: {
+  icon: ComponentType<{ className?: string; strokeWidth?: number }>;
+  title: string;
+  note?: string;
+  compact?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <li className="flex items-center gap-4">
+      <span className="grid shrink-0 place-items-center text-primary" aria-hidden>
+        <Icon className={compact ? "size-5.5" : "size-6.5"} strokeWidth={1.5} />
+      </span>
+      <div className="min-w-0">
+        <p className={cn("font-semibold text-primary", compact && "text-sm")}>{title}</p>
+        <div className="mt-0.5">{children}</div>
+        {note && <p className="mt-0.5 text-sm text-foreground/70">{note}</p>}
+      </div>
+    </li>
+  );
+}

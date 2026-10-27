@@ -8,6 +8,7 @@ import { HeroCta } from "@/components/site/HeroCta";
 import { LinkedInBand } from "@/components/site/LinkedInBand";
 import { CtaBand } from "@/components/site/CtaBand";
 import heroImage from "@/assets/worthprime-hero-blue.webp";
+import { PricingMarquee } from "@/components/site/PricingMarquee";
 
 export const Route = createFileRoute("/insights/")({
   head: () =>
@@ -53,6 +54,8 @@ function InsightsPage() {
           />
         </Container>
       </section>
+
+      <PricingMarquee />
 
       <section aria-labelledby="latest-articles" className="pt-6 pb-5 sm:pt-8">
         <Container>

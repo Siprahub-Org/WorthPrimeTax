@@ -32,7 +32,6 @@ import { type ServicePage } from "@/data/servicePages";
 import { cn } from "@/lib/utils";
 import { Container, Reveal } from "./primitives";
 import { BackdropHero } from "./BackdropHero";
-import { serviceCrumbs } from "@/lib/seo";
 import { CtaBand } from "./CtaBand";
 import { PricingMarquee } from "./PricingMarquee";
 import { getServiceThumb, type ServiceDetailMedia } from "./serviceDetailMedia";
@@ -169,7 +168,6 @@ export function ServiceDetailFeature({
       <BackdropHero
         lines={page.heroBackdrop?.lines ?? [[{ text: page.heading }]]}
         intro={page.intro}
-        crumbs={serviceCrumbs(service)}
         image={media.heroBackdrop}
       />
 

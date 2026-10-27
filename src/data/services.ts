@@ -12,10 +12,14 @@ export type Service = {
   capabilities: string[];
   whoFor: string;
   cta: string;
-  /** Starting price. Only the Audit fee is confirmed; the rest are illustrative [suggested, client to confirm]. */
+  /** Lowest starting price, shown on cards and the marquee. Confirmed by the client. */
   price: string;
   included: string;
+  /** Separately priced parts of the service; the pricing table shows one row per entry instead of the service row. */
+  tiers?: ServiceTier[];
 };
+
+export type ServiceTier = { name: string; price: string; included: string };
 
 export const SERVICES: Service[] = [
   {
@@ -47,8 +51,20 @@ export const SERVICES: Service[] = [
     whoFor:
       "Individuals with U.S. filing obligations, and businesses filing as a C Corp, S Corp or partnership. [suggested copy]",
     cta: "Bring greater precision to your tax position",
-    price: "From $5,499",
+    price: "From $125",
     included: "Preparation, review and filing of federal and state returns",
+    tiers: [
+      {
+        name: "U.S. Personal Tax Filing",
+        price: "From $125",
+        included: "Preparation, review and filing of individual federal and state returns",
+      },
+      {
+        name: "U.S. Business Tax Filing",
+        price: "From $250",
+        included: "Preparation, review and filing of business federal and state returns",
+      },
+    ],
   },
   {
     number: "02",
@@ -80,7 +96,7 @@ export const SERVICES: Service[] = [
     whoFor:
       "Founders starting out, and established owners whose current structure no longer fits. [suggested copy]",
     cta: "Build the right structure from the outset",
-    price: "From $5,999",
+    price: "From $450",
     included: "Entity selection, formation filings, EIN and state registration",
   },
   {
@@ -110,7 +126,7 @@ export const SERVICES: Service[] = [
     whoFor:
       "Businesses without an in-house finance function, and those whose books have fallen behind. [suggested copy]",
     cta: "Put your financial records to work",
-    price: "From $6,499",
+    price: "From $150 per month",
     included: "Monthly bookkeeping, reconciliation and financial reporting",
   },
   {
@@ -139,7 +155,7 @@ export const SERVICES: Service[] = [
     whoFor:
       "Employers running W-2 staff, and businesses paying consultants or gig workers. [suggested copy]",
     cta: "Bring greater control to every pay cycle",
-    price: "From $6,999",
+    price: "From $15 per month",
     included: "Pay cycle processing, payroll tax filings and year-end forms",
   },
   {
@@ -195,7 +211,7 @@ export const SERVICES: Service[] = [
     ],
     whoFor: "Anyone holding an IRS letter, and businesses under examination. [suggested copy]",
     cta: "Turn an IRS concern into a structured response",
-    price: "From $7,499",
+    price: "From $150",
     included: "Notice review, response preparation and IRS correspondence",
   },
   {
@@ -222,8 +238,21 @@ export const SERVICES: Service[] = [
     whoFor:
       "Taxpayers with overseas accounts or assets, and entities with reportable beneficial owners. [suggested copy]",
     cta: "Stay ahead of your reporting obligations",
-    price: "From $7,999",
+    price: "From $50",
     included: "Threshold review, preparation and submission of required reports",
+    tiers: [
+      {
+        name: "FBAR & BOIR",
+        price: "From $50",
+        included: "Threshold review, preparation and filing of FBAR and BOI reports",
+      },
+      {
+        name: "FATCA & PFIC",
+        price: "From $200",
+        included:
+          "Review, preparation and filing of FATCA (Form 8938) and PFIC (Form 8621) reports",
+      },
+    ],
   },
   {
     number: "08",
@@ -247,7 +276,7 @@ export const SERVICES: Service[] = [
     whoFor:
       "Individuals with U.S. filing obligations who are not eligible for a Social Security Number. [suggested copy]",
     cta: "Get your ITIN requirements in order",
-    price: "From $8,499",
+    price: "From $50",
     included: "Application preparation, document review and filing support",
   },
   {
@@ -276,7 +305,7 @@ export const SERVICES: Service[] = [
     whoFor:
       "Taxpayers who have spotted an error, or received new information after filing. [suggested copy]",
     cta: "Correct the record with precision",
-    price: "From $8,999",
+    price: "From $250",
     included: "Return review, amended preparation and filing",
   },
   {
@@ -302,7 +331,7 @@ export const SERVICES: Service[] = [
     whoFor:
       "Businesses formalising a commercial relationship, or reviewing one already in place. [suggested copy]",
     cta: "Give your business arrangements greater clarity",
-    price: "From $9,999",
+    price: "From $150",
     included: "Drafting, review and refinement of commercial documents",
   },
 ];

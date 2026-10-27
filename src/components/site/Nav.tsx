@@ -7,14 +7,8 @@ import { cn } from "@/lib/utils";
 import logoImage from "@/assets/worthprime-logo.webp";
 import { heroOverlay } from "./heroOverlay";
 
-const WIDE_NAV: Record<string, string> = {
-  "/": "max-w-[1492px]",
-  "/contact": "max-w-[1492px]",
-  "/services": "max-w-[1492px]",
-  "/pricing": "max-w-[1392px]",
-};
-// Service detail pages use the same 1540px hero container as the home page.
-const SERVICE_DETAIL_NAV = "max-w-[1492px]";
+// One width on every page so the logo and buttons never shift when navigating; matches the home hero edges.
+const NAV_WIDTH = "max-w-[1492px]";
 
 // Active page gets a thin underline in the link colour (TanStack Link sets data-status="active").
 const navLink =
@@ -29,11 +23,7 @@ export function Nav() {
   const [open, setOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  // Pages with a wider layout (home hero, contact and service pages 1540px, pricing 1440px) widen the bar to match; minus the
-  // header padding, this lines the logo and Login/Register button up with their content edges.
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const wideWidth =
-    WIDE_NAV[pathname] ?? (pathname.startsWith("/services/") ? SERVICE_DETAIL_NAV : undefined);
   // Transparent only while at the top of a dark-hero page with the mobile menu closed.
   const tone = scrolled || open ? null : heroOverlay(pathname);
   const transparent = tone !== null;
@@ -71,7 +61,8 @@ export function Nav() {
       <nav
         className={cn(
           "pointer-events-auto mx-auto flex w-full items-center gap-2 px-1 transition-[min-height] duration-300 sm:px-2",
-          wideWidth ? cn(wideWidth, "sm:pr-4") : "max-w-[1200px]",
+          NAV_WIDTH,
+          "sm:pr-4",
           scrolled ? "min-h-14" : "min-h-16",
         )}
       >
@@ -88,8 +79,7 @@ export function Nav() {
               width={1438}
               height={1094}
               className={cn(
-                "h-full w-full object-contain transition-[filter] duration-300",
-                wideWidth && "object-left",
+                "h-full w-full object-contain object-left transition-[filter] duration-300",
                 // White logo over the navy hero.
                 overlay && "brightness-0 invert",
               )}
@@ -157,7 +147,7 @@ export function Nav() {
                 : "text-muted-foreground hover:text-nav-link-hover",
             )}
           >
-            IRS refund status
+            IRS Refund Status
           </a>
         </div>
 
@@ -264,7 +254,7 @@ export function Nav() {
               rel="noreferrer noopener"
               className="rounded-xl px-3 py-2.5 text-sm"
             >
-              IRS refund status
+              IRS Refund Status
             </a>
             <a
               href={LINKS.login}

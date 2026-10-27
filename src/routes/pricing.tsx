@@ -7,6 +7,7 @@ import { HeroCta } from "@/components/site/HeroCta";
 import { PricingTable } from "@/components/site/PricingTable";
 import { CtaBand } from "@/components/site/CtaBand";
 import pricingDeskImage from "@/assets/pricing-desk.jpg";
+import { PricingMarquee } from "@/components/site/PricingMarquee";
 
 const HIGHLIGHT_ICONS = [ShieldCheck, UsersRound, Globe];
 
@@ -22,7 +23,7 @@ export const Route = createFileRoute("/pricing")({
 function PricingPage() {
   return (
     <>
-      <section className="relative isolate overflow-hidden bg-linear-to-b from-tint to-background lg:pb-28">
+      <section className="relative isolate overflow-hidden bg-linear-to-b from-tint to-background">
         {/*
          * Desk photo filling the right of the hero behind a gold diagonal edge: the outer layer is
          * the gold, the photo sits a few pixels in with the same slant.
@@ -83,7 +84,9 @@ function PricingPage() {
         </Container>
       </section>
 
-      <section aria-labelledby="price-table" className="relative z-10 pb-4 lg:-mt-24">
+      <PricingMarquee />
+
+      <section aria-labelledby="price-table" className="relative z-10 pt-8 pb-4 sm:pt-10">
         <Container className={WIDE}>
           <h2 id="price-table" className="sr-only">
             Starting prices by service

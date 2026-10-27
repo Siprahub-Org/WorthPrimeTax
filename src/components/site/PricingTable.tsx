@@ -54,17 +54,50 @@ function ContactButton() {
   );
 }
 
-function ServiceLink({ service }: { service: Service }) {
+function ServiceLink({ service, name }: { service: Service; name: string }) {
   return (
     <Link
       to="/services/$slug"
       params={{ slug: service.slug }}
       className="text-sm font-medium text-primary hover:underline"
     >
-      {service.name}
+      {name}
     </Link>
   );
 }
+
+type PriceRow = {
+  key: string;
+  service: Service;
+  name: string;
+  price: string;
+  included: string;
+  /** Split services get a letter per row (01a, 01b), so each part can be referred to. */
+  number?: string;
+};
+
+// A service with tiers gets one row per tier, all linking to the same service page.
+const ROWS: PriceRow[] = SERVICES.flatMap((s) =>
+  s.tiers
+    ? s.tiers.map((t, i) => ({
+        key: `${s.slug}-${i}`,
+        service: s,
+        name: t.name,
+        price: t.price,
+        included: t.included,
+        number: `${s.number}${String.fromCharCode(97 + i)}`,
+      }))
+    : [
+        {
+          key: s.slug,
+          service: s,
+          name: s.name,
+          price: s.price,
+          included: s.included,
+          number: s.number,
+        },
+      ],
+);
 
 const th =
   "px-4 py-3 text-left text-[0.6875rem] font-semibold tracking-[0.16em] text-primary uppercase";
@@ -87,54 +120,54 @@ export function PricingTable() {
               <th scope="col" className={th}>
                 Service
               </th>
-              <th scope="col" className={cn(th, "w-44")}>
-                Starting from
+              <th scope="col" className={th}>
+                What is included
               </th>
-              <th scope="col" className={cn(th, "py-2 pr-4")}>
-                <span className="flex items-center justify-between gap-4">
-                  What is included
-                  <ContactButton />
-                </span>
+              <th scope="col" className={cn(th, "w-72 py-2 pr-4")}>
+                <span className="whitespace-nowrap">Starting from</span>
               </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
-            {SERVICES.map((s) => (
-              <tr key={s.slug}>
-                <td className="py-2.5 pr-2 pl-5 text-sm text-muted-foreground">{s.number}</td>
+            {ROWS.map((r) => (
+              <tr key={r.key}>
+                <td className="py-2.5 pr-2 pl-5 text-sm text-muted-foreground">{r.number}</td>
                 <th
                   scope="row"
                   className="border-r border-border px-4 py-2.5 text-left font-normal"
                 >
-                  <span className="flex items-center gap-4">
-                    <ServiceIcon slug={s.slug} />
-                    <ServiceLink service={s} />
-                  </span>
+                  <ServiceLink service={r.service} name={r.name} />
                 </th>
-                <td className="border-r border-border px-4 py-2.5">
-                  <PriceTag price={s.price} />
+                <td className="border-r border-border px-4 py-2.5 text-sm text-muted-foreground">
+                  {r.included}
                 </td>
-                <td className="px-4 py-2.5 text-sm text-muted-foreground">{s.included}</td>
+                <td className="px-4 py-2.5">
+                  <PriceTag price={r.price} />
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
+      <div className="mt-6 hidden justify-center lg:flex">
+        <ContactButton />
+      </div>
+
       <ul className="grid gap-3 sm:grid-cols-2 lg:hidden">
-        {SERVICES.map((s) => (
-          <li key={s.slug} className="flex flex-col rounded-xl border border-border bg-card p-4">
+        {ROWS.map((r) => (
+          <li key={r.key} className="flex flex-col rounded-xl border border-border bg-card p-4">
             <div className="flex items-center gap-3">
-              <span className="text-xs text-muted-foreground">{s.number}</span>
-              <ServiceIcon slug={s.slug} />
-              <ServiceLink service={s} />
+              {r.number && <span className="text-xs text-muted-foreground">{r.number}</span>}
+              <ServiceIcon slug={r.service.slug} />
+              <ServiceLink service={r.service} name={r.name} />
             </div>
             <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
-              {s.included}
+              {r.included}
             </p>
             <div className="mt-4">
               <span className="sr-only">Starting from </span>
-              <PriceTag price={s.price} />
+              <PriceTag price={r.price} />
             </div>
           </li>
         ))}

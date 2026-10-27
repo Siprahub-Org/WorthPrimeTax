@@ -36,7 +36,7 @@ const FAILURE_MESSAGES: Record<FailedResult, string> = {
 };
 
 const fieldClass =
-  "w-full rounded-lg border border-input bg-card px-4 py-[0.9rem] text-base text-foreground placeholder:text-muted-foreground outline-none transition-[border-color] focus:border-primary aria-[invalid=true]:border-destructive";
+  "w-full rounded-lg border border-input bg-card px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground outline-none transition-[border-color] focus:border-primary aria-[invalid=true]:border-destructive";
 
 function validate(values: Values): Errors {
   const result = enquirySchema.safeParse(values);
@@ -116,7 +116,7 @@ export function EnquiryForm({
 
   const card = cn(
     "@container relative rounded-[1.75rem] border border-brand-secondary/10 bg-card shadow-[0_30px_80px_-40px] shadow-primary/45",
-    compact ? "px-6 py-6 sm:px-10 sm:py-7" : "p-[clamp(1.5rem,2.6vw,2.75rem)]",
+    compact ? "px-6 py-6 sm:px-10 sm:py-7" : "p-[clamp(1.25rem,2vw,2rem)]",
   );
   const inputClass = cn(fieldClass, compact && "py-2 text-[0.95rem]");
 
@@ -152,8 +152,8 @@ export function EnquiryForm({
           wide enough, sized to the card so it never overflows. */}
       {!compact && (
         <div className="flex items-center gap-4">
-          <span className="h-0.5 w-10 rounded-full bg-brand-secondary" aria-hidden />
-          <p className="text-xs font-semibold tracking-[0.22em] text-primary uppercase sm:text-sm">
+          <span className="h-0.5 w-8 rounded-full bg-brand-secondary" aria-hidden />
+          <p className="text-[0.7rem] font-semibold tracking-[0.22em] text-primary uppercase">
             Get in touch
           </p>
         </div>
@@ -164,10 +164,10 @@ export function EnquiryForm({
         </Heading>
       ) : (
         <>
-          <Heading className="mt-4 font-serif text-[clamp(1.6rem,7cqi,2.6rem)] leading-[1.1] font-bold text-primary">
+          <Heading className="mt-3 font-serif text-[clamp(1.4rem,5.5cqi,1.9rem)] leading-[1.15] font-bold text-primary">
             Tell us how we can help.
           </Heading>
-          <p className="mt-2 text-base text-foreground/75">
+          <p className="mt-1.5 text-sm text-foreground/75">
             Fill out the form below and our team will get back to you soon.
           </p>
         </>
@@ -176,7 +176,7 @@ export function EnquiryForm({
       <div
         className={cn(
           "grid",
-          compact ? "mt-5 gap-3 sm:grid-cols-2" : "mt-6 gap-x-5 gap-y-4 sm:grid-cols-2",
+          compact ? "mt-5 gap-3 sm:grid-cols-2" : "mt-5 gap-x-4 gap-y-3 sm:grid-cols-2",
         )}
       >
         <Field
@@ -294,18 +294,14 @@ export function EnquiryForm({
           <textarea
             id={fieldId("message")}
             name="message"
-            rows={compact ? 3 : 4}
+            rows={3}
             placeholder={compact ? undefined : "Tell us a bit about your needs…"}
             required
             value={values.message}
             onChange={(e) => update("message", e.target.value)}
             aria-invalid={errors.message ? true : undefined}
             aria-describedby={errors.message ? errorId("message") : undefined}
-            className={cn(
-              inputClass,
-              "resize-none",
-              compact ? "min-h-[4.75rem]" : "min-h-[8.5rem]",
-            )}
+            className={cn(inputClass, "resize-none", compact ? "min-h-[4.75rem]" : "min-h-[6rem]")}
           />
         </Field>
       </div>
@@ -344,7 +340,7 @@ export function EnquiryForm({
         disabled={submitting}
         className={cn(
           "mt-5 flex w-full items-center justify-center gap-3 rounded-lg bg-primary px-6 font-medium text-primary-foreground transition-[transform,opacity] enabled:hover:scale-[1.01] disabled:cursor-wait disabled:opacity-80",
-          compact ? "mt-3 py-2.5 text-[1.0625rem]" : "py-4 text-base sm:text-lg",
+          compact ? "mt-3 py-2.5 text-[1.0625rem]" : "py-3 text-sm font-semibold",
         )}
       >
         {submitting ? (
@@ -387,7 +383,7 @@ function Field({
   return (
     <div className={className}>
       {showLabel ? (
-        <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-primary">
+        <label htmlFor={id} className="mb-1 block text-xs font-medium text-primary">
           {label} <span aria-hidden>*</span>
           <span className="sr-only">(required)</span>
         </label>
@@ -400,7 +396,7 @@ function Field({
         <div className="relative">
           {children}
           <Icon
-            className="pointer-events-none absolute top-1/2 right-3.5 size-[1.125rem] -translate-y-1/2 text-primary/60"
+            className="pointer-events-none absolute top-1/2 right-3.5 size-4 -translate-y-1/2 text-primary/60"
             aria-hidden
           />
         </div>
