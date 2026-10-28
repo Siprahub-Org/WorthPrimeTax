@@ -219,6 +219,12 @@ export function getInsight(slug: string) {
   return INSIGHTS.find((a) => a.slug === slug);
 }
 
+/** Reading time in whole minutes (at about 200 words a minute), never less than one. */
+export function insightReadMinutes(insight: Insight) {
+  const words = [...insight.body, ...insight.takeaways].join(" ").split(/\s+/).length;
+  return Math.max(1, Math.round(words / 200));
+}
+
 export function formatInsightDate(iso: string) {
   return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", {
     month: "short",
@@ -406,10 +412,9 @@ export const INSIGHTS_PAGE = {
   label: "Insights",
   heading: "Perspective on",
   headingMuted: "What Comes Next.",
-  intro:
-    "Practical insights on U.S. tax, accounting and compliance—what is changing, what it means and what to do about it.",
   feedNote: "[These will later be fed from LinkedIn posts]",
   latestHeading: "Latest Articles",
+  topicsHeading: "Explore by Topic",
   latestIntro:
     "Stay informed with the latest insights on U.S. tax, accounting and compliance to help you make confident decisions.",
   linkedinHeading: "Get New Insights on LinkedIn",
