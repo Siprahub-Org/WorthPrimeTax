@@ -77,7 +77,7 @@ export function ContactSection({
             </ContactLine>
             <ContactLine
               icon={Mail}
-              title="Email Us"
+              title="Drop Us an Email"
               note={HOME_CONTACT.replyNote}
               compact={compact}
             >

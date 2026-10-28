@@ -895,6 +895,26 @@ function Founders() {
         ))}
       </div>
 
+      <div className="mt-12 grid gap-6 lg:grid-cols-2 lg:items-start">
+        <h3 className={cn("text-[clamp(1.6rem,2.6vw,2.2rem)]", HEADING)}>
+          Two Perspectives. One Purpose.
+        </h3>
+        <div className="space-y-4 text-sm leading-relaxed text-muted-foreground">
+          <p>
+            Together, the co-founders bring a distinctive combination of Big Four experience,
+            technical expertise, leadership, entrepreneurial thinking and hands-on knowledge of
+            businesses at different stages of growth—from establishing processes at inception to
+            addressing complex financial, tax and regulatory requirements.
+          </p>
+          <p>
+            At WorthPrime Tax, this collective experience is grounded in a simple conviction:
+            professional expertise should do more than address obligations. It should bring clarity
+            to decisions, strengthen compliance and create a more considered path forward for the
+            businesses and individuals we serve.
+          </p>
+        </div>
+      </div>
+
       {/* Full bio opens in a dialog so the cards keep a fixed height. */}
       <Dialog open={open !== null} onOpenChange={(o) => !o && setOpen(null)}>
         <DialogContent className="max-h-[85vh] max-w-2xl overflow-y-auto p-0 sm:rounded-2xl">

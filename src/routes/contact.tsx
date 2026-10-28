@@ -19,7 +19,7 @@ const CHANNELS = [
     external: false,
   },
   {
-    label: "Email Us",
+    label: "Drop Us an Email",
     value: LINKS.email,
     href: `mailto:${LINKS.email}`,
     Icon: Mail,

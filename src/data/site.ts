@@ -53,20 +53,21 @@ export const TRUST_PHRASES = [
   "Perspective",
 ];
 
+// USP figures from the client's content document.
 export const STATS = [
   {
-    value: 12,
-    prefix: "$",
-    suffix: "M+",
-    label: "Tax Saved for Clients",
+    value: 1000,
+    prefix: "~",
+    suffix: "",
+    label: "Services/Tickets Prepared Since 2019",
   },
-  { value: 5000, prefix: "", suffix: "+", label: "Clients Served" },
-  { value: 99, prefix: "", suffix: "%", label: "Client Satisfaction Rate" },
+  { value: 150, prefix: "", suffix: "+", label: "IRS Notices Resolved" },
+  { value: 500, prefix: "", suffix: "+", label: "Satisfied Customers" },
   {
     value: 20,
     prefix: "",
-    suffix: "+",
-    label: "Years of Experience",
+    suffix: "",
+    label: "Audits/Reviews a Year on Average, Facilitating Private Equity Funding",
   },
 ];
 
@@ -248,13 +249,13 @@ export const FOUNDERS = [
     ],
   },
   {
-    name: "Zafir",
+    name: "Jafiruddin Mohammad",
     title: "Co-Founder",
     credential: "Certified Public Accountant · 15 years · PwC and PepsiCo",
     summary:
       "Combines deep expertise in audit, accounting, financial planning and tax, with an entrepreneurial perspective to help clients grow with confidence.",
     bio: [
-      "A Certified Public Accountant with 15 years of experience across audit, accounting, financial planning and tax, Zafir brings a distinctive blend of institutional discipline and entrepreneurial perspective to WorthPrime Tax. His professional journey includes management roles with global organisations such as PwC and PepsiCo, where he gained extensive experience across financial strategy, reporting and regulatory compliance.",
+      "A Certified Public Accountant with 15 years of experience across audit, accounting, financial planning and tax, Jafiruddin brings a distinctive blend of institutional discipline and entrepreneurial perspective to WorthPrime Tax. His professional journey includes management roles with global organisations such as PwC and PepsiCo, where he gained extensive experience across financial strategy, reporting and regulatory compliance.",
       "His transition from global corporate environments to entrepreneurship was driven by a desire to translate that experience into practical, commercially relevant financial guidance. This journey culminated in the co-founding of WorthPrime Tax in 2020, establishing a professional practice shaped by both corporate perspective and entrepreneurial agility.",
       "Today, he draws upon a wealth of institutional experience while retaining the agility and entrepreneurial conviction of a growing firm—delivering thoughtful, high-quality financial solutions and advisory services shaped around the evolving needs of businesses and individuals.",
     ],

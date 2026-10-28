@@ -89,6 +89,7 @@ function Index() {
       <Certifications />
       <Insights />
       <Faq />
+      <WhatComesNext />
       <CtaBand />
       <ContactSection compact />
     </>
@@ -122,7 +123,8 @@ function Hero() {
           <h1 className="font-serif text-[clamp(2.4rem,4.3vw,4.6rem)] leading-[1.08] font-bold tracking-[-0.02em] text-primary xl:text-[clamp(2.25rem,min(4.3vw,8svh),4.6rem)]">
             {/* Two lines on wide screens: the break falls after "Is More". */}
             <span className="xl:block xl:whitespace-nowrap">Your Business Is More</span>{" "}
-            <span className="xl:whitespace-nowrap">Than a Tax Return.</span>
+            <span className="xl:whitespace-nowrap">Than a Tax Return.</span>{" "}
+            <span className="text-brand-secondary xl:block">So Are We.</span>
           </h1>
           <p className="mt-6 max-w-[37rem] text-base leading-relaxed text-foreground/85 sm:text-lg xl:mt-[clamp(0.75rem,2.6svh,1.5rem)] xl:max-w-none xl:text-[clamp(1rem,2.1svh,1.25rem)]">
             {/* Four set lines on wide screens, as requested by the client. */}
@@ -139,12 +141,26 @@ function Hero() {
               can quickly become a business concern.
             </span>
           </p>
+          <p className="mt-4 max-w-[37rem] text-base leading-relaxed text-foreground/85 sm:text-lg xl:max-w-[33rem] xl:text-[clamp(1rem,2.1svh,1.25rem)]">
+            WorthPrime Tax brings these disciplines together through a considered approach to U.S.
+            tax, accounting and compliance—helping U.S. individuals, entrepreneurs and businesses
+            manage their financial responsibilities with greater clarity and precision.
+          </p>
+          <p className="mt-4 max-w-[37rem] text-base leading-relaxed font-semibold text-primary sm:text-lg xl:max-w-[33rem] xl:text-[clamp(1rem,2.1svh,1.25rem)]">
+            Get Expert Tax Counsel, Optimized Tax Outcomes, All Handled With Perspective.
+          </p>
           <div className="mt-8 flex flex-wrap gap-4 xl:mt-[clamp(1rem,3.4svh,2rem)]">
             <Link
               to="/services"
               className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.03] sm:text-base"
             >
-              Explore Our Services <ArrowRight className="size-4" aria-hidden />
+              Make Better Financial Decisions <ArrowRight className="size-4" aria-hidden />
+            </Link>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 rounded-md border border-primary bg-background/70 px-6 py-2.5 text-sm font-semibold text-primary transition-transform hover:scale-[1.03] sm:text-base"
+            >
+              Request a Quote
             </Link>
           </div>
         </div>
@@ -186,7 +202,8 @@ function WhoWeAre() {
     <Section>
       <div className="grid gap-10 lg:grid-cols-[1fr_1fr]">
         <div>
-          <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
+          <SectionLabel>How We Started?</SectionLabel>
+          <h2 className="mt-4 text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
             Built on Experience. <span className="text-primary">Shaped by Perspective.</span>
           </h2>
           <p className="mt-6 text-muted-foreground">
@@ -233,6 +250,44 @@ function WhoWeAre() {
   );
 }
 
+function WhatComesNext() {
+  return (
+    <Section>
+      <div className="grid gap-10 lg:grid-cols-[1fr_1fr]">
+        <div>
+          <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
+            For Individuals. For Businesses.{" "}
+            <span className="text-primary">For What Comes Next.</span>
+          </h2>
+          <p className="mt-6 font-semibold text-primary">
+            Whatever the next financial decision looks like, make it with perspective.
+          </p>
+          <Link
+            to="/contact"
+            className="mt-7 inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm transition-colors hover:bg-accent"
+          >
+            Talk to WorthPrime Tax <ArrowRight className="size-4" />
+          </Link>
+        </div>
+        <div className="space-y-4 text-muted-foreground">
+          <p>Your financial obligations change as your circumstances change.</p>
+          <p>
+            A new business requires the right structure. A growing company needs reliable books and
+            payroll. Tax season calls for accurate filings. International activity can create
+            additional reporting requirements. And when the IRS raises a question, the response
+            needs to be deliberate.
+          </p>
+          <p>
+            WorthPrime Tax in U.S. provides the professional perspective to manage these moments
+            with greater clarity—from formation and bookkeeping to U.S. tax, payroll, audit and IRS
+            compliance.
+          </p>
+        </div>
+      </div>
+    </Section>
+  );
+}
+
 // One icon per entry in REASONS, in the same order.
 const REASON_ICONS = [Files, ShieldCheck, ChartColumnIncreasing, Users];
 
@@ -259,9 +314,10 @@ function ProofSection() {
       <Container>
         <div className="grid items-center gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-12">
           <div className="min-w-0">
+            <SectionLabel>Why WorthPrime Tax?</SectionLabel>
             <h2
               id="why-worthprime-heading"
-              className="font-serif text-[clamp(2.3rem,4.6vw,3.8rem)] leading-[1.02] font-bold tracking-[-0.02em] text-balance"
+              className="mt-4 font-serif text-[clamp(2.3rem,4.6vw,3.8rem)] leading-[1.02] font-bold tracking-[-0.02em] text-balance"
             >
               <span className="block text-primary">One Firm.</span>
               <span className="block text-brand-secondary">Every Business Need.</span>
@@ -366,10 +422,13 @@ function ServicesGrid() {
   return (
     <Section id="services">
       <div className="flex flex-wrap items-end justify-between gap-6">
-        <h2 className="max-w-3xl text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
-          The Numbers Behind Your Business.{" "}
-          <span className="text-primary">The Perspective Beyond Them.</span>
-        </h2>
+        <div className="max-w-3xl">
+          <SectionLabel>What We Do?</SectionLabel>
+          <h2 className="mt-4 text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
+            The Numbers Behind Your Business.{" "}
+            <span className="text-primary">The Perspective Beyond Them.</span>
+          </h2>
+        </div>
         <Link
           to="/services"
           className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm transition-colors hover:bg-accent"
