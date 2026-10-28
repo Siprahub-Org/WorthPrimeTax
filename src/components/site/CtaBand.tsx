@@ -21,39 +21,43 @@ export function CtaBand() {
 
           <div className="relative grid items-center gap-8 lg:min-h-[280px] lg:grid-cols-[55fr_45fr] lg:gap-6">
             <div>
-              <p className="text-xs font-medium tracking-[0.22em] text-hero-foreground/90 uppercase sm:text-[0.8rem]">
+              <p className="text-[0.7rem] font-medium tracking-[0.14em] text-hero-foreground/90 uppercase sm:text-[0.8rem] sm:tracking-[0.22em]">
                 {CTA_BAND.label}
               </p>
-              <h2 className="mt-3 max-w-2xl font-display text-[clamp(1.3rem,1.8vw,1.9rem)] leading-[1.2] font-bold tracking-[-0.01em] text-hero-foreground">
+              <h2 className="mt-3 max-w-2xl font-display text-[clamp(1.15rem,1.8vw,1.9rem)] leading-[1.25] font-bold tracking-[-0.01em] text-hero-foreground">
                 {CTA_BAND.heading}
               </h2>
               <p className="mt-3 max-w-lg text-[0.95rem] leading-relaxed text-hero-foreground/85 sm:text-base">
                 {CTA_BAND.intro}
               </p>
 
-              <div className="mt-4 flex flex-wrap gap-3">
+              {/* Full-width, equal buttons on phones; side by side from sm. */}
+              <div className="mt-5 grid gap-3 sm:mt-4 sm:flex sm:flex-wrap">
                 <Link
                   to="/contact"
                   hash="contact-form"
-                  className="inline-flex h-11 items-center gap-2 rounded-xl bg-hero-foreground px-5 text-[0.95rem] font-semibold text-primary transition-transform hover:scale-[1.03]"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-hero-foreground px-5 text-[0.95rem] font-semibold text-primary transition-transform hover:scale-[1.03]"
                 >
                   {CTA_BAND.primary} <ArrowRight className="size-4" aria-hidden />
                 </Link>
                 <Link
                   to="/services"
-                  className="inline-flex h-11 items-center rounded-xl border border-hero-foreground/70 px-5 text-[0.95rem] font-semibold text-hero-foreground transition-colors hover:bg-hero-foreground/10"
+                  className="inline-flex h-11 items-center justify-center rounded-xl border border-hero-foreground/70 px-5 text-[0.95rem] font-semibold text-hero-foreground transition-colors hover:bg-hero-foreground/10"
                 >
                   {CTA_BAND.secondary}
                 </Link>
               </div>
 
-              <ul className="mt-4 grid gap-3 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-hero-foreground/25">
+              <ul className="mt-5 grid grid-cols-3 divide-x divide-hero-foreground/25 sm:mt-4">
                 {CTA_BAND.points.map((p, i) => {
                   const Icon = POINT_ICONS[i] ?? ShieldCheck;
                   return (
-                    <li key={p.title} className="flex items-center gap-2.5 sm:px-3 sm:first:pl-0">
+                    <li
+                      key={p.title}
+                      className="flex flex-col gap-1.5 px-2.5 first:pl-0 sm:flex-row sm:items-center sm:gap-2.5 sm:px-3"
+                    >
                       <Icon className="size-5 shrink-0" strokeWidth={1.4} aria-hidden />
-                      <span className="text-[0.8125rem] leading-snug text-hero-foreground/90">
+                      <span className="text-xs leading-snug text-hero-foreground/90 sm:text-[0.8125rem]">
                         {p.title}
                         <span className="block">{p.text}</span>
                       </span>
