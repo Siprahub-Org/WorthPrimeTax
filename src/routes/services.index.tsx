@@ -6,7 +6,7 @@ import { AUDIENCES, SERVICES, type Audience } from "@/data/services";
 import { LINKS } from "@/data/site";
 import { Container, Reveal, Section, SectionLabel } from "@/components/site/primitives";
 import { ServiceCard } from "@/components/site/ServiceCard";
-import { SERVICE_GRID, serviceCardSpan } from "@/components/site/serviceGrid";
+import { SERVICE_GRID } from "@/components/site/serviceGrid";
 import { PricingTable } from "@/components/site/PricingTable";
 import { BackdropHero } from "@/components/site/BackdropHero";
 import { CtaBand } from "@/components/site/CtaBand";
@@ -71,7 +71,7 @@ function ServicesPage() {
 
         <div className={cn("mt-8", SERVICE_GRID)}>
           {shown.map((s, i) => (
-            <Reveal key={s.slug} delay={(i % 5) * 70} className={serviceCardSpan(i)}>
+            <Reveal key={s.slug} delay={(i % 5) * 70}>
               <ServiceCard service={s} photoOnly />
             </Reveal>
           ))}
@@ -85,7 +85,7 @@ function ServicesPage() {
         </h2>
         {/* Same table as the Pricing page. */}
         <div className="mt-8 rounded-2xl border border-border bg-card p-2 shadow-[0_24px_60px_-36px] shadow-primary/40 sm:p-3">
-          <PricingTable />
+          <PricingTable ctaLabel="Request a Quote" />
         </div>
       </Section>
 

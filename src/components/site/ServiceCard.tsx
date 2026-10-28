@@ -18,7 +18,7 @@ export function ServiceCard({
 
   return (
     <div
-      className="flip-scene group h-[280px]"
+      className="flip-scene group h-[280px] lg:max-[1439px]:h-[310px] min-[1440px]:aspect-square min-[1440px]:h-auto"
       onMouseEnter={() => setFlipped(true)}
       onMouseLeave={() => setFlipped(false)}
     >
@@ -44,8 +44,7 @@ export function ServiceCard({
         {/* Front */}
         <div
           className={cn(
-            "flip-face surface-card relative isolate flex h-full w-full flex-col justify-between overflow-hidden rounded-3xl p-6 text-hero-foreground",
-            photoOnly && "justify-end",
+            "flip-face surface-card relative isolate flex h-full w-full flex-col justify-end overflow-hidden rounded-3xl p-6 text-hero-foreground lg:p-4",
             image ? "border-transparent bg-transparent" : "border-hero bg-hero",
           )}
         >
@@ -61,36 +60,28 @@ export function ServiceCard({
             />
           )}
           {image && !photoOnly && (
-            // Soft dark shade behind the white number and title so they read on any photo.
+            // Soft dark shade behind the white title so it reads on any photo.
             <span
               className="absolute inset-0 -z-10 bg-linear-to-t from-foreground/80 via-foreground/10 to-foreground/30"
               aria-hidden
             />
           )}
-          {/* On a bare photo (Services page) the card shows just the name and tagline, on a frosted
-              white panel so they read on light and dark photos alike; no number or audience tag. */}
-          {!photoOnly && (
-            <div className="flex items-start justify-between">
-              <span className="font-display text-5xl text-hero-foreground">{service.number}</span>
-              <span className="rounded-full border border-hero-border bg-hero/40 px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-hero-muted backdrop-blur-sm">
-                {service.audience}
-              </span>
-            </div>
-          )}
+          {/* On a bare photo (Services page) the name and tagline sit on a frosted white panel so
+              they read on light and dark photos alike. */}
           <div
             className={cn(photoOnly && "rounded-2xl bg-background/85 px-4 py-3 backdrop-blur-sm")}
           >
             <h3
               className={cn(
-                "text-2xl leading-tight",
-                photoOnly ? "text-xl font-bold text-primary" : "text-hero-foreground",
+                "text-2xl leading-tight lg:text-lg",
+                photoOnly ? "text-xl font-bold text-primary lg:text-base" : "text-hero-foreground",
               )}
             >
               {service.name}
             </h3>
             <p
               className={cn(
-                "mt-2 text-sm font-medium",
+                "mt-2 text-sm font-medium lg:text-xs",
                 photoOnly ? "mt-1 text-foreground/80" : "text-hero-muted",
               )}
             >
@@ -100,10 +91,12 @@ export function ServiceCard({
         </div>
 
         {/* Back */}
-        <div className="flip-back surface-card flex h-full w-full flex-col justify-between border-hero bg-hero p-6 text-hero-foreground">
-          <div>
-            <p className="text-sm text-hero-foreground/90">{service.summary}</p>
-            <ul className="mt-4 space-y-1.5 text-xs text-hero-muted">
+        <div className="flip-back surface-card flex h-full w-full flex-col justify-between border-hero bg-hero p-6 text-hero-foreground lg:p-3 xl:p-4">
+          <div className="min-h-0 overflow-hidden">
+            <p className="text-sm text-hero-foreground/90 lg:text-xs lg:leading-snug">
+              {service.summary}
+            </p>
+            <ul className="mt-4 space-y-1.5 text-xs text-hero-muted lg:mt-3 lg:space-y-1 lg:text-[11px] lg:leading-snug">
               {service.capabilities.slice(0, 4).map((c) => (
                 <li key={c} className="flex gap-2">
                   <span className="text-hero-foreground">—</span>

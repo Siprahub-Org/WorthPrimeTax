@@ -11,7 +11,7 @@ export function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 const button =
-  "grid size-8 place-items-center rounded-full border shadow-sm transition duration-200 sm:size-9 motion-reduce:transition-none";
+  "grid size-11 place-items-center rounded-full border shadow-sm transition duration-200 sm:size-12 motion-reduce:transition-none";
 const interactive =
   "hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:hover:translate-y-0";
 const navy = "border-hero bg-hero text-hero-foreground";
@@ -22,7 +22,7 @@ const items = [
     label: "Chat on WhatsApp",
     Icon: WhatsAppIcon,
     external: true,
-    className: "border-whatsapp bg-card text-whatsapp",
+    className: navy,
   },
   {
     href: LINKS.phoneHref,
@@ -45,7 +45,7 @@ export function ContactCluster() {
   return (
     <nav
       aria-label="Quick contact"
-      className="fixed bottom-4 right-4 z-40 flex flex-col gap-1.5 sm:bottom-5 sm:right-5"
+      className="fixed bottom-4 right-4 z-40 flex flex-col gap-2 sm:bottom-5 sm:right-5"
     >
       {items.map(({ href, label, Icon, external, className }) => (
         <a
@@ -56,7 +56,7 @@ export function ContactCluster() {
           {...(external ? { target: "_blank", rel: "noreferrer noopener" } : {})}
           className={cn(button, interactive, className)}
         >
-          <Icon className="size-3.5 sm:size-4" />
+          <Icon className="size-5 sm:size-6" />
         </a>
       ))}
     </nav>

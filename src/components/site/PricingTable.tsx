@@ -38,17 +38,17 @@ function ServiceIcon({ slug }: { slug: string }) {
 }
 
 /**
- * One Contact us button for the whole table: at the right of the header row on large screens,
- * above the stacked cards below that.
+ * One contact button for the whole table, labelled by the page: at the right of the header row
+ * on large screens, above the stacked cards below that.
  */
-function ContactButton() {
+function ContactButton({ label }: { label: string }) {
   return (
     <Link
       to="/contact"
       hash="contact-form"
       className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-2 text-sm font-medium tracking-normal whitespace-nowrap text-primary-foreground normal-case transition-opacity hover:opacity-90"
     >
-      Contact Us
+      {label}
       <ArrowRight className="size-4" aria-hidden />
     </Link>
   );
@@ -118,11 +118,11 @@ const th =
   "px-4 py-3 text-left text-[0.6875rem] font-semibold tracking-[0.16em] text-primary uppercase";
 
 /** Every service with its starting price: a table on large screens, stacked cards below. */
-export function PricingTable() {
+export function PricingTable({ ctaLabel = "Contact Us" }: { ctaLabel?: string }) {
   return (
     <>
       <div className="mb-3 flex justify-end lg:hidden">
-        <ContactButton />
+        <ContactButton label={ctaLabel} />
       </div>
 
       <div className="hidden overflow-hidden rounded-xl border border-border lg:block">
@@ -168,7 +168,7 @@ export function PricingTable() {
       </div>
 
       <div className="mt-6 hidden justify-center lg:flex">
-        <ContactButton />
+        <ContactButton label={ctaLabel} />
       </div>
 
       <ul className="grid gap-3 sm:grid-cols-2 lg:hidden">

@@ -43,7 +43,7 @@ import {
   useSnapCarousel,
 } from "@/components/site/primitives";
 import { ServiceCard } from "@/components/site/ServiceCard";
-import { SERVICE_GRID, serviceCardSpan } from "@/components/site/serviceGrid";
+import { SERVICE_GRID } from "@/components/site/serviceGrid";
 import { ContactSection } from "@/components/site/ContactSection";
 import { HeroCta } from "@/components/site/HeroCta";
 import { FaqIllustration } from "@/components/site/FaqIllustration";
@@ -77,8 +77,13 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <>
-      <Hero />
-      <PricingMarquee />
+      {/* On large screens the hero fills the first screen so the price strip sits on its bottom edge.
+          The layout's nav spacer moves from this wrapper into the hero, so the photo still runs up
+          behind the transparent nav. */}
+      <div className="before:!hidden lg:flex lg:min-h-svh lg:flex-col">
+        <Hero />
+        <PricingMarquee />
+      </div>
       <StatsBand />
       <WhoWeAre />
       <ProofSection />
@@ -98,7 +103,7 @@ function Index() {
 
 function Hero() {
   return (
-    <section className="relative isolate overflow-hidden bg-background text-foreground">
+    <section className="relative isolate overflow-hidden bg-background text-foreground before:block before:h-16 before:content-[''] lg:flex-1">
       {/*
        * The photo fills the hero at every size; a soft white wash, strongest on the left, keeps the
        * navy copy readable while the advisers stay clear on the right, as in the approved design.
@@ -119,42 +124,33 @@ function Hero() {
       </div>
       {/* Wider than the standard container, like the reference; the nav widens to match on this page. */}
       <Container className="relative max-w-[1540px] lg:px-10">
-        <div className="flex max-w-[900px] flex-col pt-16 pb-20 sm:pt-20 sm:pb-24 lg:min-h-[calc(100svh-4rem)] lg:justify-center lg:pt-[3svh] lg:pb-[5svh]">
-          <h1 className="font-serif text-[clamp(2.4rem,4.3vw,4.6rem)] leading-[1.08] font-bold tracking-[-0.02em] text-primary xl:text-[clamp(2.25rem,min(4.3vw,8svh),4.6rem)]">
-            {/* Two lines on wide screens: the break falls after "Is More". */}
-            <span className="xl:block xl:whitespace-nowrap">Your Business Is More</span>{" "}
-            <span className="xl:whitespace-nowrap">Than a Tax Return.</span>{" "}
-            <span className="text-brand-secondary xl:block">So Are We.</span>
+        <div className="flex max-w-[900px] flex-col pt-16 pb-20 sm:pt-20 sm:pb-24 lg:pt-[min(4rem,8svh)] lg:pb-[min(5rem,8svh)]">
+          <h1 className="font-serif text-[clamp(2rem,3.6vw,3rem)] leading-[1.12] font-bold tracking-[-0.02em] text-primary xl:text-[clamp(2rem,min(2.5vw,5svh),2.75rem)]">
+            {/* Two lines from tablet up, as requested by the client: the break falls after "a". */}
+            <span className="sm:block sm:whitespace-nowrap">Your Business Is More Than a</span>{" "}
+            <span className="sm:block sm:whitespace-nowrap">Tax Return. So Are We.</span>
           </h1>
-          <p className="mt-6 max-w-[37rem] text-base leading-relaxed text-foreground/85 sm:text-lg xl:mt-[clamp(0.75rem,2.6svh,1.5rem)] xl:max-w-none xl:text-[clamp(1rem,2.1svh,1.25rem)]">
-            {/* Four set lines on wide screens, as requested by the client. */}
-            <span className="xl:block xl:whitespace-nowrap">
-              Tax obligations rarely exist in isolation. Entity structure affects
+          <p className="mt-2 max-w-[37rem] text-base leading-relaxed text-foreground/85 sm:text-lg md:max-w-none xl:text-[clamp(1rem,2.1svh,1.25rem)]">
+            {/* Four set lines from tablet up, as requested by the client. */}
+            <span className="md:block md:whitespace-nowrap">
+              Tax, accounting, payroll and compliance are interconnected.
             </span>{" "}
-            <span className="xl:block xl:whitespace-nowrap">
-              taxation. Accounting shapes financial visibility. Payroll carries
+            <span className="md:block md:whitespace-nowrap">
+              WorthPrime Tax brings them together with expert guidance,
             </span>{" "}
-            <span className="xl:block xl:whitespace-nowrap">
-              its own compliance responsibilities. And an IRS notice
+            <span className="md:block md:whitespace-nowrap">
+              helping U.S. individuals and businesses manage financial
             </span>{" "}
-            <span className="xl:block xl:whitespace-nowrap">
-              can quickly become a business concern.
+            <span className="md:block md:whitespace-nowrap">
+              responsibilities with clarity, confidence and precision.
             </span>
-          </p>
-          <p className="mt-4 max-w-[37rem] text-base leading-relaxed text-foreground/85 sm:text-lg xl:max-w-[33rem] xl:text-[clamp(1rem,2.1svh,1.25rem)]">
-            WorthPrime Tax brings these disciplines together through a considered approach to U.S.
-            tax, accounting and compliance—helping U.S. individuals, entrepreneurs and businesses
-            manage their financial responsibilities with greater clarity and precision.
-          </p>
-          <p className="mt-4 max-w-[37rem] text-base leading-relaxed font-semibold text-primary sm:text-lg xl:max-w-[33rem] xl:text-[clamp(1rem,2.1svh,1.25rem)]">
-            Get Expert Tax Counsel, Optimized Tax Outcomes, All Handled With Perspective.
           </p>
           <div className="mt-8 flex flex-wrap gap-4 xl:mt-[clamp(1rem,3.4svh,2rem)]">
             <Link
               to="/services"
               className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.03] sm:text-base"
             >
-              Make Better Financial Decisions <ArrowRight className="size-4" aria-hidden />
+              Our Services <ArrowRight className="size-4" aria-hidden />
             </Link>
             <Link
               to="/contact"
@@ -444,7 +440,7 @@ function ServicesGrid() {
       </p>
       <div className={cn("mt-10", SERVICE_GRID)}>
         {SERVICES.map((s, i) => (
-          <Reveal key={s.slug} delay={(i % 5) * 80} className={serviceCardSpan(i)}>
+          <Reveal key={s.slug} delay={(i % 5) * 80}>
             <ServiceCard service={s} />
           </Reveal>
         ))}
@@ -457,8 +453,8 @@ function ServicesGrid() {
 const displayPrice = (price: string) =>
   price.startsWith("From") ? price : HOME_PRICING.pendingPrice;
 
-const AUTO_SCROLL_MS = 100;
-const AUTO_SCROLL_STEP = 4;
+/** Auto-scroll speed in pixels per second. */
+const AUTO_SCROLL_SPEED = 40;
 
 function PricingPreview() {
   const services = SERVICES;
@@ -497,19 +493,37 @@ function PricingPreview() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Auto-scroll: nudge the row every 0.1s. It stops while the visitor hovers, focuses, touches or
-  // drags the row, and never stops at the end because the row loops.
+  // Auto-scroll: moves the row a little on every animation frame, scaled by the time since the
+  // last frame, so it glides at a steady speed instead of stepping. It stops while the visitor
+  // hovers, focuses, touches or drags the row, and never stops at the end because the row loops.
   const paused = useRef(false);
   const holdUntil = useRef(0);
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = window.setInterval(() => {
+    let frame = 0;
+    let last: number | null = null;
+    // The browser rounds scrollLeft, so the exact position is kept here between frames.
+    let position: number | null = null;
+    const tick = (now: number) => {
+      frame = requestAnimationFrame(tick);
       const track = trackRef.current;
-      if (!track || paused.current || document.hidden || Date.now() < holdUntil.current) return;
-      track.scrollLeft += AUTO_SCROLL_STEP;
+      if (!track || paused.current || document.hidden || Date.now() < holdUntil.current) {
+        last = null;
+        return;
+      }
+      // Pick up wherever the visitor, an arrow press or the loop jump left the row.
+      if (position === null || Math.abs(position - track.scrollLeft) > 2) {
+        position = track.scrollLeft;
+      }
+      // Cap the step so a slow or skipped frame never makes the row jump.
+      const elapsed = last === null ? 0 : Math.min(now - last, 50);
+      last = now;
+      position += (AUTO_SCROLL_SPEED * elapsed) / 1000;
+      track.scrollLeft = position;
       wrap();
-    }, AUTO_SCROLL_MS);
-    return () => window.clearInterval(id);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -520,6 +534,8 @@ function PricingPreview() {
     if (!track || !card) return;
     const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Let the arrow's smooth scroll finish before auto-scroll takes over again.
+    holdUntil.current = Date.now() + 800;
     track.scrollBy({
       left: dir * (card.getBoundingClientRect().width + gap),
       behavior: reduced ? "auto" : "smooth",
@@ -650,7 +666,7 @@ function PricingPreview() {
                 <li
                   key={`${s.slug}-${index}`}
                   aria-hidden={isCopy || undefined}
-                  className="w-[80%] max-w-[19rem] shrink-0 sm:w-[18.5rem]"
+                  className="w-[70%] max-w-[16rem] shrink-0 sm:w-[15rem]"
                 >
                   <Link
                     to="/services/$slug"
@@ -672,25 +688,22 @@ function PricingPreview() {
                         />
                       )}
                     </div>
-                    <div className="flex flex-1 flex-col px-2 pt-4 pb-1.5">
-                      <span className="text-sm font-semibold tracking-widest text-primary/70 tabular-nums">
-                        {s.number}
-                      </span>
-                      <h3 className="mt-1 min-h-[2.4em] font-serif text-[1.35rem] leading-[1.2] font-semibold text-primary">
+                    <div className="flex flex-1 flex-col px-1.5 pt-3 pb-1">
+                      <h3 className="min-h-[2.4em] font-serif text-[1.125rem] leading-[1.2] font-semibold text-primary">
                         {s.name}
                       </h3>
-                      <div className="mt-auto flex items-end justify-between gap-3 pt-4">
+                      <div className="mt-auto flex items-end justify-between gap-3 pt-3">
                         <div>
-                          <p className="text-sm text-foreground/70">{HOME_PRICING.priceLabel}</p>
-                          <p className="mt-0.5 text-xl font-bold text-primary">
+                          <p className="text-xs text-foreground/70">{HOME_PRICING.priceLabel}</p>
+                          <p className="mt-0.5 text-lg font-bold text-primary">
                             {displayPrice(s.price)}
                           </p>
                         </div>
                         <span
-                          className="grid size-11 shrink-0 place-items-center rounded-full border border-primary/30 bg-card/60 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground"
+                          className="grid size-9 shrink-0 place-items-center rounded-full border border-primary/30 bg-card/60 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground"
                           aria-hidden
                         >
-                          <ArrowRight className="size-5" />
+                          <ArrowRight className="size-4" />
                         </span>
                       </div>
                     </div>

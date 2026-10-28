@@ -61,11 +61,13 @@ export function BackdropHero({
               </span>
             ))}
           </h1>
-          <p className="mt-5 max-w-[38rem] text-[0.9375rem] leading-relaxed text-foreground/85 sm:text-base xl:text-[1.0625rem]">
+          {/* pre-line keeps any "\n" in the intro as a line break. */}
+          <p className="mt-5 max-w-[38rem] text-[0.9375rem] leading-relaxed whitespace-pre-line text-foreground/85 sm:text-base xl:text-[1.0625rem]">
             {intro}
           </p>
           <div className="mt-6">
-            <HeroCta />
+            {/* Services and service pages ask for a quote rather than a general contact. */}
+            <HeroCta label="Request a Quote" />
           </div>
         </div>
       </Container>

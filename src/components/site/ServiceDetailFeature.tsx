@@ -175,13 +175,18 @@ export function ServiceDetailFeature({
 
       {/* Overview */}
       <section id="overview" className="scroll-mt-20 py-12 sm:py-16">
-        <Container className="grid items-center gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
-          <Reveal>
+        <Container className="grid items-start gap-10 lg:grid-cols-[1fr_1fr] lg:gap-14">
+          {/* The heading sits on one line across the full width, above the text and photo. */}
+          <Reveal className="lg:col-span-2">
             <NumberedLabel n={1}>Overview</NumberedLabel>
-            <h2 className="mt-5 font-serif text-[clamp(1.9rem,3.4vw,2.7rem)] leading-[1.12] font-semibold text-primary">
+            <h2 className="mt-5 font-serif text-[clamp(1.5rem,2.6vw,2.25rem)] leading-[1.12] font-semibold text-primary lg:whitespace-nowrap">
               {page.overview.heading}
             </h2>
-            <GoldRule className="mt-6" />
+          </Reveal>
+          <Reveal>
+            {page.overview.lead && (
+              <p className="mt-3 text-lg font-semibold text-primary">{page.overview.lead}</p>
+            )}
             <div className="mt-6 space-y-4">
               {page.overview.paragraphs.map((p) => (
                 <p key={p.slice(0, 30)} className="leading-relaxed text-muted-foreground">
@@ -189,6 +194,16 @@ export function ServiceDetailFeature({
                 </p>
               ))}
             </div>
+            {page.overview.cta && (
+              <Link
+                to="/contact"
+                hash="contact-form"
+                className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
+              >
+                {page.overview.cta}
+                <ArrowRight className="size-4" aria-hidden />
+              </Link>
+            )}
           </Reveal>
           <Reveal delay={100}>
             <img
@@ -245,7 +260,6 @@ export function ServiceDetailFeature({
               {page.whoFor.intro && (
                 <p className="mt-4 leading-relaxed text-muted-foreground">{page.whoFor.intro}</p>
               )}
-              <GoldRule className="mt-6" />
             </Reveal>
             <Reveal delay={100}>
               <img
@@ -269,8 +283,7 @@ export function ServiceDetailFeature({
                 <li key={a.title}>
                   <Reveal delay={i * 60} className="h-full">
                     <div className="h-full rounded-2xl border border-border bg-card p-6 shadow-[0_16px_36px_-30px] shadow-primary/50">
-                      <span aria-hidden className="block h-[3px] w-8 rounded-full bg-brand-gold" />
-                      <h3 className="mt-4 font-serif text-lg leading-snug font-semibold text-primary">
+                      <h3 className="font-serif text-lg leading-snug font-semibold text-primary">
                         {a.title}
                       </h3>
                       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{a.body}</p>

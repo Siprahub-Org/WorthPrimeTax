@@ -861,20 +861,31 @@ function Founders() {
         {FOUNDERS.map((f, i) => (
           <article
             key={f.name}
-            className="grid snap-start overflow-hidden bg-card shadow-sm sm:grid-cols-[0.8fr_1fr]"
+            className="group grid snap-start overflow-hidden bg-card shadow-sm transition duration-300 ease-out focus-within:-translate-y-1 focus-within:shadow-xl hover:-translate-y-1 hover:shadow-xl motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:grid-cols-[0.8fr_1fr]"
           >
-            <img
-              src={FOUNDER_PHOTOS[i] ?? advisersImage}
-              alt={
-                FOUNDER_PHOTOS[i]
-                  ? `Portrait of ${f.name}`
-                  : "Professional advisers in consultation"
-              }
-              width={1408}
-              height={1008}
-              loading="lazy"
-              className="h-full min-h-56 w-full object-cover object-top"
-            />
+            {/* Subtle reveal on hover or focus: the photo eases in and the credential slides up over it. */}
+            <div className="relative overflow-hidden">
+              <img
+                src={FOUNDER_PHOTOS[i] ?? advisersImage}
+                alt={
+                  FOUNDER_PHOTOS[i]
+                    ? `Portrait of ${f.name}`
+                    : "Professional advisers in consultation"
+                }
+                width={1408}
+                height={1008}
+                loading="lazy"
+                className="h-full min-h-56 w-full object-cover object-top transition-transform duration-700 ease-out group-focus-within:scale-105 group-hover:scale-105 motion-reduce:transition-none"
+              />
+              <div
+                className="absolute inset-x-0 bottom-0 translate-y-full bg-linear-to-t from-hero/90 via-hero/70 to-transparent px-4 pt-10 pb-4 opacity-0 transition duration-500 ease-out group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:translate-y-0 group-hover:opacity-100 motion-reduce:transition-none"
+                aria-hidden
+              >
+                <p className="text-xs leading-snug font-medium text-hero-foreground">
+                  {f.credential}
+                </p>
+              </div>
+            </div>
             <div className="p-5">
               <h3 className="font-serif text-lg font-bold text-primary">{f.name}</h3>
               <p className="mt-1 text-[0.65rem] font-semibold tracking-[0.2em] text-primary uppercase">
@@ -888,7 +899,10 @@ function Founders() {
                 className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
               >
                 Read Full Biography
-                <ArrowRight className="size-3.5" aria-hidden />
+                <ArrowRight
+                  className="size-3.5 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none"
+                  aria-hidden
+                />
               </button>
             </div>
           </article>
