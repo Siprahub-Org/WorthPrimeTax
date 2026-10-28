@@ -1,0 +1,5 @@
+# On Netlify, nitro picks its netlify preset: static files go to dist and the SSR function to
+# .netlify/functions-internal, which Netlify picks up on its own.
+[build]
+  command = "bun run build"
+  publish = "dist"
