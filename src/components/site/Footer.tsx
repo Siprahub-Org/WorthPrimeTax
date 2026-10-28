@@ -86,7 +86,8 @@ export function Footer() {
     <footer id="contact" className="border-t border-border bg-footer">
       {/* Extra right padding below lg keeps text clear of the fixed contact buttons. */}
       <Container className="pr-20 sm:pr-20 lg:pr-8">
-        <div className="grid gap-8 pt-10 pb-8 sm:gap-10 sm:pt-12 md:grid-cols-2 lg:grid-cols-[1.2fr_1fr_0.8fr_1fr] lg:gap-10">
+        {/* max-sm: classes shorten the footer on phones only; sm and up are unchanged. */}
+        <div className="grid gap-10 pt-12 pb-8 max-sm:gap-8 max-sm:pt-10 md:grid-cols-2 lg:grid-cols-[1.2fr_1fr_0.8fr_1fr] lg:gap-10">
           <div>
             <Link to="/" aria-label="WorthPrime Tax home" className={`inline-block ${focusRing}`}>
               <img
@@ -95,7 +96,7 @@ export function Footer() {
                 width={1438}
                 height={1094}
                 loading="lazy"
-                className="h-12 w-auto object-contain sm:h-16"
+                className="h-16 w-auto object-contain max-sm:h-12"
               />
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
@@ -154,7 +155,7 @@ export function Footer() {
 
           <nav aria-label="Services">
             <ColumnHeading>Services</ColumnHeading>
-            <ul className="mt-4 space-y-2.5 sm:mt-5 sm:space-y-3">
+            <ul className="mt-5 space-y-3 max-sm:mt-4 max-sm:space-y-2.5">
               {SERVICES.slice(0, 6).map((s) => {
                 const Icon = SERVICE_ICONS[s.slug] ?? FileText;
                 return (
@@ -186,8 +187,7 @@ export function Footer() {
 
           <nav aria-label="Company">
             <ColumnHeading>Company</ColumnHeading>
-            {/* Two short columns on phones to keep the footer from running long. */}
-            <ul className="mt-3 grid grid-cols-2 gap-x-6 sm:block sm:max-w-56">
+            <ul className="mt-3 max-w-56 max-sm:grid max-sm:max-w-none max-sm:grid-cols-2 max-sm:gap-x-6">
               <FooterRowLink to="/about">About</FooterRowLink>
               <FooterRowLink to="/pricing">Pricing</FooterRowLink>
               <FooterRowLink to="/insights">Insights</FooterRowLink>
@@ -260,7 +260,7 @@ function FooterRowLink({
       <span className="group-hover:underline">{children}</span>
       <ChevronRight
         aria-hidden
-        className="hidden size-4 shrink-0 text-muted-foreground transition-transform sm:block group-hover:translate-x-0.5 group-hover:text-footer-link-hover"
+        className="size-4 shrink-0 text-muted-foreground transition-transform max-sm:hidden group-hover:translate-x-0.5 group-hover:text-footer-link-hover"
       />
     </>
   );

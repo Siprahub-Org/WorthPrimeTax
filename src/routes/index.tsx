@@ -168,22 +168,25 @@ function Hero() {
 function StatsBand() {
   return (
     <Section className="bg-card py-10 sm:py-14">
-      <div className="grid grid-cols-2 overflow-hidden rounded-3xl border border-hero/15 bg-tint sm:rounded-[2rem] lg:grid-cols-4">
+      {/* max-sm: classes make a compact 2x2 grid on phones only; sm and up are unchanged. */}
+      <div className="grid overflow-hidden rounded-[2rem] border border-hero/15 bg-tint max-sm:grid-cols-2 max-sm:rounded-3xl sm:grid-cols-2 lg:grid-cols-4">
         {STATS.map((s, i) => (
           <Reveal key={s.label} delay={i * 80}>
             <div
               className={cn(
-                "h-full border-border p-5 sm:p-9",
-                (i === 0 || i === 2) && "border-r",
-                i < 2 && "border-b",
+                "h-full p-7 max-sm:p-5 sm:p-9",
+                i < STATS.length - 1 && "border-b border-border",
+                (i === 0 || i === 2) && "max-sm:border-r sm:border-r",
+                i === 2 && "max-sm:border-b-0",
+                i < 2 && "sm:border-b",
                 i < STATS.length - 1 && "lg:border-r",
                 "lg:border-b-0",
               )}
             >
-              <p className="font-sans text-[clamp(1.75rem,4vw,4rem)] font-medium leading-none text-brand-secondary">
+              <p className="font-sans text-[clamp(2.5rem,4vw,4rem)] font-medium leading-none text-brand-secondary max-sm:text-[1.75rem]">
                 <CountUp value={s.value} prefix={s.prefix} suffix={s.suffix} />
               </p>
-              <p className="mt-2 text-xs leading-snug text-muted-foreground sm:mt-3 sm:text-sm">
+              <p className="mt-3 text-sm leading-snug text-muted-foreground max-sm:mt-2 max-sm:text-xs">
                 {s.label}
               </p>
             </div>
