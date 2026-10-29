@@ -113,14 +113,15 @@ function Hero() {
        */}
       {/* Phones use the advisers photo cut from the approved mobile design (its baked-in text and
           buttons removed), in the same place: the right half, from just above the heading. Its
-          left and bottom edges fade into the white, so the copy beside it sits on plain white. */}
+          left edge fades along a curve (no straight cut) and its top and bottom fade into the
+          white, so the copy beside it sits on plain white. */}
       <img
         src={heroMobileImage}
         alt=""
         width={432}
         height={812}
         fetchPriority="high"
-        className="absolute top-[4.5rem] right-0 -z-10 hidden h-auto w-1/2 [mask-composite:intersect] [mask-image:linear-gradient(to_right,transparent,black_6%),linear-gradient(to_bottom,transparent,black_16%,black_70%,transparent)] max-sm:block"
+        className="absolute top-[4.5rem] right-0 -z-10 hidden h-auto w-1/2 [mask-composite:intersect] [mask-image:radial-gradient(ellipse_100%_70%_at_100%_50%,black_90%,transparent),linear-gradient(to_bottom,transparent,black_16%,black_70%,transparent)] max-sm:block"
       />
       <div className="absolute inset-0 -z-10 max-sm:hidden">
         <img
