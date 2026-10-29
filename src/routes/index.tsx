@@ -112,16 +112,17 @@ function Hero() {
        * navy copy readable while the advisers stay clear on the right, as in the approved design.
        */}
       {/* Phones use the advisers photo cut from the approved mobile design (its baked-in text and
-          buttons removed), in the same place: the right half, from just above the heading. Its
-          left edge fades along a curve (no straight cut) and its top and bottom fade into the
-          white, so the copy beside it sits on plain white. */}
+          buttons removed), in the same place: the right half, from just above the heading. The file
+          carries a blurred strip past the woman's shoulder that fades to white, and the left edge
+          fades along a curve, so she is never cut off in a straight line. The top and bottom fade
+          into the white too, so the copy beside it sits on plain white. */}
       <img
         src={heroMobileImage}
         alt=""
-        width={432}
+        width={502}
         height={812}
         fetchPriority="high"
-        className="absolute top-[4.5rem] right-0 -z-10 hidden h-auto w-1/2 [mask-composite:intersect] [mask-image:radial-gradient(ellipse_100%_70%_at_100%_50%,black_90%,transparent),linear-gradient(to_bottom,transparent,black_16%,black_70%,transparent)] max-sm:block"
+        className="absolute top-[4.5rem] right-0 -z-10 hidden h-auto w-[58.1%] [mask-composite:intersect] [mask-image:radial-gradient(ellipse_100%_70%_at_100%_50%,black_85%,transparent),linear-gradient(to_bottom,transparent,black_16%,black_70%,transparent)] max-sm:block"
       />
       <div className="absolute inset-0 -z-10 max-sm:hidden">
         <img
