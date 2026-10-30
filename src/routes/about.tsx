@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { FOUNDERS, OFFICES } from "@/data/site";
 import { CountUp, Reveal, Section, SectionLabel } from "@/components/site/primitives";
-import { CtaBand } from "@/components/site/CtaBand";
+// import { CtaBand } from "@/components/site/CtaBand";
 import {
   Dialog,
   DialogContent,
@@ -741,7 +741,7 @@ function AboutPage() {
         </div>
       </section>
 
-      <CtaBand />
+      {/* <CtaBand /> */}
     </>
   );
 }
