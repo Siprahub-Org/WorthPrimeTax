@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import advisersImage from "@/assets/worthprime-advisers-blue.webp";
+import storyImage from "@/assets/worthprime-advisers.jpg";
 import { FOUNDER_PHOTOS } from "@/components/site/founderPhotos";
 import aboutHeroImage from "@/assets/about hero.png";
 import aboutHeroMobileImage from "@/assets/about-hero-mobile.webp";
@@ -637,14 +638,27 @@ function AboutPage() {
       </section>
 
       <Section>
-        <div className="grid gap-6 lg:grid-cols-2 lg:items-end">
+        {/* Copy on the left, photo on the right; stacked (copy first) below lg. */}
+        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
           <div>
-            <SectionLabel>{ABOUT_STORY.label}</SectionLabel>
-            <h2 className={cn("mt-4 text-[clamp(1.9rem,3.4vw,2.8rem)]", HEADING)}>
-              {ABOUT_STORY.heading}
+            <h2 className={cn("text-[clamp(1.9rem,3.4vw,2.8rem)]", HEADING)}>
+              {ABOUT_STORY.label}
             </h2>
+            <p className="mt-4 font-serif text-[clamp(1.15rem,1.8vw,1.45rem)] leading-snug font-semibold text-primary">
+              {ABOUT_STORY.heading}
+            </p>
+            <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground">
+              {ABOUT_STORY.body}
+            </p>
           </div>
-          <p className="text-sm leading-relaxed text-muted-foreground">{ABOUT_STORY.body}</p>
+          <img
+            src={storyImage}
+            alt="Two WorthPrime advisers reviewing documents together at an office desk"
+            width={1408}
+            height={1008}
+            loading="lazy"
+            className="aspect-[4/3] w-full rounded-2xl border border-brand-secondary/20 object-cover shadow-[0_24px_60px_-28px] shadow-primary/35"
+          />
         </div>
       </Section>
 
