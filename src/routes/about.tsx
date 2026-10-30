@@ -15,7 +15,7 @@ import {
   Users,
   type LucideIcon,
 } from "lucide-react";
-import { FOUNDERS, OFFICES } from "@/data/site";
+import { ABOUT_STORY, FOUNDERS, OFFICES } from "@/data/site";
 import { CountUp, Reveal, Section, SectionLabel } from "@/components/site/primitives";
 // import { CtaBand } from "@/components/site/CtaBand";
 import {
@@ -635,6 +635,18 @@ function AboutPage() {
           </div>
         </div>
       </section>
+
+      <Section>
+        <div className="grid gap-6 lg:grid-cols-2 lg:items-end">
+          <div>
+            <SectionLabel>{ABOUT_STORY.label}</SectionLabel>
+            <h2 className={cn("mt-4 text-[clamp(1.9rem,3.4vw,2.8rem)]", HEADING)}>
+              {ABOUT_STORY.heading}
+            </h2>
+          </div>
+          <p className="text-sm leading-relaxed text-muted-foreground">{ABOUT_STORY.body}</p>
+        </div>
+      </Section>
 
       <Founders />
 
