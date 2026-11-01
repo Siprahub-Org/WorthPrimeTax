@@ -190,9 +190,9 @@ export type Insight = {
   takeaways: string[];
   /** Closing call to action; links to the named service page, or the contact form when absent. */
   cta: { label: string; serviceSlug?: string };
-  /** Cover image from the LinkedIn post; hand-written articles use INSIGHT_IMAGES instead. */
-  image?: { src: string; alt: string };
-  /** The original LinkedIn post; article links open it instead of a page on this site. */
+  /** Every image in the LinkedIn post; the first is the cover. Hand-written articles use INSIGHT_IMAGES. */
+  images?: { src: string; alt: string }[];
+  /** The original LinkedIn post, linked from the article page. */
   sourceUrl?: string;
 };
 
@@ -260,6 +260,18 @@ export const FALLBACK_INSIGHTS: Insight[] = [
 ];
 
 /** Reading time in whole minutes (at about 200 words a minute), never less than one. */
+/** Below this many words an article page is too thin to help search, so it is kept out of Google. */
+const INDEXABLE_MIN_WORDS = 150;
+
+/**
+ * Whether search engines should index an article page: only LinkedIn posts with real body text.
+ * Hand-written fallback articles are placeholder copy, so they are never indexed.
+ */
+export function isIndexableInsight(insight: Insight) {
+  const words = [insight.excerpt, ...insight.body, ...insight.takeaways].join(" ").split(/\s+/);
+  return Boolean(insight.sourceUrl) && words.length >= INDEXABLE_MIN_WORDS;
+}
+
 export function insightReadMinutes(insight: Insight) {
   const words = [...insight.body, ...insight.takeaways].join(" ").split(/\s+/).length;
   return Math.max(1, Math.round(words / 200));
@@ -461,6 +473,8 @@ export const INSIGHTS_PAGE = {
     "Follow WorthPrime Tax on LinkedIn for practical insights on U.S. taxation, accounting, business compliance, and financial planning.",
   linkedinCta: "Follow WorthPrime Tax",
   postCta: "Talk to WorthPrime About This",
+  viewOnLinkedIn: "View on LinkedIn",
+  galleryHeading: "From the Post",
   disclaimer:
     "This content is for general informational purposes only and does not constitute tax, legal, or accounting advice. Tax rules and filing requirements depend on individual circumstances and applicable law. Consult a qualified professional regarding your situation.",
 };

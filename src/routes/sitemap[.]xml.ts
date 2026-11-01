@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SERVICES } from "@/data/services";
+import { isIndexableInsight } from "@/data/site";
 import { loadInsights } from "@/lib/linkedin-insights";
 import { absoluteUrl } from "@/lib/seo";
 
@@ -22,9 +23,9 @@ async function sitemapXml() {
   const entries = [
     ...STATIC_PATHS.map((path) => ({ path })),
     ...SERVICES.map((s) => ({ path: `/services/${s.slug}` })),
-    // LinkedIn posts link out to LinkedIn, so only articles with a page here are listed.
+    // Thin one-line posts and fallback copy are noindex, so they are left out too.
     ...insights
-      .filter((i) => !i.sourceUrl)
+      .filter(isIndexableInsight)
       .map((i) => ({ path: `/insights/${i.slug}`, lastmod: i.date })),
   ];
   const urls = entries

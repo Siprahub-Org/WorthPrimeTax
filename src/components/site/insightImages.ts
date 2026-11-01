@@ -33,5 +33,5 @@ const INSIGHT_IMAGES: Record<string, Image> = {
  * Null when there is none; InsightImage then draws a branded cover instead of a stock photo.
  */
 export function insightImage(insight: Insight): Image | null {
-  return insight.image ?? INSIGHT_IMAGES[insight.slug] ?? null;
+  return insight.images?.[0] ?? INSIGHT_IMAGES[insight.slug] ?? null;
 }

@@ -126,9 +126,12 @@ function postToInsight(post: LinkedInPost): Insight | null {
     if (excerpt === lines[0].text) lines.shift();
   }
 
-  const image = post.image_urls?.find((url) => url.startsWith("https://"));
+  const images = (post.image_urls ?? [])
+    .filter((url) => url.startsWith("https://"))
+    .map((src) => ({ src, alt: title }));
   return {
-    slug: slugify(title),
+    // The ID suffix keeps the URL stable if the post's first line is edited later.
+    slug: `${slugify(title)}-${post.id.slice(-7)}`,
     tag: topicOf(post.raw_text),
     date: post.post_date_time.slice(0, 10),
     title,
@@ -136,7 +139,7 @@ function postToInsight(post: LinkedInPost): Insight | null {
     body: toParagraphs(lines),
     takeaways: lines.filter((l) => l.kind === "heading").map((l) => stripEnd(l.text)),
     cta: { label: INSIGHTS_PAGE.postCta },
-    ...(image && { image: { src: image, alt: title } }),
+    ...(images.length > 0 && { images }),
     sourceUrl: post.post_url,
   };
 }

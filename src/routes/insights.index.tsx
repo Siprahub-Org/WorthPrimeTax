@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { seoHead } from "@/lib/seo";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import {
@@ -13,7 +13,6 @@ import { cn } from "@/lib/utils";
 import { Container } from "@/components/site/primitives";
 import { InsightTag } from "@/components/site/ArticleCard";
 import { InsightImage } from "@/components/site/InsightImage";
-import { InsightLink } from "@/components/site/InsightLink";
 import { LinkedInBand } from "@/components/site/LinkedInBand";
 import { getInsights } from "@/lib/linkedin-insights";
 import { CtaBand } from "@/components/site/CtaBand";
@@ -147,8 +146,9 @@ function FeaturedRotator({
 /** One article in the featured card: photo, with its copy over a navy fade at the bottom. */
 function FeaturedArticle({ insight, visible }: { insight: Insight; visible: boolean }) {
   return (
-    <InsightLink
-      insight={insight}
+    <Link
+      to="/insights/$slug"
+      params={{ slug: insight.slug }}
       aria-hidden={!visible}
       tabIndex={visible ? undefined : -1}
       className={cn(
@@ -193,7 +193,7 @@ function FeaturedArticle({ insight, visible }: { insight: Insight; visible: bool
           />
         </span>
       </div>
-    </InsightLink>
+    </Link>
   );
 }
 
@@ -217,8 +217,9 @@ function LatestArticles({ insights, activeSlug }: { insights: Insight[]; activeS
         {insights.map((insight) => {
           return (
             <li key={insight.slug}>
-              <InsightLink
-                insight={insight}
+              <Link
+                to="/insights/$slug"
+                params={{ slug: insight.slug }}
                 className={cn(
                   "group -mx-2 flex items-center gap-4 rounded-lg px-2 py-3 transition-colors duration-500",
                   insight.slug === activeSlug && "bg-tint",
@@ -253,7 +254,7 @@ function LatestArticles({ insights, activeSlug }: { insights: Insight[]; activeS
                 >
                   <ChevronRight className="size-4" />
                 </span>
-              </InsightLink>
+              </Link>
             </li>
           );
         })}
@@ -301,8 +302,9 @@ function TopicCarousel({ insights }: { insights: Insight[] }) {
                 <p className="mt-1.5 flex-1 text-xs leading-relaxed text-muted-foreground">
                   {insight.excerpt}
                 </p>
-                <InsightLink
-                  insight={insight}
+                <Link
+                  to="/insights/$slug"
+                  params={{ slug: insight.slug }}
                   className="mt-3 inline-flex items-center gap-2 self-start text-xs font-semibold text-primary"
                 >
                   Read article
@@ -311,7 +313,7 @@ function TopicCarousel({ insights }: { insights: Insight[] }) {
                     className="size-3.5 transition-transform group-hover:translate-x-0.5"
                     aria-hidden
                   />
-                </InsightLink>
+                </Link>
               </div>
             </article>
           );
