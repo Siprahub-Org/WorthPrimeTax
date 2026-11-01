@@ -23,6 +23,42 @@ export const SITE = {
 
 export const HAS_LINKEDIN = LINKS.linkedin.startsWith("http");
 
+/**
+ * Insights articles come from the company page's LinkedIn posts, read from the data file behind
+ * our SociableKIT widget (see src/lib/linkedin-insights.ts). Free plan: a new post reaches the
+ * site only after someone clicks Sync in the SociableKIT dashboard.
+ */
+export const LINKEDIN_FEED = {
+  embedId: "25726516",
+  /**
+   * Festival greetings and staff award/recognition posts are not articles. A post is skipped when a
+   * word in it starts with any of these (so "congratulat" matches "congratulations").
+   */
+  excludeKeywords: [
+    // Festivals and holidays
+    "eid",
+    "mubarak",
+    "independence day",
+    "republic day",
+    "new year",
+    "thanksgiving",
+    "diwali",
+    "christmas",
+    "happy holi",
+    "ramadan",
+    "easter",
+    "festival",
+    // Staff awards and recognition
+    "congratulat",
+    "recognition",
+    "award",
+  ],
+  /** Any other post to hide, by its SociableKIT post `id`. */
+  excludePostIds: [
+    "7399854485201838080", // staff award ("A person with a never-give-up attitude…"), no keyword
+  ],
+};
+
 export const OFFICES = [
   {
     label: "Headquarter (USA)",
@@ -154,9 +190,17 @@ export type Insight = {
   takeaways: string[];
   /** Closing call to action; links to the named service page, or the contact form when absent. */
   cta: { label: string; serviceSlug?: string };
+  /** Cover image from the LinkedIn post; hand-written articles use INSIGHT_IMAGES instead. */
+  image?: { src: string; alt: string };
+  /** The original LinkedIn post; article links open it instead of a page on this site. */
+  sourceUrl?: string;
 };
 
-export const INSIGHTS: Insight[] = [
+/**
+ * Hand-written articles, shown only when the LinkedIn feed can't be read (see
+ * src/lib/linkedin-insights.ts). Live articles come from LinkedIn posts.
+ */
+export const FALLBACK_INSIGHTS: Insight[] = [
   {
     slug: "key-us-tax-changes-2026",
     tag: "Tax",
@@ -214,10 +258,6 @@ export const INSIGHTS: Insight[] = [
     cta: { label: "Prepare for Year-End With WorthPrime", serviceSlug: "accounting-bookkeeping" },
   },
 ];
-
-export function getInsight(slug: string) {
-  return INSIGHTS.find((a) => a.slug === slug);
-}
 
 /** Reading time in whole minutes (at about 200 words a minute), never less than one. */
 export function insightReadMinutes(insight: Insight) {
@@ -412,7 +452,6 @@ export const INSIGHTS_PAGE = {
   label: "Insights",
   heading: "Perspective on",
   headingMuted: "What Comes Next.",
-  feedNote: "[These will later be fed from LinkedIn posts]",
   latestHeading: "Latest Articles",
   topicsHeading: "Explore by Topic",
   latestIntro:
@@ -421,6 +460,7 @@ export const INSIGHTS_PAGE = {
   linkedinText:
     "Follow WorthPrime Tax on LinkedIn for practical insights on U.S. taxation, accounting, business compliance, and financial planning.",
   linkedinCta: "Follow WorthPrime Tax",
+  postCta: "Talk to WorthPrime About This",
   disclaimer:
     "This content is for general informational purposes only and does not constitute tax, legal, or accounting advice. Tax rules and filing requirements depend on individual circumstances and applicable law. Consult a qualified professional regarding your situation.",
 };

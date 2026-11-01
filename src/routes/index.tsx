@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { getInsights } from "@/lib/linkedin-insights";
 import { seoHead } from "@/lib/seo";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
@@ -29,7 +30,6 @@ import {
   FAQS,
   FOUNDERS,
   HOME_PRICING,
-  INSIGHTS,
   PROCESS,
   REASONS,
   STATS,
@@ -71,6 +71,7 @@ const DESCRIPTION =
 
 export const Route = createFileRoute("/")({
   head: () => seoHead({ title: TITLE, description: DESCRIPTION, path: "/" }),
+  loader: () => getInsights(),
   component: Index,
 });
 
@@ -1068,14 +1069,12 @@ function VideoTestimonial() {
 }
 
 function Insights() {
+  const insights = Route.useLoaderData().slice(0, 3);
   return (
     <Section id="insights">
       <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
         Latest From <span className="text-primary">WorthPrime Tax</span>
       </h2>
-      <p className="mt-4 text-sm text-muted-foreground">
-        [These will later be fed from LinkedIn posts]
-      </p>
       <Link
         to="/insights"
         className="mt-6 inline-flex items-center gap-2 rounded-full bg-hero px-6 py-3 text-sm font-semibold text-hero-foreground transition-transform hover:scale-[1.03]"
@@ -1083,9 +1082,9 @@ function Insights() {
         See All Insights <ArrowRight className="size-4" />
       </Link>
       <div className="mt-10 grid gap-5 sm:grid-cols-3">
-        {INSIGHTS.map((a, i) => (
-          <Reveal key={i} delay={i * 80}>
-            <InsightCard insight={a} index={i} />
+        {insights.map((a, i) => (
+          <Reveal key={a.slug} delay={i * 80}>
+            <InsightCard insight={a} />
           </Reveal>
         ))}
       </div>

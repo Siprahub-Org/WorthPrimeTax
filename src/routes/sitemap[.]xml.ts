@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SERVICES } from "@/data/services";
-import { INSIGHTS } from "@/data/site";
+import { loadInsights } from "@/lib/linkedin-insights";
 import { absoluteUrl } from "@/lib/seo";
 
 // Every indexable page, built from the same data as the routes so new services and articles appear
@@ -17,11 +17,15 @@ const STATIC_PATHS = [
   "/terms-of-use",
 ];
 
-function sitemapXml() {
+async function sitemapXml() {
+  const insights = await loadInsights();
   const entries = [
     ...STATIC_PATHS.map((path) => ({ path })),
     ...SERVICES.map((s) => ({ path: `/services/${s.slug}` })),
-    ...INSIGHTS.map((i) => ({ path: `/insights/${i.slug}`, lastmod: i.date })),
+    // LinkedIn posts link out to LinkedIn, so only articles with a page here are listed.
+    ...insights
+      .filter((i) => !i.sourceUrl)
+      .map((i) => ({ path: `/insights/${i.slug}`, lastmod: i.date })),
   ];
   const urls = entries
     .map(
@@ -35,8 +39,8 @@ function sitemapXml() {
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
-      GET: () =>
-        new Response(sitemapXml(), {
+      GET: async () =>
+        new Response(await sitemapXml(), {
           headers: { "content-type": "application/xml; charset=utf-8" },
         }),
     },
