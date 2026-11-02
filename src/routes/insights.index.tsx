@@ -156,9 +156,10 @@ function FeaturedArticle({ insight, visible }: { insight: Insight; visible: bool
         visible ? "opacity-100" : "pointer-events-none opacity-0",
       )}
     >
+      {/* Posts without a picture get the logo-wall photo here too; the navy fade keeps the copy legible. */}
       <InsightImage
         insight={insight}
-        decorative
+        alt=""
         className="absolute inset-0 -z-10 size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
       />
       <div

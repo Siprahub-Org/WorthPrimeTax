@@ -485,6 +485,13 @@ export const INSIGHTS_PAGE = {
   postCta: "Talk to WorthPrime About This",
   viewOnLinkedIn: "View on LinkedIn",
   galleryHeading: "From the Post",
+  // Article page labels [suggested copy].
+  backToAll: "All Insights",
+  minRead: "min read",
+  takeawaysHeading: "Key Takeaways",
+  helpHeading: "Have a question about this?",
+  helpText: "Talk to WorthPrime Tax about how this applies to your situation.",
+  relatedHeading: "More Insights",
   disclaimer:
     "This content is for general informational purposes only and does not constitute tax, legal, or accounting advice. Tax rules and filing requirements depend on individual circumstances and applicable law. Consult a qualified professional regarding your situation.",
 };

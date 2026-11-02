@@ -19,6 +19,8 @@ const postSchema = z.object({
   profile_name: z.string().optional(),
   post_url: z.string().url().startsWith("https://www.linkedin.com/"),
   image_urls: z.array(z.string()).optional(),
+  // When the post reshares another one, that post's text as HTML (<br> line breaks, links).
+  shared_post_description: z.string().optional(),
 });
 const feedSchema = z.object({ posts: z.array(z.unknown()) });
 
@@ -50,12 +52,38 @@ async function fetchLinkedInInsights(): Promise<Insight[]> {
 
   const insights = feed.posts.flatMap((raw) => {
     const parsed = postSchema.safeParse(raw);
-    if (!parsed.success || isExcluded(parsed.data)) return [];
-    const insight = postToInsight(parsed.data);
+    if (!parsed.success) return [];
+    const post = withSharedText(parsed.data);
+    if (isExcluded(post)) return [];
+    const insight = postToInsight(post);
     return insight ? [insight] : [];
   });
 
   return dedupeSlugs(insights).sort((a, b) => b.date.localeCompare(a.date));
+}
+
+/**
+ * A reshare's own text is often just a one-line comment ("Health is Wealth - An initiative by
+ * WorthPrime Tax!"), which would leave the article empty. Append the shared post's text so the
+ * comment becomes the title and the shared post the body.
+ */
+function withSharedText(post: LinkedInPost): LinkedInPost {
+  const shared = post.shared_post_description && htmlToText(post.shared_post_description);
+  if (!shared || post.raw_text.trim().includes("\n")) return post;
+  return { ...post, raw_text: `${post.raw_text}\n\n${shared}` };
+}
+
+function htmlToText(html: string) {
+  return html
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<[^>]*>/g, "")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&quot;/g, '"')
+    .replace(/&#0?39;|&apos;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&amp;/g, "&")
+    .trim();
 }
 
 function isExcluded(post: LinkedInPost) {

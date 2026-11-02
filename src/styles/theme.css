@@ -44,6 +44,9 @@
   --theme-indigo-foreground: var(--brand-white);
   --theme-gold: var(--brand-navy); /* client asked for the primary blue in place of gold site-wide */
   --theme-rating: var(--brand-star);
+  /* Warm accent on insight article pages (tags, underlines, highlight box). Point it at
+     --brand-navy to drop the amber. */
+  --theme-highlight: var(--brand-star);
 
   /* Page and surfaces */
   --theme-page-bg: var(--brand-white);

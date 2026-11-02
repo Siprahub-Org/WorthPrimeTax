@@ -1,11 +1,11 @@
 import type { Insight } from "@/data/site";
-import { cn } from "@/lib/utils";
 import { insightImage } from "@/components/site/insightImages";
+import brandWallImage from "@/assets/about hero.png";
 
 /**
- * An article's cover in any image slot. Posts without an image of their own get a navy WorthPrime
- * cover (sized with container units so it reads at thumbnail and full width) rather than a stock
- * photo. `decorative` slots, such as the featured card that already sits on navy, render nothing.
+ * An article's cover in any image slot. Posts without an image of their own get the WorthPrime
+ * logo-wall photo (the About page hero) rather than a stock photo. `decorative` slots, such as the
+ * featured card that already sits on navy, render nothing.
  */
 export function InsightImage({
   insight,
@@ -38,18 +38,14 @@ export function InsightImage({
   if (decorative) return null;
 
   return (
-    <div
-      aria-hidden
-      className={cn("@container grid place-items-center bg-hero text-hero-foreground", className)}
-    >
-      <div className="px-[8cqw] text-center">
-        <p className="text-[max(0.4375rem,4.5cqw)] font-semibold tracking-[0.18em] text-hero-foreground/75 uppercase">
-          {insight.tag}
-        </p>
-        <p className="mt-[2cqw] font-serif text-[max(0.6875rem,9cqw)] leading-tight font-bold">
-          WorthPrime Tax
-        </p>
-      </div>
-    </div>
+    <img
+      src={brandWallImage}
+      alt={alt ?? "WorthPrime logo and the line Your Compliance Partner! on a marble office wall"}
+      width={1672}
+      height={941}
+      loading={lazy ? "lazy" : undefined}
+      // Centred on the sign, which sits a little above the middle of the photo.
+      className={`${className ?? ""} object-[52%_42%]`}
+    />
   );
 }

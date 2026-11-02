@@ -48,6 +48,7 @@
   --color-brand-indigo-foreground: var(--theme-indigo-foreground);
   --color-brand-gold: var(--theme-gold);
   --color-rating: var(--theme-rating);
+  --color-highlight: var(--theme-highlight);
   /* shadcn "secondary" is a subtle fill, not the brand secondary colour */
   --color-secondary: var(--theme-subtle-bg);
   --color-secondary-foreground: var(--theme-text);
