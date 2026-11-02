@@ -564,7 +564,8 @@ export type LegalPage = {
   title: string;
   description: string;
   heading: string;
-  intro: string;
+  /** Optional lead paragraph under the heading. */
+  intro?: string;
   updated: string;
   sections: LegalSection[];
   /** Heading of the contact card at the end of the page. */
@@ -579,101 +580,75 @@ export type LegalPage = {
 export const PRIVACY_PAGE: LegalPage = {
   title: "Privacy Policy | WorthPrime Tax",
   description:
-    "How WorthPrime Tax collects, uses, shares and protects the personal information of visitors and clients.",
+    "How WorthPrime Tax keeps client information confidential and uses it only for the services agreed with each client.",
   heading: "Privacy Policy",
   intro:
-    "Your trust matters to us. This Privacy Policy explains how WorthPrime Tax collects, uses, shares and protects personal information when you visit our website or use our services.",
+    "Client Information Confidentiality, Non-Disclosure and Permitted Use Policy (In accordance with IRC Section 7216, where applicable).",
   updated: "[date TBC]",
   contactHeading: "Questions About Your Privacy?",
   sections: [
+    // Client-supplied wording.
     {
-      heading: "Who We Are",
+      heading: "Purpose of Collecting Client Information",
       body: [
-        "WorthPrime Tax (“WorthPrime”, “we”, “us” or “our”) provides U.S. tax, accounting, payroll, compliance and advisory services to individuals and businesses, with offices in the United States, the United Arab Emirates and India.",
-        "This policy applies to personal information we collect through this website, through enquiries and correspondence, and in the course of providing our services.",
-      ],
-    },
-    {
-      heading: "Information We Collect",
-      body: ["Depending on how you interact with us, we may collect the following information:"],
-      list: [
-        "Contact details, such as your name, email address, phone number and postal address.",
-        "Identification and tax information, such as taxpayer identification numbers, filing history and the documents you provide for tax preparation or compliance work.",
-        "Financial and business information, such as income, accounts, payroll and entity records needed to deliver a service.",
-        "Enquiry details, such as the service you are interested in and the message you send us.",
-        "Technical information, such as your browser type, device, IP address and the pages you visit on this website.",
-      ],
-    },
-    {
-      heading: "How We Use Your Information",
-      body: ["We use personal information only for legitimate business purposes, including to:"],
-      list: [
-        "Respond to enquiries and provide quotes.",
-        "Prepare, review and file returns, reports and other documents on your behalf.",
-        "Communicate with you about your engagement, deadlines and requirements.",
-        "Meet our legal, regulatory and professional obligations, including record keeping.",
-        "Maintain, secure and improve our website and services.",
-      ],
-    },
-    {
-      heading: "How We Share Your Information",
-      body: [
-        "We do not sell or rent your personal information. We share it only where necessary, for example:",
+        "We collect documents, financial records, personal information, tax-related information, accounting records, and other relevant information from our clients solely for the purpose of providing the professional services requested or agreed upon under our applicable Service Agreements, Engagement Letters, and Non-Disclosure Agreements (NDAs).",
+        "Such services may include, but are not limited to:",
       ],
       list: [
-        "With government and tax authorities, such as the IRS, when you engage us to file or correspond on your behalf.",
-        "With trusted service providers who support our operations, such as secure document storage, payment processing and email services, under confidentiality obligations.",
-        "Between our offices, where needed to deliver your engagement.",
-        "Where required by law, regulation or legal process, or to protect our rights.",
+        "Tax preparation, tax planning, and tax-related compliance services.",
+        "Accounting, bookkeeping, and financial reporting services.",
+        "Audit, assurance, and related professional services.",
+        "Financial statement preparation and analysis.",
+        "Other accounting, taxation, consulting, compliance, or related professional services expressly agreed upon with the client.",
       ],
     },
     {
-      heading: "Data Retention",
+      heading: "Confidentiality and Non-Disclosure of Client Information",
       body: [
-        "We keep personal information for as long as needed to provide our services and to meet legal, tax and professional record-keeping requirements. When information is no longer required, we delete or anonymise it securely.",
+        "We maintain strict confidentiality regarding all information and documents received from our clients. We undertake that client information will not be sold, rented, traded, marketed, or disclosed to any unauthorized third party for commercial, promotional, marketing, or any unrelated purpose.",
+        "All client information will be handled exclusively by authorized personnel involved in delivering the contracted services and will be protected through appropriate confidentiality obligations, internal safeguards, and applicable Non-Disclosure Agreements.",
       ],
     },
     {
-      heading: "How We Protect Your Information",
+      heading: "Limited and Authorized Use of Information",
       body: [
-        "We use administrative, technical and physical safeguards designed to protect personal information against unauthorised access, loss, misuse or alteration. These include access controls, secure transfer methods and confidentiality commitments from our team.",
-        "No method of transmission or storage is completely secure, so we cannot guarantee absolute security, but we work continually to protect the information entrusted to us.",
+        "The information and documents provided by clients shall be used exclusively for the purposes of performing the services requested by the client and agreed upon in the relevant Service Agreement, Engagement Letter, or other contractual arrangement.",
+        "We shall not use client information for any unrelated business activity, independent commercial purpose, marketing activity, solicitation, or any purpose outside the scope of the agreed professional engagement, unless expressly authorized by the client or otherwise permitted by applicable law.",
       ],
     },
     {
-      heading: "Cookies and Analytics",
+      heading: "No Unauthorized Third-Party Disclosure",
       body: [
-        "This website may use cookies and similar technologies to keep the site working, remember your preferences and understand how visitors use our pages. You can control or delete cookies through your browser settings; some parts of the site may not work as intended without them.",
+        "We do not disclose or share client information with any external individual, organization, business entity, or third party without the client's prior written authorization, except where such disclosure is required or permitted under applicable laws, regulations, professional obligations, or valid legal or regulatory orders.",
+        "Where any disclosure is legally required or otherwise permitted, we shall limit the disclosure to the extent necessary and take reasonable measures to safeguard the confidentiality of the information.",
       ],
     },
     {
-      heading: "International Transfers",
+      heading: "Compliance with IRC Section 7216",
       body: [
-        "Because we operate in the United States, the United Arab Emirates and India, your information may be processed in a country other than the one where you live. Where this happens, we take reasonable steps to make sure it remains protected in line with this policy.",
+        "Where applicable, we comply with the requirements of Section 7216 of the Internal Revenue Code and the related Treasury Regulations governing the use and disclosure of tax return information.",
+        "Tax return information shall not be used or disclosed for purposes other than those authorized by applicable law or regulations, or those specifically authorized through a valid taxpayer consent where such consent is required.",
+        "Any disclosure or use requiring taxpayer consent shall be subject to the applicable legal requirements and the appropriate separate consent documentation.",
       ],
     },
     {
-      heading: "Your Rights and Choices",
-      body: ["Subject to applicable law, you may ask us to:"],
-      list: [
-        "Access the personal information we hold about you.",
-        "Correct information that is inaccurate or incomplete.",
-        "Delete your information, where we are not required to keep it.",
-        "Stop sending you marketing communications.",
-      ],
-      after:
-        "To make a request, contact us using the details below. We may need to verify your identity before responding.",
-    },
-    {
-      heading: "Children’s Privacy",
+      heading: "Data Security and Protection",
       body: [
-        "Our website is not directed at children under 13, and we do not knowingly collect personal information from them through this website. Information about dependants is collected only from their parent or guardian as part of a tax engagement.",
+        "We implement reasonable administrative, technical, and organizational safeguards to protect client information against unauthorized access, misuse, alteration, loss, disclosure, or destruction.",
+        "Access to client documents and information shall be restricted to authorized personnel who require such access to perform their assigned professional responsibilities.",
       ],
     },
     {
-      heading: "Changes to This Policy",
+      heading: "Retention and Disposal of Client Information",
       body: [
-        "We may update this Privacy Policy from time to time. The latest version will always be published on this page, with the date it was last updated.",
+        "Client information shall be retained only for the period necessary to fulfill the purposes for which it was collected, comply with applicable legal and regulatory requirements, and satisfy relevant professional record-retention obligations.",
+        "Upon expiry of the applicable retention period, information shall be securely disposed of or deleted, subject to any legal requirements to retain such information.",
+      ],
+    },
+    {
+      heading: "Our Commitment",
+      body: [
+        "We respect the confidentiality and privacy of every client. Client information is entrusted to us solely for the purpose of delivering the agreed professional services, and we are committed to protecting that information against unauthorized use or disclosure.",
       ],
     },
   ],
@@ -681,82 +656,25 @@ export const PRIVACY_PAGE: LegalPage = {
 
 export const TERMS_PAGE: LegalPage = {
   title: "Terms of Use | WorthPrime Tax",
-  description: "The terms that govern your use of the WorthPrime Tax website.",
+  description:
+    "How WorthPrime Tax treats the documents and information clients share, under its NDAs and service agreements.",
   heading: "Terms of Use",
-  intro:
-    "These Terms of Use govern your access to and use of the WorthPrime Tax website. Please read them carefully. By using this website, you agree to these terms.",
   updated: "[date TBC]",
   contactHeading: "Questions About These Terms?",
   sections: [
+    // Client-supplied wording.
     {
-      heading: "Acceptance of These Terms",
+      heading: "Compliance with Non-Disclosure Agreements and Service Agreements",
       body: [
-        "By accessing or using this website, you confirm that you have read, understood and agree to be bound by these Terms of Use and our Privacy Policy. If you do not agree, please do not use the website.",
+        "All documents, records, and information received from clients shall be treated as confidential and shall be governed by the confidentiality, privacy, and non-disclosure provisions contained in the applicable Non-Disclosure Agreements, Service Agreements, Engagement Letters, and other contractual arrangements executed with the respective clients.",
+        "Our personnel and authorized representatives shall be required to maintain the confidentiality of client information and use such information only for the fulfillment of the agreed professional obligations.",
       ],
     },
     {
-      heading: "Use of This Website",
-      body: ["You agree to use this website only for lawful purposes. You must not:"],
-      list: [
-        "Use the website in a way that breaches any applicable law or regulation.",
-        "Attempt to gain unauthorised access to the website, its servers or connected systems.",
-        "Introduce viruses or other harmful material, or interfere with the website’s operation.",
-        "Copy, scrape or reproduce website content for commercial purposes without our written permission.",
-      ],
-    },
-    {
-      heading: "No Professional Advice",
+      heading: "Client Acknowledgment",
       body: [
-        "The content on this website, including articles and insights, is provided for general information only. It does not constitute tax, legal, accounting or financial advice, and should not be relied on as a substitute for advice tailored to your circumstances.",
-        "Tax laws and regulations change frequently. Always consult a qualified professional before acting on any information.",
-      ],
-    },
-    {
-      heading: "Engagement of Services",
-      body: [
-        "Using this website or sending an enquiry does not create a client relationship. A professional relationship begins only when we have agreed the scope, fees and terms of an engagement with you in writing.",
-      ],
-    },
-    {
-      heading: "Fees and Payments",
-      body: [
-        "Prices shown on this website are starting prices. Final fees depend on the complexity and scope of each service and are confirmed in writing before work begins. Payments made through the methods listed on our Payment Methods page are subject to the terms of the relevant payment provider.",
-      ],
-    },
-    {
-      heading: "Intellectual Property",
-      body: [
-        "All content on this website, including text, graphics, logos and design, is owned by or licensed to WorthPrime Tax and is protected by intellectual property laws. You may view and print pages for personal, non-commercial use only.",
-      ],
-    },
-    {
-      heading: "Third-Party Links",
-      body: [
-        "This website may link to third-party websites, such as the IRS refund status tool or payment providers. We are not responsible for the content, availability or privacy practices of those websites, and a link does not imply endorsement.",
-      ],
-    },
-    {
-      heading: "Disclaimer",
-      body: [
-        "This website is provided on an “as is” and “as available” basis. While we aim to keep information accurate and up to date, we make no warranties about its completeness, accuracy or availability.",
-      ],
-    },
-    {
-      heading: "Limitation of Liability",
-      body: [
-        "To the fullest extent permitted by law, WorthPrime Tax is not liable for any direct, indirect or consequential loss arising from your use of, or reliance on, this website or its content.",
-      ],
-    },
-    {
-      heading: "Governing Law",
-      body: [
-        "These terms are governed by the laws of [jurisdiction TBC], and any disputes will be subject to the jurisdiction of its courts.",
-      ],
-    },
-    {
-      heading: "Changes to These Terms",
-      body: [
-        "We may update these Terms of Use from time to time. Changes take effect when they are published on this page, so please review it periodically.",
+        "By submitting documents, records, or other information through our website, email, client portal, or any other authorized communication channel, the client acknowledges that the information is being provided for the purpose of receiving the professional services requested or agreed upon.",
+        "The client further acknowledges that we will handle such information in accordance with this Confidentiality and Permitted Use Policy, the applicable Non-Disclosure Agreement, Service Agreement, Engagement Letter, and relevant laws and regulations.",
       ],
     },
   ],
