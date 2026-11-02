@@ -54,6 +54,7 @@
   --color-accent: var(--theme-button-hover-bg);
   --color-accent-foreground: var(--theme-text);
   --color-whatsapp: var(--theme-whatsapp);
+  --color-call: var(--theme-call);
 
   /* Borders, inputs and focus */
   --color-border: var(--theme-border);
