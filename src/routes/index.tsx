@@ -88,8 +88,8 @@ function Index() {
       <StatsBand />
       {/* <WhoWeAre /> */}
       <ServicesGrid />
-      <ProofSection />
       <PricingPreview />
+      <ProofSection />
       <ClientExperience />
       <Insights />
       <Faq />
@@ -111,6 +111,17 @@ function Hero() {
     setPhotoHeight(introOpen ? null : (heroRef.current?.offsetHeight ?? null));
     setIntroOpen(!introOpen);
   };
+  const introToggle = (
+    <button
+      type="button"
+      aria-expanded={introOpen}
+      aria-controls="hero-intro-more"
+      onClick={toggleIntro}
+      className="font-semibold whitespace-nowrap text-primary underline underline-offset-2 hover:no-underline"
+    >
+      {introOpen ? "Read less" : "Read more"}
+    </button>
+  );
   return (
     <section
       ref={heroRef}
@@ -187,24 +198,18 @@ function Hero() {
               Tax obligations rarely exist in isolation. Entity structure affects taxation.
               Accounting shapes financial visibility. Payroll carries its own compliance
               responsibilities. And an IRS notice can quickly become a business concern.
-              {introOpen && (
-                <span id="hero-intro-more">
-                  {" "}
+              {/* Opened, the rest starts on its own line after a small gap (half a line), and "Read less"
+                  follows it. */}
+              {introOpen ? (
+                <span id="hero-intro-more" className="mt-[0.5lh] block">
                   WorthPrime Tax brings these disciplines together through a considered approach to
                   U.S. tax, accounting and compliance—helping U.S. individuals, entrepreneurs and
                   businesses manage their financial responsibilities with greater clarity and
-                  precision.
+                  precision. {introToggle}
                 </span>
-              )}{" "}
-              <button
-                type="button"
-                aria-expanded={introOpen}
-                aria-controls="hero-intro-more"
-                onClick={toggleIntro}
-                className="font-semibold whitespace-nowrap text-primary underline underline-offset-2 hover:no-underline"
-              >
-                {introOpen ? "Read less" : "Read more"}
-              </button>
+              ) : (
+                <> {introToggle}</>
+              )}
             </p>
             <p className="mt-3 font-semibold text-primary max-sm:mt-2 max-sm:text-[0.8125rem]">
               Get Expert Tax Counsel, Optimized Tax Outcomes, All Handled With Perspective
@@ -594,7 +599,10 @@ function ServicesGrid() {
           />
         </Reveal>
       </div>
-      <div className={cn("mt-10", SERVICE_GRID)}>
+      <h3 className="mt-10 text-[clamp(1.5rem,2.6vw,2.1rem)] leading-tight text-primary">
+        Our Services
+      </h3>
+      <div className={cn("mt-6", SERVICE_GRID)}>
         {SERVICES.map((s, i) => (
           <Reveal key={s.slug} delay={(i % 5) * 80}>
             <ServiceCard service={s} />
@@ -737,8 +745,12 @@ function PricingPreview() {
           <span className="block text-primary">{HOME_PRICING.heading}</span>
           <span className="block font-semibold text-brand-gold">{HOME_PRICING.headingMuted}</span>
         </h2>
-        <p className="mt-5 max-w-[37rem] text-base leading-relaxed text-muted-foreground sm:text-lg">
-          {HOME_PRICING.intro}
+        <p className="mt-5 max-w-[44rem] text-sm leading-relaxed text-muted-foreground sm:text-[0.9375rem]">
+          {HOME_PRICING.intro.map((line) => (
+            <span key={line} className="block">
+              {line}
+            </span>
+          ))}
         </p>
 
         <div className="mt-7 flex flex-wrap items-center justify-between gap-5">

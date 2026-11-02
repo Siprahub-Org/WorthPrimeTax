@@ -367,8 +367,11 @@ export const HOME_PRICING = {
   label: "Pricing",
   heading: "Starting From,",
   headingMuted: "Before Scope.",
-  intro:
-    "Indicative starting prices to help you plan. Final pricing may vary depending on your specific requirements and scope of work.",
+  /** Each entry is shown on its own line. */
+  intro: [
+    "Indicative starting prices to help you plan.",
+    "Final pricing may vary depending on your specific requirements and scope of work.",
+  ],
   cta: "See the Full Price Chart",
   priceLabel: "Starting From",
   /** Shown for services whose price is not confirmed yet. */
