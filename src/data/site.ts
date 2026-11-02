@@ -24,6 +24,42 @@ export const SITE = {
 
 export const HAS_LINKEDIN = LINKS.linkedin.startsWith("http");
 
+/**
+ * Insights articles come from the company page's LinkedIn posts, read from the data file behind
+ * our SociableKIT widget (see src/lib/linkedin-insights.ts). Free plan: a new post reaches the
+ * site only after someone clicks Sync in the SociableKIT dashboard.
+ */
+export const LINKEDIN_FEED = {
+  embedId: "25726654",
+  /**
+   * Festival greetings and staff award/recognition posts are not articles. A post is skipped when a
+   * word in it starts with any of these (so "congratulat" matches "congratulations").
+   */
+  excludeKeywords: [
+    // Festivals and holidays
+    "eid",
+    "mubarak",
+    "independence day",
+    "republic day",
+    "new year",
+    "thanksgiving",
+    "diwali",
+    "christmas",
+    "happy holi",
+    "ramadan",
+    "easter",
+    "festival",
+    // Staff awards and recognition
+    "congratulat",
+    "recognition",
+    "award",
+  ],
+  /** Any other post to hide, by its SociableKIT post `id`. */
+  excludePostIds: [
+    "7399854485201838080", // staff award ("A person with a never-give-up attitude…"), no keyword
+  ],
+};
+
 export const OFFICES = [
   {
     label: "Headquarter (USA)",
@@ -155,9 +191,17 @@ export type Insight = {
   takeaways: string[];
   /** Closing call to action; links to the named service page, or the contact form when absent. */
   cta: { label: string; serviceSlug?: string };
+  /** Every image in the LinkedIn post; the first is the cover. Hand-written articles use INSIGHT_IMAGES. */
+  images?: { src: string; alt: string }[];
+  /** The original LinkedIn post, linked from the article page. */
+  sourceUrl?: string;
 };
 
-export const INSIGHTS: Insight[] = [
+/**
+ * Hand-written articles, shown only when the LinkedIn feed can't be read (see
+ * src/lib/linkedin-insights.ts). Live articles come from LinkedIn posts.
+ */
+export const FALLBACK_INSIGHTS: Insight[] = [
   {
     slug: "key-us-tax-changes-2026",
     tag: "Tax",
@@ -216,11 +260,19 @@ export const INSIGHTS: Insight[] = [
   },
 ];
 
-export function getInsight(slug: string) {
-  return INSIGHTS.find((a) => a.slug === slug);
+/** Reading time in whole minutes (at about 200 words a minute), never less than one. */
+/** Below this many words an article page is too thin to help search, so it is kept out of Google. */
+const INDEXABLE_MIN_WORDS = 150;
+
+/**
+ * Whether search engines should index an article page: only LinkedIn posts with real body text.
+ * Hand-written fallback articles are placeholder copy, so they are never indexed.
+ */
+export function isIndexableInsight(insight: Insight) {
+  const words = [insight.excerpt, ...insight.body, ...insight.takeaways].join(" ").split(/\s+/);
+  return Boolean(insight.sourceUrl) && words.length >= INDEXABLE_MIN_WORDS;
 }
 
-/** Reading time in whole minutes (at about 200 words a minute), never less than one. */
 export function insightReadMinutes(insight: Insight) {
   const words = [...insight.body, ...insight.takeaways].join(" ").split(/\s+/).length;
   return Math.max(1, Math.round(words / 200));
@@ -422,7 +474,6 @@ export const INSIGHTS_PAGE = {
   label: "Insights",
   heading: "Perspective on",
   headingMuted: "What Comes Next.",
-  feedNote: "[These will later be fed from LinkedIn posts]",
   latestHeading: "Latest Articles",
   topicsHeading: "Explore by Topic",
   latestIntro:
@@ -431,6 +482,9 @@ export const INSIGHTS_PAGE = {
   linkedinText:
     "Follow WorthPrime Tax on LinkedIn for practical insights on U.S. taxation, accounting, business compliance, and financial planning.",
   linkedinCta: "Follow WorthPrime Tax",
+  postCta: "Talk to WorthPrime About This",
+  viewOnLinkedIn: "View on LinkedIn",
+  galleryHeading: "From the Post",
   disclaimer:
     "This content is for general informational purposes only and does not constitute tax, legal, or accounting advice. Tax rules and filing requirements depend on individual circumstances and applicable law. Consult a qualified professional regarding your situation.",
 };

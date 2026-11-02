@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { getInsights } from "@/lib/linkedin-insights";
 import { seoHead } from "@/lib/seo";
 import {
   useEffect,
@@ -32,7 +33,6 @@ import {
   FAQS,
   // FOUNDERS,
   HOME_PRICING,
-  INSIGHTS,
   REASONS,
   STATS,
 } from "@/data/site";
@@ -70,6 +70,7 @@ const DESCRIPTION =
 
 export const Route = createFileRoute("/")({
   head: () => seoHead({ title: TITLE, description: DESCRIPTION, path: "/" }),
+  loader: () => getInsights(),
   component: Index,
 });
 
@@ -1177,6 +1178,7 @@ function VideoTestimonial() {
 }
 
 function Insights() {
+  const insights = Route.useLoaderData().slice(0, 3);
   return (
     <Section id="insights">
       <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
@@ -1189,9 +1191,9 @@ function Insights() {
         See All Insights <ArrowRight className="size-4" />
       </Link>
       <div className="mt-10 grid gap-5 sm:grid-cols-3">
-        {INSIGHTS.map((a, i) => (
-          <Reveal key={i} delay={i * 80}>
-            <InsightCard insight={a} index={i} />
+        {insights.map((a, i) => (
+          <Reveal key={a.slug} delay={i * 80}>
+            <InsightCard insight={a} />
           </Reveal>
         ))}
       </div>
