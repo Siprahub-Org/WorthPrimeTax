@@ -532,17 +532,19 @@ function ProofSection() {
                     onPointerMove={tiltCard}
                     onPointerLeave={resetTilt}
                     className={cn(
-                      "group relative flex w-full flex-col rounded-xl border bg-linear-to-b p-6 transform-3d transition-[transform,box-shadow,border-color] duration-300 ease-out sm:p-7",
+                      // Every card is a navy panel with white text; the selected one gets a brighter
+                      // blue edge and a deeper shadow.
+                      "group relative flex w-full flex-col rounded-xl border bg-linear-to-b from-hero to-hero p-6 text-hero-foreground transform-3d transition-[transform,box-shadow,border-color] duration-300 ease-out sm:p-7",
                       isActive
-                        ? "border-brand-secondary/40 from-tint to-card shadow-[0_18px_40px_-22px] shadow-brand-secondary/50"
-                        : "border-brand-secondary/20 from-card to-card shadow-[0_10px_30px_-24px] shadow-primary/40 hover:border-brand-secondary/30 hover:shadow-[0_26px_50px_-24px]",
+                        ? "border-brand-secondary shadow-[0_22px_44px_-20px] shadow-primary/70"
+                        : "border-hero shadow-[0_10px_30px_-22px] shadow-primary/50 hover:border-brand-secondary/60 hover:shadow-[0_26px_50px_-24px]",
                     )}
                   >
                     {/* Lifted off the card face so the text floats above it as the card tilts. */}
-                    <h3 className="font-serif text-xl leading-snug font-bold text-primary translate-z-6 sm:text-[1.3rem] lg:min-h-[4.125em]">
+                    <h3 className="font-serif text-lg leading-snug font-bold text-hero-foreground translate-z-6 sm:text-[1.125rem]">
                       {r.title}
                     </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground translate-z-3 sm:text-[0.9375rem]">
+                    <p className="mt-2 text-[0.8125rem] leading-relaxed text-hero-foreground/85 translate-z-3 sm:text-sm">
                       {r.body}
                     </p>
                   </div>
@@ -1181,19 +1183,29 @@ function Insights() {
   const insights = Route.useLoaderData().slice(0, 3);
   return (
     <Section id="insights">
-      <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
-        Latest From <span className="text-primary">WorthPrime Tax</span>
-      </h2>
-      <Link
-        to="/insights"
-        className="mt-6 inline-flex items-center gap-2 rounded-full bg-hero px-6 py-3 text-sm font-semibold text-hero-foreground transition-transform hover:scale-[1.03]"
-      >
-        See All Insights <ArrowRight className="size-4" />
-      </Link>
+      {/* Heading and button share one line; the button wraps under it on narrow phones. */}
+      <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-4">
+        <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
+          Latest From <span className="text-primary">WorthPrime Tax</span>
+        </h2>
+        <Link
+          to="/insights"
+          className="inline-flex shrink-0 items-center gap-2 rounded-full bg-hero px-6 py-3 text-sm font-semibold text-hero-foreground transition-transform hover:scale-[1.03]"
+        >
+          See All Insights <ArrowRight className="size-4" />
+        </Link>
+      </div>
       <div className="mt-10 grid gap-5 sm:grid-cols-3">
         {insights.map((a, i) => (
-          <Reveal key={a.slug} delay={i * 80}>
-            <InsightCard insight={a} />
+          <Reveal key={a.slug} delay={i * 80} className="h-full">
+            {/* Each card opens its own article page. */}
+            <Link
+              to="/insights/$slug"
+              params={{ slug: a.slug }}
+              className="block h-full rounded-[var(--radius-lg)] transition-transform hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+            >
+              <InsightCard insight={a} />
+            </Link>
           </Reveal>
         ))}
       </div>
