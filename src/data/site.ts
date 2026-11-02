@@ -29,7 +29,7 @@ export const HAS_LINKEDIN = LINKS.linkedin.startsWith("http");
  * site only after someone clicks Sync in the SociableKIT dashboard.
  */
 export const LINKEDIN_FEED = {
-  embedId: "25726516",
+  embedId: "25726654",
   /**
    * Festival greetings and staff award/recognition posts are not articles. A post is skipped when a
    * word in it starts with any of these (so "congratulat" matches "congratulations").
