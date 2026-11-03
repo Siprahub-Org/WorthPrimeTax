@@ -1,21 +1,26 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { getInsights } from "@/lib/linkedin-insights";
 import { seoHead } from "@/lib/seo";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type PointerEvent,
+  type ReactNode,
+} from "react";
 import {
   ArrowRight,
   CalendarDays,
-  ChartColumnIncreasing,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
   CircleDollarSign,
   FileText,
-  Files,
   Folder,
   MessageSquareQuote,
   Play,
   Quote,
-  ShieldCheck,
   Star,
   Users,
   Video,
@@ -23,14 +28,11 @@ import {
 } from "lucide-react";
 import { SERVICES } from "@/data/services";
 import {
-  CERTIFICATIONS,
   CLIENT_EXPERIENCE,
   FAQ_INTRO,
   FAQS,
-  FOUNDERS,
+  // FOUNDERS,
   HOME_PRICING,
-  INSIGHTS,
-  PROCESS,
   REASONS,
   STATS,
 } from "@/data/site";
@@ -40,29 +42,26 @@ import {
   Reveal,
   Section,
   SectionLabel,
+  useInView,
   useSnapCarousel,
 } from "@/components/site/primitives";
 import { ServiceCard } from "@/components/site/ServiceCard";
-import { SERVICE_GRID, serviceCardSpan } from "@/components/site/serviceGrid";
+import { SERVICE_GRID } from "@/components/site/serviceGrid";
 import { ContactSection } from "@/components/site/ContactSection";
 import { HeroCta } from "@/components/site/HeroCta";
 import { FaqIllustration } from "@/components/site/FaqIllustration";
 import { InsightCard } from "@/components/site/InsightCard";
-import { CtaBand } from "@/components/site/CtaBand";
+// import { CtaBand } from "@/components/site/CtaBand";
 import { PricingMarquee } from "@/components/site/PricingMarquee";
 import { SERVICE_IMAGES } from "@/components/site/serviceImages";
 import { cn } from "@/lib/utils";
 import heroImage from "@/assets/worthprime-hero-team.webp";
+import heroMobileImage from "@/assets/home-hero-mobile.webp";
 import advisersImage from "@/assets/worthprime-advisers-blue.webp";
-import { FOUNDER_PHOTOS } from "@/components/site/founderPhotos";
+// import { FOUNDER_PHOTOS } from "@/components/site/founderPhotos";
 import workspaceImage from "@/assets/worthprime-workspace.webp";
-import stepTalkImage from "@/assets/process/step-talk.jpg";
-import stepScopeImage from "@/assets/process/step-scope.jpg";
-import stepWorkImage from "@/assets/process/step-work.jpg";
-import stepCompliantImage from "@/assets/process/step-compliant.jpg";
+import whatWeDoImage from "@/assets/what-we-do-tax-desk.webp";
 import pricingDeskImage from "@/assets/pricing-desk.jpg";
-import credIrsLogo from "@/assets/credentials/cred-irs.png";
-import credAicpaLogo from "@/assets/credentials/cred-aicpa.png";
 import googleLogo from "@/assets/google-g.svg";
 
 const TITLE = "WorthPrime Tax | U.S. Tax, Accounting & Compliance";
@@ -71,38 +70,90 @@ const DESCRIPTION =
 
 export const Route = createFileRoute("/")({
   head: () => seoHead({ title: TITLE, description: DESCRIPTION, path: "/" }),
+  loader: () => getInsights(),
   component: Index,
 });
 
 function Index() {
   return (
     <>
-      <Hero />
-      <PricingMarquee />
+      {/* On large screens the hero fills the first screen so the price strip sits on its bottom edge.
+          The layout's nav spacer moves from this wrapper into the hero, so the photo still runs up
+          behind the transparent nav. */}
+      {/* Portrait tablets (e.g. iPad at 1024x1366) skip the full-screen stretch: on a tall screen it
+          made the photo huge and squeezed the copy into the top. The hero sizes to its content there. */}
+      <div className="before:!hidden lg:landscape:flex lg:landscape:min-h-svh lg:landscape:flex-col">
+        <Hero />
+        <PricingMarquee />
+      </div>
       <StatsBand />
-      <WhoWeAre />
-      <ProofSection />
+      {/* <WhoWeAre /> */}
       <ServicesGrid />
       <PricingPreview />
-      <HowItWorks />
+      <ProofSection />
       <ClientExperience />
-      <Certifications />
       <Insights />
       <Faq />
-      <CtaBand />
+      <WhatComesNext />
+      {/* <CtaBand /> */}
       <ContactSection compact />
     </>
   );
 }
 
 function Hero() {
+  // The intro shows its first half until the visitor asks for the rest.
+  const [introOpen, setIntroOpen] = useState(false);
+  // While the intro is open the photo keeps the hero's collapsed height, so the extra text makes
+  // the hero taller without the cover photo zooming in.
+  const heroRef = useRef<HTMLElement | null>(null);
+  const [photoHeight, setPhotoHeight] = useState<number | null>(null);
+  const toggleIntro = () => {
+    setPhotoHeight(introOpen ? null : (heroRef.current?.offsetHeight ?? null));
+    setIntroOpen(!introOpen);
+  };
+  const introToggle = (
+    <button
+      type="button"
+      aria-expanded={introOpen}
+      aria-controls="hero-intro-more"
+      onClick={toggleIntro}
+      className="font-semibold whitespace-nowrap text-primary underline underline-offset-2 hover:no-underline"
+    >
+      {introOpen ? "Read less" : "Read more"}
+    </button>
+  );
   return (
-    <section className="relative isolate overflow-hidden bg-background text-foreground">
+    <section
+      ref={heroRef}
+      className="relative isolate overflow-hidden bg-background text-foreground before:block before:h-16 before:content-[''] lg:flex-1"
+    >
       {/*
        * The photo fills the hero at every size; a soft white wash, strongest on the left, keeps the
        * navy copy readable while the advisers stay clear on the right, as in the approved design.
        */}
-      <div className="absolute inset-0 -z-10">
+      {/* Phones use the advisers photo cut from the approved mobile design (its baked-in text and
+          buttons removed), in the same place: the right half, from just above the heading. The file
+          carries a blurred strip past the woman's shoulder that fades to white, and the left edge
+          fades along a curve, so she is never cut off in a straight line. The top and bottom fade
+          into the white too, so the copy beside it sits on plain white. */}
+      <img
+        src={heroMobileImage}
+        alt=""
+        width={502}
+        height={812}
+        fetchPriority="high"
+        className="absolute top-[4.5rem] right-0 -z-10 hidden h-auto w-[58.1%] [mask-composite:intersect] [mask-image:radial-gradient(ellipse_100%_70%_at_100%_50%,black_85%,transparent),linear-gradient(to_bottom,transparent,black_16%,black_58%,transparent_84%)] max-sm:block"
+      />
+      <div
+        className={cn(
+          "absolute -z-10 max-sm:hidden",
+          photoHeight
+            ? "inset-x-0 top-0 [mask-image:linear-gradient(to_bottom,black_85%,transparent)]"
+            : "inset-0",
+        )}
+        style={photoHeight ? { height: photoHeight } : undefined}
+      >
         <img
           src={heroImage}
           alt="Tax advisers reviewing financial documents together"
@@ -111,40 +162,77 @@ function Hero() {
           fetchPriority="high"
           className="h-full w-full object-cover object-[68%_center]"
         />
+        {/* A left-side fade behind the copy (no flat white wash over the whole photo), so the text
+            stays readable while the advisers stay clear on the right. Tablets, where the copy runs
+            further across the photo, get a stronger fade. */}
         <div
-          className="absolute inset-0 bg-background/50 lg:bg-transparent lg:bg-linear-to-r lg:from-background/60 lg:from-15% lg:via-background/25 lg:via-45% lg:to-transparent lg:to-65%"
+          className="absolute inset-0 bg-linear-to-r from-background/85 from-20% via-background/60 via-42% to-transparent to-62% max-lg:from-background/92 max-lg:from-40% max-lg:via-background/75 max-lg:via-65% max-lg:to-95% lg:portrait:from-background/92 lg:portrait:from-40% lg:portrait:via-background/75 lg:portrait:via-65% lg:portrait:to-95%"
           aria-hidden
         />
       </div>
       {/* Wider than the standard container, like the reference; the nav widens to match on this page. */}
       <Container className="relative max-w-[1540px] lg:px-10">
-        <div className="flex max-w-[900px] flex-col pt-16 pb-20 sm:pt-20 sm:pb-24 lg:min-h-[calc(100svh-4rem)] lg:justify-center lg:pt-[3svh] lg:pb-[5svh]">
-          <h1 className="font-serif text-[clamp(2.4rem,4.3vw,4.6rem)] leading-[1.08] font-bold tracking-[-0.02em] text-primary xl:text-[clamp(2.25rem,min(4.3vw,8svh),4.6rem)]">
-            {/* Two lines on wide screens: the break falls after "Is More". */}
-            <span className="xl:block xl:whitespace-nowrap">Your Business Is More</span>{" "}
-            <span className="xl:whitespace-nowrap">Than a Tax Return.</span>
-          </h1>
-          <p className="mt-6 max-w-[37rem] text-base leading-relaxed text-foreground/85 sm:text-lg xl:mt-[clamp(0.75rem,2.6svh,1.5rem)] xl:max-w-none xl:text-[clamp(1rem,2.1svh,1.25rem)]">
-            {/* Four set lines on wide screens, as requested by the client. */}
-            <span className="xl:block xl:whitespace-nowrap">
-              Tax obligations rarely exist in isolation. Entity structure affects
+        <div className="flex max-w-[900px] flex-col pt-16 pb-20 max-sm:pt-10 max-sm:pb-9 sm:pt-20 sm:pb-24 lg:landscape:pt-[min(4rem,8svh)] lg:landscape:pb-[min(5rem,8svh)]">
+          {/* Same heading size as the Services hero (BackdropHero). */}
+          <h1 className="font-serif text-[clamp(2rem,3.4vw,3.5rem)] leading-[1.12] font-bold tracking-[-0.02em] text-primary max-sm:text-[1.75rem] max-sm:leading-[1.1]">
+            {/* Two lines from tablet up, as requested by the client: the break falls after "a".
+                Phones get four set lines. */}
+            <span className="sm:block sm:whitespace-nowrap">
+              <span className="max-sm:block">Your Business</span>{" "}
+              <span className="max-sm:block">Is More Than</span> a
             </span>{" "}
-            <span className="xl:block xl:whitespace-nowrap">
-              taxation. Accounting shapes financial visibility. Payroll carries
-            </span>{" "}
-            <span className="xl:block xl:whitespace-nowrap">
-              its own compliance responsibilities. And an IRS notice
-            </span>{" "}
-            <span className="xl:block xl:whitespace-nowrap">
-              can quickly become a business concern.
+            <span className="sm:block sm:whitespace-nowrap">
+              Tax Return. <span className="max-sm:block">So Are We.</span>
             </span>
-          </p>
-          <div className="mt-8 flex flex-wrap gap-4 xl:mt-[clamp(1rem,3.4svh,2rem)]">
+          </h1>
+          <div className="mt-2 max-w-[37rem] text-base leading-relaxed text-foreground/85 max-sm:mt-3 max-sm:text-xs max-sm:leading-[1.5] sm:text-[0.9375rem] sm:max-w-[30rem] lg:landscape:max-w-[min(42rem,37vw)] xl:text-[clamp(0.875rem,1.6svh,0.9375rem)]">
+            <p>
+              {/* Phones: an empty float the size of the photo's area keeps the text in the narrow
+                  column beside the photo, then the rest of the paragraph runs full width below it.
+                  Its height tracks the photo, which scales with the screen width: the photo has
+                  faded out 72px + 79vw from the top of the hero, and the paragraph starts 239px
+                  down. */}
+              <span
+                aria-hidden
+                className="float-right hidden h-[calc(79vw-9.6875rem)] w-[calc(100%-10.5rem)] max-sm:block"
+              />
+              Tax obligations rarely exist in isolation. Entity structure affects taxation.
+              Accounting shapes financial visibility. Payroll carries its own compliance
+              responsibilities. And an IRS notice can quickly become a business concern.
+              {/* Opened, the rest starts on its own line after a small gap (half a line), and "Read less"
+                  follows it. */}
+              {introOpen ? (
+                <span id="hero-intro-more" className="mt-[0.5lh] block">
+                  WorthPrime Tax brings these disciplines together through a considered approach to
+                  U.S. tax, accounting and compliance—helping U.S. individuals, entrepreneurs and
+                  businesses manage their financial responsibilities with greater clarity and
+                  precision. {introToggle}
+                </span>
+              ) : (
+                <> {introToggle}</>
+              )}
+            </p>
+            <p className="mt-3 font-semibold text-primary max-sm:mt-2 max-sm:text-[0.8125rem]">
+              Get Expert Tax Counsel, Optimized Tax Outcomes, All Handled With Perspective
+            </p>
+          </div>
+          {/* Phones: both buttons share one row across the full width. */}
+          <div className="mt-8 flex flex-wrap gap-4 max-sm:mt-5 max-sm:flex-nowrap max-sm:gap-2 xl:mt-[clamp(1rem,3.4svh,2rem)]">
             <Link
               to="/services"
-              className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.03] sm:text-base"
+              className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-2 text-[0.8125rem] font-semibold text-primary-foreground transition-transform hover:scale-[1.03] max-sm:flex-auto max-sm:justify-center max-sm:gap-1.5 max-sm:px-3 max-sm:py-3 max-sm:text-[0.8125rem] max-sm:whitespace-nowrap"
             >
-              Explore Our Services <ArrowRight className="size-4" aria-hidden />
+              <span>
+                {/* "Explore" is dropped on the narrowest phones so both buttons still fit in one row. */}
+                <span className="hidden min-[360px]:max-sm:inline">Explore </span>Our Services
+              </span>
+              <ArrowRight className="size-4" aria-hidden />
+            </Link>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 rounded-md border border-primary bg-background/70 px-5 py-2 text-[0.8125rem] font-semibold text-primary transition-transform hover:scale-[1.03] max-sm:flex-auto max-sm:justify-center max-sm:bg-background max-sm:px-3 max-sm:py-3 max-sm:text-[0.8125rem] max-sm:whitespace-nowrap"
+            >
+              Request a Quote
             </Link>
           </div>
         </div>
@@ -156,23 +244,27 @@ function Hero() {
 function StatsBand() {
   return (
     <Section className="bg-card py-10 sm:py-14">
-      <div className="grid overflow-hidden rounded-[2rem] border border-hero/15 bg-tint sm:grid-cols-2 lg:grid-cols-4">
+      {/* max-sm: classes make a compact 2x2 grid on phones only; sm and up are unchanged. */}
+      <div className="grid overflow-hidden rounded-[2rem] border border-hero/15 bg-tint max-sm:grid-cols-2 max-sm:rounded-3xl sm:grid-cols-2 lg:grid-cols-4">
         {STATS.map((s, i) => (
           <Reveal key={s.label} delay={i * 80}>
             <div
               className={cn(
-                "h-full p-7 sm:p-9",
+                "h-full p-7 max-sm:p-5 sm:p-9",
                 i < STATS.length - 1 && "border-b border-border",
-                (i === 0 || i === 2) && "sm:border-r",
+                (i === 0 || i === 2) && "max-sm:border-r sm:border-r",
+                i === 2 && "max-sm:border-b-0",
                 i < 2 && "sm:border-b",
                 i < STATS.length - 1 && "lg:border-r",
                 "lg:border-b-0",
               )}
             >
-              <p className="font-sans text-[clamp(2.5rem,4vw,4rem)] font-medium leading-none text-brand-secondary">
+              <p className="font-sans text-[clamp(2.5rem,4vw,4rem)] font-medium leading-none text-brand-secondary max-sm:text-[1.75rem]">
                 <CountUp value={s.value} prefix={s.prefix} suffix={s.suffix} />
               </p>
-              <p className="mt-3 text-sm leading-snug text-muted-foreground">{s.label}</p>
+              <p className="mt-3 text-sm leading-snug text-muted-foreground max-sm:mt-2 max-sm:text-xs">
+                {s.label}
+              </p>
             </div>
           </Reveal>
         ))}
@@ -181,67 +273,163 @@ function StatsBand() {
   );
 }
 
-function WhoWeAre() {
+// "How We Started?" section hidden for now; uncomment it and <WhoWeAre /> above to restore.
+// function WhoWeAre() {
+//   return (
+//     <Section>
+//       <div className="grid gap-10 lg:grid-cols-[1fr_1fr]">
+//         <div>
+//           <SectionLabel>How We Started?</SectionLabel>
+//           <h2 className="mt-4 text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
+//             Built on Experience. <span className="text-primary">Shaped by Perspective.</span>
+//           </h2>
+//           <p className="mt-6 text-muted-foreground">
+//             Behind every enduring enterprise lies a confluence of sound structure, considered
+//             decisions and discerning professional counsel. WorthPrime Tax was shaped by precisely
+//             that philosophy—bringing together the complementary expertise of its co-founders, with
+//             extensive experience across accounting, taxation, audit, payroll, legal and compliance
+//             services spanning the U.S., UAE and India.
+//           </p>
+//           <Link
+//             to="/about"
+//             className="mt-7 inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm transition-colors hover:bg-accent"
+//           >
+//             More About Us <ArrowRight className="size-4" />
+//           </Link>
+//         </div>
+//         {/* Co-founder cards hidden for now; restore with the FOUNDERS / FOUNDER_PHOTOS imports.
+//         <div className="grid gap-5 sm:grid-cols-2">
+//           {FOUNDERS.map((f, i) => (
+//             <Reveal key={f.name} delay={i * 100}>
+//               <article className="surface-card overflow-hidden">
+//                 <img
+//                   src={FOUNDER_PHOTOS[i] ?? advisersImage}
+//                   alt={
+//                     FOUNDER_PHOTOS[i]
+//                       ? `Portrait of ${f.name}`
+//                       : "Professional tax advisers in consultation"
+//                   }
+//                   width={1408}
+//                   height={1008}
+//                   loading="lazy"
+//                   className="aspect-4/5 w-full object-cover object-top"
+//                 />
+//                 <div className="p-5">
+//                   <h3 className="text-xl leading-tight">{f.name}</h3>
+//                   <p className="mt-1 text-xs uppercase tracking-widest text-primary">{f.title}</p>
+//                   <p className="mt-3 text-xs text-muted-foreground">{f.credential}</p>
+//                 </div>
+//               </article>
+//             </Reveal>
+//           ))}
+//         </div>
+//         */}
+//       </div>
+//     </Section>
+//   );
+// }
+
+function WhatComesNext() {
   return (
-    <Section>
-      <div className="grid gap-10 lg:grid-cols-[1fr_1fr]">
-        <div>
-          <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
-            Built on Experience. <span className="text-primary">Shaped by Perspective.</span>
+    <>
+      <Section>
+        <div className="text-center">
+          <h2 className="font-serif text-[clamp(1.9rem,3vw,2.6rem)] leading-[1.1] font-bold tracking-[-0.01em] text-balance text-primary">
+            For Individuals. For Businesses. For What Comes Next.
           </h2>
-          <p className="mt-6 text-muted-foreground">
-            Behind every enduring enterprise lies a confluence of sound structure, considered
-            decisions and discerning professional counsel. WorthPrime Tax was shaped by precisely
-            that philosophy—bringing together the complementary expertise of its co-founders, with
-            extensive experience across accounting, taxation, audit, payroll, legal and compliance
-            services spanning the U.S., UAE and India.
-          </p>
+        </div>
+
+        <div className="mt-12 grid items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-12">
+          {/* A pale panel sits offset behind the photo's top-left corner. */}
+          <Reveal className="relative pt-4 pl-4">
+            <span
+              aria-hidden
+              className="absolute top-0 left-0 h-[85%] w-[90%] rounded-2xl bg-tint"
+            />
+            <img
+              src={advisersImage}
+              alt="Two WorthPrime Tax advisers reviewing financial documents together"
+              width={1200}
+              height={896}
+              loading="lazy"
+              className="relative aspect-[3/2] w-full rounded-xl object-cover shadow-[0_24px_50px_-30px] shadow-primary/50"
+            />
+          </Reveal>
+          <Reveal delay={100} className="space-y-5 text-lg leading-relaxed text-muted-foreground">
+            <p className="font-semibold text-primary">
+              Your financial obligations change as your circumstances change.
+            </p>
+            <p>
+              A new business requires the right structure. A growing company needs reliable books
+              and payroll. Tax season calls for accurate filings. International activity can create
+              additional reporting requirements. And when the IRS raises a question, the response
+              needs to be deliberate.
+            </p>
+            <p>
+              WorthPrime Tax in U.S. provides the professional perspective to manage these moments
+              with greater clarity—from formation and bookkeeping to U.S. tax, payroll, audit and
+              IRS compliance.
+            </p>
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* Full-width closing band for this section. */}
+      <section className="bg-linear-to-r from-hero to-brand-secondary text-hero-foreground">
+        <Container className="flex flex-col gap-6 py-10 sm:py-12 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <p className="font-serif text-[clamp(1.2rem,1.7vw,1.6rem)] leading-snug font-bold">
+              Whatever the next financial decision looks like, make it with perspective.
+            </p>
+            <p className="mt-2 text-base text-hero-foreground/90">
+              From Setup to Success, We’re With You.
+            </p>
+          </div>
           <Link
-            to="/about"
-            className="mt-7 inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm transition-colors hover:bg-accent"
+            to="/contact"
+            hash="contact-form"
+            className="inline-flex shrink-0 items-center justify-center gap-2 self-start rounded-lg bg-hero-foreground px-7 py-4 font-semibold text-primary transition-transform hover:scale-[1.03] lg:self-auto"
           >
-            More About Us <ArrowRight className="size-4" />
+            Talk to WorthPrime Tax <ArrowRight className="size-4" aria-hidden />
           </Link>
-        </div>
-        <div className="grid gap-5 sm:grid-cols-2">
-          {FOUNDERS.map((f, i) => (
-            <Reveal key={f.name} delay={i * 100}>
-              <article className="surface-card overflow-hidden">
-                <img
-                  src={FOUNDER_PHOTOS[i] ?? advisersImage}
-                  alt={
-                    FOUNDER_PHOTOS[i]
-                      ? `Portrait of ${f.name}`
-                      : "Professional tax advisers in consultation"
-                  }
-                  width={1408}
-                  height={1008}
-                  loading="lazy"
-                  className="aspect-4/5 w-full object-cover object-top"
-                />
-                <div className="p-5">
-                  <h3 className="text-xl leading-tight">{f.name}</h3>
-                  <p className="mt-1 text-xs uppercase tracking-widest text-primary">{f.title}</p>
-                  <p className="mt-3 text-xs text-muted-foreground">{f.credential}</p>
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </Section>
+        </Container>
+      </section>
+    </>
   );
 }
-
-// One icon per entry in REASONS, in the same order.
-const REASON_ICONS = [Files, ShieldCheck, ChartColumnIncreasing, Users];
-
 const pad2 = (n: number) => String(n).padStart(2, "0");
+
+/** Furthest a card turns, in degrees, when the pointer is at its edge. */
+const MAX_TILT = 10;
+
+// Mouse only: on touch screens the cards scroll, so they stay flat.
+function tiltCard(e: PointerEvent<HTMLDivElement>) {
+  if (e.pointerType !== "mouse") return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const card = e.currentTarget;
+  const rect = card.getBoundingClientRect();
+  // -0.5 to 0.5 across the card, so the card leans towards the pointer.
+  const x = (e.clientX - rect.left) / rect.width - 0.5;
+  const y = (e.clientY - rect.top) / rect.height - 0.5;
+  card.style.transform = `rotateX(${-y * MAX_TILT * 2}deg) rotateY(${x * MAX_TILT * 2}deg) scale(1.03)`;
+}
+
+function resetTilt(e: PointerEvent<HTMLDivElement>) {
+  e.currentTarget.style.transform = "";
+}
 
 function ProofSection() {
   const total = REASONS.length;
   // On narrow screens the cards become a swipeable track; on desktop tapping a card highlights it.
   const { active, setActive, trackRef, itemRefs: cardRefs } = useSnapCarousel(total);
+  // Not `once`: the cards fan out as they come into view, gather back into a deck while still on
+  // screen as scrolling down carries them into the top quarter, and fan out again on the way back
+  // up. The top margin keeps that quarter out of the measured view so the closing can be seen.
+  const { ref: cardsRef, inView: cardsInView } = useInView<HTMLDivElement>(
+    0.5,
+    false,
+    "-25% 0px 0px 0px",
+  );
 
   return (
     <section
@@ -261,11 +449,13 @@ function ProofSection() {
           <div className="min-w-0">
             <h2
               id="why-worthprime-heading"
-              className="font-serif text-[clamp(2.3rem,4.6vw,3.8rem)] leading-[1.02] font-bold tracking-[-0.02em] text-balance"
+              className="font-serif text-[clamp(2.3rem,4.6vw,3.8rem)] leading-[1.02] font-bold tracking-[-0.02em] text-balance text-primary"
             >
-              <span className="block text-primary">One Firm.</span>
-              <span className="block text-brand-secondary">Every Business Need.</span>
+              Why WorthPrime Tax?
             </h2>
+            <p className="mt-4 font-serif text-[clamp(1.25rem,2vw,1.6rem)] leading-snug font-semibold text-primary">
+              One Firm. Every Business Need.
+            </p>
             <p className="mt-6 max-w-[38rem] text-base leading-relaxed text-muted-foreground sm:text-[1.0625rem]">
               Business does not operate in separate compartments. A tax decision can affect
               accounting. Entity structure can influence tax treatment. Payroll creates reporting
@@ -298,64 +488,66 @@ function ProofSection() {
           </Reveal>
         </div>
 
-        <div
-          ref={trackRef}
-          role="region"
-          aria-roledescription="carousel"
-          aria-label="Why clients choose WorthPrime Tax"
-          className="-mx-5 mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-5 px-5 pt-1 pb-4 [scrollbar-width:none] sm:mx-0 sm:mt-14 sm:grid sm:auto-rows-fr sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 lg:grid-cols-4 [&::-webkit-scrollbar]:hidden"
-        >
-          {REASONS.map((r, i) => {
-            const Icon = REASON_ICONS[i % REASON_ICONS.length] ?? Files;
-            const isActive = active === i;
-            return (
-              <article
-                key={r.title}
-                ref={(n) => {
-                  cardRefs.current[i] = n;
-                }}
-                aria-roledescription="slide"
-                aria-label={`${i + 1} of ${total}`}
-                aria-current={isActive ? "true" : undefined}
-                onClick={() => setActive(i)}
-                className={cn(
-                  "group relative flex w-[85%] shrink-0 snap-start flex-col rounded-xl border bg-linear-to-b p-6 transition-all duration-300 sm:w-auto sm:p-7",
-                  isActive
-                    ? "border-brand-secondary/40 from-tint to-card shadow-[0_18px_40px_-22px] shadow-brand-secondary/50"
-                    : "border-brand-secondary/20 from-card to-card shadow-[0_10px_30px_-24px] shadow-primary/40 hover:-translate-y-0.5 hover:border-brand-secondary/30",
-                )}
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <span className="font-serif text-3xl leading-none font-semibold text-primary sm:text-[2.1rem]">
-                      {pad2(i + 1)}
-                    </span>
-                    <span
-                      className="mt-4 block h-0.5 w-8 rounded-full bg-brand-secondary/60"
-                      aria-hidden
-                    />
-                  </div>
-                  <span
+        <div ref={cardsRef}>
+          <div
+            ref={trackRef}
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Why clients choose WorthPrime Tax"
+            className="-mx-5 mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-5 px-5 pt-1 pb-4 perspective-[1200px] [scrollbar-width:none] sm:mx-0 sm:mt-14 sm:grid sm:auto-rows-fr sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 lg:grid-cols-4 [&::-webkit-scrollbar]:hidden"
+          >
+            {REASONS.map((r, i) => {
+              const isActive = active === i;
+              // The cards start as a deck in the middle of their row, last card on top and the
+              // ones behind peeking out to its left, then fan out into their own columns.
+              const lgDepth = total - 1 - i;
+              const smDepth = 1 - (i % 2);
+              const deck = {
+                "--deck-lg": `calc(${(total - 1) / 2 - i} * (100% + 1.25rem) - ${lgDepth * 0.875}rem)`,
+                "--deck-sm": `calc(${0.5 - (i % 2)} * (100% + 1.25rem) - ${smDepth * 0.875}rem)`,
+              } as CSSProperties;
+              return (
+                <article
+                  key={r.title}
+                  ref={(n) => {
+                    cardRefs.current[i] = n;
+                  }}
+                  aria-roledescription="slide"
+                  aria-label={`${i + 1} of ${total}`}
+                  aria-current={isActive ? "true" : undefined}
+                  onClick={() => setActive(i)}
+                  style={{ ...deck, zIndex: i }}
+                  className={cn(
+                    "flex w-[85%] shrink-0 snap-start perspective-[900px] transition-all duration-1000 ease-out motion-reduce:transition-none sm:w-auto",
+                    cardsInView
+                      ? "translate-x-0 translate-y-0 opacity-100"
+                      : "translate-y-6 opacity-0 sm:translate-x-(--deck-sm) sm:translate-y-0 sm:opacity-100 lg:translate-x-(--deck-lg)",
+                  )}
+                >
+                  <div
+                    onPointerMove={tiltCard}
+                    onPointerLeave={resetTilt}
                     className={cn(
-                      "grid shrink-0 place-items-center transition-colors",
+                      // Every card is a navy panel with white text; the selected one gets a brighter
+                      // blue edge and a deeper shadow.
+                      "group relative flex w-full flex-col rounded-xl border bg-linear-to-b from-hero to-hero p-6 text-hero-foreground transform-3d transition-[transform,box-shadow,border-color] duration-300 ease-out sm:p-7",
                       isActive
-                        ? "text-brand-indigo"
-                        : "text-brand-secondary group-hover:text-brand-indigo",
+                        ? "border-brand-secondary shadow-[0_22px_44px_-20px] shadow-primary/70"
+                        : "border-hero shadow-[0_10px_30px_-22px] shadow-primary/50 hover:border-brand-secondary/60 hover:shadow-[0_26px_50px_-24px]",
                     )}
-                    aria-hidden
                   >
-                    <Icon className="size-6.5" strokeWidth={1.5} />
-                  </span>
-                </div>
-                <h3 className="mt-6 font-serif text-xl leading-snug font-bold text-primary sm:text-[1.3rem] lg:min-h-[4.125em]">
-                  {r.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-[0.9375rem]">
-                  {r.body}
-                </p>
-              </article>
-            );
-          })}
+                    {/* Lifted off the card face so the text floats above it as the card tilts. */}
+                    <h3 className="font-serif text-lg leading-snug font-bold text-hero-foreground translate-z-6 sm:text-[1.125rem]">
+                      {r.title}
+                    </h3>
+                    <p className="mt-2 text-[0.8125rem] leading-relaxed text-hero-foreground/85 translate-z-3 sm:text-sm">
+                      {r.body}
+                    </p>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </div>
       </Container>
     </section>
@@ -366,26 +558,52 @@ function ServicesGrid() {
   return (
     <Section id="services">
       <div className="flex flex-wrap items-end justify-between gap-6">
-        <h2 className="max-w-3xl text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
-          The Numbers Behind Your Business.{" "}
-          <span className="text-primary">The Perspective Beyond Them.</span>
-        </h2>
-        <Link
-          to="/services"
-          className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm transition-colors hover:bg-accent"
-        >
-          All Services <ArrowRight className="size-4" />
-        </Link>
+        <div className="max-w-3xl">
+          <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05] text-primary">
+            What We Do?
+          </h2>
+          <p className="mt-4 text-[clamp(1.25rem,2vw,1.6rem)] leading-snug font-semibold text-primary">
+            The Numbers Behind Your Business. The Perspective Beyond Them.
+          </p>
+        </div>
       </div>
-      <p className="mt-5 max-w-2xl text-muted-foreground">
-        The right financial partner should understand what sits behind the numbers. WorthPrime Tax
-        works with businesses and individuals across a broad spectrum of U.S. tax and compliance
-        requirements, combining technical knowledge with a practical understanding of how financial
-        decisions affect the wider business.
-      </p>
-      <div className={cn("mt-10", SERVICE_GRID)}>
+      {/* The copy on the left, the illustration in the space to its right; stacked below lg. */}
+      <div className="mt-5 grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-12">
+        <div className="max-w-2xl space-y-4 text-muted-foreground">
+          <p>The right financial partner should understand what sits behind the numbers.</p>
+          <p>
+            WorthPrime Tax works with businesses and individuals across a broad spectrum of U.S. tax
+            and compliance requirements, combining technical knowledge with a practical
+            understanding of how financial decisions affect the wider business.
+          </p>
+          <p>
+            From Individual Tax and Form 1040 filings to U.S. business tax, Form 1120, Form 1120S
+            and Form 1065, our work is designed around accuracy, compliance and the broader
+            objectives of the client.
+          </p>
+          <p>
+            Whether you are forming an LLC, operating a C Corp, S Corp or Partnership, managing
+            payroll, maintaining your books through QuickBooks, or responding to an IRS Audit, we
+            bring the relevant expertise into sharper focus.
+          </p>
+        </div>
+        <Reveal>
+          <img
+            src={whatWeDoImage}
+            alt="Tax returns, a calculator and a laptop showing financial charts beside Form 1040, 1120, 1120S and 1065 binders"
+            width={1536}
+            height={1024}
+            loading="lazy"
+            className="mx-auto h-auto w-full max-w-xl"
+          />
+        </Reveal>
+      </div>
+      <h3 className="mt-10 text-[clamp(1.5rem,2.6vw,2.1rem)] leading-tight text-primary">
+        Our Services
+      </h3>
+      <div className={cn("mt-6", SERVICE_GRID)}>
         {SERVICES.map((s, i) => (
-          <Reveal key={s.slug} delay={(i % 5) * 80} className={serviceCardSpan(i)}>
+          <Reveal key={s.slug} delay={(i % 5) * 80}>
             <ServiceCard service={s} />
           </Reveal>
         ))}
@@ -398,8 +616,8 @@ function ServicesGrid() {
 const displayPrice = (price: string) =>
   price.startsWith("From") ? price : HOME_PRICING.pendingPrice;
 
-const AUTO_SCROLL_MS = 100;
-const AUTO_SCROLL_STEP = 4;
+/** Auto-scroll speed in pixels per second. */
+const AUTO_SCROLL_SPEED = 40;
 
 function PricingPreview() {
   const services = SERVICES;
@@ -438,19 +656,37 @@ function PricingPreview() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Auto-scroll: nudge the row every 0.1s. It stops while the visitor hovers, focuses, touches or
-  // drags the row, and never stops at the end because the row loops.
+  // Auto-scroll: moves the row a little on every animation frame, scaled by the time since the
+  // last frame, so it glides at a steady speed instead of stepping. It stops while the visitor
+  // hovers, focuses, touches or drags the row, and never stops at the end because the row loops.
   const paused = useRef(false);
   const holdUntil = useRef(0);
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = window.setInterval(() => {
+    let frame = 0;
+    let last: number | null = null;
+    // The browser rounds scrollLeft, so the exact position is kept here between frames.
+    let position: number | null = null;
+    const tick = (now: number) => {
+      frame = requestAnimationFrame(tick);
       const track = trackRef.current;
-      if (!track || paused.current || document.hidden || Date.now() < holdUntil.current) return;
-      track.scrollLeft += AUTO_SCROLL_STEP;
+      if (!track || paused.current || document.hidden || Date.now() < holdUntil.current) {
+        last = null;
+        return;
+      }
+      // Pick up wherever the visitor, an arrow press or the loop jump left the row.
+      if (position === null || Math.abs(position - track.scrollLeft) > 2) {
+        position = track.scrollLeft;
+      }
+      // Cap the step so a slow or skipped frame never makes the row jump.
+      const elapsed = last === null ? 0 : Math.min(now - last, 50);
+      last = now;
+      position += (AUTO_SCROLL_SPEED * elapsed) / 1000;
+      track.scrollLeft = position;
       wrap();
-    }, AUTO_SCROLL_MS);
-    return () => window.clearInterval(id);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -461,6 +697,8 @@ function PricingPreview() {
     if (!track || !card) return;
     const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Let the arrow's smooth scroll finish before auto-scroll takes over again.
+    holdUntil.current = Date.now() + 800;
     track.scrollBy({
       left: dir * (card.getBoundingClientRect().width + gap),
       behavior: reduced ? "auto" : "smooth",
@@ -506,8 +744,12 @@ function PricingPreview() {
           <span className="block text-primary">{HOME_PRICING.heading}</span>
           <span className="block font-semibold text-brand-gold">{HOME_PRICING.headingMuted}</span>
         </h2>
-        <p className="mt-5 max-w-[37rem] text-base leading-relaxed text-muted-foreground sm:text-lg">
-          {HOME_PRICING.intro}
+        <p className="mt-5 max-w-[44rem] text-sm leading-relaxed text-muted-foreground sm:text-[0.9375rem]">
+          {HOME_PRICING.intro.map((line) => (
+            <span key={line} className="block">
+              {line}
+            </span>
+          ))}
         </p>
 
         <div className="mt-7 flex flex-wrap items-center justify-between gap-5">
@@ -591,7 +833,7 @@ function PricingPreview() {
                 <li
                   key={`${s.slug}-${index}`}
                   aria-hidden={isCopy || undefined}
-                  className="w-[80%] max-w-[19rem] shrink-0 sm:w-[18.5rem]"
+                  className="w-[70%] max-w-[16rem] shrink-0 sm:w-[15rem]"
                 >
                   <Link
                     to="/services/$slug"
@@ -613,25 +855,22 @@ function PricingPreview() {
                         />
                       )}
                     </div>
-                    <div className="flex flex-1 flex-col px-2 pt-4 pb-1.5">
-                      <span className="text-sm font-semibold tracking-widest text-primary/70 tabular-nums">
-                        {s.number}
-                      </span>
-                      <h3 className="mt-1 min-h-[2.4em] font-serif text-[1.35rem] leading-[1.2] font-semibold text-primary">
+                    <div className="flex flex-1 flex-col px-1.5 pt-3 pb-1">
+                      <h3 className="min-h-[2.4em] font-serif text-[1.125rem] leading-[1.2] font-semibold text-primary">
                         {s.name}
                       </h3>
-                      <div className="mt-auto flex items-end justify-between gap-3 pt-4">
+                      <div className="mt-auto flex items-end justify-between gap-3 pt-3">
                         <div>
-                          <p className="text-sm text-foreground/70">{HOME_PRICING.priceLabel}</p>
-                          <p className="mt-0.5 text-xl font-bold text-primary">
+                          <p className="text-xs text-foreground/70">{HOME_PRICING.priceLabel}</p>
+                          <p className="mt-0.5 text-lg font-bold text-primary">
                             {displayPrice(s.price)}
                           </p>
                         </div>
                         <span
-                          className="grid size-11 shrink-0 place-items-center rounded-full border border-primary/30 bg-card/60 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground"
+                          className="grid size-9 shrink-0 place-items-center rounded-full border border-primary/30 bg-card/60 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground"
                           aria-hidden
                         >
-                          <ArrowRight className="size-5" />
+                          <ArrowRight className="size-4" />
                         </span>
                       </div>
                     </div>
@@ -651,141 +890,10 @@ function PricingPreview() {
   );
 }
 
-// One illustration per entry in PROCESS, in the same order.
-const PROCESS_ART = [
-  { src: stepTalkImage, alt: "Speech bubbles representing an initial conversation" },
-  { src: stepScopeImage, alt: "Scope and quote checklist with a pen and calculator" },
-  { src: stepWorkImage, alt: "Laptop showing a completed tax filing checklist" },
-  { src: stepCompliantImage, alt: "Calendar of completed deadlines beside a compliance shield" },
-];
-
-// Desktop-only offsets that give the row its gentle wave; equal card heights are kept.
-const PROCESS_OFFSETS = ["lg:translate-y-10", "lg:translate-y-16", "lg:translate-y-3", ""];
-
-function HowItWorks() {
-  return (
-    <Section className="relative isolate overflow-hidden bg-linear-to-b from-background via-tint/40 to-background">
-      <h2 className="max-w-3xl text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
-        Four Steps, <span className="text-primary">Start to Filing.</span>
-      </h2>
-      <span className="mt-6 block h-0.5 w-16 rounded-full bg-brand-indigo" aria-hidden />
-
-      <div className="relative mt-16 lg:pb-16">
-        {/* Dashed route linking the step badges on desktop. */}
-        <svg
-          className="pointer-events-none absolute inset-x-0 -top-6 -z-10 hidden h-28 w-full text-brand-secondary/45 lg:block"
-          viewBox="0 0 1200 110"
-          preserveAspectRatio="none"
-          aria-hidden
-        >
-          <path
-            d="M40 70 C 180 0, 330 10, 420 80 S 640 70, 760 40 S 980 20, 1080 30 S 1170 50, 1200 60"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={1.5}
-            strokeDasharray="5 6"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-
-        <ol className="grid gap-x-5 gap-y-14 sm:auto-rows-fr sm:grid-cols-2 lg:grid-cols-4">
-          {PROCESS.map((p, i) => {
-            const art = PROCESS_ART[i % PROCESS_ART.length];
-            return (
-              <li key={p.title} className={cn("h-full", PROCESS_OFFSETS[i])}>
-                <Reveal delay={i * 90} className="h-full">
-                  <article className="relative flex h-full flex-col rounded-3xl border border-brand-secondary/15 bg-linear-to-b from-tint/80 via-card to-card px-6 pt-12 pb-5 shadow-[0_24px_50px_-30px] shadow-primary/35 sm:px-7">
-                    <span
-                      className="absolute -top-8 left-6 grid size-16 place-items-center rounded-full bg-linear-to-br from-primary to-brand-indigo text-xl font-bold text-primary-foreground shadow-[0_10px_24px_-10px] shadow-primary/60 ring-8 ring-tint sm:left-7"
-                      aria-hidden
-                    >
-                      {pad2(i + 1)}
-                    </span>
-                    <h3 className="text-[1.375rem] leading-tight">
-                      <span className="sr-only">Step {i + 1}: </span>
-                      {p.title}
-                    </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.body}</p>
-                    {art && (
-                      <div className="mt-auto pt-6">
-                        <img
-                          src={art.src}
-                          alt={art.alt}
-                          width={410}
-                          height={250}
-                          loading="lazy"
-                          className="mx-auto aspect-41/25 w-full max-w-[20rem] object-cover mix-blend-multiply [mask-image:radial-gradient(ellipse_72%_70%_at_50%_55%,black_62%,transparent_100%)]"
-                        />
-                      </div>
-                    )}
-                  </article>
-                </Reveal>
-              </li>
-            );
-          })}
-        </ol>
-      </div>
-    </Section>
-  );
-}
-
-const CREDENTIAL_LOGOS = { irs: credIrsLogo, aicpa: credAicpaLogo };
-
 const formatDuration = (seconds: number) => {
   const total = Math.round(seconds);
   return `${Math.floor(total / 60)}:${pad2(total % 60)}`;
 };
-
-/** Certifications as their own section, after the client experience block. */
-function Certifications() {
-  return (
-    <Section id="certifications" className="bg-card py-12 sm:py-16">
-      <SectionLabel as="h2">Certifications</SectionLabel>
-      <ul className="mt-6 grid gap-4 sm:auto-rows-fr sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
-        {CERTIFICATIONS.map((c) => (
-          <li
-            key={c.name}
-            className="flex items-center gap-4 rounded-2xl border border-brand-secondary/15 bg-card p-5 shadow-[0_16px_40px_-30px] shadow-primary/40"
-          >
-            {c.logo ? (
-              <img
-                src={CREDENTIAL_LOGOS[c.logo]}
-                alt={`${c.issuer} badge`}
-                width={64}
-                height={64}
-                loading="lazy"
-                className="size-16 shrink-0 object-contain"
-              />
-            ) : (
-              <span
-                className="grid size-16 shrink-0 place-items-center rounded-full bg-linear-to-br from-brand-secondary to-brand-indigo text-lg font-bold text-brand-secondary-foreground"
-                aria-hidden
-              >
-                {c.monogram}
-              </span>
-            )}
-            <div className="min-w-0">
-              <p className="text-[11px] tracking-[0.16em] text-muted-foreground uppercase">
-                {c.issuer}
-              </p>
-              <p className="mt-1 leading-snug font-semibold text-primary">{c.name}</p>
-              <span
-                className={cn(
-                  "mt-2 inline-block rounded-full px-2.5 py-0.5 text-[11px]",
-                  c.confirmed
-                    ? "bg-tint font-semibold tracking-[0.12em] text-brand-secondary uppercase"
-                    : "border border-dashed border-brand-secondary/30 text-muted-foreground",
-                )}
-              >
-                {c.confirmed ? c.status : "[client to confirm]"}
-              </span>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </Section>
-  );
-}
 
 function ClientExperience() {
   const { heading, headingMuted } = CLIENT_EXPERIENCE;
@@ -1068,24 +1176,32 @@ function VideoTestimonial() {
 }
 
 function Insights() {
+  const insights = Route.useLoaderData().slice(0, 3);
   return (
     <Section id="insights">
-      <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
-        Latest From <span className="text-primary">WorthPrime Tax</span>
-      </h2>
-      <p className="mt-4 text-sm text-muted-foreground">
-        [These will later be fed from LinkedIn posts]
-      </p>
-      <Link
-        to="/insights"
-        className="mt-6 inline-flex items-center gap-2 rounded-full bg-hero px-6 py-3 text-sm font-semibold text-hero-foreground transition-transform hover:scale-[1.03]"
-      >
-        See All Insights <ArrowRight className="size-4" />
-      </Link>
+      {/* Heading and button share one line; the button wraps under it on narrow phones. */}
+      <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-4">
+        <h2 className="text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05]">
+          Latest From <span className="text-primary">WorthPrime Tax</span>
+        </h2>
+        <Link
+          to="/insights"
+          className="inline-flex shrink-0 items-center gap-2 rounded-full bg-hero px-6 py-3 text-sm font-semibold text-hero-foreground transition-transform hover:scale-[1.03]"
+        >
+          See All Insights <ArrowRight className="size-4" />
+        </Link>
+      </div>
       <div className="mt-10 grid gap-5 sm:grid-cols-3">
-        {INSIGHTS.map((a, i) => (
-          <Reveal key={i} delay={i * 80}>
-            <InsightCard insight={a} index={i} />
+        {insights.map((a, i) => (
+          <Reveal key={a.slug} delay={i * 80} className="h-full">
+            {/* Each card opens its own article page. */}
+            <Link
+              to="/insights/$slug"
+              params={{ slug: a.slug }}
+              className="block h-full rounded-[var(--radius-lg)] transition-transform hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+            >
+              <InsightCard insight={a} />
+            </Link>
           </Reveal>
         ))}
       </div>

@@ -33,3 +33,6 @@ dist-ssr
 
 # Session handoffs (not committed)
 handoffs/
+
+# Netlify build output
+.netlify

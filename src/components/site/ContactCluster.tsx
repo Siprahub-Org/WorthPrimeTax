@@ -1,6 +1,40 @@
-import { Mail, Phone } from "lucide-react";
+import { useId } from "react";
 import { LINKS } from "@/data/site";
 import { cn } from "@/lib/utils";
+
+/** Solid handset, drawn in the button's text colour. */
+function PhoneIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
+      <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.98.98 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99Z" />
+    </svg>
+  );
+}
+
+/** A bold "M" with a red-to-blue gradient for the email button. */
+function MailIcon({ className }: { className?: string }) {
+  const gradient = useId();
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className={className}>
+      <defs>
+        <linearGradient id={gradient} x1="4" y1="7" x2="20" y2="19" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="var(--theme-mail-red)" />
+          <stop offset="0.45" stopColor="var(--theme-mail-red)" />
+          <stop offset="0.65" stopColor="var(--theme-mail-orange)" />
+          <stop offset="0.82" stopColor="var(--theme-mail-green)" />
+          <stop offset="1" stopColor="var(--theme-mail-blue)" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M4.5 18.5v-11l7.5 6 7.5-6v11"
+        stroke={`url(#${gradient})`}
+        strokeWidth="3.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 export function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -11,10 +45,13 @@ export function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 const button =
-  "grid size-8 place-items-center rounded-full border shadow-sm transition duration-200 sm:size-9 motion-reduce:transition-none";
+  "grid size-13 place-items-center rounded-full border shadow-lg shadow-hero/30 transition duration-200 sm:size-14 motion-reduce:transition-none";
 const interactive =
-  "hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:hover:translate-y-0";
-const navy = "border-hero bg-hero text-hero-foreground";
+  "hover:-translate-y-0.5 hover:scale-105 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:hover:translate-y-0";
+const whatsapp = "border-whatsapp bg-whatsapp text-card";
+// White circles: the phone glyph takes the call blue, the email "M" carries its own gradient.
+const call = "border-border bg-background text-call";
+const mail = "border-border bg-background";
 
 const items = [
   {
@@ -22,21 +59,21 @@ const items = [
     label: "Chat on WhatsApp",
     Icon: WhatsAppIcon,
     external: true,
-    className: "border-whatsapp bg-card text-whatsapp",
+    className: whatsapp,
   },
   {
     href: LINKS.phoneHref,
     label: `Call ${LINKS.phone}`,
-    Icon: Phone,
+    Icon: PhoneIcon,
     external: false,
-    className: navy,
+    className: call,
   },
   {
     href: `mailto:${LINKS.email}`,
     label: `Email ${LINKS.email}`,
-    Icon: Mail,
+    Icon: MailIcon,
     external: false,
-    className: navy,
+    className: mail,
   },
 ];
 
@@ -45,7 +82,7 @@ export function ContactCluster() {
   return (
     <nav
       aria-label="Quick contact"
-      className="fixed bottom-4 right-4 z-40 flex flex-col gap-1.5 sm:bottom-5 sm:right-5"
+      className="fixed bottom-4 right-4 z-40 flex flex-col gap-3 sm:bottom-5 sm:right-5"
     >
       {items.map(({ href, label, Icon, external, className }) => (
         <a
@@ -56,7 +93,7 @@ export function ContactCluster() {
           {...(external ? { target: "_blank", rel: "noreferrer noopener" } : {})}
           className={cn(button, interactive, className)}
         >
-          <Icon className="size-3.5 sm:size-4" />
+          <Icon className="size-6 sm:size-7" />
         </a>
       ))}
     </nav>

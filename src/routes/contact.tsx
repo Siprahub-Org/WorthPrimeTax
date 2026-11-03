@@ -4,9 +4,8 @@ import { seoHead } from "@/lib/seo";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { CONTACT_PAGE, LINKS, OFFICES } from "@/data/site";
 import { Container } from "@/components/site/primitives";
-import { CtaBand } from "@/components/site/CtaBand";
+// import { CtaBand } from "@/components/site/CtaBand";
 import { ContactSection } from "@/components/site/ContactSection";
-import { PricingMarquee } from "@/components/site/PricingMarquee";
 import { WhatsAppIcon } from "@/components/site/ContactCluster";
 import { cn } from "@/lib/utils";
 
@@ -19,7 +18,7 @@ const CHANNELS = [
     external: false,
   },
   {
-    label: "Email Us",
+    label: "Drop Us an Email",
     value: LINKS.email,
     href: `mailto:${LINKS.email}`,
     Icon: Mail,
@@ -46,9 +45,8 @@ export const Route = createFileRoute("/contact")({
 function ContactPage() {
   return (
     <>
+      {/* No PricingMarquee here: the client asked for it to be removed from the contact page. */}
       <ContactSection asPageHeading compact />
-
-      <PricingMarquee />
 
       <section aria-labelledby="contact-details" className="pt-5 pb-10 sm:pb-12">
         <Container className={WIDE}>
@@ -118,7 +116,7 @@ function ContactPage() {
         </Container>
       </section>
 
-      <CtaBand />
+      {/* <CtaBand /> */}
     </>
   );
 }

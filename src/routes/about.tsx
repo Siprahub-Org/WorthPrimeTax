@@ -1,20 +1,22 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { seoHead } from "@/lib/seo";
 import { useState, type ReactNode } from "react";
 import {
   ArrowRight,
-  BadgeCheck,
   ChartColumn,
   ChevronLeft,
   ChevronRight,
+  FileText,
+  MapPin,
   Play,
   ShieldCheck,
+  Trophy,
   Users,
   type LucideIcon,
 } from "lucide-react";
-import { FOUNDERS, OFFICES } from "@/data/site";
+import { ABOUT_STORY, FOUNDERS, OFFICES } from "@/data/site";
 import { CountUp, Reveal, Section, SectionLabel } from "@/components/site/primitives";
-import { CtaBand } from "@/components/site/CtaBand";
+// import { CtaBand } from "@/components/site/CtaBand";
 import {
   Dialog,
   DialogContent,
@@ -24,8 +26,10 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import advisersImage from "@/assets/worthprime-advisers-blue.webp";
+import storyImage from "@/assets/worthprime-advisers.jpg";
 import { FOUNDER_PHOTOS } from "@/components/site/founderPhotos";
 import aboutHeroImage from "@/assets/about hero.png";
+import aboutHeroMobileImage from "@/assets/about-hero-mobile.webp";
 import { PricingMarquee } from "@/components/site/PricingMarquee";
 
 const TITLE = "About WorthPrime Tax | Built on Experience";
@@ -53,14 +57,6 @@ const PILLARS = [
     title: "Our Partnership",
     text: "Helping individuals and businesses navigate financial decisions with confidence.",
   },
-];
-
-// Mark is either an icon or a short monogram, drawn in a soft circle like the mockup.
-const CREDENTIALS: { label: string; text: string; icon?: LucideIcon; monogram?: string }[] = [
-  { label: "CPA", text: "Certified Public Accountant", icon: Users },
-  { label: "Enrolled Agent", text: "IRS Enrolled Agent", monogram: "EA" },
-  { label: "AICPA", text: "American Institute of CPAs", icon: BadgeCheck },
-  { label: "IRS", text: "Authorized E-File Provider", icon: ShieldCheck },
 ];
 
 // Landmark drawing per office, in OFFICES order.
@@ -460,40 +456,88 @@ function AboutPage() {
   return (
     <>
       {/* Skip the layout's nav spacer so the photo runs up behind the transparent bar. */}
-      <section className="overflow-hidden before:!hidden">
+      {/* Phones (max-sm) follow the service hero: the photo sits behind the copy under a white
+          wash so the price strip shows on the first screen. sm and up keep the chevron layout. */}
+      <section className="relative isolate overflow-hidden before:!hidden">
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10 hidden bg-linear-to-r from-background from-55% via-background/85 via-75% to-background/0 max-sm:block"
+        />
+        {/* Lifts the lower part of the phone photo (navy desk and shelves) so the points stay readable. */}
+        <div
+          aria-hidden
+          className="absolute inset-x-0 bottom-0 -z-10 hidden h-2/5 bg-linear-to-t from-background from-30% via-background/80 to-background/0 max-sm:block"
+        />
+        {/* Phones use a bright office interior (city view, desk on the right) instead of the
+            logo-wall photo. */}
+        <img
+          src={aboutHeroMobileImage}
+          alt=""
+          width={1024}
+          height={1536}
+          className="absolute inset-0 -z-20 hidden size-full object-cover object-[right_top] max-sm:block"
+        />
         {/* Chevron for the hero photo: rounded point on the left, matching rounded notch on the right. */}
         <svg width="0" height="0" className="absolute" aria-hidden>
           <clipPath id="about-hero-shape" clipPathUnits="objectBoundingBox">
             <path d="M0.18,0 L0.84,0 L0.752,0.2 Q0.73,0.25 0.748,0.3 L1,1 L0.35,1 L0.023,0.3 Q0,0.25 0.036,0.2 Z" />
           </clipPath>
         </svg>
-        <div className="mx-auto grid max-w-[1440px] items-center gap-8 lg:grid-cols-[1fr_1.15fr_auto] lg:gap-0">
+        <div className="mx-auto grid max-w-[1440px] items-center gap-8 max-sm:gap-6 lg:grid-cols-[1fr_1.15fr_auto] lg:gap-0">
           <div className="px-5 pt-24 sm:px-8 lg:pt-28 lg:pb-16 lg:pl-[max(2rem,calc((100vw-1200px)/2))]">
-            <h1 className={cn("text-[clamp(2.3rem,3.9vw,3.6rem)]", HEADING)}>
-              Experienced Professionals.{" "}
-              <span className="block text-brand-secondary">Real Perspective.</span>
+            <h1
+              className={cn(
+                "text-[clamp(2.3rem,3.9vw,3.6rem)] max-sm:text-[1.95rem] max-sm:leading-[1.05]",
+                HEADING,
+              )}
+            >
+              Experienced Professionals. <span className="block">Real Perspective.</span>
             </h1>
-            <p className="mt-6 max-w-xl leading-relaxed">
+            {/* Phones only: a short rule under the heading, and the hero buttons below the intro. */}
+            <span
+              className="mt-5 hidden h-0.5 w-12 rounded-full bg-brand-secondary/60 max-sm:block"
+              aria-hidden
+            />
+            <p className="mt-6 max-w-xl leading-relaxed max-sm:mt-4 max-sm:max-w-[16.5rem] max-sm:text-[0.875rem] max-sm:text-foreground/80">
               WorthPrime Tax brings together deep domain expertise, practical guidance and a
               client-centric approach to help individuals and businesses navigate U.S. tax
               requirements with confidence.
             </p>
+            {/* Phones only: the same two buttons as the home hero, in one row. */}
+            <div className="mt-6 hidden gap-2 max-sm:flex">
+              <Link
+                to="/services"
+                className="inline-flex flex-auto items-center justify-center gap-1.5 rounded-md bg-primary px-3 py-3 text-[0.8125rem] leading-[1.43] font-semibold whitespace-nowrap text-primary-foreground"
+              >
+                <span>
+                  {/* "Explore" is dropped on the narrowest phones so both buttons still fit. */}
+                  <span className="hidden min-[360px]:inline">Explore </span>Our Services
+                </span>
+                <ArrowRight className="size-4" aria-hidden />
+              </Link>
+              <Link
+                to="/contact"
+                className="inline-flex flex-auto items-center justify-center rounded-md border border-primary bg-background px-3 py-3 text-[0.8125rem] leading-[1.43] font-semibold whitespace-nowrap text-primary"
+              >
+                Request a Quote
+              </Link>
+            </div>
           </div>
           <img
             src={aboutHeroImage}
             alt="WorthPrime logo on a marble office wall"
             width={1672}
             height={941}
-            className="aspect-[4/3] h-full w-full object-cover object-[60%_center] [clip-path:url(#about-hero-shape)] lg:aspect-auto lg:min-h-[560px]"
+            className="aspect-[4/3] h-full w-full object-cover object-[60%_center] [clip-path:url(#about-hero-shape)] max-sm:hidden lg:aspect-auto lg:min-h-[560px]"
           />
           <div className="flex flex-col justify-between gap-8 px-5 pb-8 sm:px-8 lg:h-full lg:pt-24 lg:pb-10 lg:pr-[max(2rem,calc((100vw-1200px)/2))] lg:pl-6">
-            <ul className="flex flex-wrap gap-5 lg:flex-col lg:gap-7">
+            <ul className="flex flex-wrap gap-5 max-sm:grid max-sm:grid-cols-2 max-sm:gap-0 max-sm:divide-x max-sm:divide-border lg:flex-col lg:gap-7">
               {HERO_POINTS.map(({ icon: Icon, label }) => (
                 <li
                   key={label}
-                  className="flex items-center gap-3 text-sm font-semibold text-primary"
+                  className="flex items-center gap-3 text-sm font-semibold text-primary max-sm:px-4 max-sm:first:pl-0"
                 >
-                  <IconCircle>
+                  <IconCircle className="max-sm:border-transparent max-sm:bg-muted">
                     <Icon className="size-5" strokeWidth={1.5} aria-hidden />
                   </IconCircle>
                   <span className="max-w-24 leading-snug">{label}</span>
@@ -514,14 +558,15 @@ function AboutPage() {
       <PricingMarquee />
 
       <section className="border-y border-border bg-card">
-        <dl className="mx-auto grid max-w-[1200px] grid-cols-2 gap-6 px-5 py-8 sm:px-8 lg:grid-cols-4 lg:divide-x lg:divide-border">
+        <dl className="mx-auto grid max-w-[1200px] grid-cols-2 gap-6 px-5 py-8 max-sm:gap-0 max-sm:py-3 sm:px-8 lg:grid-cols-4 lg:divide-x lg:divide-border">
           <Stat
             value={<CountUp value={15} suffix="+" />}
             label="Years of Combined Leadership Experience"
+            icon={Trophy}
           />
-          <Stat value={<CountUp value={500} suffix="+" />} label="Satisfied Clients" />
-          <Stat value={<CountUp value={3} />} label="Global Offices" />
-          <Stat value="End-to-end" label="Tax & Compliance Support" />
+          <Stat value={<CountUp value={500} suffix="+" />} label="Satisfied Clients" icon={Users} />
+          <Stat value={<CountUp value={3} />} label="Global Offices" icon={MapPin} />
+          <Stat value="End-to-end" label="Tax & Compliance Support" icon={FileText} />
         </dl>
       </section>
 
@@ -546,26 +591,35 @@ function AboutPage() {
               </h2>
             </div>
           </div>
-          <div className="px-5 py-12 sm:px-8 lg:py-16 lg:pr-[max(2rem,calc((100vw-1200px)/2))] lg:pl-32">
+          <div className="px-5 py-12 max-sm:py-8 sm:px-8 lg:py-16 lg:pr-[max(2rem,calc((100vw-1200px)/2))] lg:pl-32">
             <p className="max-w-xl text-sm leading-relaxed">
               WorthPrime Tax was built on the belief that every financial decision deserves clarity,
               structure and the right perspective. We combine institutional experience with
               personalised guidance to help clients stay compliant and make confident decisions —
               today and for the future.
             </p>
-            <ol className="relative mt-10 grid gap-8 sm:grid-cols-3">
+            {/* Phones (max-sm): each pillar is a row, number on the left joined by a vertical line. */}
+            <ol className="relative mt-10 grid gap-8 max-sm:mt-7 max-sm:gap-5 sm:grid-cols-3">
+              <span
+                className="absolute top-5 bottom-11 left-[1.125rem] hidden w-px bg-primary/30 max-sm:block"
+                aria-hidden
+              />
               <span
                 className="absolute top-5 right-[16%] left-[8%] hidden h-px bg-primary/30 sm:block"
                 aria-hidden
               />
               {PILLARS.map((p, i) => (
                 <Reveal key={p.title} delay={i * 80}>
-                  <li className="relative">
-                    <span className="grid size-10 place-items-center rounded-full border border-primary bg-card text-xs font-semibold text-primary">
+                  <li className="relative max-sm:grid max-sm:grid-cols-[2.25rem_1fr] max-sm:gap-x-3.5">
+                    <span className="grid size-10 place-items-center rounded-full border border-primary bg-card text-xs font-semibold text-primary max-sm:row-span-2 max-sm:size-9">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <h3 className="mt-4 text-sm font-semibold text-primary">{p.title}</h3>
-                    <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{p.text}</p>
+                    <h3 className="mt-4 text-sm font-semibold text-primary max-sm:mt-1.5">
+                      {p.title}
+                    </h3>
+                    <p className="mt-2 text-xs leading-relaxed text-muted-foreground max-sm:mt-1">
+                      {p.text}
+                    </p>
                   </li>
                 </Reveal>
               ))}
@@ -574,39 +628,32 @@ function AboutPage() {
         </div>
       </section>
 
-      <Founders />
-
       <Section>
-        <div className="grid gap-6 lg:grid-cols-2 lg:items-end">
+        {/* Copy on the left, photo on the right; stacked (copy first) below lg. */}
+        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
           <div>
-            <SectionLabel>Professional Standards</SectionLabel>
-            <h2 className={cn("mt-4 text-[clamp(1.9rem,3.4vw,2.8rem)]", HEADING)}>
-              Expertise You Can Rely On.
+            <h2 className={cn("text-[clamp(1.9rem,3.4vw,2.8rem)]", HEADING)}>
+              {ABOUT_STORY.label}
             </h2>
+            <p className="mt-4 font-serif text-[clamp(1.15rem,1.8vw,1.45rem)] leading-snug font-semibold text-primary">
+              {ABOUT_STORY.heading}
+            </p>
+            <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground">
+              {ABOUT_STORY.body}
+            </p>
           </div>
-          <p className="text-sm text-muted-foreground">
-            Our team holds recognised professional credentials and maintains compliance with the
-            highest industry standards.
-          </p>
+          <img
+            src={storyImage}
+            alt="Two WorthPrime advisers reviewing documents together at an office desk"
+            width={1408}
+            height={1008}
+            loading="lazy"
+            className="aspect-[4/3] w-full rounded-2xl border border-brand-secondary/20 object-cover shadow-[0_24px_60px_-28px] shadow-primary/35"
+          />
         </div>
-        <ul className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-border">
-          {CREDENTIALS.map(({ label, text, icon: Icon, monogram }) => (
-            <li key={label} className="flex items-center gap-4 lg:px-6 lg:first:pl-0">
-              <span className="grid size-16 shrink-0 place-items-center rounded-full bg-muted text-primary">
-                {Icon ? (
-                  <Icon className="size-7" strokeWidth={1.4} aria-hidden />
-                ) : (
-                  <span className="font-serif text-2xl font-bold">{monogram}</span>
-                )}
-              </span>
-              <span>
-                <span className="block text-sm font-semibold text-primary">{label}</span>
-                <span className="text-xs text-muted-foreground">{text}</span>
-              </span>
-            </li>
-          ))}
-        </ul>
       </Section>
+
+      <Founders />
 
       <Section className="bg-muted/40">
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.5fr_0.95fr] lg:items-center lg:gap-6">
@@ -679,25 +726,49 @@ function AboutPage() {
         </div>
       </section>
 
-      <CtaBand />
+      {/* <CtaBand /> */}
     </>
   );
 }
 
-function IconCircle({ children }: { children: ReactNode }) {
+function IconCircle({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <span className="grid size-11 shrink-0 place-items-center rounded-full border border-border bg-card text-primary">
+    <span
+      className={cn(
+        "grid size-11 shrink-0 place-items-center rounded-full border border-border bg-card text-primary",
+        className,
+      )}
+    >
       {children}
     </span>
   );
 }
 
-function Stat({ value, label }: { value: ReactNode; label: string }) {
+/**
+ * Phones (max-sm) get a 2×2 grid split by hairlines, with the icon in a soft circle left of the
+ * figure; the icon only shows there.
+ */
+function Stat({ value, label, icon: Icon }: { value: ReactNode; label: string; icon: LucideIcon }) {
   return (
-    <div className="lg:px-10 lg:first:pl-0">
+    <div className="lg:px-10 lg:first:pl-0 max-sm:relative max-sm:border-border max-sm:py-4 max-sm:pl-12 max-sm:odd:border-r max-sm:odd:pr-2 max-sm:even:ml-3 max-sm:[&:nth-child(-n+2)]:border-b">
       <dt className="sr-only">{label}</dt>
-      <dd className={cn("text-[clamp(1.6rem,2.6vw,2.1rem)]", HEADING)}>{value}</dd>
-      <dd className="mt-2 text-xs text-muted-foreground">{label}</dd>
+      <dd
+        className={cn(
+          "text-[clamp(1.6rem,2.6vw,2.1rem)] max-sm:text-[1.3rem] max-sm:leading-tight",
+          HEADING,
+        )}
+      >
+        <span
+          className="absolute top-4 left-0 hidden size-9 place-items-center rounded-full bg-muted text-primary max-sm:grid"
+          aria-hidden
+        >
+          <Icon className="size-[1.125rem]" strokeWidth={1.6} />
+        </span>
+        {value}
+      </dd>
+      <dd className="mt-2 text-xs text-muted-foreground max-sm:mt-1 max-sm:leading-snug">
+        {label}
+      </dd>
     </div>
   );
 }
@@ -861,20 +932,31 @@ function Founders() {
         {FOUNDERS.map((f, i) => (
           <article
             key={f.name}
-            className="grid snap-start overflow-hidden bg-card shadow-sm sm:grid-cols-[0.8fr_1fr]"
+            className="group grid snap-start overflow-hidden bg-card shadow-sm transition duration-300 ease-out focus-within:-translate-y-1 focus-within:shadow-xl hover:-translate-y-1 hover:shadow-xl motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:grid-cols-[0.8fr_1fr]"
           >
-            <img
-              src={FOUNDER_PHOTOS[i] ?? advisersImage}
-              alt={
-                FOUNDER_PHOTOS[i]
-                  ? `Portrait of ${f.name}`
-                  : "Professional advisers in consultation"
-              }
-              width={1408}
-              height={1008}
-              loading="lazy"
-              className="h-full min-h-56 w-full object-cover object-top"
-            />
+            {/* Subtle reveal on hover or focus: the photo eases in and the credential slides up over it. */}
+            <div className="relative overflow-hidden">
+              <img
+                src={FOUNDER_PHOTOS[i] ?? advisersImage}
+                alt={
+                  FOUNDER_PHOTOS[i]
+                    ? `Portrait of ${f.name}`
+                    : "Professional advisers in consultation"
+                }
+                width={1408}
+                height={1008}
+                loading="lazy"
+                className="h-full min-h-56 w-full object-cover object-top transition-transform duration-700 ease-out group-focus-within:scale-105 group-hover:scale-105 motion-reduce:transition-none"
+              />
+              <div
+                className="absolute inset-x-0 bottom-0 translate-y-full bg-linear-to-t from-hero/90 via-hero/70 to-transparent px-4 pt-10 pb-4 opacity-0 transition duration-500 ease-out group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:translate-y-0 group-hover:opacity-100 motion-reduce:transition-none"
+                aria-hidden
+              >
+                <p className="text-xs leading-snug font-medium text-hero-foreground">
+                  {f.credential}
+                </p>
+              </div>
+            </div>
             <div className="p-5">
               <h3 className="font-serif text-lg font-bold text-primary">{f.name}</h3>
               <p className="mt-1 text-[0.65rem] font-semibold tracking-[0.2em] text-primary uppercase">
@@ -888,11 +970,34 @@ function Founders() {
                 className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
               >
                 Read Full Biography
-                <ArrowRight className="size-3.5" aria-hidden />
+                <ArrowRight
+                  className="size-3.5 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none"
+                  aria-hidden
+                />
               </button>
             </div>
           </article>
         ))}
+      </div>
+
+      <div className="mt-12 grid gap-6 lg:grid-cols-2 lg:items-start">
+        <h3 className={cn("text-[clamp(1.6rem,2.6vw,2.2rem)]", HEADING)}>
+          Two Perspectives. One Purpose.
+        </h3>
+        <div className="space-y-4 text-sm leading-relaxed text-muted-foreground">
+          <p>
+            Together, the co-founders bring a distinctive combination of Big Four experience,
+            technical expertise, leadership, entrepreneurial thinking and hands-on knowledge of
+            businesses at different stages of growth—from establishing processes at inception to
+            addressing complex financial, tax and regulatory requirements.
+          </p>
+          <p>
+            At WorthPrime Tax, this collective experience is grounded in a simple conviction:
+            professional expertise should do more than address obligations. It should bring clarity
+            to decisions, strengthen compliance and create a more considered path forward for the
+            businesses and individuals we serve.
+          </p>
+        </div>
       </div>
 
       {/* Full bio opens in a dialog so the cards keep a fixed height. */}

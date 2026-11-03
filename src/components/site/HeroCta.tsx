@@ -10,10 +10,12 @@ import { cn } from "@/lib/utils";
 export function HeroCta({
   toHome = false,
   onDark = false,
+  label = "Contact Us",
   className,
 }: {
   toHome?: boolean;
   onDark?: boolean;
+  label?: string;
   className?: string;
 }) {
   return (
@@ -26,7 +28,7 @@ export function HeroCta({
         className,
       )}
     >
-      Contact Us <ArrowRight className="size-4" aria-hidden />
+      {label} <ArrowRight className="size-4" aria-hidden />
     </Link>
   );
 }
