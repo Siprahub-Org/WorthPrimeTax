@@ -363,7 +363,11 @@ export const CLIENT_EXPERIENCE = {
   video: {
     title: "One-Minute Video Testimonial",
     body: "Hear directly from one of our clients about their experience working with WorthPrime Tax.",
-    src: null as string | null, // [video file or URL, client to supply]
+    // Played in this order; served from public/video with spaces URL-encoded. Empty shows pendingNote.
+    sources: [
+      "/video/What%20Clients%20Say%20us.mp4",
+      "/video/What%20Clients%20Say..mp4",
+    ] as string[],
     pendingNote: "[Video, client to supply]",
   },
 };
@@ -566,7 +570,6 @@ export type LegalPage = {
   heading: string;
   /** Optional lead paragraph under the heading. */
   intro?: string;
-  updated: string;
   sections: LegalSection[];
   /** Heading of the contact card at the end of the page. */
   contactHeading: string;
@@ -584,7 +587,6 @@ export const PRIVACY_PAGE: LegalPage = {
   heading: "Privacy Policy",
   intro:
     "Client Information Confidentiality, Non-Disclosure and Permitted Use Policy (In accordance with IRC Section 7216, where applicable).",
-  updated: "[date TBC]",
   contactHeading: "Questions About Your Privacy?",
   sections: [
     // Client-supplied wording.
@@ -659,7 +661,6 @@ export const TERMS_PAGE: LegalPage = {
   description:
     "How WorthPrime Tax treats the documents and information clients share, under its NDAs and service agreements.",
   heading: "Terms of Use",
-  updated: "[date TBC]",
   contactHeading: "Questions About These Terms?",
   sections: [
     // Client-supplied wording.
@@ -678,4 +679,10 @@ export const TERMS_PAGE: LegalPage = {
       ],
     },
   ],
+};
+
+/** Company video on the About page, served from public/video (spaces URL-encoded). */
+export const COMPANY_VIDEO = {
+  title: "WorthPrime Company Video",
+  src: "/video/WorthPrime%203.mp4",
 };

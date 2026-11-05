@@ -1105,9 +1105,16 @@ function ReviewsPanel() {
 
 function VideoTestimonial() {
   const { video } = CLIENT_EXPERIENCE;
+  const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [duration, setDuration] = useState<number | null>(null);
-  const src = video.src;
+  const src = video.sources[index];
+
+  const select = (next: number) => {
+    setIndex(next);
+    setPlaying(false);
+    setDuration(null);
+  };
 
   return (
     <div className="flex min-w-0 flex-col rounded-2xl border border-brand-secondary/15 bg-card p-3 shadow-[0_24px_60px_-36px] shadow-primary/40 sm:p-4">
@@ -1123,18 +1130,21 @@ function VideoTestimonial() {
           />
         ) : (
           <>
-            <img
-              src={advisersImage}
-              alt=""
-              width={1408}
-              height={1008}
-              loading="lazy"
-              className="h-full w-full object-cover"
-            />
-            <div
-              className="absolute inset-0 bg-linear-to-t from-primary/60 via-primary/15 to-primary/5"
-              aria-hidden
-            />
+            {src && (
+              // The video's own opening frame is the thumbnail ("#t=0.1" makes browsers paint it);
+              // loading the metadata also gives the real duration before playback.
+              <video
+                key={src}
+                src={`${src}#t=0.1`}
+                preload="metadata"
+                muted
+                playsInline
+                aria-hidden
+                tabIndex={-1}
+                onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
+                className="h-full w-full object-cover"
+              />
+            )}
             <button
               type="button"
               disabled={!src}
@@ -1147,17 +1157,26 @@ function VideoTestimonial() {
             <span className="absolute right-3 bottom-3 rounded-md bg-primary/80 px-2 py-1 text-xs text-primary-foreground tabular-nums">
               {src ? (duration !== null ? formatDuration(duration) : "Video") : video.pendingNote}
             </span>
-            {src && (
-              // Loads only the metadata so the real duration can be shown before playback.
-              <video
-                src={src}
-                preload="metadata"
-                hidden
-                onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
-              />
-            )}
           </>
         )}
+        {video.sources.length > 1 &&
+          ([-1, 1] as const).map((step) => {
+            const Icon = step < 0 ? ChevronLeft : ChevronRight;
+            return (
+              <button
+                key={step}
+                type="button"
+                onClick={() => select((index + step + video.sources.length) % video.sources.length)}
+                aria-label={step < 0 ? "Previous video" : "Next video"}
+                className={cn(
+                  "absolute top-1/2 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-card/90 text-primary shadow-md transition-colors hover:bg-card",
+                  step < 0 ? "left-3" : "right-3",
+                )}
+              >
+                <Icon className="size-5" aria-hidden />
+              </button>
+            );
+          })}
       </div>
       <div className="flex items-start gap-4 px-2 pt-4 pb-2 sm:px-3">
         <span
