@@ -112,10 +112,24 @@ export type EnquiryField = Exclude<keyof EnquiryInput, "website">;
 export type EnquiryResult =
   { ok: true } | { ok: false; error: "not_configured" | "delivery_failed" };
 
+/** Reads the SMTP settings; returns null if any are missing so we never fake a "sent". */
+function readSmtpConfig() {
+  const host = process.env["SMTP_HOST"];
+  const port = Number(process.env["SMTP_PORT"] ?? "587");
+  const user = process.env["SMTP_USER"];
+  const pass = process.env["SMTP_PASS"];
+  const to = process.env["ENQUIRY_TO_EMAIL"] ?? user;
+  if (!host || !user || !pass || !to || !Number.isInteger(port)) return null;
+  return { host, port, user, pass, to };
+}
+
+// Visitor input goes into headers (subject, reply-to name); strip line breaks so it can't inject headers.
+const oneLine = (value: string) => value.replace(/[\r\n]+/g, " ");
+
 /*
- * Delivers an enquiry to the webhook in ENQUIRY_WEBHOOK_URL (for example a Zapier, Make or
- * Formspree endpoint, or the firm's CRM). Until that is set, enquiries are rejected with
- * "not_configured" so visitors are never told a message was sent when it was not.
+ * Emails each enquiry to the firm's helpdesk inbox over SMTP (Mailhostbox).
+ * Reply-To is the visitor, so staff can answer straight from their mail client.
+ * Plain-text body only, so visitor input is never rendered as HTML.
  */
 export const submitEnquiry = createServerFn({ method: "POST" })
   .validator((input: unknown) => enquirySchema.parse(input))
@@ -123,9 +137,9 @@ export const submitEnquiry = createServerFn({ method: "POST" })
     // Quietly accept bot submissions without delivering them.
     if (data.website) return { ok: true };
 
-    const webhookUrl = process.env["ENQUIRY_WEBHOOK_URL"];
-    if (!webhookUrl) {
-      console.error("Enquiry not delivered: ENQUIRY_WEBHOOK_URL is not set.");
+    const smtp = readSmtpConfig();
+    if (!smtp) {
+      console.error("Enquiry not delivered: SMTP_* settings are not set.");
       return { ok: false, error: "not_configured" };
     }
 
@@ -137,27 +151,67 @@ export const submitEnquiry = createServerFn({ method: "POST" })
       data.service === OTHER_SERVICE
         ? `Other: ${data.otherService ?? ""}`
         : (SERVICES.find((s) => s.slug === data.service)?.name ?? data.service);
+    let mailer: import("worker-mailer").WorkerMailer | undefined;
     try {
-      const response = await fetch(webhookUrl, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          phone: fullPhone,
-          service,
-          message: data.message,
-          submittedAt: new Date().toISOString(),
-        }),
-        signal: AbortSignal.timeout(10_000),
+      // Imported lazily: worker-mailer needs Cloudflare sockets, which don't exist at module load in Node.
+      const { WorkerMailer } = await import("worker-mailer");
+      // One connection for both emails, so the visitor isn't kept waiting for a second SMTP handshake.
+      mailer = await WorkerMailer.connect({
+        host: smtp.host,
+        port: smtp.port,
+        secure: false,
+        startTls: true,
+        credentials: { username: smtp.user, password: smtp.pass },
+        authType: ["plain", "login"],
+        socketTimeoutMs: 10_000,
+        responseTimeoutMs: 10_000,
       });
-      if (!response.ok) {
-        console.error(`Enquiry webhook responded with HTTP ${response.status}.`);
-        return { ok: false, error: "delivery_failed" };
-      }
-      return { ok: true };
+      await mailer.send({
+        from: { name: "WorthPrime Website", email: smtp.user },
+        to: smtp.to,
+        reply: { name: oneLine(data.name), email: data.email },
+        subject: `New enquiry: ${oneLine(service)} - ${oneLine(data.name)}`,
+        text: [
+          `Name: ${data.name}`,
+          `Email: ${data.email}`,
+          `Phone: ${fullPhone}`,
+          `Service: ${service}`,
+          `Submitted: ${new Date().toISOString()}`,
+          "",
+          "Message:",
+          data.message,
+        ].join("\n"),
+      });
     } catch (error) {
-      console.error("Enquiry webhook request failed.", error);
+      console.error("Enquiry email failed to send.", error);
+      await mailer?.close().catch(() => undefined);
       return { ok: false, error: "delivery_failed" };
     }
+
+    // The helpdesk has the enquiry now, so a failed confirmation is logged but not shown as a failure.
+    // Fixed wording, without the visitor's message, so the form can't be used to send spam to others.
+    try {
+      await mailer.send({
+        from: { name: "WorthPrime Tax", email: smtp.user },
+        to: { name: oneLine(data.name), email: data.email },
+        reply: smtp.to,
+        subject: "We've received your enquiry - WorthPrime Tax",
+        text: [
+          `Hello ${oneLine(data.name)},`,
+          "",
+          `Thank you for contacting WorthPrime Tax about ${oneLine(service)}.`,
+          "We've received your enquiry and a member of our team will get back to you soon.",
+          "",
+          "If you need to add anything, simply reply to this email.",
+          "",
+          "Kind regards,",
+          "WorthPrime Tax",
+        ].join("\n"),
+      });
+    } catch (error) {
+      console.error("Enquiry confirmation email failed to send.", error);
+    } finally {
+      await mailer.close().catch(() => undefined);
+    }
+    return { ok: true };
   });
