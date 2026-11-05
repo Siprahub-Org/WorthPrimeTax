@@ -1105,9 +1105,16 @@ function ReviewsPanel() {
 
 function VideoTestimonial() {
   const { video } = CLIENT_EXPERIENCE;
+  const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [duration, setDuration] = useState<number | null>(null);
-  const src = video.src;
+  const src = video.sources[index];
+
+  const select = (next: number) => {
+    setIndex(next);
+    setPlaying(false);
+    setDuration(null);
+  };
 
   return (
     <div className="flex min-w-0 flex-col rounded-2xl border border-brand-secondary/15 bg-card p-3 shadow-[0_24px_60px_-36px] shadow-primary/40 sm:p-4">
@@ -1150,6 +1157,7 @@ function VideoTestimonial() {
             {src && (
               // Loads only the metadata so the real duration can be shown before playback.
               <video
+                key={src}
                 src={src}
                 preload="metadata"
                 hidden
@@ -1169,6 +1177,26 @@ function VideoTestimonial() {
         <div className="min-w-0">
           <h3 className="text-base leading-snug sm:text-lg">{video.title}</h3>
           <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{video.body}</p>
+          {video.sources.length > 1 && (
+            <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label="Choose a video">
+              {video.sources.map((source, i) => (
+                <button
+                  key={source}
+                  type="button"
+                  onClick={() => select(i)}
+                  aria-pressed={i === index}
+                  className={cn(
+                    "rounded-full border px-3 py-1 text-xs font-semibold transition-colors",
+                    i === index
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "border-brand-secondary/20 bg-card text-primary hover:bg-tint",
+                  )}
+                >
+                  Video {i + 1}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
