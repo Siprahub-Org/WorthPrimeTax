@@ -1130,18 +1130,21 @@ function VideoTestimonial() {
           />
         ) : (
           <>
-            <img
-              src={advisersImage}
-              alt=""
-              width={1408}
-              height={1008}
-              loading="lazy"
-              className="h-full w-full object-cover"
-            />
-            <div
-              className="absolute inset-0 bg-linear-to-t from-primary/60 via-primary/15 to-primary/5"
-              aria-hidden
-            />
+            {src && (
+              // The video's own opening frame is the thumbnail ("#t=0.1" makes browsers paint it);
+              // loading the metadata also gives the real duration before playback.
+              <video
+                key={src}
+                src={`${src}#t=0.1`}
+                preload="metadata"
+                muted
+                playsInline
+                aria-hidden
+                tabIndex={-1}
+                onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
+                className="h-full w-full object-cover"
+              />
+            )}
             <button
               type="button"
               disabled={!src}
@@ -1154,18 +1157,26 @@ function VideoTestimonial() {
             <span className="absolute right-3 bottom-3 rounded-md bg-primary/80 px-2 py-1 text-xs text-primary-foreground tabular-nums">
               {src ? (duration !== null ? formatDuration(duration) : "Video") : video.pendingNote}
             </span>
-            {src && (
-              // Loads only the metadata so the real duration can be shown before playback.
-              <video
-                key={src}
-                src={src}
-                preload="metadata"
-                hidden
-                onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
-              />
-            )}
           </>
         )}
+        {video.sources.length > 1 &&
+          ([-1, 1] as const).map((step) => {
+            const Icon = step < 0 ? ChevronLeft : ChevronRight;
+            return (
+              <button
+                key={step}
+                type="button"
+                onClick={() => select((index + step + video.sources.length) % video.sources.length)}
+                aria-label={step < 0 ? "Previous video" : "Next video"}
+                className={cn(
+                  "absolute top-1/2 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-card/90 text-primary shadow-md transition-colors hover:bg-card",
+                  step < 0 ? "left-3" : "right-3",
+                )}
+              >
+                <Icon className="size-5" aria-hidden />
+              </button>
+            );
+          })}
       </div>
       <div className="flex items-start gap-4 px-2 pt-4 pb-2 sm:px-3">
         <span
@@ -1177,26 +1188,6 @@ function VideoTestimonial() {
         <div className="min-w-0">
           <h3 className="text-base leading-snug sm:text-lg">{video.title}</h3>
           <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{video.body}</p>
-          {video.sources.length > 1 && (
-            <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label="Choose a video">
-              {video.sources.map((source, i) => (
-                <button
-                  key={source}
-                  type="button"
-                  onClick={() => select(i)}
-                  aria-pressed={i === index}
-                  className={cn(
-                    "rounded-full border px-3 py-1 text-xs font-semibold transition-colors",
-                    i === index
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "border-brand-secondary/20 bg-card text-primary hover:bg-tint",
-                  )}
-                >
-                  Video {i + 1}
-                </button>
-              ))}
-            </div>
-          )}
         </div>
       </div>
     </div>
