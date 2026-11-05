@@ -29,6 +29,7 @@ import {
 import { SERVICES } from "@/data/services";
 import {
   CLIENT_EXPERIENCE,
+  COMPANY_VIDEO,
   FAQ_INTRO,
   FAQS,
   // FOUNDERS,
@@ -60,7 +61,6 @@ import heroMobileImage from "@/assets/home-hero-mobile.webp";
 import advisersImage from "@/assets/worthprime-advisers-blue.webp";
 // import { FOUNDER_PHOTOS } from "@/components/site/founderPhotos";
 import workspaceImage from "@/assets/worthprime-workspace.webp";
-import whatWeDoImage from "@/assets/what-we-do-tax-desk.webp";
 import pricingDeskImage from "@/assets/pricing-desk.jpg";
 import googleLogo from "@/assets/google-g.svg";
 
@@ -554,6 +554,47 @@ function ProofSection() {
   );
 }
 
+/** The company video; its own opening frame is the thumbnail until the visitor presses play. */
+function CompanyVideo() {
+  const [playing, setPlaying] = useState(false);
+
+  return (
+    <div className="relative mx-auto aspect-video w-full max-w-xl overflow-hidden rounded-xl bg-primary shadow-[0_24px_60px_-36px] shadow-primary/40">
+      {playing ? (
+        <video
+          src={COMPANY_VIDEO.src}
+          title={COMPANY_VIDEO.title}
+          controls
+          autoPlay
+          playsInline
+          onEnded={() => setPlaying(false)}
+          className="h-full w-full object-contain"
+        />
+      ) : (
+        <>
+          <video
+            src={`${COMPANY_VIDEO.src}#t=0.1`}
+            preload="metadata"
+            muted
+            playsInline
+            aria-hidden
+            tabIndex={-1}
+            className="h-full w-full object-cover"
+          />
+          <button
+            type="button"
+            onClick={() => setPlaying(true)}
+            aria-label={`Play ${COMPANY_VIDEO.title}`}
+            className="absolute top-1/2 left-1/2 grid size-18 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-primary/85 text-primary-foreground ring-8 ring-primary-foreground/25 backdrop-blur-sm transition-transform hover:scale-105 sm:size-20"
+          >
+            <Play className="ml-1 size-7 fill-current" aria-hidden />
+          </button>
+        </>
+      )}
+    </div>
+  );
+}
+
 function ServicesGrid() {
   return (
     <Section id="services">
@@ -588,14 +629,7 @@ function ServicesGrid() {
           </p>
         </div>
         <Reveal>
-          <img
-            src={whatWeDoImage}
-            alt="Tax returns, a calculator and a laptop showing financial charts beside Form 1040, 1120, 1120S and 1065 binders"
-            width={1536}
-            height={1024}
-            loading="lazy"
-            className="mx-auto h-auto w-full max-w-xl"
-          />
+          <CompanyVideo />
         </Reveal>
       </div>
       <h3 className="mt-10 text-[clamp(1.5rem,2.6vw,2.1rem)] leading-tight text-primary">
